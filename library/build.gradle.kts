@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -6,8 +7,8 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-group = "io.github.kotlin"
-version = "1.0.0"
+group = "dev.mmmauro.datetime-polyglot"
+version = "0.0.0"
 
 kotlin {
     jvm()
@@ -26,13 +27,30 @@ kotlin {
             jvmTarget = JvmTarget.JVM_11
         }
     }
-    iosArm64()
-    iosSimulatorArm64()
-    linuxX64()
+    js {
+        nodejs()
+        browser {
+            testTask {
+                useKarma {
+                    useFirefox()
+                }
+            }
+        }
+    }
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser {
+            testTask {
+                useKarma {
+                    useFirefox()
+                }
+            }
+        }
+    }
 
     sourceSets {
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation(libs.kotlinx.datetime)
         }
 
         commonTest.dependencies {
@@ -49,10 +67,10 @@ mavenPublishing {
     coordinates(group.toString(), "library", version.toString())
 
     pom {
-        name = "My library"
-        description = "A library."
-        inceptionYear = "2024"
-        url = "https://github.com/kotlin/multiplatform-library-template/"
+        name = "datetime-polygloy"
+        description = " Multiplatform localization library for Kotlin date/time."
+        inceptionYear = "2026"
+        url = "https://github.com/MMauro94/datetime-polyglot/"
         licenses {
             license {
                 name = "XXX"
