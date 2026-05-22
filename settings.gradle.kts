@@ -11,6 +11,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        create("kotlinWrappers") {
+            from("org.jetbrains.kotlin-wrappers:kotlin-wrappers-catalog:2026.5.6")
+        }
+    }
 }
 
 rootProject.name = "datetime-polyglot"

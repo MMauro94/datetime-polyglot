@@ -36,6 +36,9 @@ kotlin {
                 }
             }
         }
+        compilerOptions {
+
+        }
     }
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
@@ -55,6 +58,14 @@ kotlin {
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+
+        jvmMain.dependencies {
+            implementation(libs.ibm.icu4j)
+        }
+
+        webMain.dependencies {
+            implementation(kotlinWrappers.js)
         }
     }
 }
