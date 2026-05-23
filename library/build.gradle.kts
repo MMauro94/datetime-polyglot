@@ -5,12 +5,19 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.vanniktech.mavenPublish)
+    alias(libs.plugins.js.plain.objects)
+    alias(libs.plugins.kotest)
+    alias(libs.plugins.ksp)
 }
 
 group = "dev.mmmauro.datetime-polyglot"
 version = "0.0.0"
 
 kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
     jvm()
     androidLibrary {
         namespace = "org.jetbrains.kotlinx.multiplatform.library.template"
@@ -18,7 +25,6 @@ kotlin {
         minSdk = libs.versions.android.minSdk.get().toInt()
 
         withJava() // enable java compilation support
-        withHostTestBuilder {}.configure {}
         withDeviceTestBuilder {
             sourceSetTreeName = "test"
         }
@@ -26,6 +32,16 @@ kotlin {
         compilerOptions {
             jvmTarget = JvmTarget.JVM_11
         }
+
+        packaging {
+            resources {
+                excludes += "META-INF/AL2.0"
+                excludes += "META-INF/LGPL2.1"
+                excludes += "META-INF/LICENSE.md"
+                excludes += "META-INF/LICENSE-notice.md"
+            }
+        }
+
     }
     js {
         nodejs()
@@ -51,23 +67,53 @@ kotlin {
         }
     }
 
+    applyDefaultHierarchyTemplate()
+
     sourceSets {
+        // Create JVM+Android common source sets
+        val jvmAndAndroidMain by creating {
+            dependsOn(commonMain.get())
+        }
+        androidMain.get().dependsOn(jvmAndAndroidMain)
+        jvmMain.get().dependsOn(jvmAndAndroidMain)
+
+        val jvmAndAndroidTest by creating {
+            dependsOn(commonTest.get())
+        }
+        getByName("androidDeviceTest").dependsOn(jvmAndAndroidTest)
+        jvmTest.get().dependsOn(jvmAndAndroidTest)
+
+
         commonMain.dependencies {
             implementation(libs.kotlinx.datetime)
         }
 
         commonTest.dependencies {
-            implementation(libs.kotlin.test)
+            implementation(libs.kotest.framework)
+            implementation(libs.kotest.assertions.core)
         }
 
         jvmMain.dependencies {
             implementation(libs.ibm.icu4j)
         }
 
+        jvmTest.dependencies {
+            implementation(libs.kotest.runner.junit5)
+        }
+
+        getByName("androidDeviceTest").dependencies {
+            implementation(libs.kotest.runner.junit4)
+        }
+
         webMain.dependencies {
             implementation(kotlinWrappers.js)
+            implementation(kotlinWrappers.jsPlainObject)
         }
     }
+}
+
+tasks.named<Test>("jvmTest").configure {
+    useJUnitPlatform()
 }
 
 mavenPublishing {
