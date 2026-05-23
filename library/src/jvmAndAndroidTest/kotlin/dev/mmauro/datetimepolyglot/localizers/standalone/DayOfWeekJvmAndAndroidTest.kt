@@ -1,6 +1,7 @@
-package dev.mmauro.datetimepolyglot.localizers.component
+package dev.mmauro.datetimepolyglot.localizers.standalone
 
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
+import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.funSpec
 import io.kotest.matchers.shouldBe

@@ -1,4 +1,4 @@
-package dev.mmauro.datetimepolyglot.localizers.component
+package dev.mmauro.datetimepolyglot.localizers.standalone
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.runner.junit4.KotestTestRunner

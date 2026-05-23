@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -109,11 +111,19 @@ kotlin {
             implementation(kotlinWrappers.js)
             implementation(kotlinWrappers.jsPlainObject)
         }
+
+        webTest.dependencies {
+            implementation(npm("@js-joda/timezone", "2.25.1"))
+        }
     }
 }
 
 tasks.named<Test>("jvmTest").configure {
     useJUnitPlatform()
+}
+
+project.plugins.withType<NodeJsPlugin> {
+    project.the<NodeJsEnvSpec>().version = "26.2.0"
 }
 
 mavenPublishing {
