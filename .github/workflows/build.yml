@@ -96,8 +96,8 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Setup headless Chrome
-        uses: browser-actions/setup-chrome@v2
+      - name: Setup headless Firefox
+        uses: browser-actions/setup-firefox@v1
 
       - name: Run tests in browser
         run: ./gradlew ${{ matrix.config.tasks }} --scan
@@ -135,5 +135,5 @@ jobs:
       - name: Run tests in Android emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 33
           script: ./gradlew connectedAndroidTest --scan
