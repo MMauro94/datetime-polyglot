@@ -1,0 +1,139 @@
+name: Build and test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: "Verify"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: setup-java
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Binary Compatibility Validation
+        run: ./gradlew checkKotlinAbi --scan
+
+  test:
+    strategy:
+      matrix:
+        config: [
+          { target: "JVM", os: "ubuntu-latest", tasks: "jvmTest" },
+          { target: "JS (Node)", os: "ubuntu-latest", tasks: "jsNodeTest" },
+        ]
+    runs-on: ${{ matrix.config.os }}
+    name: Test ${{ matrix.config.target }}
+    needs: verify
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Cache Konan
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Run ${{ matrix.config.target }} tests
+        run: ./gradlew ${{ matrix.config.tasks }} --scan
+
+  test-browser:
+    strategy:
+      matrix:
+        config: [
+          { target: "JS (Browser)", tasks: "jsBrowserTest" },
+          { target: "WASM (Browser)", tasks: "wasmJsBrowserTest" },
+        ]
+    runs-on: ubuntu-latest
+    name: Test ${{ matrix.config.target }}
+    needs: verify
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Cache Konan
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Setup headless Chrome
+        uses: browser-actions/setup-chrome@v2
+
+      - name: Run tests in browser
+        run: ./gradlew ${{ matrix.config.tasks }} --scan
+
+  test-anrdoid:
+    runs-on: ubuntu-latest
+    name: Test Android
+    needs: verify
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Cache Konan
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run tests in Android emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedAndroidTest --scan
