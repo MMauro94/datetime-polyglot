@@ -3,8 +3,8 @@ package dev.mmauro.datetimepolyglot
 import js.intl.Locale
 import js.intl.NumberFormat
 
-actual typealias PlatformLocale = Locale
+internal actual typealias PlatformLocale = Locale
 
-actual fun getDefaultLocale(): Locale = localeFromString(NumberFormat().resolvedOptions().locale)
+internal actual fun getDefaultLocale(): Locale = localeFromString(NumberFormat().resolvedOptions().locale)
 
-expect fun localeFromString(locale: String): Locale
+internal expect fun localeFromString(locale: String): Locale

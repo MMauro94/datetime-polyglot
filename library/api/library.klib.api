@@ -1,0 +1,266 @@
+// Klib ABI Dump
+// Targets: [js, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <dev.mmmauro.datetime-polyglot:library>
+final enum class dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle> { // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle|null[0]
+    enum entry NUMERIC // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle.NUMERIC|null[0]
+    enum entry NUMERIC_PADDED_2_DIGITS // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle> // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle> // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle> { // dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle|null[0]
+    enum entry ABBREVIATED // dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle.ABBREVIATED|null[0]
+    enum entry NARROW // dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle.NARROW|null[0]
+    enum entry SHORT // dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle.SHORT|null[0]
+    enum entry WIDE // dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle.WIDE|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle> // dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle // dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle> // dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/DayPeriodStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/DayPeriodStyle> { // dev.mmauro.datetimepolyglot.styles/DayPeriodStyle|null[0]
+    enum entry FLEXIBLE_ABBREVIATED // dev.mmauro.datetimepolyglot.styles/DayPeriodStyle.FLEXIBLE_ABBREVIATED|null[0]
+    enum entry FLEXIBLE_NARROW // dev.mmauro.datetimepolyglot.styles/DayPeriodStyle.FLEXIBLE_NARROW|null[0]
+    enum entry FLEXIBLE_WIDE // dev.mmauro.datetimepolyglot.styles/DayPeriodStyle.FLEXIBLE_WIDE|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/DayPeriodStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/DayPeriodStyle> // dev.mmauro.datetimepolyglot.styles/DayPeriodStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/DayPeriodStyle // dev.mmauro.datetimepolyglot.styles/DayPeriodStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/DayPeriodStyle> // dev.mmauro.datetimepolyglot.styles/DayPeriodStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/EraStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/EraStyle> { // dev.mmauro.datetimepolyglot.styles/EraStyle|null[0]
+    enum entry ABBREVIATED // dev.mmauro.datetimepolyglot.styles/EraStyle.ABBREVIATED|null[0]
+    enum entry NARROW // dev.mmauro.datetimepolyglot.styles/EraStyle.NARROW|null[0]
+    enum entry WIDE // dev.mmauro.datetimepolyglot.styles/EraStyle.WIDE|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/EraStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/EraStyle> // dev.mmauro.datetimepolyglot.styles/EraStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/EraStyle // dev.mmauro.datetimepolyglot.styles/EraStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/EraStyle> // dev.mmauro.datetimepolyglot.styles/EraStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/HourStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/HourStyle> { // dev.mmauro.datetimepolyglot.styles/HourStyle|null[0]
+    enum entry NUMERIC // dev.mmauro.datetimepolyglot.styles/HourStyle.NUMERIC|null[0]
+    enum entry NUMERIC_PADDED_2_DIGITS // dev.mmauro.datetimepolyglot.styles/HourStyle.NUMERIC_PADDED_2_DIGITS|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/HourStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/HourStyle> // dev.mmauro.datetimepolyglot.styles/HourStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/HourStyle // dev.mmauro.datetimepolyglot.styles/HourStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/HourStyle> // dev.mmauro.datetimepolyglot.styles/HourStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/MinuteStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/MinuteStyle> { // dev.mmauro.datetimepolyglot.styles/MinuteStyle|null[0]
+    enum entry NUMERIC // dev.mmauro.datetimepolyglot.styles/MinuteStyle.NUMERIC|null[0]
+    enum entry NUMERIC_PADDED_2_DIGITS // dev.mmauro.datetimepolyglot.styles/MinuteStyle.NUMERIC_PADDED_2_DIGITS|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/MinuteStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/MinuteStyle> // dev.mmauro.datetimepolyglot.styles/MinuteStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/MinuteStyle // dev.mmauro.datetimepolyglot.styles/MinuteStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/MinuteStyle> // dev.mmauro.datetimepolyglot.styles/MinuteStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/MonthStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/MonthStyle> { // dev.mmauro.datetimepolyglot.styles/MonthStyle|null[0]
+    enum entry ABBREVIATED // dev.mmauro.datetimepolyglot.styles/MonthStyle.ABBREVIATED|null[0]
+    enum entry NARROW // dev.mmauro.datetimepolyglot.styles/MonthStyle.NARROW|null[0]
+    enum entry NUMERIC // dev.mmauro.datetimepolyglot.styles/MonthStyle.NUMERIC|null[0]
+    enum entry NUMERIC_PADDED_2_DIGITS // dev.mmauro.datetimepolyglot.styles/MonthStyle.NUMERIC_PADDED_2_DIGITS|null[0]
+    enum entry WIDE // dev.mmauro.datetimepolyglot.styles/MonthStyle.WIDE|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/MonthStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/MonthStyle> // dev.mmauro.datetimepolyglot.styles/MonthStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/MonthStyle // dev.mmauro.datetimepolyglot.styles/MonthStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/MonthStyle> // dev.mmauro.datetimepolyglot.styles/MonthStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/SecondStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/SecondStyle> { // dev.mmauro.datetimepolyglot.styles/SecondStyle|null[0]
+    enum entry NUMERIC // dev.mmauro.datetimepolyglot.styles/SecondStyle.NUMERIC|null[0]
+    enum entry NUMERIC_PADDED_2_DIGITS // dev.mmauro.datetimepolyglot.styles/SecondStyle.NUMERIC_PADDED_2_DIGITS|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/SecondStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/SecondStyle> // dev.mmauro.datetimepolyglot.styles/SecondStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/SecondStyle // dev.mmauro.datetimepolyglot.styles/SecondStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/SecondStyle> // dev.mmauro.datetimepolyglot.styles/SecondStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/TimeZoneStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle> { // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle|null[0]
+    enum entry GENERIC_NON_LOCATION_LONG // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.GENERIC_NON_LOCATION_LONG|null[0]
+    enum entry GENERIC_NON_LOCATION_SHORT // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.GENERIC_NON_LOCATION_SHORT|null[0]
+    enum entry GMT_LONG // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.GMT_LONG|null[0]
+    enum entry GMT_SHORT // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.GMT_SHORT|null[0]
+    enum entry SPECIFIC_NON_LOCATION_LONG // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.SPECIFIC_NON_LOCATION_LONG|null[0]
+    enum entry SPECIFIC_NON_LOCATION_SHORT // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.SPECIFIC_NON_LOCATION_SHORT|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/YearStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/YearStyle> { // dev.mmauro.datetimepolyglot.styles/YearStyle|null[0]
+    enum entry NUMERIC // dev.mmauro.datetimepolyglot.styles/YearStyle.NUMERIC|null[0]
+    enum entry NUMERIC_2_DIGITS // dev.mmauro.datetimepolyglot.styles/YearStyle.NUMERIC_2_DIGITS|null[0]
+    enum entry NUMERIC_PADDED_4_DIGITS // dev.mmauro.datetimepolyglot.styles/YearStyle.NUMERIC_PADDED_4_DIGITS|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/YearStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/YearStyle> // dev.mmauro.datetimepolyglot.styles/YearStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/YearStyle // dev.mmauro.datetimepolyglot.styles/YearStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/YearStyle> // dev.mmauro.datetimepolyglot.styles/YearStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot/HourCycle : kotlin/Enum<dev.mmauro.datetimepolyglot/HourCycle> { // dev.mmauro.datetimepolyglot/HourCycle|null[0]
+    enum entry HOURS_11 // dev.mmauro.datetimepolyglot/HourCycle.HOURS_11|null[0]
+    enum entry HOURS_12 // dev.mmauro.datetimepolyglot/HourCycle.HOURS_12|null[0]
+    enum entry HOURS_23 // dev.mmauro.datetimepolyglot/HourCycle.HOURS_23|null[0]
+    enum entry HOURS_24 // dev.mmauro.datetimepolyglot/HourCycle.HOURS_24|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot/HourCycle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot/HourCycle> // dev.mmauro.datetimepolyglot/HourCycle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot/HourCycle // dev.mmauro.datetimepolyglot/HourCycle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot/HourCycle> // dev.mmauro.datetimepolyglot/HourCycle.values|values#static(){}[0]
+
+    final object Companion // dev.mmauro.datetimepolyglot/HourCycle.Companion|null[0]
+}
+
+abstract interface <#A: kotlin/Any?> dev.mmauro.datetimepolyglot/DateTimeLocalizer { // dev.mmauro.datetimepolyglot/DateTimeLocalizer|null[0]
+    abstract fun localize(#A): kotlin/String // dev.mmauro.datetimepolyglot/DateTimeLocalizer.localize|localize(1:0){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> dev.mmauro.datetimepolyglot/DateTimeZonedLocalizer { // dev.mmauro.datetimepolyglot/DateTimeZonedLocalizer|null[0]
+    abstract fun localize(dev.mmauro.datetimepolyglot/Zoned<#A>): kotlin/String // dev.mmauro.datetimepolyglot/DateTimeZonedLocalizer.localize|localize(dev.mmauro.datetimepolyglot.Zoned<1:0>){}[0]
+}
+
+final class <#A: out kotlin/Any?> dev.mmauro.datetimepolyglot/Zoned { // dev.mmauro.datetimepolyglot/Zoned|null[0]
+    constructor <init>(#A, kotlinx.datetime/TimeZone) // dev.mmauro.datetimepolyglot/Zoned.<init>|<init>(1:0;kotlinx.datetime.TimeZone){}[0]
+
+    final val timeZone // dev.mmauro.datetimepolyglot/Zoned.timeZone|{}timeZone[0]
+        final fun <get-timeZone>(): kotlinx.datetime/TimeZone // dev.mmauro.datetimepolyglot/Zoned.timeZone.<get-timeZone>|<get-timeZone>(){}[0]
+    final val value // dev.mmauro.datetimepolyglot/Zoned.value|{}value[0]
+        final fun <get-value>(): #A // dev.mmauro.datetimepolyglot/Zoned.value.<get-value>|<get-value>(){}[0]
+
+    final fun component1(): #A // dev.mmauro.datetimepolyglot/Zoned.component1|component1(){}[0]
+    final fun component2(): kotlinx.datetime/TimeZone // dev.mmauro.datetimepolyglot/Zoned.component2|component2(){}[0]
+    final fun copy(#A = ..., kotlinx.datetime/TimeZone = ...): dev.mmauro.datetimepolyglot/Zoned<#A> // dev.mmauro.datetimepolyglot/Zoned.copy|copy(1:0;kotlinx.datetime.TimeZone){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot/Zoned.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot/Zoned.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot/Zoned.toString|toString(){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer : dev.mmauro.datetimepolyglot/DateTimeLocalizer<kotlinx.datetime/DayOfWeek> { // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer|null[0]
+    constructor <init>(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer.<init>|<init>(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.standalone.DayOfWeekOptions){}[0]
+
+    final fun localize(kotlinx.datetime/DayOfWeek): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer.localize|localize(kotlinx.datetime.DayOfWeek){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions { // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions.<init>|<init>(dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle){}[0]
+
+    final val style // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions.style|{}style[0]
+        final fun <get-style>(): dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions.style.<get-style>|<get-style>(){}[0]
+
+    final fun component1(): dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions.component1|component1(){}[0]
+    final fun copy(dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle = ...): dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions.copy|copy(dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions.toString|toString(){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.standalone/MonthLocalizer : dev.mmauro.datetimepolyglot/DateTimeLocalizer<kotlinx.datetime/Month> { // dev.mmauro.datetimepolyglot.localizers.standalone/MonthLocalizer|null[0]
+    constructor <init>(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/MonthLocalizer.<init>|<init>(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.standalone.MonthOptions){}[0]
+
+    final fun localize(kotlinx.datetime/Month): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/MonthLocalizer.localize|localize(kotlinx.datetime.Month){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions { // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.styles/MonthStyle = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions.<init>|<init>(dev.mmauro.datetimepolyglot.styles.MonthStyle){}[0]
+
+    final val style // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions.style|{}style[0]
+        final fun <get-style>(): dev.mmauro.datetimepolyglot.styles/MonthStyle // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions.style.<get-style>|<get-style>(){}[0]
+
+    final fun component1(): dev.mmauro.datetimepolyglot.styles/MonthStyle // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions.component1|component1(){}[0]
+    final fun copy(dev.mmauro.datetimepolyglot.styles/MonthStyle = ...): dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions.copy|copy(dev.mmauro.datetimepolyglot.styles.MonthStyle){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions.toString|toString(){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers/ZonedInstantLocalizer : dev.mmauro.datetimepolyglot/DateTimeZonedLocalizer<kotlin.time/Instant> { // dev.mmauro.datetimepolyglot.localizers/ZonedInstantLocalizer|null[0]
+    constructor <init>(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions = ...) // dev.mmauro.datetimepolyglot.localizers/ZonedInstantLocalizer.<init>|<init>(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.ZonedInstantOptions){}[0]
+
+    final fun localize(dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>): kotlin/String // dev.mmauro.datetimepolyglot.localizers/ZonedInstantLocalizer.localize|localize(dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions { // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.styles/EraStyle? = ..., dev.mmauro.datetimepolyglot.styles/YearStyle? = ..., dev.mmauro.datetimepolyglot.styles/MonthStyle? = ..., dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle? = ..., dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle? = ..., dev.mmauro.datetimepolyglot.styles/DayPeriodStyle? = ..., dev.mmauro.datetimepolyglot/HourCycle? = ..., dev.mmauro.datetimepolyglot.styles/HourStyle? = ..., dev.mmauro.datetimepolyglot.styles/MinuteStyle? = ..., dev.mmauro.datetimepolyglot.styles/SecondStyle? = ..., kotlin/Int = ..., dev.mmauro.datetimepolyglot.styles/TimeZoneStyle? = ...) // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.<init>|<init>(dev.mmauro.datetimepolyglot.styles.EraStyle?;dev.mmauro.datetimepolyglot.styles.YearStyle?;dev.mmauro.datetimepolyglot.styles.MonthStyle?;dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle?;dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle?;dev.mmauro.datetimepolyglot.styles.DayPeriodStyle?;dev.mmauro.datetimepolyglot.HourCycle?;dev.mmauro.datetimepolyglot.styles.HourStyle?;dev.mmauro.datetimepolyglot.styles.MinuteStyle?;dev.mmauro.datetimepolyglot.styles.SecondStyle?;kotlin.Int;dev.mmauro.datetimepolyglot.styles.TimeZoneStyle?){}[0]
+
+    final val dayOfMonthStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.dayOfMonthStyle|{}dayOfMonthStyle[0]
+        final fun <get-dayOfMonthStyle>(): dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.dayOfMonthStyle.<get-dayOfMonthStyle>|<get-dayOfMonthStyle>(){}[0]
+    final val dayOfWeekStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.dayOfWeekStyle|{}dayOfWeekStyle[0]
+        final fun <get-dayOfWeekStyle>(): dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.dayOfWeekStyle.<get-dayOfWeekStyle>|<get-dayOfWeekStyle>(){}[0]
+    final val dayPeriodStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.dayPeriodStyle|{}dayPeriodStyle[0]
+        final fun <get-dayPeriodStyle>(): dev.mmauro.datetimepolyglot.styles/DayPeriodStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.dayPeriodStyle.<get-dayPeriodStyle>|<get-dayPeriodStyle>(){}[0]
+    final val eraStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.eraStyle|{}eraStyle[0]
+        final fun <get-eraStyle>(): dev.mmauro.datetimepolyglot.styles/EraStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.eraStyle.<get-eraStyle>|<get-eraStyle>(){}[0]
+    final val fractionalSecondDigits // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.fractionalSecondDigits|{}fractionalSecondDigits[0]
+        final fun <get-fractionalSecondDigits>(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.fractionalSecondDigits.<get-fractionalSecondDigits>|<get-fractionalSecondDigits>(){}[0]
+    final val hourCycle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.hourCycle|{}hourCycle[0]
+        final fun <get-hourCycle>(): dev.mmauro.datetimepolyglot/HourCycle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.hourCycle.<get-hourCycle>|<get-hourCycle>(){}[0]
+    final val hourStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.hourStyle|{}hourStyle[0]
+        final fun <get-hourStyle>(): dev.mmauro.datetimepolyglot.styles/HourStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.hourStyle.<get-hourStyle>|<get-hourStyle>(){}[0]
+    final val minuteStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.minuteStyle|{}minuteStyle[0]
+        final fun <get-minuteStyle>(): dev.mmauro.datetimepolyglot.styles/MinuteStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.minuteStyle.<get-minuteStyle>|<get-minuteStyle>(){}[0]
+    final val monthStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.monthStyle|{}monthStyle[0]
+        final fun <get-monthStyle>(): dev.mmauro.datetimepolyglot.styles/MonthStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.monthStyle.<get-monthStyle>|<get-monthStyle>(){}[0]
+    final val secondStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.secondStyle|{}secondStyle[0]
+        final fun <get-secondStyle>(): dev.mmauro.datetimepolyglot.styles/SecondStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.secondStyle.<get-secondStyle>|<get-secondStyle>(){}[0]
+    final val timezoneStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.timezoneStyle|{}timezoneStyle[0]
+        final fun <get-timezoneStyle>(): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.timezoneStyle.<get-timezoneStyle>|<get-timezoneStyle>(){}[0]
+    final val yearStyle // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.yearStyle|{}yearStyle[0]
+        final fun <get-yearStyle>(): dev.mmauro.datetimepolyglot.styles/YearStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.yearStyle.<get-yearStyle>|<get-yearStyle>(){}[0]
+
+    final fun component1(): dev.mmauro.datetimepolyglot.styles/EraStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component1|component1(){}[0]
+    final fun component10(): dev.mmauro.datetimepolyglot.styles/SecondStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component10|component10(){}[0]
+    final fun component11(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component11|component11(){}[0]
+    final fun component12(): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component12|component12(){}[0]
+    final fun component2(): dev.mmauro.datetimepolyglot.styles/YearStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component2|component2(){}[0]
+    final fun component3(): dev.mmauro.datetimepolyglot.styles/MonthStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component3|component3(){}[0]
+    final fun component4(): dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component4|component4(){}[0]
+    final fun component5(): dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component5|component5(){}[0]
+    final fun component6(): dev.mmauro.datetimepolyglot.styles/DayPeriodStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component6|component6(){}[0]
+    final fun component7(): dev.mmauro.datetimepolyglot/HourCycle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component7|component7(){}[0]
+    final fun component8(): dev.mmauro.datetimepolyglot.styles/HourStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component8|component8(){}[0]
+    final fun component9(): dev.mmauro.datetimepolyglot.styles/MinuteStyle? // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.component9|component9(){}[0]
+    final fun copy(dev.mmauro.datetimepolyglot.styles/EraStyle? = ..., dev.mmauro.datetimepolyglot.styles/YearStyle? = ..., dev.mmauro.datetimepolyglot.styles/MonthStyle? = ..., dev.mmauro.datetimepolyglot.styles/DayOfWeekStyle? = ..., dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle? = ..., dev.mmauro.datetimepolyglot.styles/DayPeriodStyle? = ..., dev.mmauro.datetimepolyglot/HourCycle? = ..., dev.mmauro.datetimepolyglot.styles/HourStyle? = ..., dev.mmauro.datetimepolyglot.styles/MinuteStyle? = ..., dev.mmauro.datetimepolyglot.styles/SecondStyle? = ..., kotlin/Int = ..., dev.mmauro.datetimepolyglot.styles/TimeZoneStyle? = ...): dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.copy|copy(dev.mmauro.datetimepolyglot.styles.EraStyle?;dev.mmauro.datetimepolyglot.styles.YearStyle?;dev.mmauro.datetimepolyglot.styles.MonthStyle?;dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle?;dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle?;dev.mmauro.datetimepolyglot.styles.DayPeriodStyle?;dev.mmauro.datetimepolyglot.HourCycle?;dev.mmauro.datetimepolyglot.styles.HourStyle?;dev.mmauro.datetimepolyglot.styles.MinuteStyle?;dev.mmauro.datetimepolyglot.styles.SecondStyle?;kotlin.Int;dev.mmauro.datetimepolyglot.styles.TimeZoneStyle?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions.toString|toString(){}[0]
+}
+
+final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot.localizers/localize(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers/localize|localize@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.ZonedInstantOptions){}[0]
+final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/minus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/minus|minus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
+final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/plus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/plus|plus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
+final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/toLocalDateTime(): kotlinx.datetime/LocalDateTime // dev.mmauro.datetimepolyglot/toLocalDateTime|toLocalDateTime@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(){}[0]
+final fun (kotlin.time/Instant).dev.mmauro.datetimepolyglot.localizers/localize(kotlinx.datetime/TimeZone, js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers/ZonedInstantOptions = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers/localize|localize@kotlin.time.Instant(kotlinx.datetime.TimeZone;js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.ZonedInstantOptions){}[0]
+final fun (kotlinx.datetime/DayOfWeek).dev.mmauro.datetimepolyglot.localizers.standalone/localize(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/localize|localize@kotlinx.datetime.DayOfWeek(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.standalone.DayOfWeekOptions){}[0]
+final fun (kotlinx.datetime/Month).dev.mmauro.datetimepolyglot.localizers.standalone/localize(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/localize|localize@kotlinx.datetime.Month(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.standalone.MonthOptions){}[0]
