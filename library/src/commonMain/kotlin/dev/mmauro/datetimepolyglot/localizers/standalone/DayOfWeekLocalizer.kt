@@ -11,10 +11,20 @@ import kotlinx.datetime.plus
 
 private val MONDAY_DATE = LocalDate(1970, 1, 5)
 
+/**
+ * Options for [DayOfWeekLocalizer] and [DayOfWeek.localize]
+ */
 data class DayOfWeekOptions(
     val style: DayOfWeekStyle = DayOfWeekStyle.WIDE,
 )
 
+/**
+ * Class to localize a [DayOfWeek].
+ *
+ * This class localizes for **standalone** usage of the string.
+ *
+ * For more info, see [Unicode page](https://www.unicode.org/reports/tr35/tr35-dates.html#months_days_quarters_eras).
+ */
 expect class DayOfWeekLocalizer(
     locale: PlatformLocale = getDefaultLocale(),
     options: DayOfWeekOptions = DayOfWeekOptions(),
@@ -22,6 +32,11 @@ expect class DayOfWeekLocalizer(
     override fun localize(value: DayOfWeek): String
 }
 
+/**
+ * Localizes this [DayOfWeek] for use in a standalone context.
+ *
+ * @see DayOfWeekLocalizer
+ */
 fun DayOfWeek.localize(
     locale: PlatformLocale = getDefaultLocale(),
     options: DayOfWeekOptions = DayOfWeekOptions(),

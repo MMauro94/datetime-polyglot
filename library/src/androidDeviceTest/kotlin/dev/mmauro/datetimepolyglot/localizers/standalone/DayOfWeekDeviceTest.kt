@@ -6,6 +6,6 @@ import org.junit.runner.RunWith
 
 @RunWith(KotestTestRunner::class)
 class DayOfWeekDeviceTest : FunSpec({
-    include(DayOfWeekTestFactory)
+    include(DayOfWeekLocalizerTestFactory)
     include(DayOfWeekJvmAndAndroidTestFactory)
 })

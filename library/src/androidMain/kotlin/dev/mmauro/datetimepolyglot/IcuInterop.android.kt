@@ -4,11 +4,11 @@ import android.icu.text.DateFormat
 import android.icu.text.DateTimePatternGenerator
 import android.icu.text.SimpleDateFormat
 
-actual typealias SimpleDateFormat = SimpleDateFormat
+internal actual typealias SimpleDateFormat = SimpleDateFormat
 
-actual typealias DateFormat = DateFormat
+internal actual typealias DateFormat = DateFormat
 
-actual fun getDateFormatForSkeleton(skeleton: String, locale: PlatformLocale) =
+internal actual fun getDateFormatForSkeleton(skeleton: String, locale: PlatformLocale) =
     DateFormat.getInstanceForSkeleton(skeleton, locale)
 
 internal actual fun PlatformLocale.getDefaultHourCycle(): HourCycle {

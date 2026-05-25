@@ -10,7 +10,7 @@ import io.kotest.datatest.withTests
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.DayOfWeek
 
-val DayOfWeekTestFactory = funSpec {
+val DayOfWeekLocalizerTestFactory = funSpec {
     test("basic test") {
         DayOfWeek.entries.map { it.localize(LOCALE_ENGLISH) } shouldBe
                 listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
@@ -37,6 +37,6 @@ val DayOfWeekTestFactory = funSpec {
     }
 }
 
-class DayOfWeekTest : FunSpec({
-    include(DayOfWeekTestFactory)
+class DayOfWeekLocalizerTest : FunSpec({
+    include(DayOfWeekLocalizerTestFactory)
 })

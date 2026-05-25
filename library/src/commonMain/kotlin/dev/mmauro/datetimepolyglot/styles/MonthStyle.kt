@@ -23,7 +23,7 @@ enum class MonthStyle {
     NARROW,
 
     /**
-     * Three letters, e.g. `Dec`
+     * Usually three letters, e.g. `Dec`
      */
     ABBREVIATED,
 

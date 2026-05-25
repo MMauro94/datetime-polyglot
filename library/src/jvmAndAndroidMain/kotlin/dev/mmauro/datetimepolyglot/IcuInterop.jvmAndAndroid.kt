@@ -1,7 +1,5 @@
 package dev.mmauro.datetimepolyglot
 
-import java.time.temporal.Temporal
-
 internal expect class SimpleDateFormat(pattern: String, locale: PlatformLocale) {
     fun format(temporal: Any): String
 }
