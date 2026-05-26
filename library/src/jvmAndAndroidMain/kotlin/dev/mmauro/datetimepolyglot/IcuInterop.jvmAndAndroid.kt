@@ -5,7 +5,7 @@ internal expect class SimpleDateFormat(pattern: String, locale: PlatformLocale) 
 }
 
 internal expect abstract class DateFormat {
-    fun format(temporal: Any): String
+    fun format(obj: Any): String
 }
 
 internal expect fun getDateFormatForSkeleton(skeleton: String, locale: PlatformLocale): DateFormat

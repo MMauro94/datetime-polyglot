@@ -8,11 +8,12 @@ import dev.mmauro.datetimepolyglot.styles.fractionalSecondsUnicodePattern
 import dev.mmauro.datetimepolyglot.styles.unicodePattern
 import dev.mmauro.datetimepolyglot.styles.unicodeSkeleton
 import kotlinx.datetime.toJavaZoneId
+import java.util.GregorianCalendar
 import kotlin.time.Instant
 import kotlin.time.toJavaInstant
 
 actual class ZonedInstantLocalizer actual constructor(
-    private val locale: PlatformLocale,
+    locale: PlatformLocale,
     options: ZonedInstantOptions,
 ) : DateTimeZonedLocalizer<Instant> {
 
@@ -35,6 +36,6 @@ actual class ZonedInstantLocalizer actual constructor(
         val (instant, zone) = value
         val zonedDateTime = instant.toJavaInstant().atZone(zone.toJavaZoneId())
 
-        return dateTimePattern.format(zonedDateTime)
+        return dateTimePattern.format(GregorianCalendar.from(zonedDateTime))
     }
 }
