@@ -5,7 +5,6 @@ import io.kotest.runner.junit4.KotestTestRunner
 import org.junit.runner.RunWith
 
 @RunWith(KotestTestRunner::class)
-class DayOfWeekDeviceTest : FunSpec({
-    include(DayOfWeekLocalizerTestFactory)
-    include(DayOfWeekJvmAndAndroidTestFactory)
+class MonthLocalizerDeviceTest : FunSpec({
+    include(MonthLocalizerTestFactory)
 })
