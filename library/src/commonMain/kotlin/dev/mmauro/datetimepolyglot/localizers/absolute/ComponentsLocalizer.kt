@@ -1,4 +1,4 @@
-package dev.mmauro.datetimepolyglot.localizers
+package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.DateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.HourCycle
@@ -18,7 +18,7 @@ import dev.mmauro.datetimepolyglot.styles.YearStyle
 import kotlinx.datetime.TimeZone
 import kotlin.time.Instant
 
-data class ZonedInstantOptions(
+internal data class ComponentsOptions(
     val eraStyle: EraStyle? = null,
     val yearStyle: YearStyle? = null,
     val monthStyle: MonthStyle? = null,
@@ -48,24 +48,19 @@ data class ZonedInstantOptions(
         ) {
             "At least one component must be not-null"
         }
-
     }
 }
 
-expect class ZonedInstantLocalizer(
+/**
+ * Class that is a localization primitive, allowing to format an [Instant] in a [TimeZone] by selecting the desired components to show.
+ *
+ * Note: actual output might vary slightly between platforms.
+ *
+ * Currently only meant to be used internally by other exposed localizers.
+ */
+internal expect class ComponentsLocalizer(
     locale: PlatformLocale = getDefaultLocale(),
-    options: ZonedInstantOptions = ZonedInstantOptions(),
+    options: ComponentsOptions = ComponentsOptions(),
 ) : DateTimeZonedLocalizer<Instant> {
     override fun localize(value: Zoned<Instant>): String
 }
-
-fun Zoned<Instant>.localize(
-    locale: PlatformLocale = getDefaultLocale(),
-    options: ZonedInstantOptions = ZonedInstantOptions(),
-) = ZonedInstantLocalizer(locale, options).localize(this)
-
-fun Instant.localize(
-    timezone: TimeZone,
-    locale: PlatformLocale = getDefaultLocale(),
-    options: ZonedInstantOptions = ZonedInstantOptions(),
-) = ZonedInstantLocalizer(locale, options).localize(Zoned(this, timezone))

@@ -1,18 +1,18 @@
-package dev.mmauro.datetimepolyglot.localizers
+package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.DateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.styles.toDayFormat
 import dev.mmauro.datetimepolyglot.styles.toDayPeriodFormat
-import dev.mmauro.datetimepolyglot.styles.toMonthFormat
 import dev.mmauro.datetimepolyglot.styles.toEraFormat
 import dev.mmauro.datetimepolyglot.styles.toHourFormat
 import dev.mmauro.datetimepolyglot.styles.toMinuteFormat
+import dev.mmauro.datetimepolyglot.styles.toMonthFormat
 import dev.mmauro.datetimepolyglot.styles.toSecondFormat
 import dev.mmauro.datetimepolyglot.styles.toTimeZoneNameFormat
-import dev.mmauro.datetimepolyglot.styles.toYearFormat
 import dev.mmauro.datetimepolyglot.styles.toWeekdayFormat
+import dev.mmauro.datetimepolyglot.styles.toYearFormat
 import dev.mmauro.datetimepolyglot.toJsHourCycle
 import dev.mmauro.datetimepolyglot.toJsInstant
 import js.intl.DateTimeFormat
@@ -21,9 +21,9 @@ import js.objects.unsafeJso
 import kotlin.math.max
 import kotlin.time.Instant
 
-actual class ZonedInstantLocalizer actual constructor(
+internal actual class ComponentsLocalizer actual constructor(
     private val locale: PlatformLocale,
-    private val options: ZonedInstantOptions
+    private val options: ComponentsOptions
 ) : DateTimeZonedLocalizer<Instant> {
 
     actual override fun localize(value: Zoned<Instant>): String {

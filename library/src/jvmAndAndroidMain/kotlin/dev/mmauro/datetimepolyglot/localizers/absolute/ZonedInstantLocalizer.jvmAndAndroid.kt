@@ -1,4 +1,4 @@
-package dev.mmauro.datetimepolyglot.localizers
+package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.DateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
@@ -9,13 +9,12 @@ import dev.mmauro.datetimepolyglot.styles.fractionalSecondsUnicodePattern
 import dev.mmauro.datetimepolyglot.styles.unicodePattern
 import dev.mmauro.datetimepolyglot.styles.unicodeSkeleton
 import kotlinx.datetime.toJavaZoneId
-import java.util.GregorianCalendar
 import kotlin.time.Instant
 import kotlin.time.toJavaInstant
 
-actual class ZonedInstantLocalizer actual constructor(
+internal actual class ComponentsLocalizer actual constructor(
     locale: PlatformLocale,
-    options: ZonedInstantOptions,
+    options: ComponentsOptions,
 ) : DateTimeZonedLocalizer<Instant> {
 
     private val skeleton = listOfNotNull(
