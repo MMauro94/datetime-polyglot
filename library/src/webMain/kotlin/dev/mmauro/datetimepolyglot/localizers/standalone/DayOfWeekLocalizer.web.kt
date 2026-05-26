@@ -10,8 +10,8 @@ import js.objects.unsafeJso
 import kotlinx.datetime.DayOfWeek
 
 actual class DayOfWeekLocalizer actual constructor(
-    locale: PlatformLocale,
     options: DayOfWeekOptions,
+    locale: PlatformLocale,
 ) : DateTimeLocalizer<DayOfWeek> {
 
     private val formatOptions: DateTimeFormatOptions = unsafeJso { weekday = options.style.toWeekdayFormat() }

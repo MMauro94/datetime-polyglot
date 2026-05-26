@@ -13,7 +13,7 @@ import kotlinx.datetime.Month
 val MonthLocalizerTestFactory = funSpec {
     context("basic test") {
         withTests(Month.entries) { month ->
-            month.localize(LOCALE_ENGLISH) shouldBe when (month) {
+            month.localize(locale = LOCALE_ENGLISH) shouldBe when (month) {
                 Month.JANUARY -> "January"
                 Month.FEBRUARY -> "February"
                 Month.MARCH -> "March"
@@ -32,7 +32,7 @@ val MonthLocalizerTestFactory = funSpec {
 
     context("works in a different language") {
         withTests(Month.entries) { month ->
-            month.localize(LOCALE_ITALIAN) shouldBe when (month) {
+            month.localize(locale = LOCALE_ITALIAN) shouldBe when (month) {
                 Month.JANUARY -> "gennaio"
                 Month.FEBRUARY -> "febbraio"
                 Month.MARCH -> "marzo"
@@ -57,13 +57,13 @@ val MonthLocalizerTestFactory = funSpec {
             MonthStyle.NARROW to listOf("J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"),
             MonthStyle.ABBREVIATED to listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
         ) { (style, expected) ->
-            Month.entries.map { it.localize(LOCALE_ENGLISH, options = MonthOptions(style = style)) } shouldBe expected
+            Month.entries.map { it.localize(MonthOptions(style = style), LOCALE_ENGLISH) } shouldBe expected
         }
     }
 
     context("uses standalone case for languages that make the distinction") {
         withTests(Month.entries) { month ->
-            month.localize(LOCALE_POLISH) shouldBe when (month) {
+            month.localize(locale = LOCALE_POLISH) shouldBe when (month) {
                 Month.JANUARY -> "styczeń"
                 Month.FEBRUARY -> "luty"
                 Month.MARCH -> "marzec"

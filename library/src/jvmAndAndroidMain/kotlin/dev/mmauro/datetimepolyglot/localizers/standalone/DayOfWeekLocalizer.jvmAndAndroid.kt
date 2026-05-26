@@ -9,8 +9,8 @@ import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.toJavaLocalDate
 
 actual class DayOfWeekLocalizer actual constructor(
+    options: DayOfWeekOptions,
     locale: PlatformLocale,
-    options: DayOfWeekOptions
 ) : DateTimeLocalizer<DayOfWeek> {
 
     private val format = SimpleDateFormat(options.style.standaloneUnicodePattern, locale)

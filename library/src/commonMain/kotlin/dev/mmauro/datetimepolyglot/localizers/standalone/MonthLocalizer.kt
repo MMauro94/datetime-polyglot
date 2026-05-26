@@ -21,8 +21,8 @@ data class MonthOptions(
  * For more info, see [Unicode page](https://www.unicode.org/reports/tr35/tr35-dates.html#months_days_quarters_eras).
  */
 expect class MonthLocalizer(
-    locale: PlatformLocale = getDefaultLocale(),
     options: MonthOptions = MonthOptions(),
+    locale: PlatformLocale = getDefaultLocale(),
 ) : DateTimeLocalizer<Month> {
     override fun localize(value: Month): String
 }
@@ -33,6 +33,6 @@ expect class MonthLocalizer(
  * @see MonthLocalizer
  */
 fun Month.localize(
-    locale: PlatformLocale = getDefaultLocale(),
     options: MonthOptions = MonthOptions(),
-) = MonthLocalizer(locale, options).localize(this)
+    locale: PlatformLocale = getDefaultLocale(),
+) = MonthLocalizer(options, locale).localize(this)

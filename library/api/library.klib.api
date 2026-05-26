@@ -168,7 +168,7 @@ final class <#A: out kotlin/Any?> dev.mmauro.datetimepolyglot/Zoned { // dev.mma
 }
 
 final class dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer : dev.mmauro.datetimepolyglot/DateTimeLocalizer<kotlinx.datetime/DayOfWeek> { // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer|null[0]
-    constructor <init>(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer.<init>|<init>(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.standalone.DayOfWeekOptions){}[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions = ..., js.intl/Locale = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.standalone.DayOfWeekOptions;js.intl.Locale){}[0]
 
     final fun localize(kotlinx.datetime/DayOfWeek): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer.localize|localize(kotlinx.datetime.DayOfWeek){}[0]
 }
@@ -187,7 +187,7 @@ final class dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions {
 }
 
 final class dev.mmauro.datetimepolyglot.localizers.standalone/MonthLocalizer : dev.mmauro.datetimepolyglot/DateTimeLocalizer<kotlinx.datetime/Month> { // dev.mmauro.datetimepolyglot.localizers.standalone/MonthLocalizer|null[0]
-    constructor <init>(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/MonthLocalizer.<init>|<init>(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.standalone.MonthOptions){}[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions = ..., js.intl/Locale = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/MonthLocalizer.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.standalone.MonthOptions;js.intl.Locale){}[0]
 
     final fun localize(kotlinx.datetime/Month): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/MonthLocalizer.localize|localize(kotlinx.datetime.Month){}[0]
 }
@@ -208,5 +208,5 @@ final class dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions { // 
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/minus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/minus|minus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/plus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/plus|plus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/toLocalDateTime(): kotlinx.datetime/LocalDateTime // dev.mmauro.datetimepolyglot/toLocalDateTime|toLocalDateTime@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(){}[0]
-final fun (kotlinx.datetime/DayOfWeek).dev.mmauro.datetimepolyglot.localizers.standalone/localize(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/localize|localize@kotlinx.datetime.DayOfWeek(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.standalone.DayOfWeekOptions){}[0]
-final fun (kotlinx.datetime/Month).dev.mmauro.datetimepolyglot.localizers.standalone/localize(js.intl/Locale = ..., dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/localize|localize@kotlinx.datetime.Month(js.intl.Locale;dev.mmauro.datetimepolyglot.localizers.standalone.MonthOptions){}[0]
+final fun (kotlinx.datetime/DayOfWeek).dev.mmauro.datetimepolyglot.localizers.standalone/localize(dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekOptions = ..., js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/localize|localize@kotlinx.datetime.DayOfWeek(dev.mmauro.datetimepolyglot.localizers.standalone.DayOfWeekOptions;js.intl.Locale){}[0]
+final fun (kotlinx.datetime/Month).dev.mmauro.datetimepolyglot.localizers.standalone/localize(dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions = ..., js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/localize|localize@kotlinx.datetime.Month(dev.mmauro.datetimepolyglot.localizers.standalone.MonthOptions;js.intl.Locale){}[0]

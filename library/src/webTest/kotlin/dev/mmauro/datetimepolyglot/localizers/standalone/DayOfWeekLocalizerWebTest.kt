@@ -10,7 +10,7 @@ import kotlinx.datetime.DayOfWeek
 val DayOfWeekLocalizerWebTestFactory = funSpec {
     test("SHORT style uses falls back to three letter strings") {
         DayOfWeek.entries.map {
-            it.localize(LOCALE_ENGLISH, options = DayOfWeekOptions(style = DayOfWeekStyle.SHORT))
+            it.localize(DayOfWeekOptions(style = DayOfWeekStyle.SHORT), LOCALE_ENGLISH)
         } shouldBe listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
     }
 }

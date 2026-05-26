@@ -13,8 +13,8 @@ import kotlinx.datetime.Month
 import kotlinx.datetime.YearMonth
 
 actual class MonthLocalizer actual constructor(
-    locale: PlatformLocale,
     options: MonthOptions,
+    locale: PlatformLocale,
 ) : DateTimeLocalizer<Month> {
 
     private val formatOptions: DateTimeFormatOptions = unsafeJso { month = options.style.toMonthFormat() }

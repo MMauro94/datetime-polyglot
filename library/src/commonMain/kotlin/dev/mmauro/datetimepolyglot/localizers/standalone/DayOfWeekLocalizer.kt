@@ -26,8 +26,8 @@ data class DayOfWeekOptions(
  * For more info, see [Unicode page](https://www.unicode.org/reports/tr35/tr35-dates.html#months_days_quarters_eras).
  */
 expect class DayOfWeekLocalizer(
-    locale: PlatformLocale = getDefaultLocale(),
     options: DayOfWeekOptions = DayOfWeekOptions(),
+    locale: PlatformLocale = getDefaultLocale(),
 ) : DateTimeLocalizer<DayOfWeek> {
     override fun localize(value: DayOfWeek): String
 }
@@ -38,8 +38,8 @@ expect class DayOfWeekLocalizer(
  * @see DayOfWeekLocalizer
  */
 fun DayOfWeek.localize(
-    locale: PlatformLocale = getDefaultLocale(),
     options: DayOfWeekOptions = DayOfWeekOptions(),
-) = DayOfWeekLocalizer(locale, options).localize(this)
+    locale: PlatformLocale = getDefaultLocale(),
+) = DayOfWeekLocalizer(options, locale).localize(this)
 
 internal fun DayOfWeek.toArbitraryLocalDate() = MONDAY_DATE + DatePeriod(days = this.ordinal)

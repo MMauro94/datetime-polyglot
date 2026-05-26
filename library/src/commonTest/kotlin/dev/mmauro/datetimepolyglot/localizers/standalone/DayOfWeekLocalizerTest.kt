@@ -12,12 +12,12 @@ import kotlinx.datetime.DayOfWeek
 
 val DayOfWeekLocalizerTestFactory = funSpec {
     test("basic test") {
-        DayOfWeek.entries.map { it.localize(LOCALE_ENGLISH) } shouldBe
+        DayOfWeek.entries.map { it.localize(locale = LOCALE_ENGLISH) } shouldBe
                 listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
     }
 
     test("works in a different language") {
-        DayOfWeek.entries.map { it.localize(LOCALE_ITALIAN) } shouldBe
+        DayOfWeek.entries.map { it.localize(locale = LOCALE_ITALIAN) } shouldBe
                 listOf("lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato", "domenica")
     }
 
@@ -27,12 +27,12 @@ val DayOfWeekLocalizerTestFactory = funSpec {
             DayOfWeekStyle.NARROW to listOf("M", "T", "W", "T", "F", "S", "S"),
             DayOfWeekStyle.ABBREVIATED to listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
         ) { (style, expected) ->
-            DayOfWeek.entries.map { it.localize(options = DayOfWeekOptions(style = style)) } shouldBe expected
+            DayOfWeek.entries.map { it.localize(DayOfWeekOptions(style = style)) } shouldBe expected
         }
     }
 
     context("uses standalone case for languages that make the distinction") {
-        DayOfWeek.entries.map { it.localize(LOCALE_POLISH) } shouldBe
+        DayOfWeek.entries.map { it.localize(locale = LOCALE_POLISH) } shouldBe
                 listOf("poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota", "niedziela")
     }
 }
