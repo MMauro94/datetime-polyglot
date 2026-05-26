@@ -103,8 +103,14 @@ jobs:
         run: ./gradlew ${{ matrix.config.tasks }} --scan
 
   test-anrdoid:
+    strategy:
+      matrix:
+        config: [
+          { name: "Min SDK", sdk: "33" },
+          { name: "Target SDK", sdk: "36" },
+        ]
     runs-on: ubuntu-latest
-    name: Test Android
+    name: Test Android on ${{ matrix.config.name }} (${{ matrix.config.name }})
     needs: verify
     steps:
       - name: Checkout
@@ -135,6 +141,6 @@ jobs:
       - name: Run tests in Android emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 33
+          api-level: ${{ matrix.config.sdk }}
           arch: x86_64
           script: ./gradlew connectedAndroidTest --scan
