@@ -1,13 +1,24 @@
 package dev.mmauro.datetimepolyglot
 
-import com.ibm.icu.text.DateFormat
-import com.ibm.icu.text.DateTimePatternGenerator
-import com.ibm.icu.text.SimpleDateFormat
-import com.ibm.icu.util.UResourceBundle
+import java.time.LocalDate
+import java.time.Month
+import java.time.YearMonth
+import java.time.ZonedDateTime
+import java.time.temporal.Temporal
+import com.ibm.icu.text.DateFormat as IcuDateFormat
+import com.ibm.icu.text.SimpleDateFormat as IcuSimpleDateFormat
 
-internal actual typealias SimpleDateFormat = SimpleDateFormat
+// SIMPLE DATE FORMAT
+internal actual typealias SimpleDateFormat = IcuSimpleDateFormat
 
-internal actual typealias DateFormat = DateFormat
+internal actual fun SimpleDateFormat.format(localDate: LocalDate) = format(localDate as Temporal)
+internal actual fun SimpleDateFormat.format(month: Month) = format(month as Any)
 
+// DATE FORMAT
+internal actual typealias DateFormat = IcuDateFormat
+
+internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime) = format(zonedDateTime as Temporal)
+
+// LOCALE
 internal actual fun getDateFormatForSkeleton(skeleton: String, locale: PlatformLocale) =
-    DateFormat.getInstanceForSkeleton(skeleton, locale)
+    IcuDateFormat.getInstanceForSkeleton(skeleton, locale)

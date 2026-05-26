@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot.localizers
 import dev.mmauro.datetimepolyglot.DateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.Zoned
+import dev.mmauro.datetimepolyglot.format
 import dev.mmauro.datetimepolyglot.getDateFormatForSkeleton
 import dev.mmauro.datetimepolyglot.styles.fractionalSecondsUnicodePattern
 import dev.mmauro.datetimepolyglot.styles.unicodePattern
@@ -36,6 +37,6 @@ actual class ZonedInstantLocalizer actual constructor(
         val (instant, zone) = value
         val zonedDateTime = instant.toJavaInstant().atZone(zone.toJavaZoneId())
 
-        return dateTimePattern.format(GregorianCalendar.from(zonedDateTime))
+        return dateTimePattern.format(zonedDateTime)
     }
 }
