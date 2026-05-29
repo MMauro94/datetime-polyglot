@@ -110,7 +110,7 @@ jobs:
           { name: "Target SDK", sdk: "36" },
         ]
     runs-on: ubuntu-latest
-    name: Test Android on ${{ matrix.config.name }} (${{ matrix.config.name }})
+    name: Test Android on ${{ matrix.config.name }} (${{ matrix.config.sdk }})
     needs: verify
     steps:
       - name: Checkout
