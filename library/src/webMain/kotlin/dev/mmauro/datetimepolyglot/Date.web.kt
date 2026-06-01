@@ -18,5 +18,4 @@ internal fun LocalTime.toPlainTime(): PlainTime {
     return PlainTime(hour, minute, second, milliseconds, microseconds, nanoseconds)
 }
 
-internal fun YearMonth.toPlainYearMonth(): PlainYearMonth = PlainYearMonth(year, month.number)
 internal fun Instant.toJsInstant(): JsInstant = JsInstant.from(toString())
