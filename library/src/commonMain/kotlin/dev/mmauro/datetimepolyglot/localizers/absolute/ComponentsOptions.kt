@@ -1,10 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.DateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.HourCycle
-import dev.mmauro.datetimepolyglot.PlatformLocale
-import dev.mmauro.datetimepolyglot.Zoned
-import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle
 import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import dev.mmauro.datetimepolyglot.styles.DayPeriodStyle
@@ -15,8 +11,6 @@ import dev.mmauro.datetimepolyglot.styles.MonthStyle
 import dev.mmauro.datetimepolyglot.styles.SecondStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import dev.mmauro.datetimepolyglot.styles.YearStyle
-import kotlinx.datetime.TimeZone
-import kotlin.time.Instant
 
 internal data class ComponentsOptions(
     val dateOptions: DateOptions? = null,
@@ -59,11 +53,11 @@ internal data class ComponentsOptions(
         data class Style(val style: TimeStyle) : TimeOptions
 
         data class Components(
-            val dayPeriodStyle: DayPeriodStyle? = null,
             val hourStyle: HourStyle? = null,
             val minuteStyle: MinuteStyle? = null,
             val secondStyle: SecondStyle? = null,
             val fractionalSecondDigits: Int = 0,
+            val dayPeriodStyle: DayPeriodStyle? = null,
             val timezoneStyle: TimeZoneStyle? = null,
         ) : TimeOptions {
             init {
@@ -80,18 +74,4 @@ internal data class ComponentsOptions(
             }
         }
     }
-}
-
-/**
- * Class that is a localization primitive, allowing to format an [Instant] in a [TimeZone] by selecting the desired components to show.
- *
- * Note: actual output might vary slightly between platforms.
- *
- * Currently only meant to be used internally by other exposed localizers.
- */
-internal expect class ComponentsLocalizer(
-    locale: PlatformLocale = getDefaultLocale(),
-    options: ComponentsOptions = ComponentsOptions(),
-) : DateTimeZonedLocalizer<Instant> {
-    override fun localize(value: Zoned<Instant>): String
 }
