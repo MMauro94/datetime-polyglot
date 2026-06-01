@@ -39,7 +39,7 @@ public final class dev/mmauro/datetimepolyglot/ZonedKt {
 	public static final fun toLocalDateTime (Ldev/mmauro/datetimepolyglot/Zoned;)Lkotlinx/datetime/LocalDateTime;
 }
 
-public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateComponents : dev/mmauro/datetimepolyglot/localizers/absolute/DateOptions {
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateComponents : dev/mmauro/datetimepolyglot/localizers/absolute/ComponentsOptions$Date$Components, dev/mmauro/datetimepolyglot/localizers/absolute/DateOptions {
 	public fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
@@ -50,11 +50,11 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateComponent
 	public final fun copy (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DateComponents;
 	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateComponents;Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DateComponents;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDayOfMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;
-	public final fun getDayOfWeekStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;
-	public final fun getEraStyle ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
-	public final fun getMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/MonthStyle;
-	public final fun getYearStyle ()Ldev/mmauro/datetimepolyglot/styles/YearStyle;
+	public fun getDayOfMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;
+	public fun getDayOfWeekStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;
+	public fun getEraStyle ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
+	public fun getMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/MonthStyle;
+	public fun getYearStyle ()Ldev/mmauro/datetimepolyglot/styles/YearStyle;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -84,17 +84,170 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateLoca
 	public static synthetic fun localize$default (Lkotlinx/datetime/LocalDate;Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ljava/lang/String;
 }
 
-public abstract interface class dev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions {
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeLocalizer : dev/mmauro/datetimepolyglot/DateTimeLocalizer {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;Lcom/ibm/icu/util/ULocale;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun localize (Ljava/lang/Object;)Ljava/lang/String;
+	public fun localize (Lkotlinx/datetime/LocalTime;)Ljava/lang/String;
 }
 
-public final class dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle : java/lang/Enum, dev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions {
-	public static final field FULL Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle;
-	public static final field LONG Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle;
-	public static final field MEDIUM Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle;
-	public static final field SHORT Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle;
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeLocalizerKt {
+	public static final fun localize (Lkotlinx/datetime/LocalTime;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;Lcom/ibm/icu/util/ULocale;)Ljava/lang/String;
+	public static synthetic fun localize$default (Lkotlinx/datetime/LocalTime;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ljava/lang/String;
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents : dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions {
+	public abstract fun getDayPeriodStyle ()Ldev/mmauro/datetimepolyglot/styles/DayPeriodStyle;
+	public abstract fun getFractionalSecondDigits ()I
+	public abstract fun getHourStyle ()Ldev/mmauro/datetimepolyglot/styles/HourStyle;
+	public abstract fun getMinuteStyle ()Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;
+	public abstract fun getSecondStyle ()Ldev/mmauro/datetimepolyglot/styles/SecondStyle;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Local : dev/mmauro/datetimepolyglot/localizers/absolute/ComponentsOptions$TimeStyleOptions$Components, dev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents, dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Local {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ldev/mmauro/datetimepolyglot/styles/HourStyle;
+	public final fun component2 ()Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;
+	public final fun component3 ()Ldev/mmauro/datetimepolyglot/styles/SecondStyle;
+	public final fun component4 ()I
+	public final fun component5 ()Ldev/mmauro/datetimepolyglot/styles/DayPeriodStyle;
+	public final fun copy (Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;)Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Local;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Local;Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Local;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDayPeriodStyle ()Ldev/mmauro/datetimepolyglot/styles/DayPeriodStyle;
+	public fun getFractionalSecondDigits ()I
+	public fun getHourStyle ()Ldev/mmauro/datetimepolyglot/styles/HourStyle;
+	public fun getMinuteStyle ()Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;
+	public fun getSecondStyle ()Ldev/mmauro/datetimepolyglot/styles/SecondStyle;
+	public synthetic fun getTimeZoneStyle ()Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
+	public fun getTimeZoneStyle ()Ljava/lang/Void;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Zoned : dev/mmauro/datetimepolyglot/localizers/absolute/ComponentsOptions$TimeStyleOptions$Components, dev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents, dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Zoned {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ldev/mmauro/datetimepolyglot/styles/HourStyle;
+	public final fun component2 ()Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;
+	public final fun component3 ()Ldev/mmauro/datetimepolyglot/styles/SecondStyle;
+	public final fun component4 ()I
+	public final fun component5 ()Ldev/mmauro/datetimepolyglot/styles/DayPeriodStyle;
+	public final fun component6 ()Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
+	public final fun copy (Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;)Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Zoned;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Zoned;Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Zoned;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDayPeriodStyle ()Ldev/mmauro/datetimepolyglot/styles/DayPeriodStyle;
+	public fun getFractionalSecondDigits ()I
+	public fun getHourStyle ()Ldev/mmauro/datetimepolyglot/styles/HourStyle;
+	public fun getMinuteStyle ()Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;
+	public fun getSecondStyle ()Ldev/mmauro/datetimepolyglot/styles/SecondStyle;
+	public fun getTimeZoneStyle ()Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions;Ldev/mmauro/datetimepolyglot/HourCycle;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions;Ldev/mmauro/datetimepolyglot/HourCycle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions;
+	public final fun component2 ()Ldev/mmauro/datetimepolyglot/HourCycle;
+	public final fun copy (Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions;Ldev/mmauro/datetimepolyglot/HourCycle;)Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions;Ldev/mmauro/datetimepolyglot/HourCycle;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHourCycle ()Ldev/mmauro/datetimepolyglot/HourCycle;
+	public final fun getStyleOptions ()Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle : dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions {
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Local : java/lang/Enum, dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle, dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Local {
+	public static final field MEDIUM Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Local;
+	public static final field SHORT Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Local;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle;
-	public static fun values ()[Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle;
+	public static fun valueOf (Ljava/lang/String;)Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Local;
+	public static fun values ()[Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Local;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Zoned : java/lang/Enum, dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle, dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Zoned {
+	public static final field FULL Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Zoned;
+	public static final field LONG Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Zoned;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Zoned;
+	public static fun values ()[Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Zoned;
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions {
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Local : dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions {
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Zoned : dev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions {
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearLocalizer : dev/mmauro/datetimepolyglot/DateTimeLocalizer {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearOptions;Lcom/ibm/icu/util/ULocale;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun localize (I)Ljava/lang/String;
+	public synthetic fun localize (Ljava/lang/Object;)Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearMonthLocalizer : dev/mmauro/datetimepolyglot/DateTimeLocalizer {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Lcom/ibm/icu/util/ULocale;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun localize (Ljava/lang/Object;)Ljava/lang/String;
+	public fun localize (Lkotlinx/datetime/YearMonth;)Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearMonthLocalizerKt {
+	public static final fun localize (Lkotlinx/datetime/YearMonth;Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Lcom/ibm/icu/util/ULocale;)Ljava/lang/String;
+	public static synthetic fun localize$default (Lkotlinx/datetime/YearMonth;Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions : dev/mmauro/datetimepolyglot/localizers/absolute/ComponentsOptions$Date$Components {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
+	public final fun component2 ()Ldev/mmauro/datetimepolyglot/styles/YearStyle;
+	public final fun component3 ()Ldev/mmauro/datetimepolyglot/styles/MonthStyle;
+	public final fun copy (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;)Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public synthetic fun getDayOfMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;
+	public fun getDayOfMonthStyle ()Ljava/lang/Void;
+	public synthetic fun getDayOfWeekStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;
+	public fun getDayOfWeekStyle ()Ljava/lang/Void;
+	public fun getEraStyle ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
+	public fun getMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/MonthStyle;
+	public fun getYearStyle ()Ldev/mmauro/datetimepolyglot/styles/YearStyle;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearOptions : dev/mmauro/datetimepolyglot/localizers/absolute/ComponentsOptions$Date$Components {
+	public fun <init> ()V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
+	public final fun component2 ()Ldev/mmauro/datetimepolyglot/styles/YearStyle;
+	public final fun copy (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;)Ldev/mmauro/datetimepolyglot/localizers/absolute/YearOptions;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearOptions;Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/YearOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public synthetic fun getDayOfMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;
+	public fun getDayOfMonthStyle ()Ljava/lang/Void;
+	public synthetic fun getDayOfWeekStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;
+	public fun getDayOfWeekStyle ()Ljava/lang/Void;
+	public fun getEraStyle ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
+	public synthetic fun getMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/MonthStyle;
+	public fun getMonthStyle ()Ljava/lang/Void;
+	public fun getYearStyle ()Ldev/mmauro/datetimepolyglot/styles/YearStyle;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/standalone/DayOfWeekLocalizer : dev/mmauro/datetimepolyglot/DateTimeLocalizer {
