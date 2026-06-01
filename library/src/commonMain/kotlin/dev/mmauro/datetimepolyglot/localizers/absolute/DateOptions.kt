@@ -16,12 +16,12 @@ enum class DateStyle : DateOptions {
 }
 
 data class DateComponents(
-    val eraStyle: EraStyle? = null,
-    val yearStyle: YearStyle = YearStyle.NUMERIC_PADDED_4_DIGITS,
-    val monthStyle: MonthStyle,
-    val dayOfMonthStyle: DayOfMonthStyle? = null,
-    val dayOfWeekStyle: DayOfWeekStyle? = null,
-) : DateOptions {
+    override val eraStyle: EraStyle? = null,
+    override val yearStyle: YearStyle = YearStyle.NUMERIC_PADDED_4_DIGITS,
+    override val monthStyle: MonthStyle,
+    override val dayOfMonthStyle: DayOfMonthStyle? = null,
+    override val dayOfWeekStyle: DayOfWeekStyle? = null,
+) : DateOptions, ComponentsOptions.Date.Components {
     init {
         require(dayOfWeekStyle != null || dayOfMonthStyle != null) {
             "At least one between day of week and day of month styles need to be not null"

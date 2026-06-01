@@ -3,7 +3,6 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 import dev.mmauro.datetimepolyglot.DateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
-import dev.mmauro.datetimepolyglot.localizers.absolute.ComponentsOptions.TimeOptions.*
 import kotlinx.datetime.LocalTime
 
 expect class LocalTimeLocalizer(
@@ -24,26 +23,12 @@ fun LocalTime.localize(
     locale: PlatformLocale = getDefaultLocale(),
 ) = LocalTimeLocalizer(options, locale).localize(this)
 
-internal fun TimeOptions<*>.toComponentOptions(): ComponentsOptions.TimeOptions {
-    return when (styleOptions) {
-        is TimeStyle -> Style(styleOptions, hourCycle)
-        is TimeComponents.Local -> Components(
-            hourStyle = styleOptions.hourStyle,
-            minuteStyle = styleOptions.minuteStyle,
-            secondStyle = styleOptions.secondStyle,
-            fractionalSecondDigits = styleOptions.fractionalSecondDigits,
-            dayPeriodStyle = styleOptions.dayPeriodStyle,
-            hourCycle = hourCycle,
-        )
-
-        is TimeComponents.Zoned -> Components(
-            hourStyle = styleOptions.hourStyle,
-            minuteStyle = styleOptions.minuteStyle,
-            secondStyle = styleOptions.secondStyle,
-            fractionalSecondDigits = styleOptions.fractionalSecondDigits,
-            dayPeriodStyle = styleOptions.dayPeriodStyle,
-            timeZoneStyle = styleOptions.timeZoneStyle,
-            hourCycle = hourCycle,
-        )
-    }
+internal fun TimeOptions<*>.toComponentOptions(): ComponentsOptions.Time {
+    return ComponentsOptions.Time(
+        styleOptions = when (styleOptions) {
+            is TimeStyle -> ComponentsOptions.TimeStyleOptions.Style(styleOptions)
+            is TimeComponents.Local, is TimeComponents.Zoned -> styleOptions
+        },
+        hourCycle = hourCycle,
+    )
 }

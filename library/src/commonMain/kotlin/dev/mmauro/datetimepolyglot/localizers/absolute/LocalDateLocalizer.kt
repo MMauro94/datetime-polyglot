@@ -23,15 +23,9 @@ fun LocalDate.localize(
     locale: PlatformLocale = getDefaultLocale(),
 ) = LocalDateLocalizer(options, locale).localize(this)
 
-internal fun DateOptions.toComponentOptions(): ComponentsOptions.DateOptions {
+internal fun DateOptions.toComponentOptions(): ComponentsOptions.Date {
     return when (this) {
-        is DateStyle -> ComponentsOptions.DateOptions.Style(this)
-        is DateComponents -> ComponentsOptions.DateOptions.Components(
-            eraStyle = eraStyle,
-            yearStyle = yearStyle,
-            monthStyle = monthStyle,
-            dayOfMonthStyle = dayOfMonthStyle,
-            dayOfWeekStyle = dayOfWeekStyle,
-        )
+        is DateStyle -> ComponentsOptions.Date.Style(this)
+        is DateComponents -> this
     }
 }

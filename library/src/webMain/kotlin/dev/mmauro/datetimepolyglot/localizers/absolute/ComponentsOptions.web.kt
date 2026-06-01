@@ -13,13 +13,13 @@ import dev.mmauro.datetimepolyglot.styles.toYearFormat
 import dev.mmauro.datetimepolyglot.toJsHourCycle
 import js.intl.DateTimeFormatOptions
 
-internal fun DateTimeFormatOptions.fill(dateOptions: ComponentsOptions.DateOptions) {
+internal fun DateTimeFormatOptions.fill(dateOptions: ComponentsOptions.Date) {
     when (dateOptions) {
-        is ComponentsOptions.DateOptions.Style -> {
+        is ComponentsOptions.Date.Style -> {
             dateStyle = dateOptions.style.toJsDateStyle()
         }
 
-        is ComponentsOptions.DateOptions.Components -> {
+        is ComponentsOptions.Date.Components -> {
             dateOptions.eraStyle?.let { era = it.toEraFormat() }
             dateOptions.yearStyle?.let { year = it.toYearFormat() }
             dateOptions.monthStyle?.let { month = it.toMonthFormat() }
@@ -29,24 +29,23 @@ internal fun DateTimeFormatOptions.fill(dateOptions: ComponentsOptions.DateOptio
     }
 }
 
-internal fun DateTimeFormatOptions.fill(timeOptions: ComponentsOptions.TimeOptions) {
+internal fun DateTimeFormatOptions.fill(timeOptions: ComponentsOptions.Time) {
     timeOptions.hourCycle?.let { hourCycle = it.toJsHourCycle() }
 
-    when (timeOptions) {
-        is ComponentsOptions.TimeOptions.Style -> {
-            timeStyle = timeOptions.style.toJsTimeStyle()
+    when (val timeStyleOptions = timeOptions.styleOptions) {
+        is ComponentsOptions.TimeStyleOptions.Style -> {
+            timeStyle = timeStyleOptions.style.toJsTimeStyle()
         }
 
-        is ComponentsOptions.TimeOptions.Components -> {
-            timeOptions.dayPeriodStyle?.let { dayPeriod = it.toDayPeriodFormat() }
-            timeOptions.hourStyle?.let { hour = it.toHourFormat() }
-            timeOptions.minuteStyle?.let { minute = it.toMinuteFormat() }
-            timeOptions.secondStyle?.let { second = it.toSecondFormat() }
-            if (timeOptions.fractionalSecondDigits > 0) {
-                fractionalSecondDigits = timeOptions.fractionalSecondDigits
+        is ComponentsOptions.TimeStyleOptions.Components -> {
+            timeStyleOptions.dayPeriodStyle?.let { dayPeriod = it.toDayPeriodFormat() }
+            timeStyleOptions.hourStyle?.let { hour = it.toHourFormat() }
+            timeStyleOptions.minuteStyle?.let { minute = it.toMinuteFormat() }
+            timeStyleOptions.secondStyle?.let { second = it.toSecondFormat() }
+            if (timeStyleOptions.fractionalSecondDigits > 0) {
+                fractionalSecondDigits = timeStyleOptions.fractionalSecondDigits
             }
-            timeOptions.timeZoneStyle?.let { timeZoneName = it.toTimeZoneNameFormat() }
-
+            timeStyleOptions.timeZoneStyle?.let { timeZoneName = it.toTimeZoneNameFormat() }
         }
     }
 }

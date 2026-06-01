@@ -104,7 +104,10 @@ sealed interface TimeComponents : TimeStyleOptions {
         override val secondStyle: SecondStyle? = null,
         override val fractionalSecondDigits: Int = 0,
         override val dayPeriodStyle: DayPeriodStyle? = null,
-    ) : TimeComponents, TimeStyleOptions.Local {
+    ) : TimeComponents, TimeStyleOptions.Local, ComponentsOptions.TimeStyleOptions.Components {
+
+        override val timeZoneStyle: Nothing? get() = null
+
         init {
             require(fractionalSecondDigits in 0..3) { "fractionalSecondDigits must be in 0..3" }
         }
@@ -116,8 +119,8 @@ sealed interface TimeComponents : TimeStyleOptions {
         override val secondStyle: SecondStyle? = null,
         override val fractionalSecondDigits: Int = 0,
         override val dayPeriodStyle: DayPeriodStyle? = null,
-        val timeZoneStyle: TimeZoneStyle,
-    ) : TimeComponents, TimeStyleOptions.Zoned {
+        override val timeZoneStyle: TimeZoneStyle,
+    ) : TimeComponents, TimeStyleOptions.Zoned, ComponentsOptions.TimeStyleOptions.Components {
         init {
             require(fractionalSecondDigits in 0..3) { "fractionalSecondDigits must be in 0..3" }
         }

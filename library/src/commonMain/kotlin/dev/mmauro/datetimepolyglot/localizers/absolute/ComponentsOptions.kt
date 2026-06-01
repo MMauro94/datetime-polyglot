@@ -12,9 +12,15 @@ import dev.mmauro.datetimepolyglot.styles.SecondStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import dev.mmauro.datetimepolyglot.styles.YearStyle
 
+/**
+ * Simple internal-only class that allows to represent any set of possible styles for each component.
+ *
+ * This acts as a middle-man to create platform specific resources to localize values (e.g. see `ComponentsOptions.toDateFormat` in JVM and
+ * `DateTimeFormatOptions.fill` functions in Web)
+ */
 internal data class ComponentsOptions(
-    val dateOptions: DateOptions? = null,
-    val timeOptions: TimeOptions? = null,
+    val dateOptions: Date? = null,
+    val timeOptions: Time? = null,
 ) {
     init {
         require(dateOptions != null || timeOptions != null) {
@@ -22,58 +28,34 @@ internal data class ComponentsOptions(
         }
     }
 
-    internal sealed interface DateOptions {
+    internal sealed interface Date {
 
-        data class Style(val style: DateStyle) : DateOptions
+        data class Style(val style: DateStyle) : Date
 
-        data class Components(
-            val eraStyle: EraStyle? = null,
-            val yearStyle: YearStyle? = null,
-            val monthStyle: MonthStyle? = null,
-            val dayOfMonthStyle: DayOfMonthStyle? = null,
-            val dayOfWeekStyle: DayOfWeekStyle? = null,
-        ) : DateOptions {
-            init {
-                require(
-                    eraStyle != null ||
-                            yearStyle != null ||
-                            monthStyle != null ||
-                            dayOfMonthStyle != null ||
-                            dayOfWeekStyle != null
-                ) {
-                    "At least one component must be not-null"
-                }
-            }
+        interface Components : Date {
+            val eraStyle: EraStyle?
+            val yearStyle: YearStyle?
+            val monthStyle: MonthStyle?
+            val dayOfMonthStyle: DayOfMonthStyle?
+            val dayOfWeekStyle: DayOfWeekStyle?
         }
     }
 
-    internal sealed interface TimeOptions {
+    internal data class Time(
+        val styleOptions: TimeStyleOptions,
+        val hourCycle: HourCycle?,
+    )
 
-        val hourCycle: HourCycle?
+    internal sealed interface TimeStyleOptions {
+        data class Style(val style: TimeStyle) : TimeStyleOptions
 
-        data class Style(val style: TimeStyle, override val hourCycle: HourCycle? = null) : TimeOptions
-
-        data class Components(
-            val hourStyle: HourStyle? = null,
-            val minuteStyle: MinuteStyle? = null,
-            val secondStyle: SecondStyle? = null,
-            val fractionalSecondDigits: Int = 0,
-            val dayPeriodStyle: DayPeriodStyle? = null,
-            val timeZoneStyle: TimeZoneStyle? = null,
-            override val hourCycle: HourCycle? = null,
-        ) : TimeOptions {
-            init {
-                require(fractionalSecondDigits in 0..3) { "fractionalSecondDigits must be in 0..3" }
-                require(
-                    hourStyle != null ||
-                            minuteStyle != null ||
-                            secondStyle != null ||
-                            fractionalSecondDigits > 0 ||
-                            timeZoneStyle != null
-                ) {
-                    "At least one component must be not-null"
-                }
-            }
+        interface Components : TimeStyleOptions {
+            val hourStyle: HourStyle?
+            val minuteStyle: MinuteStyle?
+            val secondStyle: SecondStyle?
+            val fractionalSecondDigits: Int
+            val dayPeriodStyle: DayPeriodStyle?
+            val timeZoneStyle: TimeZoneStyle?
         }
     }
 }
