@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.Month
 import java.time.ZonedDateTime
 
@@ -13,6 +14,7 @@ internal expect abstract class DateFormat
 
 internal expect fun DateFormat.format(zonedDateTime: ZonedDateTime): String
 internal expect fun DateFormat.format(localDate: LocalDate): String
+internal expect fun DateFormat.format(localTime: LocalTime): String
 internal expect fun DateFormat.format(month: Month): String
 
 // SIMPLE DATE FORMAT

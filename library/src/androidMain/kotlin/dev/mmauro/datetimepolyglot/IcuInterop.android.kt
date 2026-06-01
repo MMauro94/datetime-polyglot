@@ -6,9 +6,12 @@ import android.icu.util.TimeZone
 import android.icu.util.ULocale
 import android.os.Build
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle.Local
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle.Zoned
 import android.icu.text.SimpleDateFormat as AndroidSimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.Month
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
@@ -17,12 +20,12 @@ import java.time.temporal.Temporal
 // DATE FORMAT
 internal actual typealias DateFormat = AndroidDateFormat
 
-internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime): String {
+internal actual fun DateFormat.format(month: Month): String {
     return if (Build.VERSION.SDK_INT >= 37) {
-        format(zonedDateTime as Temporal)
+        format(month as Any)
     } else {
-        timeZone = TimeZone.getTimeZone(zonedDateTime.zone.id)
-        format(zonedDateTime.toInstant().toEpochMilli())
+        timeZone = TimeZone.GMT_ZONE
+        format(LocalDate.of(0, month, 1).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli())
     }
 }
 
@@ -35,12 +38,21 @@ internal actual fun DateFormat.format(localDate: LocalDate): String {
     }
 }
 
-internal actual fun DateFormat.format(month: Month): String {
+internal actual fun DateFormat.format(localTime: LocalTime): String {
     return if (Build.VERSION.SDK_INT >= 37) {
-        format(month as Any)
+        format(localTime as Temporal)
     } else {
         timeZone = TimeZone.GMT_ZONE
-        format(LocalDate.of(0, month, 1).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli())
+        format(localTime.atDate(LocalDate.ofEpochDay(0)).toInstant(ZoneOffset.UTC).toEpochMilli())
+    }
+}
+
+internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime): String {
+    return if (Build.VERSION.SDK_INT >= 37) {
+        format(zonedDateTime as Temporal)
+    } else {
+        timeZone = TimeZone.getTimeZone(zonedDateTime.zone.id)
+        format(zonedDateTime.toInstant().toEpochMilli())
     }
 }
 
@@ -67,10 +79,10 @@ private fun DateStyle.toDateFormatStyle() = when (this) {
 }
 
 private fun TimeStyle.toDateFormatStyle() = when (this) {
-    TimeStyle.SHORT -> AndroidDateFormat.SHORT
-    TimeStyle.MEDIUM -> AndroidDateFormat.MEDIUM
-    TimeStyle.LONG -> AndroidDateFormat.LONG
-    TimeStyle.FULL -> AndroidDateFormat.FULL
+    TimeStyle.Local.SHORT -> AndroidDateFormat.SHORT
+    TimeStyle.Local.MEDIUM -> AndroidDateFormat.MEDIUM
+    TimeStyle.Zoned.LONG -> AndroidDateFormat.LONG
+    TimeStyle.Zoned.FULL -> AndroidDateFormat.FULL
 }
 
 

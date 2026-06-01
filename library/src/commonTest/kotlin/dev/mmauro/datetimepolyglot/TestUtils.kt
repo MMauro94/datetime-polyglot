@@ -13,7 +13,7 @@ enum class TestPlatform {
 
 expect val TEST_PLATFORM: TestPlatform
 
-fun noPlatforms(platforms: Set<TestPlatform>, reason: String) : EnabledOrReasonIf = {
+fun noPlatforms(platforms: Set<TestPlatform>, reason: String): EnabledOrReasonIf = {
     Enabled(
         isEnabled = TEST_PLATFORM !in platforms,
         reason = reason,
@@ -22,3 +22,4 @@ fun noPlatforms(platforms: Set<TestPlatform>, reason: String) : EnabledOrReasonI
 
 fun noNodeJs(reason: String) = noPlatforms(setOf(TestPlatform.JS_NODE), reason)
 fun noJs(reason: String) = noPlatforms(setOf(TestPlatform.JS_NODE, TestPlatform.JS_BROWSER, TestPlatform.WASM_JS_BROWSER), reason)
+fun noWeb(reason: String) = noPlatforms(setOf(TestPlatform.JS_NODE, TestPlatform.JS_BROWSER, TestPlatform.WASM_JS_BROWSER), reason)

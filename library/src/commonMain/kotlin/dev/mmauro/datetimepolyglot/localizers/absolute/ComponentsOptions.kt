@@ -15,7 +15,6 @@ import dev.mmauro.datetimepolyglot.styles.YearStyle
 internal data class ComponentsOptions(
     val dateOptions: DateOptions? = null,
     val timeOptions: TimeOptions? = null,
-    val hourCycle: HourCycle? = null,
 ) {
     init {
         require(dateOptions != null || timeOptions != null) {
@@ -50,7 +49,9 @@ internal data class ComponentsOptions(
 
     internal sealed interface TimeOptions {
 
-        data class Style(val style: TimeStyle) : TimeOptions
+        val hourCycle: HourCycle?
+
+        data class Style(val style: TimeStyle, override val hourCycle: HourCycle? = null) : TimeOptions
 
         data class Components(
             val hourStyle: HourStyle? = null,
@@ -58,16 +59,17 @@ internal data class ComponentsOptions(
             val secondStyle: SecondStyle? = null,
             val fractionalSecondDigits: Int = 0,
             val dayPeriodStyle: DayPeriodStyle? = null,
-            val timezoneStyle: TimeZoneStyle? = null,
+            val timeZoneStyle: TimeZoneStyle? = null,
+            override val hourCycle: HourCycle? = null,
         ) : TimeOptions {
             init {
-                require(fractionalSecondDigits >= 0) { "fractionalSecondDigits cannot be negative" }
+                require(fractionalSecondDigits in 0..3) { "fractionalSecondDigits must be in 0..3" }
                 require(
                     hourStyle != null ||
                             minuteStyle != null ||
                             secondStyle != null ||
                             fractionalSecondDigits > 0 ||
-                            timezoneStyle != null
+                            timeZoneStyle != null
                 ) {
                     "At least one component must be not-null"
                 }

@@ -2,8 +2,11 @@ package dev.mmauro.datetimepolyglot
 
 import com.ibm.icu.util.ULocale
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle.Local
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle.Zoned
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.Month
 import java.time.ZonedDateTime
 import java.time.temporal.Temporal
@@ -14,9 +17,10 @@ import com.ibm.icu.text.SimpleDateFormat as IcuSimpleDateFormat
 // DATE FORMAT
 internal actual typealias DateFormat = IcuDateFormat
 
-internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime) = format(zonedDateTime as Temporal)
-internal actual fun DateFormat.format(localDate: LocalDate) = format(localDate as Temporal)
 internal actual fun DateFormat.format(month: Month) = format(month as Any)
+internal actual fun DateFormat.format(localDate: LocalDate) = format(localDate as Temporal)
+internal actual fun DateFormat.format(localTime: LocalTime) = format(localTime as Temporal)
+internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime) = format(zonedDateTime as Temporal)
 
 // SIMPLE DATE FORMAT
 internal actual typealias SimpleDateFormat = IcuSimpleDateFormat
@@ -41,10 +45,10 @@ private fun DateStyle.toDateFormatStyle() = when (this) {
 }
 
 private fun TimeStyle.toDateFormatStyle() = when (this) {
-    TimeStyle.SHORT -> IcuDateFormat.SHORT
-    TimeStyle.MEDIUM -> IcuDateFormat.MEDIUM
-    TimeStyle.LONG -> IcuDateFormat.LONG
-    TimeStyle.FULL -> IcuDateFormat.FULL
+    TimeStyle.Local.SHORT -> IcuDateFormat.SHORT
+    TimeStyle.Local.MEDIUM -> IcuDateFormat.MEDIUM
+    TimeStyle.Zoned.LONG -> IcuDateFormat.LONG
+    TimeStyle.Zoned.FULL -> IcuDateFormat.FULL
 }
 
 internal actual typealias ULocaleBuilder = ULocale.Builder

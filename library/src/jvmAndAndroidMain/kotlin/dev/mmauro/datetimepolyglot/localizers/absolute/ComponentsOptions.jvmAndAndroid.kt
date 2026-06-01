@@ -13,6 +13,7 @@ import dev.mmauro.datetimepolyglot.withHourCycle
 
 internal fun ComponentsOptions.toDateFormat(locale: PlatformLocale): DateFormat {
     // Optimizations to avoid going through getDateFormatForSkeleton needlessly
+    val hourCycle = timeOptions?.hourCycle
     val localeWithHourCycle = if (hourCycle == null) locale else locale.withHourCycle(hourCycle)
     return when (dateOptions) {
         is ComponentsOptions.DateOptions.Style if timeOptions is ComponentsOptions.TimeOptions.Style -> {
@@ -44,12 +45,12 @@ internal fun ComponentsOptions.toDateFormat(locale: PlatformLocale): DateFormat 
 
             val timeSkeleton = when (val timeOptions = timeOptions) {
                 is ComponentsOptions.TimeOptions.Style -> listOf(getTimeFormatInstance(timeOptions.style, localeWithHourCycle).toPattern())
-                is ComponentsOptions.TimeOptions.Components -> listOf(
+                is ComponentsOptions.TimeOptions.Components -> listOfNotNull(
                     timeOptions.hourStyle?.unicodeSkeleton(locale, timeOptions.dayPeriodStyle, hourCycle),
                     timeOptions.minuteStyle?.unicodePattern,
                     timeOptions.secondStyle?.unicodePattern,
                     fractionalSecondsUnicodePattern(timeOptions.fractionalSecondDigits),
-                    timeOptions.timezoneStyle?.unicodePattern,
+                    timeOptions.timeZoneStyle?.unicodePattern,
                 )
 
                 null -> emptyList()

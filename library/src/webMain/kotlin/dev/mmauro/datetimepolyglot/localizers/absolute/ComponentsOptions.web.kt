@@ -10,8 +10,8 @@ import dev.mmauro.datetimepolyglot.styles.toSecondFormat
 import dev.mmauro.datetimepolyglot.styles.toTimeZoneNameFormat
 import dev.mmauro.datetimepolyglot.styles.toWeekdayFormat
 import dev.mmauro.datetimepolyglot.styles.toYearFormat
+import dev.mmauro.datetimepolyglot.toJsHourCycle
 import js.intl.DateTimeFormatOptions
-import kotlin.math.max
 
 internal fun DateTimeFormatOptions.fill(dateOptions: ComponentsOptions.DateOptions) {
     when (dateOptions) {
@@ -30,6 +30,8 @@ internal fun DateTimeFormatOptions.fill(dateOptions: ComponentsOptions.DateOptio
 }
 
 internal fun DateTimeFormatOptions.fill(timeOptions: ComponentsOptions.TimeOptions) {
+    timeOptions.hourCycle?.let { hourCycle = it.toJsHourCycle() }
+
     when (timeOptions) {
         is ComponentsOptions.TimeOptions.Style -> {
             timeStyle = timeOptions.style.toJsTimeStyle()
@@ -41,9 +43,9 @@ internal fun DateTimeFormatOptions.fill(timeOptions: ComponentsOptions.TimeOptio
             timeOptions.minuteStyle?.let { minute = it.toMinuteFormat() }
             timeOptions.secondStyle?.let { second = it.toSecondFormat() }
             if (timeOptions.fractionalSecondDigits > 0) {
-                fractionalSecondDigits = max(timeOptions.fractionalSecondDigits, 3)
+                fractionalSecondDigits = timeOptions.fractionalSecondDigits
             }
-            timeOptions.timezoneStyle?.let { timeZoneName = it.toTimeZoneNameFormat() }
+            timeOptions.timeZoneStyle?.let { timeZoneName = it.toTimeZoneNameFormat() }
 
         }
     }
