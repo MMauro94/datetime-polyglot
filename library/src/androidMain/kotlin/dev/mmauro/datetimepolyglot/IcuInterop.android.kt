@@ -11,7 +11,6 @@ import android.icu.text.SimpleDateFormat as AndroidSimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.Month
-import java.time.Year
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.temporal.Temporal
@@ -87,11 +86,23 @@ private fun TimeStyle.toDateFormatStyle() = when (this) {
 
 // LOCALE
 internal actual fun PlatformLocale.getDefaultHourCycle(): HourCycle {
-    return when (DateTimePatternGenerator.getInstance(this).defaultHourCycle) {
-        AndroidDateFormat.HourCycle.HOUR_CYCLE_11 -> HourCycle.HOURS_11
-        AndroidDateFormat.HourCycle.HOUR_CYCLE_12 -> HourCycle.HOURS_12
-        AndroidDateFormat.HourCycle.HOUR_CYCLE_23 -> HourCycle.HOURS_23
-        AndroidDateFormat.HourCycle.HOUR_CYCLE_24 -> HourCycle.HOURS_24
+    val patternGenerator = DateTimePatternGenerator.getInstance(this)
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        when (patternGenerator.defaultHourCycle) {
+            AndroidDateFormat.HourCycle.HOUR_CYCLE_11 -> HourCycle.HOURS_11
+            AndroidDateFormat.HourCycle.HOUR_CYCLE_12 -> HourCycle.HOURS_12
+            AndroidDateFormat.HourCycle.HOUR_CYCLE_23 -> HourCycle.HOURS_23
+            AndroidDateFormat.HourCycle.HOUR_CYCLE_24 -> HourCycle.HOURS_24
+        }
+    } else {
+        val pattern = patternGenerator.getBestPattern("j")
+        when {
+            'K' in pattern -> HourCycle.HOURS_11
+            'h' in pattern -> HourCycle.HOURS_12
+            'H' in pattern -> HourCycle.HOURS_23
+            'k' in pattern -> HourCycle.HOURS_24
+            else -> error("Unable to detect hour cycle for locale $this. Best pattern: $pattern")
+        }
     }
 }
 
