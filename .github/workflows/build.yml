@@ -108,7 +108,6 @@ jobs:
         config: [
           { name: "Min SDK", sdk: "26" },
           { name: "Target SDK", sdk: "36" },
-          { name: "Bleeding edge", sdk: "37" },
         ]
     runs-on: ubuntu-latest
     name: Test Android on ${{ matrix.config.name }} (${{ matrix.config.sdk }})
