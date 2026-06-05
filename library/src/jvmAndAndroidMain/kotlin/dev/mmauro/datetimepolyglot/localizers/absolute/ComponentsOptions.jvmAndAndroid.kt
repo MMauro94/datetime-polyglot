@@ -9,15 +9,17 @@ import dev.mmauro.datetimepolyglot.getTimeFormatInstance
 import dev.mmauro.datetimepolyglot.styles.fractionalSecondsUnicodePattern
 import dev.mmauro.datetimepolyglot.styles.unicodePattern
 import dev.mmauro.datetimepolyglot.styles.unicodeSkeleton
-import dev.mmauro.datetimepolyglot.withHourCycle
 
 internal fun ComponentsOptions.toDateFormat(locale: PlatformLocale): DateFormat {
     // Optimizations to avoid going through getDateFormatForSkeleton needlessly
     val hourCycle = timeOptions?.hourCycle
-    val localeWithHourCycle = if (hourCycle == null) locale else locale.withHourCycle(hourCycle)
     return when (dateOptions) {
         is ComponentsOptions.Date.Style if timeOptions?.styleOptions is ComponentsOptions.TimeStyleOptions.Style -> {
-            getDateTimeFormatInstance(dateOptions.style, timeOptions.styleOptions.style, localeWithHourCycle)
+            val timeOptions = TimeOptions(
+                styleOptions = timeOptions.styleOptions.style,
+                hourCycle = hourCycle,
+            )
+            getDateTimeFormatInstance(dateOptions.style, timeOptions, locale)
         }
 
         is ComponentsOptions.Date.Style if timeOptions == null -> {
@@ -25,7 +27,11 @@ internal fun ComponentsOptions.toDateFormat(locale: PlatformLocale): DateFormat 
         }
 
         null if timeOptions?.styleOptions is ComponentsOptions.TimeStyleOptions.Style -> {
-            getTimeFormatInstance(timeOptions.styleOptions.style, localeWithHourCycle)
+            val timeOptions = TimeOptions(
+                styleOptions = timeOptions.styleOptions.style,
+                hourCycle = hourCycle,
+            )
+            getTimeFormatInstance(timeOptions, locale)
         }
 
         // Optimizations fail, fallback to normal case
@@ -44,7 +50,13 @@ internal fun ComponentsOptions.toDateFormat(locale: PlatformLocale): DateFormat 
             }
 
             val timeSkeleton = when (val timeStyleOptions = timeOptions?.styleOptions) {
-                is ComponentsOptions.TimeStyleOptions.Style -> listOf(getTimeFormatInstance(timeStyleOptions.style, localeWithHourCycle).toPattern())
+                is ComponentsOptions.TimeStyleOptions.Style -> {
+                    val timeOptions = TimeOptions(
+                        styleOptions = timeOptions.styleOptions.style,
+                        hourCycle = hourCycle,
+                    )
+                    listOf(getTimeFormatInstance(timeOptions, locale).toPattern())
+                }
                 is ComponentsOptions.TimeStyleOptions.Components -> listOfNotNull(
                     timeStyleOptions.hourStyle?.unicodeSkeleton(locale, timeStyleOptions.dayPeriodStyle, hourCycle),
                     timeStyleOptions.minuteStyle?.unicodePattern,

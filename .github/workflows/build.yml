@@ -106,7 +106,7 @@ jobs:
     strategy:
       matrix:
         config: [
-          { name: "Min SDK", sdk: "26" },
+          { name: "Min SDK", sdk: "28" },
           { name: "Target SDK", sdk: "36" },
         ]
     runs-on: ubuntu-latest

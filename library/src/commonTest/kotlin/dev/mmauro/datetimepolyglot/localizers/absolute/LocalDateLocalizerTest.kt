@@ -7,6 +7,7 @@ import dev.mmauro.datetimepolyglot.TestPlatform
 import dev.mmauro.datetimepolyglot.noJs
 import dev.mmauro.datetimepolyglot.noPlatforms
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
+import dev.mmauro.datetimepolyglot.shouldBeLocalizedAsOneOf
 import dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle
 import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import dev.mmauro.datetimepolyglot.styles.EraStyle
@@ -50,10 +51,11 @@ val LocalDateLocalizerTestFactory = funSpec {
                     monthStyle = MonthStyle.NUMERIC_PADDED_2_DIGITS,
                     dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS,
                 )
-                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (eraStyle) {
-                    EraStyle.NARROW -> "01/08/2026 A"
-                    EraStyle.ABBREVIATED -> "01/08/2026 AD"
-                    EraStyle.WIDE -> "01/08/2026 Anno Domini"
+                // Older ICU versions (e.g. old Android SDKs) produce the latter pattern, modern one produce the first
+                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAsOneOf  when (eraStyle) {
+                    EraStyle.NARROW -> listOf("01/08/2026 A", "01 08, 2026 A")
+                    EraStyle.ABBREVIATED -> listOf("01/08/2026 AD", "01 08, 2026 AD")
+                    EraStyle.WIDE -> listOf("01/08/2026 Anno Domini", "01 08, 2026 Anno Domini")
                 }
             }
         }

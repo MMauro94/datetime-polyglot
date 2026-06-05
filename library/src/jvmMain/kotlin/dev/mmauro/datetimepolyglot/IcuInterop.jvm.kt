@@ -2,11 +2,11 @@ package dev.mmauro.datetimepolyglot
 
 import com.ibm.icu.util.ULocale
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.Month
-import java.time.Year
 import java.time.ZonedDateTime
 import java.time.temporal.Temporal
 import com.ibm.icu.text.DateFormat as IcuDateFormat
@@ -30,11 +30,24 @@ internal actual fun getDateFormatForSkeleton(skeleton: String, locale: PlatformL
 internal actual fun getDateFormatInstance(dateStyle: DateStyle, locale: PlatformLocale) =
     IcuDateFormat.getDateInstance(dateStyle.toDateFormatStyle(), locale) as SimpleDateFormat
 
-internal actual fun getTimeFormatInstance(timeStyle: TimeStyle, locale: PlatformLocale) =
-    IcuDateFormat.getTimeInstance(timeStyle.toDateFormatStyle(), locale) as SimpleDateFormat
+internal actual fun getTimeFormatInstance(timeOptions: TimeOptions<TimeStyle>, locale: PlatformLocale): SimpleDateFormat {
+    return IcuDateFormat.getTimeInstance(
+        timeOptions.styleOptions.toDateFormatStyle(),
+        locale.withHourCycle(timeOptions.hourCycle)
+    ) as SimpleDateFormat
+}
 
-internal actual fun getDateTimeFormatInstance(dateStyle: DateStyle, timeStyle: TimeStyle, locale: PlatformLocale) =
-    IcuDateFormat.getDateTimeInstance(dateStyle.toDateFormatStyle(), timeStyle.toDateFormatStyle(), locale) as SimpleDateFormat
+internal actual fun getDateTimeFormatInstance(
+    dateStyle: DateStyle,
+    timeOptions: TimeOptions<TimeStyle>,
+    locale: PlatformLocale
+): SimpleDateFormat {
+    return IcuDateFormat.getDateTimeInstance(
+        dateStyle.toDateFormatStyle(),
+        timeOptions.styleOptions.toDateFormatStyle(),
+        locale.withHourCycle(timeOptions.hourCycle)
+    ) as SimpleDateFormat
+}
 
 private fun DateStyle.toDateFormatStyle() = when (this) {
     DateStyle.SHORT -> IcuDateFormat.SHORT

@@ -14,6 +14,7 @@ import dev.mmauro.datetimepolyglot.styles.MinuteStyle
 import dev.mmauro.datetimepolyglot.styles.SecondStyle
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.funSpec
+import io.kotest.datatest.withContexts
 import io.kotest.datatest.withTests
 import kotlinx.datetime.LocalTime
 
@@ -30,13 +31,26 @@ val LocalTimeLocalizerTestFactory = funSpec {
             }
         }
         context("with overridden hour cycle") {
-            withTests(TimeStyle.Local.entries) { timeStyle ->
-                TIME.localize(
-                    options = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24),
-                    locale = LOCALE_ENGLISH
-                ) shouldBeLocalizedAs when (timeStyle) {
-                    TimeStyle.Local.SHORT -> "21:05"
-                    TimeStyle.Local.MEDIUM -> "21:05:08"
+            context("H24") {
+                withTests(TimeStyle.Local.entries) { timeStyle ->
+                    TIME.localize(
+                        options = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24),
+                        locale = LOCALE_ENGLISH
+                    ) shouldBeLocalizedAs when (timeStyle) {
+                        TimeStyle.Local.SHORT -> "21:05"
+                        TimeStyle.Local.MEDIUM -> "21:05:08"
+                    }
+                }
+            }
+            context("H12") {
+                withTests(TimeStyle.Local.entries) { timeStyle ->
+                    TIME.localize(
+                        options = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
+                        locale = LOCALE_ITALIAN
+                    ) shouldBeLocalizedAs when (timeStyle) {
+                        TimeStyle.Local.SHORT -> "9:05 PM"
+                        TimeStyle.Local.MEDIUM -> "9:05:08 PM"
+                    }
                 }
             }
         }

@@ -1,6 +1,7 @@
 [versions]
-android-minSdk = "26"
+android-minSdk = "28"
 android-compileSdk = "36"
+androidx-annotationJvm = "1.10.0"
 agp = "9.0.1"
 icu = "78.3"
 kotest = "6.1.11"
@@ -10,6 +11,7 @@ ksp = "2.3.6"
 vanniktechMavenPublish = "0.36.0"
 
 [libraries]
+androidx-annotationJvm = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "androidx-annotationJvm" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-framework = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }

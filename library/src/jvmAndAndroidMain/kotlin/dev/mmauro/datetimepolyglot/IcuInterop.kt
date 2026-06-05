@@ -1,11 +1,11 @@
 package dev.mmauro.datetimepolyglot
 
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.Month
-import java.time.Year
 import java.time.ZonedDateTime
 
 internal const val ICU_UNICODE_HOUR_CYCLE_EXTENSION_KEY = "hc"
@@ -25,8 +25,12 @@ internal expect class SimpleDateFormat(pattern: String, locale: PlatformLocale) 
 
 internal expect fun getDateFormatForSkeleton(skeleton: String, locale: PlatformLocale): SimpleDateFormat
 internal expect fun getDateFormatInstance(dateStyle: DateStyle, locale: PlatformLocale): SimpleDateFormat
-internal expect fun getTimeFormatInstance(timeStyle: TimeStyle, locale: PlatformLocale): SimpleDateFormat
-internal expect fun getDateTimeFormatInstance(dateStyle: DateStyle, timeStyle: TimeStyle, locale: PlatformLocale): SimpleDateFormat
+internal expect fun getTimeFormatInstance(timeOptions: TimeOptions<TimeStyle>, locale: PlatformLocale): SimpleDateFormat
+internal expect fun getDateTimeFormatInstance(
+    dateStyle: DateStyle,
+    timeOptions: TimeOptions<TimeStyle>,
+    locale: PlatformLocale
+): SimpleDateFormat
 
 // LOCALE
 internal expect fun PlatformLocale.getDefaultHourCycle(): HourCycle
@@ -37,9 +41,13 @@ internal expect class ULocaleBuilder() {
     fun build(): PlatformLocale
 }
 
-internal fun PlatformLocale.withHourCycle(hourCycle: HourCycle): PlatformLocale {
-    return ULocaleBuilder()
-        .setLocale(this)
-        .setUnicodeLocaleKeyword(ICU_UNICODE_HOUR_CYCLE_EXTENSION_KEY, hourCycle.unicodeExtensionKeyValue)
-        .build()
+internal fun PlatformLocale.withHourCycle(hourCycle: HourCycle?): PlatformLocale {
+    return if (hourCycle == null) {
+        this
+    } else {
+        ULocaleBuilder()
+            .setLocale(this)
+            .setUnicodeLocaleKeyword(ICU_UNICODE_HOUR_CYCLE_EXTENSION_KEY, hourCycle.unicodeExtensionKeyValue)
+            .build()
+    }
 }

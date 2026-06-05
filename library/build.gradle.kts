@@ -100,6 +100,10 @@ kotlin {
             implementation(libs.kotest.assertions.core)
         }
 
+        androidMain.dependencies {
+            implementation(libs.androidx.annotationJvm)
+        }
+
         jvmMain.dependencies {
             implementation(libs.ibm.icu4j)
         }

@@ -5,7 +5,9 @@ import android.icu.text.DateTimePatternGenerator
 import android.icu.util.TimeZone
 import android.icu.util.ULocale
 import android.os.Build
+import androidx.annotation.RequiresApi
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import android.icu.text.SimpleDateFormat as AndroidSimpleDateFormat
 import java.time.LocalDate
@@ -63,11 +65,43 @@ internal actual fun getDateFormatForSkeleton(skeleton: String, locale: PlatformL
 internal actual fun getDateFormatInstance(dateStyle: DateStyle, locale: PlatformLocale) =
     AndroidDateFormat.getDateInstance(dateStyle.toDateFormatStyle(), locale) as SimpleDateFormat
 
-internal actual fun getTimeFormatInstance(timeStyle: TimeStyle, locale: PlatformLocale) =
-    AndroidDateFormat.getTimeInstance(timeStyle.toDateFormatStyle(), locale) as SimpleDateFormat
+internal actual fun getTimeFormatInstance(timeOptions: TimeOptions<TimeStyle>, locale: PlatformLocale): SimpleDateFormat {
+    val format = AndroidDateFormat.getTimeInstance(
+        timeOptions.styleOptions.toDateFormatStyle(),
+        locale.withHourCycle(timeOptions.hourCycle)
+    ) as SimpleDateFormat
 
-internal actual fun getDateTimeFormatInstance(dateStyle: DateStyle, timeStyle: TimeStyle, locale: PlatformLocale) =
-    AndroidDateFormat.getDateTimeInstance(dateStyle.toDateFormatStyle(), timeStyle.toDateFormatStyle(), locale) as SimpleDateFormat
+    return format.overrideHourCycleIfNecessary(locale, timeOptions.hourCycle)
+}
+
+internal actual fun getDateTimeFormatInstance(
+    dateStyle: DateStyle,
+    timeOptions: TimeOptions<TimeStyle>,
+    locale: PlatformLocale
+): SimpleDateFormat {
+    val format = AndroidDateFormat.getDateTimeInstance(
+        dateStyle.toDateFormatStyle(),
+        timeOptions.styleOptions.toDateFormatStyle(),
+        locale.withHourCycle(timeOptions.hourCycle)
+    ) as SimpleDateFormat
+
+    return format.overrideHourCycleIfNecessary(locale, timeOptions.hourCycle)
+}
+
+private fun SimpleDateFormat.overrideHourCycleIfNecessary(locale: PlatformLocale, hourCycle: HourCycle?): SimpleDateFormat {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM || hourCycle == null) {
+        // Android versions >= SDK 35 use ICU >= 75.1 that fixes an issue where getting a date/time format with a locale using an overridden
+        // hour cycle wasn't taking the hour cycle into account.
+        // This was fixed in ICU 74.1: https://github.com/unicode-org/icu/commit/8817c25c1eac3a0a1b66ac7437e24977e2b93887
+        this
+    } else {
+        var skeleton = toPattern()
+        for (hc in HourCycle.entries) {
+            skeleton = skeleton.replace(hc.unicodePatternChar, hourCycle.unicodePatternChar)
+        }
+        getDateFormatForSkeleton(skeleton, locale)
+    }
+}
 
 private fun DateStyle.toDateFormatStyle() = when (this) {
     DateStyle.SHORT -> AndroidDateFormat.SHORT
@@ -88,12 +122,7 @@ private fun TimeStyle.toDateFormatStyle() = when (this) {
 internal actual fun PlatformLocale.getDefaultHourCycle(): HourCycle {
     val patternGenerator = DateTimePatternGenerator.getInstance(this)
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        when (patternGenerator.defaultHourCycle) {
-            AndroidDateFormat.HourCycle.HOUR_CYCLE_11 -> HourCycle.HOURS_11
-            AndroidDateFormat.HourCycle.HOUR_CYCLE_12 -> HourCycle.HOURS_12
-            AndroidDateFormat.HourCycle.HOUR_CYCLE_23 -> HourCycle.HOURS_23
-            AndroidDateFormat.HourCycle.HOUR_CYCLE_24 -> HourCycle.HOURS_24
-        }
+        patternGenerator.getDefaultHourCycleAndroid33()
     } else {
         val pattern = patternGenerator.getBestPattern("j")
         when {
