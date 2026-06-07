@@ -1,0 +1,25 @@
+name: Publish SNAPSHOT to Maven Central
+on:
+  push:
+    branches:
+      - main
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - id: version
+        run: |
+          TAG=$(git describe --tags --abbrev=0 --match "v*" 2>/dev/null || echo "v0.0.0")
+          VERSION="${TAG#v}-SNAPSHOT"
+          
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: prepare
+    uses: ./.github/workflows/publish.yml
+    with:
+      version: ${{ needs.prepare.outputs.version }}

@@ -13,8 +13,12 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-group = "dev.mmmauro.datetime-polyglot"
-version = "0.0.0"
+group = "dev.mmmauro"
+version = providers
+    .gradleProperty("libraryVersion")
+    .orElse("LOCAL-SNAPSHOT")
+    .get()
+    .also { require(!it.startsWith('v')) { "Version string must not start with v" } }
 
 kotlin {
     compilerOptions {
@@ -27,7 +31,7 @@ kotlin {
 
     jvm()
     androidLibrary {
-        namespace = "org.jetbrains.kotlinx.multiplatform.library.template"
+        namespace = "dev.mmmauro.datetimepolyglot"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
@@ -140,31 +144,34 @@ mavenPublishing {
 
     signAllPublications()
 
-    coordinates(group.toString(), "library", version.toString())
+    coordinates(group.toString(), "datetime-polyglot", version.toString())
 
     pom {
-        name = "datetime-polygloy"
+        name = "datetime-polyglot"
         description = " Multiplatform localization library for Kotlin date/time."
         inceptionYear = "2026"
         url = "https://github.com/MMauro94/datetime-polyglot/"
         licenses {
             license {
-                name = "XXX"
-                url = "YYY"
-                distribution = "ZZZ"
+                name = "The Apache License, Version 2.0"
+                url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "https://www.apache.org/licenses/LICENSE-2.0.txt"
             }
         }
         developers {
             developer {
-                id = "XXX"
-                name = "YYY"
-                url = "ZZZ"
+                id = "MMauro94"
+                name = "Mauro Molin"
+                email = "molin.mauro@gmail.com"
+                url = "https://github.com/MMauro94"
+                organization = "Mauro94"
+                organizationUrl = "https://github.com/Mauro94"
             }
         }
         scm {
-            url = "XXX"
-            connection = "YYY"
-            developerConnection = "ZZZ"
+            url = "https://github.com/MMauro94/datetime-polyglot"
+            connection = "scm:git:git://github.com/MMauro94/datetime-polyglot.git"
+            developerConnection = "scm:git:ssh://github.com:MMauro94/datetime-polyglot.git"
         }
     }
 }
