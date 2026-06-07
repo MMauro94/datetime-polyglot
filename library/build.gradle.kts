@@ -14,7 +14,7 @@ plugins {
 }
 
 val artifactId = "datetime-polyglot"
-group = "dev.mmmauro"
+group = "dev.mmauro"
 version = providers
     .gradleProperty("libraryVersion")
     .orElse("LOCAL-SNAPSHOT")
@@ -32,7 +32,7 @@ kotlin {
 
     jvm()
     androidLibrary {
-        namespace = "dev.mmmauro.datetimepolyglot"
+        namespace = "dev.mmauro.datetimepolyglot"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
