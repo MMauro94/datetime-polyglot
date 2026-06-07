@@ -28,8 +28,8 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Publish ${{ inputs.release && "and Release" || "" }} to MavenCentral
-        run: ./gradlew ${{ inputs.release && "publishAndReleaseToMavenCentral" || "publishToMavenCentral" }} --no-configuration-cache
+      - name: Publish ${{ inputs.release && 'and Release' || '' }} to MavenCentral
+        run: ./gradlew ${{ inputs.release && 'publishAndReleaseToMavenCentral' || 'publishToMavenCentral' }} --no-configuration-cache
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
