@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <dev.mmmauro:datetime-polyglot>
+// Library unique name: <dev.mmauro:datetime-polyglot>
 final enum class dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle : dev.mmauro.datetimepolyglot.localizers.absolute/DateOptions, kotlin/Enum<dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle> { // dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle|null[0]
     enum entry FULL // dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle.FULL|null[0]
     enum entry LONG // dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle.LONG|null[0]
