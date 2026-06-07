@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+val artifactId = "datetime-polyglot"
 group = "dev.mmmauro"
 version = providers
     .gradleProperty("libraryVersion")
@@ -144,10 +145,10 @@ mavenPublishing {
 
     signAllPublications()
 
-    coordinates(group.toString(), "datetime-polyglot", version.toString())
+    coordinates(group.toString(), artifactId, version.toString())
 
     pom {
-        name = "datetime-polyglot"
+        name = artifactId
         description = " Multiplatform localization library for Kotlin date/time."
         inceptionYear = "2026"
         url = "https://github.com/MMauro94/datetime-polyglot/"

@@ -20,3 +20,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "datetime-polyglot"
 include(":library")
+project(":library").name = "datetime-polyglot"
