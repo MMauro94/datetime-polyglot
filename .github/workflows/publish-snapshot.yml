@@ -26,4 +26,4 @@ jobs:
     secrets: inherit
     with:
       version: ${{ needs.prepare.outputs.version }}
-      release: false
+      release: true
