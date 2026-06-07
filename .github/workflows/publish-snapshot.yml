@@ -23,5 +23,6 @@ jobs:
   publish:
     needs: prepare
     uses: ./.github/workflows/publish.yml
+    secrets: inherit
     with:
       version: ${{ needs.prepare.outputs.version }}
