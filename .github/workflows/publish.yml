@@ -7,8 +7,12 @@ on:
         required: true
         type: string
 jobs:
+  test:
+    uses: ./.github/workflows/build.yml
+
   publish:
     name: Release build and publish
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
