@@ -3,14 +3,16 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 import dev.mmauro.datetimepolyglot.HourCycle
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
+import dev.mmauro.datetimepolyglot.TEST_PLATFORM
+import dev.mmauro.datetimepolyglot.TestPlatform
 import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.TestPlatform.Js
 import dev.mmauro.datetimepolyglot.TestPlatform.Jvm
+import dev.mmauro.datetimepolyglot.TestPlatform.Wasm
 import dev.mmauro.datetimepolyglot.noPlatforms
 import dev.mmauro.datetimepolyglot.noWeb
 import dev.mmauro.datetimepolyglot.plus
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
-import dev.mmauro.datetimepolyglot.shouldBeLocalizedAsOneOf
 import dev.mmauro.datetimepolyglot.styles.DayPeriodStyle
 import dev.mmauro.datetimepolyglot.styles.HourStyle
 import dev.mmauro.datetimepolyglot.styles.MinuteStyle
@@ -186,12 +188,20 @@ val LocalTimeLocalizerTestFactory = funSpec {
                         secondStyle = null,
                         fractionalSecondDigits = fractionalSecondDigits,
                     )
-                    // Note: JS browser uses latter format, the rest of platforms use the first one
-                    TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAsOneOf when (fractionalSecondDigits) {
-                        1 -> listOf("9 PM ├F14: 1┤", "9 PM (Fractional Second: 1)")
-                        2 -> listOf("9 PM ├F14: 12┤", "9 PM (Fractional Second: 12)")
-                        3 -> listOf("9 PM ├F14: 123┤", "9 PM (Fractional Second: 123)")
-                        else -> error("invalid test case")
+                    TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs when (TEST_PLATFORM) {
+                        is Js.Browser, is Wasm.Browser -> when (fractionalSecondDigits) {
+                            1 -> "9 PM (Fractional Second: 1)"
+                            2 -> "9 PM (Fractional Second: 12)"
+                            3 -> "9 PM (Fractional Second: 123)"
+                            else -> error("invalid test case")
+                        }
+
+                        else -> when (fractionalSecondDigits) {
+                            1 -> "9 PM ├F14: 1┤"
+                            2 -> "9 PM ├F14: 12┤"
+                            3 -> "9 PM ├F14: 123┤"
+                            else -> error("invalid test case")
+                        }
                     }
                 }
             }

@@ -3,14 +3,13 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.LOCALE_POLISH
-import dev.mmauro.datetimepolyglot.TestPlatform
+import dev.mmauro.datetimepolyglot.TEST_PLATFORM
 import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.TestPlatform.Js
 import dev.mmauro.datetimepolyglot.noPlatforms
 import dev.mmauro.datetimepolyglot.noWeb
 import dev.mmauro.datetimepolyglot.plus
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
-import dev.mmauro.datetimepolyglot.shouldBeLocalizedAsOneOf
 import dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle
 import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import dev.mmauro.datetimepolyglot.styles.EraStyle
@@ -54,11 +53,19 @@ val LocalDateLocalizerTestFactory = funSpec {
                     monthStyle = MonthStyle.NUMERIC_PADDED_2_DIGITS,
                     dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS,
                 )
-                // Older ICU versions (e.g. old Android SDKs) produce the latter pattern, modern one produce the first
-                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAsOneOf when (eraStyle) {
-                    EraStyle.NARROW -> listOf("01/08/2026 A", "01 08, 2026 A")
-                    EraStyle.ABBREVIATED -> listOf("01/08/2026 AD", "01 08, 2026 AD")
-                    EraStyle.WIDE -> listOf("01/08/2026 Anno Domini", "01 08, 2026 Anno Domini")
+                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (val platform = TEST_PLATFORM) {
+                    // Older ICU versions in older Android SDKs are broken in this way
+                    is Android if platform.sdk < 33 -> when (eraStyle) {
+                        EraStyle.NARROW -> "01 08, 2026 A"
+                        EraStyle.ABBREVIATED -> "01 08, 2026 AD"
+                        EraStyle.WIDE -> "01 08, 2026 Anno Domini"
+                    }
+
+                    else -> when (eraStyle) {
+                        EraStyle.NARROW -> "01/08/2026 A"
+                        EraStyle.ABBREVIATED -> "01/08/2026 AD"
+                        EraStyle.WIDE -> "01/08/2026 Anno Domini"
+                    }
                 }
             }
         }

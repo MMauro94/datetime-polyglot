@@ -3,6 +3,8 @@ package dev.mmauro.datetimepolyglot.localizers.standalone
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.LOCALE_POLISH
+import dev.mmauro.datetimepolyglot.TEST_PLATFORM
+import dev.mmauro.datetimepolyglot.TestPlatform
 import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.funSpec
@@ -25,6 +27,10 @@ val DayOfWeekLocalizerTestFactory = funSpec {
         withTests(
             nameFn = { it.first.name },
             DayOfWeekStyle.NARROW to listOf("M", "T", "W", "T", "F", "S", "S"),
+            DayOfWeekStyle.SHORT to when (TEST_PLATFORM) {
+                is TestPlatform.Js, is TestPlatform.Wasm -> listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+                else -> listOf("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su")
+            },
             DayOfWeekStyle.ABBREVIATED to listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
         ) { (style, expected) ->
             DayOfWeek.entries.map { it.localize(DayOfWeekOptions(style = style)) } shouldBe expected

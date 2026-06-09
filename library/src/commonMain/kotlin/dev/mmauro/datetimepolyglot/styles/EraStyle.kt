@@ -3,7 +3,7 @@ package dev.mmauro.datetimepolyglot.styles
 /**
  * Style of an era.
  *
- * See [hhttps://www.unicode.org/reports/tr35/tr35-dates.html#dfst-era](hhttps://www.unicode.org/reports/tr35/tr35-dates.html#dfst-era)
+ * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-era](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-era)
  */
 enum class EraStyle {
 
