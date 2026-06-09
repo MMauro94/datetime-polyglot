@@ -4,8 +4,11 @@ import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.LOCALE_POLISH
 import dev.mmauro.datetimepolyglot.TestPlatform
-import dev.mmauro.datetimepolyglot.noJs
+import dev.mmauro.datetimepolyglot.TestPlatform.Android
+import dev.mmauro.datetimepolyglot.TestPlatform.Js
 import dev.mmauro.datetimepolyglot.noPlatforms
+import dev.mmauro.datetimepolyglot.noWeb
+import dev.mmauro.datetimepolyglot.plus
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAsOneOf
 import dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle
@@ -52,7 +55,7 @@ val LocalDateLocalizerTestFactory = funSpec {
                     dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS,
                 )
                 // Older ICU versions (e.g. old Android SDKs) produce the latter pattern, modern one produce the first
-                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAsOneOf  when (eraStyle) {
+                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAsOneOf when (eraStyle) {
                     EraStyle.NARROW -> listOf("01/08/2026 A", "01 08, 2026 A")
                     EraStyle.ABBREVIATED -> listOf("01/08/2026 AD", "01 08, 2026 AD")
                     EraStyle.WIDE -> listOf("01/08/2026 Anno Domini", "01 08, 2026 Anno Domini")
@@ -61,8 +64,8 @@ val LocalDateLocalizerTestFactory = funSpec {
         }
         context("year style").config(
             enabledOrReasonIf = noPlatforms(
-                platforms = setOf(TestPlatform.JS_NODE, TestPlatform.ANDROID),
-                "NodeJS and Android have a bug formatting older dates: 01/01/123 gets formatted as Jan 2nd instead of Jan 1st"
+                platforms = Js.Node + Android,
+                reason = "NodeJS and Android have a bug formatting older dates: 01/01/123 gets formatted as Jan 2nd instead of Jan 1st"
             )
         ) {
             fun YearStyle.test() {
@@ -83,7 +86,7 @@ val LocalDateLocalizerTestFactory = funSpec {
             }
 
             test("NUMERIC_PADDED_4_DIGITS").config(
-                enabledOrReasonIf = noJs("Web target doesn't support NUMERIC_PADDED_4_DIGITS"),
+                enabledOrReasonIf = noWeb("Web target doesn't support NUMERIC_PADDED_4_DIGITS"),
             ) {
                 YearStyle.NUMERIC_PADDED_4_DIGITS.test()
             }
@@ -135,7 +138,7 @@ val LocalDateLocalizerTestFactory = funSpec {
             }
 
             test("SHORT").config(
-                enabledOrReasonIf = noJs("JS formats DayOfWeekStyle.SHORT differently (see DayOfWeekLocalizerTest)")
+                enabledOrReasonIf = noWeb("Web formats DayOfWeekStyle.SHORT differently (see DayOfWeekLocalizerTest)"),
             ) {
                 DayOfWeekStyle.SHORT.test()
             }

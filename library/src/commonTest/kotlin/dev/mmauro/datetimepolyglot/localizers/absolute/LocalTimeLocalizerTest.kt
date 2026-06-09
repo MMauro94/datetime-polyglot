@@ -3,9 +3,12 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 import dev.mmauro.datetimepolyglot.HourCycle
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
-import dev.mmauro.datetimepolyglot.TestPlatform
+import dev.mmauro.datetimepolyglot.TestPlatform.Android
+import dev.mmauro.datetimepolyglot.TestPlatform.Js
+import dev.mmauro.datetimepolyglot.TestPlatform.Jvm
 import dev.mmauro.datetimepolyglot.noPlatforms
 import dev.mmauro.datetimepolyglot.noWeb
+import dev.mmauro.datetimepolyglot.plus
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAsOneOf
 import dev.mmauro.datetimepolyglot.styles.DayPeriodStyle
@@ -84,7 +87,7 @@ val LocalTimeLocalizerTestFactory = funSpec {
 
             test("NUMERIC_PADDED_2_DIGITS").config(
                 enabledOrReasonIf = noPlatforms(
-                    platforms = setOf(TestPlatform.JVM, TestPlatform.ANDROID, TestPlatform.JS_NODE),
+                    platforms = Jvm + Android + Js.Node,
                     reason = "This platform doesn't respect padding request for hour"
                 ),
             ) {
@@ -132,7 +135,7 @@ val LocalTimeLocalizerTestFactory = funSpec {
 
                 test("NUMERIC_PADDED_2_DIGITS").config(
                     enabledOrReasonIf = noPlatforms(
-                        platforms = setOf(TestPlatform.JVM, TestPlatform.ANDROID, TestPlatform.JS_NODE),
+                        platforms = Jvm + Android + Js.Node,
                         reason = "This platform doesn't respect padding request for second in this case"
                     ),
                 ) {
