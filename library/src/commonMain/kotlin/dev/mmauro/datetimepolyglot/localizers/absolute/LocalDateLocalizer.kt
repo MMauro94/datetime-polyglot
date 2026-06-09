@@ -5,10 +5,13 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import kotlinx.datetime.LocalDate
 
-expect class LocalDateLocalizer(
+// For now this constructor is private because it's useless for users to manually create a DateOptions instance
+expect class LocalDateLocalizer private constructor(
     options: DateOptions,
     locale: PlatformLocale = getDefaultLocale(),
 ) : DateTimeLocalizer<LocalDate> {
+
+    constructor(options: DateStyleOptions, locale: PlatformLocale = getDefaultLocale())
 
     override fun localize(value: LocalDate): String
 }
@@ -19,13 +22,6 @@ expect class LocalDateLocalizer(
  * @see LocalDateLocalizer
  */
 fun LocalDate.localize(
-    options: DateOptions,
+    options: DateStyleOptions,
     locale: PlatformLocale = getDefaultLocale(),
 ) = LocalDateLocalizer(options, locale).localize(this)
-
-internal fun DateOptions.toComponentOptions(): ComponentsOptions.Date {
-    return when (this) {
-        is DateStyle -> ComponentsOptions.Date.Style(this)
-        is DateComponents -> this
-    }
-}

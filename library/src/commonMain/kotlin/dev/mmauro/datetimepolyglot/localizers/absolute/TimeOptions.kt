@@ -19,6 +19,9 @@ data class TimeOptions<out SO : TimeStyleOptions>(
     val hourCycle: HourCycle? = null,
 )
 
+typealias LocalTimeOptions = TimeOptions<TimeStyleOptions.Local>
+typealias ZonedTimeOptions = TimeOptions<TimeStyleOptions.Local>
+
 /**
  * Options to pass to [TimeOptions.styleOptions], that define the style of each time component.
  *
@@ -109,7 +112,7 @@ sealed interface TimeComponents : TimeStyleOptions {
         override val timeZoneStyle: Nothing? get() = null
 
         init {
-            require(fractionalSecondDigits in 0..3) { "fractionalSecondDigits must be in 0..3" }
+            checkFractionalSecondDigits(fractionalSecondDigits)
         }
     }
 
@@ -122,10 +125,21 @@ sealed interface TimeComponents : TimeStyleOptions {
         override val timeZoneStyle: TimeZoneStyle,
     ) : TimeComponents, TimeStyleOptions.Zoned, ComponentsOptions.TimeStyleOptions.Components {
         init {
-            require(fractionalSecondDigits in 0..3) { "fractionalSecondDigits must be in 0..3" }
+            checkFractionalSecondDigits(fractionalSecondDigits)
         }
     }
 }
 
+private fun checkFractionalSecondDigits(fractionalSecondDigits: Int) {
+    require(fractionalSecondDigits in 0..3) { "fractionalSecondDigits must be in 0..3" }
+}
 
-
+internal fun TimeOptions<*>.toComponentOptions(): ComponentsOptions.Time {
+    return ComponentsOptions.Time(
+        styleOptions = when (styleOptions) {
+            is TimeStyle -> ComponentsOptions.TimeStyleOptions.Style(styleOptions)
+            is TimeComponents.Local, is TimeComponents.Zoned -> styleOptions
+        },
+        hourCycle = hourCycle,
+    )
+}

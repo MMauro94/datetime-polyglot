@@ -6,9 +6,11 @@ import dev.mmauro.datetimepolyglot.getDefaultLocale
 import kotlinx.datetime.LocalTime
 
 expect class LocalTimeLocalizer(
-    options: TimeOptions<TimeStyleOptions.Local>,
+    options: LocalTimeOptions,
     locale: PlatformLocale = getDefaultLocale(),
 ) : DateTimeLocalizer<LocalTime> {
+
+    constructor(options: TimeStyleOptions.Local, locale: PlatformLocale = getDefaultLocale())
 
     override fun localize(value: LocalTime): String
 }
@@ -19,16 +21,17 @@ expect class LocalTimeLocalizer(
  * @see LocalTimeLocalizer
  */
 fun LocalTime.localize(
-    options: TimeOptions<TimeStyleOptions.Local>,
+    options: LocalTimeOptions,
     locale: PlatformLocale = getDefaultLocale(),
 ) = LocalTimeLocalizer(options, locale).localize(this)
 
-internal fun TimeOptions<*>.toComponentOptions(): ComponentsOptions.Time {
-    return ComponentsOptions.Time(
-        styleOptions = when (styleOptions) {
-            is TimeStyle -> ComponentsOptions.TimeStyleOptions.Style(styleOptions)
-            is TimeComponents.Local, is TimeComponents.Zoned -> styleOptions
-        },
-        hourCycle = hourCycle,
-    )
-}
+/**
+ * Localizes this [LocalTime] with the given [options] in the given [locale].
+ *
+ * @see LocalTimeLocalizer
+ */
+fun LocalTime.localize(
+    options: TimeStyleOptions.Local,
+    locale: PlatformLocale = getDefaultLocale(),
+) = LocalTimeLocalizer(options, locale).localize(this)
+

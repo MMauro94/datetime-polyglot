@@ -14,7 +14,6 @@ import dev.mmauro.datetimepolyglot.styles.MinuteStyle
 import dev.mmauro.datetimepolyglot.styles.SecondStyle
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.funSpec
-import io.kotest.datatest.withContexts
 import io.kotest.datatest.withTests
 import kotlinx.datetime.LocalTime
 
@@ -24,7 +23,7 @@ val LocalTimeLocalizerTestFactory = funSpec {
     context("styles") {
         context("normal") {
             withTests(TimeStyle.Local.entries) { timeStyle ->
-                TIME.localize(TimeOptions(timeStyle), LOCALE_ENGLISH) shouldBeLocalizedAs when (timeStyle) {
+                TIME.localize(timeStyle, LOCALE_ENGLISH) shouldBeLocalizedAs when (timeStyle) {
                     TimeStyle.Local.SHORT -> "9:05 PM"
                     TimeStyle.Local.MEDIUM -> "9:05:08 PM"
                 }
@@ -59,11 +58,9 @@ val LocalTimeLocalizerTestFactory = funSpec {
     context("components") {
         test("basic test") {
             TIME.localize(
-                options = TimeOptions(
-                    TimeComponents.Local(
-                        hourStyle = HourStyle.NUMERIC,
-                        minuteStyle = MinuteStyle.NUMERIC,
-                    )
+                options = TimeComponents.Local(
+                    hourStyle = HourStyle.NUMERIC,
+                    minuteStyle = MinuteStyle.NUMERIC,
                 ),
                 locale = LOCALE_ENGLISH,
             ) shouldBeLocalizedAs "9:05 PM"
@@ -71,13 +68,11 @@ val LocalTimeLocalizerTestFactory = funSpec {
 
         context("hour style") {
             fun HourStyle.test() {
-                val options = TimeOptions(
-                    TimeComponents.Local(
-                        hourStyle = this,
-                        minuteStyle = null,
-                    )
+                val components = TimeComponents.Local(
+                    hourStyle = this,
+                    minuteStyle = null,
                 )
-                TIME.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (this) {
+                TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs when (this) {
                     HourStyle.NUMERIC -> "9 PM"
                     HourStyle.NUMERIC_PADDED_2_DIGITS -> "09 PM"
                 }
@@ -98,40 +93,34 @@ val LocalTimeLocalizerTestFactory = funSpec {
         }
         context("minute style") {
             withTests(MinuteStyle.entries) { minuteStyle ->
-                val options = TimeOptions(
-                    TimeComponents.Local(
-                        hourStyle = HourStyle.NUMERIC,
-                        minuteStyle = minuteStyle,
-                    )
+                val components = TimeComponents.Local(
+                    hourStyle = HourStyle.NUMERIC,
+                    minuteStyle = minuteStyle,
                 )
                 // Note: no-padding request is not respected in this case by any platform
-                TIME.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs "9:05 PM"
+                TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs "9:05 PM"
             }
         }
         context("second style") {
             context("with minutes") {
                 withTests(SecondStyle.entries) { secondStyle ->
-                    val options = TimeOptions(
-                        TimeComponents.Local(
-                            hourStyle = HourStyle.NUMERIC,
-                            minuteStyle = MinuteStyle.NUMERIC,
-                            secondStyle = secondStyle,
-                        )
+                    val components = TimeComponents.Local(
+                        hourStyle = HourStyle.NUMERIC,
+                        minuteStyle = MinuteStyle.NUMERIC,
+                        secondStyle = secondStyle,
                     )
                     // Note: no-padding request is not respected in this case by any platform
-                    TIME.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs "9:05:08 PM"
+                    TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs "9:05:08 PM"
                 }
             }
             context("without minutes") {
                 fun SecondStyle.test() {
-                    val options = TimeOptions(
-                        TimeComponents.Local(
-                            hourStyle = HourStyle.NUMERIC,
-                            minuteStyle = null,
-                            secondStyle = this,
-                        )
+                    val components = TimeComponents.Local(
+                        hourStyle = HourStyle.NUMERIC,
+                        minuteStyle = null,
+                        secondStyle = this,
                     )
-                    TIME.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (this) {
+                    TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs when (this) {
                         SecondStyle.NUMERIC -> "9 PM (second: 8)"
                         SecondStyle.NUMERIC_PADDED_2_DIGITS -> "9 PM (second: 08)"
                     }
@@ -154,15 +143,13 @@ val LocalTimeLocalizerTestFactory = funSpec {
         context("fractional second digits") {
             context("with minutes and seconds") {
                 withTests(1..3) { fractionalSecondDigits ->
-                    val options = TimeOptions(
-                        TimeComponents.Local(
-                            hourStyle = HourStyle.NUMERIC,
-                            minuteStyle = MinuteStyle.NUMERIC,
-                            secondStyle = SecondStyle.NUMERIC,
-                            fractionalSecondDigits = fractionalSecondDigits,
-                        )
+                    val components = TimeComponents.Local(
+                        hourStyle = HourStyle.NUMERIC,
+                        minuteStyle = MinuteStyle.NUMERIC,
+                        secondStyle = SecondStyle.NUMERIC,
+                        fractionalSecondDigits = fractionalSecondDigits,
                     )
-                    TIME.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (fractionalSecondDigits) {
+                    TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs when (fractionalSecondDigits) {
                         1 -> "9:05:08.1 PM"
                         2 -> "9:05:08.12 PM"
                         3 -> "9:05:08.123 PM"
@@ -174,15 +161,13 @@ val LocalTimeLocalizerTestFactory = funSpec {
                 enabledOrReasonIf = noWeb("Web platforms do not care for fractional second digits if minute is undefined (may be a bug?)"),
             ) {
                 withTests(1..3) { fractionalSecondDigits ->
-                    val options = TimeOptions(
-                        TimeComponents.Local(
-                            hourStyle = HourStyle.NUMERIC,
-                            minuteStyle = null,
-                            secondStyle = SecondStyle.NUMERIC,
-                            fractionalSecondDigits = fractionalSecondDigits,
-                        )
+                    val components = TimeComponents.Local(
+                        hourStyle = HourStyle.NUMERIC,
+                        minuteStyle = null,
+                        secondStyle = SecondStyle.NUMERIC,
+                        fractionalSecondDigits = fractionalSecondDigits,
                     )
-                    TIME.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (fractionalSecondDigits) {
+                    TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs when (fractionalSecondDigits) {
                         1 -> "9 PM (second: 8.1)"
                         2 -> "9 PM (second: 8.12)"
                         3 -> "9 PM (second: 8.123)"
@@ -192,16 +177,14 @@ val LocalTimeLocalizerTestFactory = funSpec {
             }
             context("with no minute and seconds") {
                 withTests(1..3) { fractionalSecondDigits ->
-                    val options = TimeOptions(
-                        TimeComponents.Local(
-                            hourStyle = HourStyle.NUMERIC,
-                            minuteStyle = null,
-                            secondStyle = null,
-                            fractionalSecondDigits = fractionalSecondDigits,
-                        )
+                    val components = TimeComponents.Local(
+                        hourStyle = HourStyle.NUMERIC,
+                        minuteStyle = null,
+                        secondStyle = null,
+                        fractionalSecondDigits = fractionalSecondDigits,
                     )
                     // Note: JS browser uses latter format, the rest of platforms use the first one
-                    TIME.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAsOneOf when (fractionalSecondDigits) {
+                    TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAsOneOf when (fractionalSecondDigits) {
                         1 -> listOf("9 PM ├F14: 1┤", "9 PM (Fractional Second: 1)")
                         2 -> listOf("9 PM ├F14: 12┤", "9 PM (Fractional Second: 12)")
                         3 -> listOf("9 PM ├F14: 123┤", "9 PM (Fractional Second: 123)")
@@ -213,27 +196,23 @@ val LocalTimeLocalizerTestFactory = funSpec {
         context("day period style") {
             context("using a h24 locale has no effect") {
                 withTests(DayPeriodStyle.entries) { dayPeriodStyle ->
-                    val options = TimeOptions(
-                        TimeComponents.Local(
-                            hourStyle = HourStyle.NUMERIC,
-                            minuteStyle = null,
-                            dayPeriodStyle = dayPeriodStyle,
-                        )
+                    val components = TimeComponents.Local(
+                        hourStyle = HourStyle.NUMERIC,
+                        minuteStyle = null,
+                        dayPeriodStyle = dayPeriodStyle,
                     )
-                    TIME.localize(options, LOCALE_ITALIAN) shouldBeLocalizedAs "21"
+                    TIME.localize(components, LOCALE_ITALIAN) shouldBeLocalizedAs "21"
                 }
             }
             context("using a h12 locale") {
                 withTests(DayPeriodStyle.entries) { dayPeriodStyle ->
-                    val options = TimeOptions(
-                        TimeComponents.Local(
-                            hourStyle = HourStyle.NUMERIC,
-                            minuteStyle = null,
-                            dayPeriodStyle = dayPeriodStyle,
-                        )
+                    val components = TimeComponents.Local(
+                        hourStyle = HourStyle.NUMERIC,
+                        minuteStyle = null,
+                        dayPeriodStyle = dayPeriodStyle,
                     )
                     // Note: in most languages, all three styles have the same value
-                    TIME.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs "9 at night"
+                    TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs "9 at night"
                 }
             }
             context("using a h24 locale with overridden hour cycle") {
@@ -252,16 +231,14 @@ val LocalTimeLocalizerTestFactory = funSpec {
             }
             context("with other components") {
                 withTests(DayPeriodStyle.entries) { dayPeriodStyle ->
-                    val options = TimeOptions(
-                        TimeComponents.Local(
-                            hourStyle = HourStyle.NUMERIC,
-                            minuteStyle = MinuteStyle.NUMERIC,
-                            secondStyle = SecondStyle.NUMERIC,
-                            dayPeriodStyle = dayPeriodStyle,
-                        )
+                    val components = TimeComponents.Local(
+                        hourStyle = HourStyle.NUMERIC,
+                        minuteStyle = MinuteStyle.NUMERIC,
+                        secondStyle = SecondStyle.NUMERIC,
+                        dayPeriodStyle = dayPeriodStyle,
                     )
                     // Note: in most languages, all three styles have the same value
-                    TIME.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs "9:05:08 at night"
+                    TIME.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs "9:05:08 at night"
                 }
             }
         }

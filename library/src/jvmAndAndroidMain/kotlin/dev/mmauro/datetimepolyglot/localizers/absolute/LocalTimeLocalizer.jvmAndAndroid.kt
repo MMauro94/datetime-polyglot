@@ -11,6 +11,8 @@ actual class LocalTimeLocalizer actual constructor(
     locale: PlatformLocale
 ) : DateTimeLocalizer<LocalTime> {
 
+    actual constructor(options: TimeStyleOptions.Local, locale: PlatformLocale) : this(TimeOptions(options), locale)
+
     private val dateFormat = ComponentsOptions(timeOptions = options.toComponentOptions()).toDateFormat(locale)
 
     actual override fun localize(value: LocalTime): String {

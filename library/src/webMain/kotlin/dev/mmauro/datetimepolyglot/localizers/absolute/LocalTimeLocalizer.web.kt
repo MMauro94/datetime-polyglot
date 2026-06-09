@@ -12,6 +12,9 @@ actual class LocalTimeLocalizer actual constructor(
     private val options: TimeOptions<TimeStyleOptions.Local>,
     private val locale: PlatformLocale
 ) : DateTimeLocalizer<LocalTime> {
+
+    actual constructor(options: TimeStyleOptions.Local, locale: PlatformLocale) : this(TimeOptions(options), locale)
+
     actual override fun localize(value: LocalTime): String {
         val formatOptions = unsafeJso<DateTimeFormatOptions> {
             fill(options.toComponentOptions())
