@@ -1,15 +1,18 @@
 package dev.mmauro.datetimepolyglot
 
 import js.temporal.PlainDate
+import js.temporal.PlainDateTime
 import js.temporal.PlainTime
 import js.temporal.PlainYearMonth
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.YearMonth
 import kotlinx.datetime.number
 import kotlin.time.Instant
 import js.temporal.Instant as JsInstant
 
+internal fun LocalDateTime.toPlainDateTime(): PlainDateTime = date.toPlainDate().toPlainDateTime(time.toPlainTime())
 internal fun LocalDate.toPlainDate(): PlainDate = PlainDate(year, month.number, day)
 internal fun LocalTime.toPlainTime(): PlainTime {
     val milliseconds = nanosecond / 1000 / 1000

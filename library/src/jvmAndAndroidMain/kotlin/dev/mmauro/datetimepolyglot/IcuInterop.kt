@@ -4,6 +4,7 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.Month
 import java.time.ZonedDateTime
@@ -14,6 +15,7 @@ internal const val ICU_UNICODE_HOUR_CYCLE_EXTENSION_KEY = "hc"
 internal expect abstract class DateFormat
 
 internal expect fun DateFormat.format(zonedDateTime: ZonedDateTime): String
+internal expect fun DateFormat.format(localDateTime: LocalDateTime): String
 internal expect fun DateFormat.format(localDate: LocalDate): String
 internal expect fun DateFormat.format(localTime: LocalTime): String
 internal expect fun DateFormat.format(month: Month): String

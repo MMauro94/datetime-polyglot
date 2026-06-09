@@ -11,8 +11,10 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import android.icu.text.SimpleDateFormat as AndroidSimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.Month
+import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.temporal.Temporal
@@ -26,6 +28,24 @@ internal actual fun DateFormat.format(month: Month): String {
     } else {
         timeZone = TimeZone.GMT_ZONE
         format(LocalDate.of(0, month, 1).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli())
+    }
+}
+
+internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime): String {
+    return if (Build.VERSION.SDK_INT >= 37) {
+        format(zonedDateTime as Temporal)
+    } else {
+        timeZone = TimeZone.getTimeZone(zonedDateTime.zone.id)
+        format(zonedDateTime.toInstant().toEpochMilli())
+    }
+}
+
+internal actual fun DateFormat.format(localDateTime: LocalDateTime): String {
+    return if (Build.VERSION.SDK_INT >= 37) {
+        format(localDateTime as Temporal)
+    } else {
+        timeZone = TimeZone.GMT_ZONE
+        format(localDateTime.atOffset(ZoneOffset.UTC).toInstant().toEpochMilli())
     }
 }
 
@@ -44,15 +64,6 @@ internal actual fun DateFormat.format(localTime: LocalTime): String {
     } else {
         timeZone = TimeZone.GMT_ZONE
         format(localTime.atDate(LocalDate.ofEpochDay(0)).toInstant(ZoneOffset.UTC).toEpochMilli())
-    }
-}
-
-internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime): String {
-    return if (Build.VERSION.SDK_INT >= 37) {
-        format(zonedDateTime as Temporal)
-    } else {
-        timeZone = TimeZone.getTimeZone(zonedDateTime.zone.id)
-        format(zonedDateTime.toInstant().toEpochMilli())
     }
 }
 

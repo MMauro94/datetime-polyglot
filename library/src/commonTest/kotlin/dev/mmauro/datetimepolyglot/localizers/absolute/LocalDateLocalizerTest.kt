@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.LOCALE_POLISH
+import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TEST_PLATFORM
 import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.TestPlatform.Js
@@ -17,6 +18,7 @@ import dev.mmauro.datetimepolyglot.styles.MonthStyle
 import dev.mmauro.datetimepolyglot.styles.YearStyle
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.funSpec
+import io.kotest.core.spec.style.scopes.FunSpecContainerScope
 import io.kotest.datatest.withTests
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
@@ -46,109 +48,8 @@ val LocalDateLocalizerTestFactory = funSpec {
             ) shouldBeLocalizedAs "01/08/2026"
         }
 
-        context("era style") {
-            withTests(EraStyle.entries) { eraStyle ->
-                val options = DateComponents(
-                    eraStyle = eraStyle,
-                    monthStyle = MonthStyle.NUMERIC_PADDED_2_DIGITS,
-                    dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS,
-                )
-                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (val platform = TEST_PLATFORM) {
-                    // Older ICU versions in older Android SDKs are broken in this way
-                    is Android if platform.sdk < 33 -> when (eraStyle) {
-                        EraStyle.NARROW -> "01 08, 2026 A"
-                        EraStyle.ABBREVIATED -> "01 08, 2026 AD"
-                        EraStyle.WIDE -> "01 08, 2026 Anno Domini"
-                    }
-
-                    else -> when (eraStyle) {
-                        EraStyle.NARROW -> "01/08/2026 A"
-                        EraStyle.ABBREVIATED -> "01/08/2026 AD"
-                        EraStyle.WIDE -> "01/08/2026 Anno Domini"
-                    }
-                }
-            }
-        }
-        context("year style").config(
-            enabledOrReasonIf = noPlatforms(
-                platforms = Js.Node + Android,
-                reason = "NodeJS and Android have a bug formatting older dates: 01/01/123 gets formatted as Jan 2nd instead of Jan 1st"
-            )
-        ) {
-            fun YearStyle.test() {
-                val options = DateComponents(
-                    yearStyle = this,
-                    monthStyle = MonthStyle.NUMERIC_PADDED_2_DIGITS,
-                    dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS,
-                )
-                LocalDate(123, Month.JANUARY, 1).localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (this) {
-                    YearStyle.NUMERIC -> "01/01/123"
-                    YearStyle.NUMERIC_2_DIGITS -> "01/01/23"
-                    YearStyle.NUMERIC_PADDED_4_DIGITS -> "01/01/0123"
-                }
-            }
-
-            withTests(YearStyle.entries - YearStyle.NUMERIC_PADDED_4_DIGITS) { yearStyle ->
-                yearStyle.test()
-            }
-
-            test("NUMERIC_PADDED_4_DIGITS").config(
-                enabledOrReasonIf = noWeb("Web target doesn't support NUMERIC_PADDED_4_DIGITS"),
-            ) {
-                YearStyle.NUMERIC_PADDED_4_DIGITS.test()
-            }
-        }
-        context("month style") {
-            withTests(MonthStyle.entries) { monthStyle ->
-                val options = DateComponents(
-                    monthStyle = monthStyle,
-                    dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
-                )
-                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (monthStyle) {
-                    MonthStyle.NUMERIC -> "1/8/2026"
-                    MonthStyle.NUMERIC_PADDED_2_DIGITS -> "01/8/2026"
-                    MonthStyle.NARROW -> "J 8, 2026"
-                    MonthStyle.ABBREVIATED -> "Jan 8, 2026"
-                    MonthStyle.WIDE -> "January 8, 2026"
-                }
-            }
-        }
-        context("day of month style") {
-            withTests(DayOfMonthStyle.entries) { dayOfMonthStyle ->
-                val options = DateComponents(
-                    monthStyle = MonthStyle.NUMERIC,
-                    dayOfMonthStyle = dayOfMonthStyle,
-                )
-                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (dayOfMonthStyle) {
-                    DayOfMonthStyle.NUMERIC -> "1/8/2026"
-                    DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS -> "1/08/2026"
-                }
-            }
-        }
-        context("day of week style") {
-            fun DayOfWeekStyle.test() {
-                val options = DateComponents(
-                    monthStyle = MonthStyle.WIDE,
-                    dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
-                    dayOfWeekStyle = this,
-                )
-                DATE.localize(options, LOCALE_ENGLISH) shouldBeLocalizedAs when (this) {
-                    DayOfWeekStyle.NARROW -> "T, January 8, 2026"
-                    DayOfWeekStyle.SHORT -> "Th, January 8, 2026"
-                    DayOfWeekStyle.ABBREVIATED -> "Thu, January 8, 2026"
-                    DayOfWeekStyle.WIDE -> "Thursday, January 8, 2026"
-                }
-            }
-
-            withTests(DayOfWeekStyle.entries - DayOfWeekStyle.SHORT) { dayOfWeekStyle ->
-                dayOfWeekStyle.test()
-            }
-
-            test("SHORT").config(
-                enabledOrReasonIf = noWeb("Web formats DayOfWeekStyle.SHORT differently (see DayOfWeekLocalizerTest)"),
-            ) {
-                DayOfWeekStyle.SHORT.test()
-            }
+        dateComponentsTests { date, components, expected ->
+            date.localize(components, LOCALE_ENGLISH) shouldBeLocalizedAs expected
         }
 
         test("works in different language") {
@@ -174,6 +75,120 @@ val LocalDateLocalizerTestFactory = funSpec {
     }
 
     // TODO understand day of week standalone vs format in polish/anohter language
+}
+
+suspend fun FunSpecContainerScope.dateComponentsTests(
+    runTest: (date: LocalDate, components: DateComponents, expected: String) -> Unit,
+) {
+    context("era style") {
+        withTests(EraStyle.entries) { eraStyle ->
+            val options = DateComponents(
+                eraStyle = eraStyle,
+                monthStyle = MonthStyle.NUMERIC_PADDED_2_DIGITS,
+                dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS,
+            )
+            val expected = when (val platform = TEST_PLATFORM) {
+                // Older ICU versions in older Android SDKs are broken in this way
+                is Android if platform.sdk < 33 -> when (eraStyle) {
+                    EraStyle.NARROW -> "01 08, 2026 A"
+                    EraStyle.ABBREVIATED -> "01 08, 2026 AD"
+                    EraStyle.WIDE -> "01 08, 2026 Anno Domini"
+                }
+
+                else -> when (eraStyle) {
+                    EraStyle.NARROW -> "01/08/2026 A"
+                    EraStyle.ABBREVIATED -> "01/08/2026 AD"
+                    EraStyle.WIDE -> "01/08/2026 Anno Domini"
+                }
+            }
+            runTest(DATE, options, expected)
+        }
+    }
+    context("year style").config(
+        enabledOrReasonIf = noPlatforms(
+            platforms = Js.Node + Android,
+            reason = "NodeJS and Android have a bug formatting older dates: 01/01/123 gets formatted as Jan 2nd instead of Jan 1st"
+        )
+    ) {
+        fun YearStyle.test() {
+            val options = DateComponents(
+                yearStyle = this,
+                monthStyle = MonthStyle.NUMERIC_PADDED_2_DIGITS,
+                dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS,
+            )
+            val expected = when (this) {
+                YearStyle.NUMERIC -> "01/01/123"
+                YearStyle.NUMERIC_2_DIGITS -> "01/01/23"
+                YearStyle.NUMERIC_PADDED_4_DIGITS -> "01/01/0123"
+            }
+            runTest(LocalDate(123, Month.JANUARY, 1), options, expected)
+        }
+
+        withTests(YearStyle.entries - YearStyle.NUMERIC_PADDED_4_DIGITS) { yearStyle ->
+            yearStyle.test()
+        }
+
+        test("NUMERIC_PADDED_4_DIGITS").config(
+            enabledOrReasonIf = noWeb("Web target doesn't support NUMERIC_PADDED_4_DIGITS"),
+        ) {
+            YearStyle.NUMERIC_PADDED_4_DIGITS.test()
+        }
+    }
+    context("month style") {
+        withTests(MonthStyle.entries) { monthStyle ->
+            val options = DateComponents(
+                monthStyle = monthStyle,
+                dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
+            )
+            val expected = when (monthStyle) {
+                MonthStyle.NUMERIC -> "1/8/2026"
+                MonthStyle.NUMERIC_PADDED_2_DIGITS -> "01/8/2026"
+                MonthStyle.NARROW -> "J 8, 2026"
+                MonthStyle.ABBREVIATED -> "Jan 8, 2026"
+                MonthStyle.WIDE -> "January 8, 2026"
+            }
+            runTest(DATE, options, expected)
+        }
+    }
+    context("day of month style") {
+        withTests(DayOfMonthStyle.entries) { dayOfMonthStyle ->
+            val options = DateComponents(
+                monthStyle = MonthStyle.NUMERIC,
+                dayOfMonthStyle = dayOfMonthStyle,
+            )
+            val expected = when (dayOfMonthStyle) {
+                DayOfMonthStyle.NUMERIC -> "1/8/2026"
+                DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS -> "1/08/2026"
+            }
+            runTest(DATE, options, expected)
+        }
+    }
+    context("day of week style") {
+        fun DayOfWeekStyle.test() {
+            val options = DateComponents(
+                monthStyle = MonthStyle.WIDE,
+                dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
+                dayOfWeekStyle = this,
+            )
+            val expected = when (this) {
+                DayOfWeekStyle.NARROW -> "T, January 8, 2026"
+                DayOfWeekStyle.SHORT -> "Th, January 8, 2026"
+                DayOfWeekStyle.ABBREVIATED -> "Thu, January 8, 2026"
+                DayOfWeekStyle.WIDE -> "Thursday, January 8, 2026"
+            }
+            runTest(DATE, options, expected)
+        }
+
+        withTests(DayOfWeekStyle.entries - DayOfWeekStyle.SHORT) { dayOfWeekStyle ->
+            dayOfWeekStyle.test()
+        }
+
+        test("SHORT").config(
+            enabledOrReasonIf = noWeb("Web formats DayOfWeekStyle.SHORT differently (see DayOfWeekLocalizerTest)"),
+        ) {
+            DayOfWeekStyle.SHORT.test()
+        }
+    }
 }
 
 class LocalDateLocalizerTest : FunSpec({ include(LocalDateLocalizerTestFactory) })

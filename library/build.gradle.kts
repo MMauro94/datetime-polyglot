@@ -24,6 +24,7 @@ version = providers
 kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
+        freeCompilerArgs.add("-Xconsistent-data-class-copy-visibility")
     }
     @OptIn(ExperimentalAbiValidation::class)
     abiValidation {
