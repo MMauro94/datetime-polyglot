@@ -12,10 +12,10 @@ import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
  *
  * @property styleOptions options defining which style to use
  * @property hourCycle if not null, overrides the hour cycle (H11, H12, H23, H24) to use. When `null`, uses the locale's default
- * @param SO the type of [TimeStyleOptions] to use, either [TimeStyleOptions.Local] or [TimeStyleOptions.Zoned].
+ * @param TSO the type of [TimeStyleOptions] to use, either [TimeStyleOptions.Local] or [TimeStyleOptions.Zoned].
  */
-data class TimeOptions<out SO : TimeStyleOptions>(
-    val styleOptions: SO,
+data class TimeOptions<out TSO : TimeStyleOptions>(
+    val styleOptions: TSO,
     val hourCycle: HourCycle? = null,
 )
 

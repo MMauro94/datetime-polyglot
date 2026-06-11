@@ -1,8 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
-import dev.mmauro.datetimepolyglot.LOCALE_POLISH
-import dev.mmauro.datetimepolyglot.localizers.absolute.invoke
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle
 import dev.mmauro.datetimepolyglot.styles.HourStyle

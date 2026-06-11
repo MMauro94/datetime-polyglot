@@ -7,7 +7,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toJavaLocalDateTime
 
 actual class LocalDateTimeLocalizer actual constructor(
-    options: DateTimeOptions,
+    options: LocalDateTimeOptions,
     locale: PlatformLocale
 ) : DateTimeLocalizer<LocalDateTime> {
 
@@ -24,9 +24,9 @@ actual class LocalDateTimeLocalizer actual constructor(
 operator fun DateTimeOptions.Companion.invoke(
     dateOptions: DateStyleOptions,
     timeOptions: LocalTimeOptions
-): DateTimeOptions = DateTimeOptions(DateOptions(dateOptions), timeOptions)
+): LocalDateTimeOptions = DateTimeOptions(DateOptions(dateOptions), timeOptions)
 
 operator fun DateTimeOptions.Companion.invoke(
     dateOptions: DateStyleOptions,
     timeOptions: TimeStyleOptions.Local
-): DateTimeOptions = DateTimeOptions(DateOptions(dateOptions), TimeOptions(timeOptions))
+): LocalDateTimeOptions = DateTimeOptions(DateOptions(dateOptions), TimeOptions(timeOptions))
