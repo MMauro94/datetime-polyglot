@@ -31,7 +31,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                         TimeStyle.Local.MEDIUM -> "9:31:45 PM"
                     }
                     DATE_TIME.localize(
-                        DateTimeOptions(dateStyle, timeStyle),
+                        LocalDateTimeOptions(dateStyle, timeStyle),
                         LOCALE_ENGLISH
                     ) shouldBeLocalizedAs when (dateStyle) {
                         DateStyle.SHORT -> "1/8/26, $expectedTime"
@@ -47,7 +47,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
             context("H24") {
                 withTests(TimeStyle.Local.entries) { timeStyle ->
                     DATE_TIME.localize(
-                        options = DateTimeOptions(
+                        options = LocalDateTimeOptions(
                             dateOptions = DateStyle.SHORT,
                             timeOptions = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24)
                         ),
@@ -61,7 +61,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
             context("H12") {
                 withTests(TimeStyle.Local.entries) { timeStyle ->
                     DATE_TIME.localize(
-                        options = DateTimeOptions(
+                        options = LocalDateTimeOptions(
                             dateOptions = DateStyle.SHORT,
                             timeOptions = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
                         ),
@@ -78,7 +78,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
     context("components") {
         test("basic test") {
             DATE_TIME.localize(
-                options = DateTimeOptions(
+                options = LocalDateTimeOptions(
                     dateOptions = DateComponents(
                         monthStyle = MonthStyle.ABBREVIATED,
                         dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
@@ -95,7 +95,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
 
         dateComponentsTests { date, components, expectedDate ->
             val localized = date.atTime(DATE_TIME.time).localize(
-                options = DateTimeOptions(
+                options = LocalDateTimeOptions(
                     dateOptions = components,
                     timeOptions = TimeComponents.Local(
                         hourStyle = HourStyle.NUMERIC,
@@ -111,7 +111,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
 
         timeComponentTests { time, options, testLocale, expectedTime ->
             val localized = DATE_TIME.date.atTime(time).localize(
-                options = DateTimeOptions(
+                options = LocalDateTimeOptions(
                     dateOptions = DateComponents(
                         monthStyle = MonthStyle.ABBREVIATED,
                         dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
@@ -129,7 +129,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
 
         test("works in different language") {
             DATE_TIME.localize(
-                options = DateTimeOptions(
+                options = LocalDateTimeOptions(
                     dateOptions = DateStyle.MEDIUM,
                     timeOptions = TimeStyle.Local.SHORT,
                 ),
@@ -139,7 +139,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
 
         test("ensure it's not using standalone format for month") {
             DATE_TIME.localize(
-                options = DateTimeOptions(
+                options = LocalDateTimeOptions(
                     dateOptions = DateStyle.LONG,
                     timeOptions = TimeStyle.Local.SHORT,
                 ),

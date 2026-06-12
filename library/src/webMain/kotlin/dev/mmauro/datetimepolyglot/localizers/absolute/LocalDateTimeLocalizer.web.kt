@@ -9,7 +9,7 @@ import js.objects.unsafeJso
 import kotlinx.datetime.LocalDateTime
 
 actual class LocalDateTimeLocalizer actual constructor(
-    private val options: DateTimeOptions,
+    private val options: LocalDateTimeOptions,
     private val locale: PlatformLocale
 ) : DateTimeLocalizer<LocalDateTime> {
 

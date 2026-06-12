@@ -1,8 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
-import dev.mmauro.datetimepolyglot.LOCALE_POLISH
-import dev.mmauro.datetimepolyglot.localizers.absolute.invoke
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle
 import dev.mmauro.datetimepolyglot.styles.HourStyle
@@ -19,7 +17,7 @@ class LocalDateTimeLocalizerJvmAndAndroidTest : FunSpec({
     context("mix-matching date/time style and components works") {
         test("date style with time components") {
             DATE_TIME.localize(
-                options = DateTimeOptions(
+                options = LocalDateTimeOptions(
                     dateOptions = DateStyle.LONG,
                     timeOptions = TimeComponents.Local(
                         hourStyle = HourStyle.NUMERIC,
@@ -32,7 +30,7 @@ class LocalDateTimeLocalizerJvmAndAndroidTest : FunSpec({
         }
         test("date components with time style") {
             DATE_TIME.localize(
-                options = DateTimeOptions(
+                options = LocalDateTimeOptions(
                     dateOptions = DateComponents(
                         monthStyle = MonthStyle.WIDE,
                         dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
