@@ -1,3 +1,4 @@
+import io.github.z4kn4fein.semver.Version
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
@@ -15,11 +16,34 @@ plugins {
 
 val artifactId = "datetime-polyglot"
 group = "dev.mmauro"
-version = providers
-    .gradleProperty("libraryVersion")
-    .orElse("LOCAL-SNAPSHOT")
-    .get()
-    .also { require(!it.startsWith('v')) { "Version string must not start with v" } }
+
+fun Version.Companion.fromTag(tag: String): Version {
+    require(tag.startsWith("v")) { "tag '$tag' doesn't start with v" }
+    return tag.trim().removePrefix("v").let(Version::parse)
+}
+
+val latestVersion = providers.exec {
+    commandLine("git", "describe", "--tags", "--abbrev=0", "--match", "v*")
+    isIgnoreExitValue = true
+}.standardOutput.asText.map { Version.fromTag(it.ifEmpty { "v0.0.0" }) } // TODO remove ifEmpty when we have at least one version
+
+val currentVersion = providers.exec {
+    commandLine("git", "tag", "--points-at", "HEAD", "v*")
+}.standardOutput.asText.map { stdout ->
+    val versions = stdout.split("\n").filter { it.isNotEmpty() }.map { Version.fromTag(it) }
+    check(versions.size <= 1) { "too many versions pointing at HEAD commit ($versions)" }
+
+    val current = versions.singleOrNull()
+    val latest = latestVersion.get()
+
+    when (current) {
+        null -> latest.copy(patch = latest.patch + 1, preRelease = "SNAPSHOT")
+        latest -> latest
+        else -> error("Impossible state: current version commit ($current) is different than latest ($latest)")
+    }
+}
+
+version = currentVersion.get().toString()
 
 kotlin {
     compilerOptions {
