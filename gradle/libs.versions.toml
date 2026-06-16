@@ -3,6 +3,7 @@ android-minSdk = "28"
 android-compileSdk = "36"
 androidx-annotationJvm = "1.10.0"
 agp = "9.0.1"
+dokka = "2.2.0"
 icu = "78.3"
 kotest = "6.1.11"
 kotlin = "2.3.21"
@@ -12,6 +13,7 @@ vanniktechMavenPublish = "0.36.0"
 
 [libraries]
 androidx-annotationJvm = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "androidx-annotationJvm" }
+dokka-versioning = { module = "org.jetbrains.dokka:versioning-plugin", version.ref = "dokka" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-framework = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
@@ -21,6 +23,7 @@ ibm-icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu" }
 
 [plugins]
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 js-plain-objects = { id = "org.jetbrains.kotlin.plugin.js-plain-objects", version.ref = "kotlin" }
 kotest = { id = "io.kotest", version.ref = "kotest" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

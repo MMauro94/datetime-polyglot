@@ -1,4 +1,6 @@
 import dev.mmauro.datetimepolyglot.buildlogic.extensions.GitInfoExtension
+import dev.mmauro.datetimepolyglot.buildlogic.tasks.PrintVersionTask
+import io.github.z4kn4fein.semver.Version
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
@@ -12,6 +14,7 @@ plugins {
     alias(libs.plugins.js.plain.objects)
     alias(libs.plugins.kotest)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.dokka)
     id("dtp")
 }
 
@@ -138,9 +141,64 @@ tasks.named<Test>("jvmTest").configure {
     useJUnitPlatform()
 }
 
+tasks.register<PrintVersionTask>("getCurrentVersion") {
+    description = "Print the version tracket by the current commit"
+    version = gitInfo.currentVersion
+}
+tasks.register<PrintVersionTask>("findLatestStableRelease") {
+    description = "Print the latest stable version found in the repository"
+    version = gitInfo.latestStableRelease
+}
+
 project.plugins.withType<NodeJsPlugin> {
     project.the<NodeJsEnvSpec>().version = "26.2.0"
 }
+
+dependencies {
+    dokkaHtmlPlugin(libs.dokka.versioning)
+}
+
+val dokkaStorage = layout.projectDirectory.dir("../dokka")
+dokka {
+    dokkaSourceSets {
+        named("jvmAndAndroidMain") {
+            displayName = "JVM + Android"
+        }
+    }
+    pluginsConfiguration {
+        versioning {
+            // Add all stable versions
+            olderVersionsDir = dokkaStorage.dir("stable")
+
+            // Add all non-stable versions > current
+            olderVersions.from(
+                dokkaStorage
+                    .asFile
+                    .listFiles { it.isDirectory && it.name !in setOf("stable") }
+                    .orEmpty()
+                    .flatMap { folder ->
+                        folder.listFiles {
+                            it.isDirectory && Version.parse(it.name) > gitInfo.latestVersion.get()
+                        }.toList()
+                    }
+            )
+
+            // Do not store older version inside subdirectory when copying them over for final build
+            olderVersionsDirName = ""
+        }
+    }
+}
+
+tasks.register<Copy>("storeDokkaHtml") {
+    description = "Moves the Dokka documentation to the Dokka storage folder"
+    group = "dokka"
+
+    from("build/dokka/html")
+
+    val version = gitInfo.currentVersion.get()
+    into(dokkaStorage.dir(version.preRelease?.lowercase() ?: "stable").dir(version.toString()))
+}
+
 
 mavenPublishing {
     publishToMavenCentral()

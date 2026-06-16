@@ -9,6 +9,7 @@ import kotlin.text.ifEmpty
 interface GitInfoExtension {
     val latestVersion: Provider<Version>
     val currentVersion: Provider<Version>
+    val latestStableRelease: Provider<Version>
 }
 
 class DefaultGitInfoExtension(
@@ -36,4 +37,18 @@ class DefaultGitInfoExtension(
             else -> error("Impossible state: current version commit ($current) is different than latest ($latest)")
         }
     }
+
+    override val latestStableRelease = providers.exec {
+        commandLine("git", "tag", "--merged", "HEAD", "v*")
+    }
+        .standardOutput
+        .asText
+        .map { stdout ->
+            stdout
+                .split("\n")
+                .filter { it.isNotEmpty() }
+                .map { Version.fromTag(it) }
+                .filter { it.isStable }
+                .maxOrNull() // TODO remove orNull once we have at least one release version
+        }
 }

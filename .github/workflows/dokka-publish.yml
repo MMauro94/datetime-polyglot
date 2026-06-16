@@ -1,0 +1,58 @@
+name: Publish Dokka documentation
+
+on:
+  push:
+    branches:
+      - dokka
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Find latest release version
+        id: version
+        run: echo "version=$(./gradlew findLatestStableRelease --quiet)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout latest release tag
+        if: ${{ steps.version.outputs.version != '' }} # TODO remove once we have at least one stable version
+        run: git checkout ${{ steps.version.outputs.version }}
+
+      # IMPORTANT: Checkout of Dokka branch is done BEFORE generating docs
+      - name: Checkout dokka branch
+        uses: actions/checkout@v4
+        with:
+          ref: dokka
+          path: dokka
+
+      - name: Generate Dokka docs
+        run: ./gradlew dokkaGenerateHtml
+
+      - name: Upload to GitHub pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          actions/deploy-pages: library/build/dokka/html
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
