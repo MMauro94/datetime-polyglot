@@ -174,7 +174,7 @@ dokka {
             olderVersions.from(
                 dokkaStorage
                     .asFile
-                    .listFiles { it.isDirectory && it.name !in setOf("stable") }
+                    .listFiles { it.isDirectory && it.name !in setOf("stable") && !it.name.startsWith(".") }
                     .orEmpty()
                     .flatMap { folder ->
                         folder.listFiles {

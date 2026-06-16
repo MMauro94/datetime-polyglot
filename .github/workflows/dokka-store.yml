@@ -40,12 +40,20 @@ jobs:
       - name: Store generated docs in dokka branch
         run: ./gradlew storeDokkaHtml
 
-      - name: Store generated docs in dokka branch
+      - name: Extract current version
         id: version
-        run: echo "version=$(./gradlew getCurrentVersion --quiet)" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(./gradlew getCurrentVersion --quiet)" >> $GITHUB_OUTPUT
 
       - name: Commit dokka branch
         uses: EndBug/add-and-commit@v10
         with:
           cwd: dokka
           message: Add/update Dokka documentation for v${{ steps.version.outputs.version }}
+
+  publish:
+    needs: build-and-store
+
+    permissions:
+      pages: write
+      
+    uses: ./.github/workflows/dokka-publish.yml

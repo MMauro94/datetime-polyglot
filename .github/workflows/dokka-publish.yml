@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dokka
+  workflow_call:
 
 jobs:
   build:
@@ -26,7 +27,7 @@ jobs:
 
       - name: Find latest release version
         id: version
-        run: echo "version=$(./gradlew findLatestStableRelease --quiet)" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(./gradlew findLatestStableRelease --quiet)" >> $GITHUB_OUTPUT
 
       - name: Checkout latest release tag
         if: ${{ steps.version.outputs.version != '' }} # TODO remove once we have at least one stable version
