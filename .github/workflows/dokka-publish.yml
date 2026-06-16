@@ -46,13 +46,14 @@ jobs:
       - name: Upload to GitHub pages
         uses: actions/upload-pages-artifact@v3
         with:
-          actions/deploy-pages: library/build/dokka/html
+          path: library/build/dokka/html
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     permissions:
       pages: write
+      id-token: write
 
     steps:
       - name: Deploy to GitHub Pages

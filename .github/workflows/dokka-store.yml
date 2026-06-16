@@ -55,5 +55,6 @@ jobs:
 
     permissions:
       pages: write
-      
+      id-token: write
+
     uses: ./.github/workflows/dokka-publish.yml
