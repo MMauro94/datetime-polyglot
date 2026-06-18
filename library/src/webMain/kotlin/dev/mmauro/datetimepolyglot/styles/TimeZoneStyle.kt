@@ -11,9 +11,9 @@ import js.intl.shortOffset
 /**
  * See [MSDN doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#timezonename)
  */
-internal fun TimeZoneStyle.toTimeZoneNameFormat(): TimeZoneNameFormat = when (this) {
+internal fun TimeZoneStyle.toTimeZoneNameFormat(idFallback: TimeZoneNameFormat? = null): TimeZoneNameFormat = when (this) {
     // Generic
-    TimeZoneStyle.Generic.ID -> error("Unsupported TimeZoneNameFormat ID: should be handled separately")
+    TimeZoneStyle.Generic.ID -> idFallback ?: error("Unsupported TimeZoneNameFormat ID: should be handled separately")
     TimeZoneStyle.Generic.NON_LOCATION_SHORT -> TimeZoneNameFormat.shortGeneric
     TimeZoneStyle.Generic.NON_LOCATION_LONG -> TimeZoneNameFormat.longGeneric
     // Unsupported, falls back to NON_LOCATION_LONG
