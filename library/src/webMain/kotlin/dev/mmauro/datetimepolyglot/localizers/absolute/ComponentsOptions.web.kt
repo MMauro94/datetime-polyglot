@@ -12,6 +12,7 @@ import dev.mmauro.datetimepolyglot.styles.toWeekdayFormat
 import dev.mmauro.datetimepolyglot.styles.toYearFormat
 import dev.mmauro.datetimepolyglot.toJsHourCycle
 import js.intl.DateTimeFormatOptions
+import js.intl.TimeZoneNameFormat
 
 internal fun DateTimeFormatOptions.fill(dateOptions: ComponentsOptions.Date) {
     when (dateOptions) {
@@ -29,7 +30,7 @@ internal fun DateTimeFormatOptions.fill(dateOptions: ComponentsOptions.Date) {
     }
 }
 
-internal fun DateTimeFormatOptions.fill(timeOptions: ComponentsOptions.Time) {
+internal fun DateTimeFormatOptions.fill(timeOptions: ComponentsOptions.Time, timeZoneIdFallback: TimeZoneNameFormat? = null) {
     timeOptions.hourCycle?.let { hourCycle = it.toJsHourCycle() }
 
     when (val timeStyleOptions = timeOptions.styleOptions) {
@@ -45,7 +46,7 @@ internal fun DateTimeFormatOptions.fill(timeOptions: ComponentsOptions.Time) {
             if (timeStyleOptions.fractionalSecondDigits > 0) {
                 fractionalSecondDigits = timeStyleOptions.fractionalSecondDigits
             }
-            timeStyleOptions.timeZoneStyle?.let { timeZoneName = it.toTimeZoneNameFormat() }
+            timeStyleOptions.timeZoneStyle?.let { timeZoneName = it.toTimeZoneNameFormat(idFallback = timeZoneIdFallback) }
         }
     }
 }

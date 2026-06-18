@@ -20,13 +20,13 @@ data class TimeOptions<out SO : TimeStyleOptions>(
 )
 
 typealias LocalTimeOptions = TimeOptions<TimeStyleOptions.Local>
-typealias ZonedTimeOptions = TimeOptions<TimeStyleOptions.Local>
+typealias ZonedTimeOptions = TimeOptions<TimeStyleOptions.Zoned>
 
 /**
  * Options to pass to [TimeOptions.styleOptions], that define the style of each time component.
  *
- * @see TimeStyleOptions.Local
- * @see TimeStyleOptions.Zoned
+ * @see Local
+ * @see Zoned
  */
 sealed interface TimeStyleOptions {
 
@@ -51,8 +51,8 @@ sealed interface TimeStyleOptions {
 /**
  * Defines a preset time style for localizing a time.
  *
- * @see TimeStyle.Local
- * @see TimeStyle.Zoned
+ * @see Local
+ * @see Zoned
  */
 sealed interface TimeStyle : TimeStyleOptions {
 
@@ -91,8 +91,8 @@ sealed interface TimeStyle : TimeStyleOptions {
 /**
  * Interface defining the style for each component of a time.
  *
- * @see TimeComponents.Local
- * @see TimeComponents.Zoned
+ * @see Local
+ * @see Zoned
  */
 sealed interface TimeComponents : TimeStyleOptions {
     val hourStyle: HourStyle
@@ -151,5 +151,23 @@ internal fun TimeOptions<*>.toComponentOptions(): ComponentsOptions.Time {
             is TimeComponents.Local, is TimeComponents.Zoned -> styleOptions
         },
         hourCycle = hourCycle,
+    )
+}
+
+internal fun TimeComponents.Local.toZoned(timeZoneStyle: TimeZoneStyle): TimeComponents.Zoned {
+    return TimeComponents.Zoned(
+        hourStyle = this.hourStyle,
+        minuteStyle = this.minuteStyle,
+        secondStyle = this.secondStyle,
+        fractionalSecondDigits = this.fractionalSecondDigits,
+        dayPeriodStyle = this.dayPeriodStyle,
+        timeZoneStyle = timeZoneStyle,
+    )
+}
+
+internal fun TimeOptions<TimeComponents.Local>.toZoned(timeZoneStyle: TimeZoneStyle): TimeOptions<TimeComponents.Zoned> {
+    return TimeOptions(
+        styleOptions = this.styleOptions.toZoned(timeZoneStyle),
+        hourCycle = this.hourCycle,
     )
 }

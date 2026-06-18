@@ -36,9 +36,9 @@ data class LocalDateTimeOptions internal constructor(
  * Note that the same warning in [LocalTimeLocalizer] for "gaps" in the time components applies here.
  *
  * Examples:
- * - `1/8/26 9:05 PM`,
- * - `Jan 8, 2026, 9 at night`,
- * - `January 8, 2026 at 9:31:45 PM`,
+ * - `1/8/26 9:05 PM`
+ * - `Jan 8, 2026, 9 at night`
+ * - `January 8, 2026 at 9:31:45 PM`
  * - `Thursday, January 8, 2026 at 21:05`
  */
 expect class LocalDateTimeLocalizer(
