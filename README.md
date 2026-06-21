@@ -66,10 +66,11 @@ In general, each type of data that can be localized will have:
 These should be used when the component to format is standalone (e.g. calendar header), and should not be mixed with
 other date components.
 
-| Data type                                                                                                  | Localizer class / Extension function             | Options class      | Examples                               |
-|------------------------------------------------------------------------------------------------------------|--------------------------------------------------|--------------------|----------------------------------------|
-| [`Month`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-month/)           | `MonthLocalizer` <br> `Month.localize()`         | `MonthOptions`     | `January` <br> `Jan` <br> `J` <br> `1` |
-| [`DayOfWeek`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-day-of-week/) | `DayOfWeekLocalizer` <br> `DayOfWeek.localize()` | `DayOfWeekOptions` | `Monday` <br> `Mo` <br> `Mon` <br> `M` |
+| Data type                                                                                                  | Localizer class / Extension function             | Options class      | Examples                                                                    |
+|------------------------------------------------------------------------------------------------------------|--------------------------------------------------|--------------------|-----------------------------------------------------------------------------|
+| [`Month`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-month/)           | `MonthLocalizer` <br> `Month.localize()`         | `MonthOptions`     | `January` <br> `Jan` <br> `J` <br> `1`                                      |
+| [`DayOfWeek`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-day-of-week/) | `DayOfWeekLocalizer` <br> `DayOfWeek.localize()` | `DayOfWeekOptions` | `Monday` <br> `Mo` <br> `Mon` <br> `M`                                      |
+| [`TimeZone`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-time-zone/)    | `TimeZoneLocalizer` <br> `TimeZone.localize()`   | `TimeZoneOptions`  | `America/Los_Angeles` <br> `PT` <br> `Pacific Time` <br> `Los Angeles Time` |
 
 ### Absolute date/time
 

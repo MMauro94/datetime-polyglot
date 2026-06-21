@@ -2,13 +2,15 @@ package dev.mmauro.datetimepolyglot
 
 import android.icu.text.DateFormat as AndroidDateFormat
 import android.icu.text.DateTimePatternGenerator
-import android.icu.util.TimeZone
 import android.icu.util.ULocale
 import android.os.Build
 import androidx.annotation.RequiresApi
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toJavaZoneId
 import android.icu.text.SimpleDateFormat as AndroidSimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -18,6 +20,7 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.temporal.Temporal
+import android.icu.util.TimeZone as IcuTimeZone
 
 // DATE FORMAT
 internal actual typealias DateFormat = AndroidDateFormat
@@ -26,7 +29,7 @@ internal actual fun DateFormat.format(month: Month): String {
     return if (Build.VERSION.SDK_INT >= 37) {
         format(month as Any)
     } else {
-        timeZone = TimeZone.GMT_ZONE
+        timeZone = IcuTimeZone.GMT_ZONE
         format(LocalDate.of(0, month, 1).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli())
     }
 }
@@ -35,7 +38,7 @@ internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime): String {
     return if (Build.VERSION.SDK_INT >= 37) {
         format(zonedDateTime as Temporal)
     } else {
-        timeZone = TimeZone.getTimeZone(zonedDateTime.zone.id)
+        timeZone = IcuTimeZone.getTimeZone(zonedDateTime.zone.id)
         format(zonedDateTime.toInstant().toEpochMilli())
     }
 }
@@ -44,7 +47,7 @@ internal actual fun DateFormat.format(localDateTime: LocalDateTime): String {
     return if (Build.VERSION.SDK_INT >= 37) {
         format(localDateTime as Temporal)
     } else {
-        timeZone = TimeZone.GMT_ZONE
+        timeZone = IcuTimeZone.GMT_ZONE
         format(localDateTime.atOffset(ZoneOffset.UTC).toInstant().toEpochMilli())
     }
 }
@@ -53,7 +56,7 @@ internal actual fun DateFormat.format(localDate: LocalDate): String {
     return if (Build.VERSION.SDK_INT >= 37) {
         format(localDate as Temporal)
     } else {
-        timeZone = TimeZone.GMT_ZONE
+        timeZone = IcuTimeZone.GMT_ZONE
         format(localDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli())
     }
 }
@@ -62,7 +65,7 @@ internal actual fun DateFormat.format(localTime: LocalTime): String {
     return if (Build.VERSION.SDK_INT >= 37) {
         format(localTime as Temporal)
     } else {
-        timeZone = TimeZone.GMT_ZONE
+        timeZone = IcuTimeZone.GMT_ZONE
         format(localTime.atDate(LocalDate.ofEpochDay(0)).toInstant(ZoneOffset.UTC).toEpochMilli())
     }
 }
@@ -128,6 +131,31 @@ private fun TimeStyle.toDateFormatStyle() = when (this) {
     TimeStyle.Zoned.FULL -> AndroidDateFormat.FULL
 }
 
+// TIMEZONE
+internal actual fun TimeZone.getDisplayName(style: TimeZoneStyle, locale: PlatformLocale): String {
+    if (style == TimeZoneStyle.Generic.ID) {
+        return id
+    }
+
+    val javaTimeZone = this.toJavaZoneId()
+    return IcuTimeZone.getTimeZone(javaTimeZone.id, IcuTimeZone.TIMEZONE_JDK).getDisplayName(false, style.toIcuStyle(), locale)
+}
+
+private fun TimeZoneStyle.toIcuStyle() = when (this) {
+    // Generic
+    TimeZoneStyle.Generic.ID -> error("Unsupported ICU TimeZone style ID: should be handled separately")
+    TimeZoneStyle.Generic.NON_LOCATION_SHORT -> IcuTimeZone.SHORT_GENERIC
+    TimeZoneStyle.Generic.NON_LOCATION_LONG -> IcuTimeZone.LONG_GENERIC
+    TimeZoneStyle.Generic.LOCATION -> IcuTimeZone.GENERIC_LOCATION
+
+    // Specific
+    TimeZoneStyle.Specific.NON_LOCATION_SHORT -> IcuTimeZone.SHORT
+    TimeZoneStyle.Specific.NON_LOCATION_LONG -> IcuTimeZone.LONG
+
+    // GMT
+    TimeZoneStyle.Gmt.SHORT -> IcuTimeZone.SHORT_GMT
+    TimeZoneStyle.Gmt.LONG -> IcuTimeZone.LONG_GMT
+}
 
 // LOCALE
 internal actual fun PlatformLocale.getDefaultHourCycle(): HourCycle {
