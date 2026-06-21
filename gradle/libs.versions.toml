@@ -5,11 +5,11 @@ androidx-annotationJvm = "1.10.0"
 agp = "9.0.1"
 dokka = "2.2.0"
 icu = "78.3"
-kotest = "6.1.11"
-kotlin = "2.3.21"
+kotest = "6.2.1"
+kotlin = "2.4.0"
 kotlinx-datetime = "0.8.0"
 ksp = "2.3.6"
-vanniktechMavenPublish = "0.36.0"
+vanniktechMavenPublish = "0.37.0"
 
 [libraries]
 androidx-annotationJvm = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "androidx-annotationJvm" }

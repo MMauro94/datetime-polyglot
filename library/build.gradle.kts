@@ -31,9 +31,7 @@ kotlin {
         freeCompilerArgs.add("-Xconsistent-data-class-copy-visibility")
     }
     @OptIn(ExperimentalAbiValidation::class)
-    abiValidation {
-        enabled = true
-    }
+    abiValidation()
 
     jvm()
     androidLibrary {
