@@ -114,21 +114,6 @@ final enum class dev.mmauro.datetimepolyglot.styles/SecondStyle : kotlin/Enum<de
     final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/SecondStyle> // dev.mmauro.datetimepolyglot.styles/SecondStyle.values|values#static(){}[0]
 }
 
-final enum class dev.mmauro.datetimepolyglot.styles/TimeZoneStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle> { // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle|null[0]
-    enum entry GENERIC_NON_LOCATION_LONG // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.GENERIC_NON_LOCATION_LONG|null[0]
-    enum entry GENERIC_NON_LOCATION_SHORT // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.GENERIC_NON_LOCATION_SHORT|null[0]
-    enum entry GMT_LONG // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.GMT_LONG|null[0]
-    enum entry GMT_SHORT // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.GMT_SHORT|null[0]
-    enum entry SPECIFIC_NON_LOCATION_LONG // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.SPECIFIC_NON_LOCATION_LONG|null[0]
-    enum entry SPECIFIC_NON_LOCATION_SHORT // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.SPECIFIC_NON_LOCATION_SHORT|null[0]
-
-    final val entries // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.entries|#static{}entries[0]
-        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.entries.<get-entries>|<get-entries>#static(){}[0]
-
-    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.valueOf|valueOf#static(kotlin.String){}[0]
-    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.values|values#static(){}[0]
-}
-
 final enum class dev.mmauro.datetimepolyglot.styles/YearStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/YearStyle> { // dev.mmauro.datetimepolyglot.styles/YearStyle|null[0]
     enum entry NUMERIC // dev.mmauro.datetimepolyglot.styles/YearStyle.NUMERIC|null[0]
     enum entry NUMERIC_2_DIGITS // dev.mmauro.datetimepolyglot.styles/YearStyle.NUMERIC_2_DIGITS|null[0]
@@ -262,6 +247,43 @@ sealed interface dev.mmauro.datetimepolyglot.localizers.absolute/TimeStyleOption
     sealed interface Local : dev.mmauro.datetimepolyglot.localizers.absolute/TimeStyleOptions // dev.mmauro.datetimepolyglot.localizers.absolute/TimeStyleOptions.Local|null[0]
 
     sealed interface Zoned : dev.mmauro.datetimepolyglot.localizers.absolute/TimeStyleOptions // dev.mmauro.datetimepolyglot.localizers.absolute/TimeStyleOptions.Zoned|null[0]
+}
+
+sealed interface dev.mmauro.datetimepolyglot.styles/TimeZoneStyle { // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle|null[0]
+    final enum class Generic : dev.mmauro.datetimepolyglot.styles/TimeZoneStyle, kotlin/Enum<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic> { // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic|null[0]
+        enum entry ID // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic.ID|null[0]
+        enum entry LOCATION // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic.LOCATION|null[0]
+        enum entry NON_LOCATION_LONG // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic.NON_LOCATION_LONG|null[0]
+        enum entry NON_LOCATION_SHORT // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic.NON_LOCATION_SHORT|null[0]
+
+        final val entries // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic.entries.<get-entries>|<get-entries>#static(){}[0]
+
+        final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic.values|values#static(){}[0]
+    }
+
+    final enum class Gmt : dev.mmauro.datetimepolyglot.styles/TimeZoneStyle, kotlin/Enum<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt> { // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt|null[0]
+        enum entry LONG // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt.LONG|null[0]
+        enum entry SHORT // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt.SHORT|null[0]
+
+        final val entries // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt.entries.<get-entries>|<get-entries>#static(){}[0]
+
+        final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Gmt.values|values#static(){}[0]
+    }
+
+    final enum class Specific : dev.mmauro.datetimepolyglot.styles/TimeZoneStyle, kotlin/Enum<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific> { // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific|null[0]
+        enum entry NON_LOCATION_LONG // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific.NON_LOCATION_LONG|null[0]
+        enum entry NON_LOCATION_SHORT // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific.NON_LOCATION_SHORT|null[0]
+
+        final val entries // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific.entries.<get-entries>|<get-entries>#static(){}[0]
+
+        final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific.values|values#static(){}[0]
+    }
 }
 
 final class <#A: out dev.mmauro.datetimepolyglot.localizers.absolute/TimeStyleOptions> dev.mmauro.datetimepolyglot.localizers.absolute/TimeOptions { // dev.mmauro.datetimepolyglot.localizers.absolute/TimeOptions|null[0]
@@ -468,6 +490,25 @@ final class dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions { // 
     final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions.toString|toString(){}[0]
 }
 
+final class dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneLocalizer : dev.mmauro.datetimepolyglot/DateTimeLocalizer<kotlinx.datetime/TimeZone> { // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneLocalizer|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions = ..., js.intl/Locale = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneLocalizer.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions;js.intl.Locale){}[0]
+
+    final fun localize(kotlinx.datetime/TimeZone): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneLocalizer.localize|localize(kotlinx.datetime.TimeZone){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions { // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic = ...) // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions.<init>|<init>(dev.mmauro.datetimepolyglot.styles.TimeZoneStyle.Generic){}[0]
+
+    final val style // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions.style|{}style[0]
+        final fun <get-style>(): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions.style.<get-style>|<get-style>(){}[0]
+
+    final fun component1(): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions.component1|component1(){}[0]
+    final fun copy(dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Generic = ...): dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions.copy|copy(dev.mmauro.datetimepolyglot.styles.TimeZoneStyle.Generic){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions.toString|toString(){}[0]
+}
+
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/minus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/minus|minus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/plus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/plus|plus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/toLocalDateTime(): kotlinx.datetime/LocalDateTime // dev.mmauro.datetimepolyglot/toLocalDateTime|toLocalDateTime@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(){}[0]
@@ -477,4 +518,5 @@ final fun (kotlinx.datetime/LocalDateTime).dev.mmauro.datetimepolyglot.localizer
 final fun (kotlinx.datetime/LocalTime).dev.mmauro.datetimepolyglot.localizers.absolute/localize(dev.mmauro.datetimepolyglot.localizers.absolute/TimeOptions<dev.mmauro.datetimepolyglot.localizers.absolute/TimeStyleOptions.Local>, js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/localize|localize@kotlinx.datetime.LocalTime(dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions<dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyleOptions.Local>;js.intl.Locale){}[0]
 final fun (kotlinx.datetime/LocalTime).dev.mmauro.datetimepolyglot.localizers.absolute/localize(dev.mmauro.datetimepolyglot.localizers.absolute/TimeStyleOptions.Local, js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/localize|localize@kotlinx.datetime.LocalTime(dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyleOptions.Local;js.intl.Locale){}[0]
 final fun (kotlinx.datetime/Month).dev.mmauro.datetimepolyglot.localizers.standalone/localize(dev.mmauro.datetimepolyglot.localizers.standalone/MonthOptions = ..., js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/localize|localize@kotlinx.datetime.Month(dev.mmauro.datetimepolyglot.localizers.standalone.MonthOptions;js.intl.Locale){}[0]
+final fun (kotlinx.datetime/TimeZone).dev.mmauro.datetimepolyglot.localizers.standalone/localize(dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions = ..., js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.standalone/localize|localize@kotlinx.datetime.TimeZone(dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions;js.intl.Locale){}[0]
 final fun (kotlinx.datetime/YearMonth).dev.mmauro.datetimepolyglot.localizers.absolute/localize(dev.mmauro.datetimepolyglot.localizers.absolute/YearMonthOptions, js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/localize|localize@kotlinx.datetime.YearMonth(dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthOptions;js.intl.Locale){}[0]

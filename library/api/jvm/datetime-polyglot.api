@@ -352,6 +352,32 @@ public final class dev/mmauro/datetimepolyglot/localizers/standalone/MonthOption
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneLocalizer : dev/mmauro/datetimepolyglot/DateTimeLocalizer {
+	public fun <init> ()V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;Lcom/ibm/icu/util/ULocale;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun localize (Ljava/lang/Object;)Ljava/lang/String;
+	public fun localize (Lkotlinx/datetime/TimeZone;)Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneLocalizerKt {
+	public static final fun localize (Lkotlinx/datetime/TimeZone;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;Lcom/ibm/icu/util/ULocale;)Ljava/lang/String;
+	public static synthetic fun localize$default (Lkotlinx/datetime/TimeZone;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions {
+	public fun <init> ()V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;
+	public final fun copy (Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;)Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getStyle ()Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/mmauro/datetimepolyglot/styles/DayOfMonthStyle : java/lang/Enum {
 	public static final field NUMERIC Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;
 	public static final field NUMERIC_PADDED_2_DIGITS Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;
@@ -423,16 +449,33 @@ public final class dev/mmauro/datetimepolyglot/styles/SecondStyle : java/lang/En
 	public static fun values ()[Ldev/mmauro/datetimepolyglot/styles/SecondStyle;
 }
 
-public final class dev/mmauro/datetimepolyglot/styles/TimeZoneStyle : java/lang/Enum {
-	public static final field GENERIC_NON_LOCATION_LONG Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
-	public static final field GENERIC_NON_LOCATION_SHORT Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
-	public static final field GMT_LONG Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
-	public static final field GMT_SHORT Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
-	public static final field SPECIFIC_NON_LOCATION_LONG Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
-	public static final field SPECIFIC_NON_LOCATION_SHORT Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
+public abstract interface class dev/mmauro/datetimepolyglot/styles/TimeZoneStyle {
+}
+
+public final class dev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic : java/lang/Enum, dev/mmauro/datetimepolyglot/styles/TimeZoneStyle {
+	public static final field ID Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;
+	public static final field LOCATION Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;
+	public static final field NON_LOCATION_LONG Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;
+	public static final field NON_LOCATION_SHORT Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
-	public static fun values ()[Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
+	public static fun valueOf (Ljava/lang/String;)Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;
+	public static fun values ()[Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Generic;
+}
+
+public final class dev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Gmt : java/lang/Enum, dev/mmauro/datetimepolyglot/styles/TimeZoneStyle {
+	public static final field LONG Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Gmt;
+	public static final field SHORT Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Gmt;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Gmt;
+	public static fun values ()[Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Gmt;
+}
+
+public final class dev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Specific : java/lang/Enum, dev/mmauro/datetimepolyglot/styles/TimeZoneStyle {
+	public static final field NON_LOCATION_LONG Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Specific;
+	public static final field NON_LOCATION_SHORT Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Specific;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Specific;
+	public static fun values ()[Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle$Specific;
 }
 
 public final class dev/mmauro/datetimepolyglot/styles/YearStyle : java/lang/Enum {
