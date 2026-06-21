@@ -24,6 +24,12 @@ data class DayOfWeekOptions(
  * This class localizes for **standalone** usage of the string.
  *
  * For more info, see [Unicode page](https://www.unicode.org/reports/tr35/tr35-dates.html#months_days_quarters_eras).
+ *
+ * Examples:
+ * - `Monday`
+ * - `Mon`
+ * - `Mo`
+ * - `M`
  */
 expect class DayOfWeekLocalizer(
     options: DayOfWeekOptions = DayOfWeekOptions(),

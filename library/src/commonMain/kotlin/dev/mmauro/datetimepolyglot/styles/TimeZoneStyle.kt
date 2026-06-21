@@ -7,6 +7,10 @@ package dev.mmauro.datetimepolyglot.styles
  */
 sealed interface TimeZoneStyle {
 
+    /**
+     * Groups "generic" [TimeZoneStyle]s, which localize the timezone in a way that is agnostic to the actual offset of the time zone in a
+     * certain moment.
+     */
     enum class Generic : TimeZoneStyle {
         /**
          * e.g. `America/Los_Angeles`
@@ -31,8 +35,11 @@ sealed interface TimeZoneStyle {
         LOCATION,
     }
 
+    /**
+     * Groups "specific" [TimeZoneStyle]s for which the localization could include information about the offset at the given moment.
+     * For instance, it could include the words "Daylight savings time".
+     */
     enum class Specific : TimeZoneStyle {
-
         /**
          * e.g. `PDT`
          */
@@ -44,6 +51,9 @@ sealed interface TimeZoneStyle {
         NON_LOCATION_LONG,
     }
 
+    /**
+     * Groups the GMT [TimeZoneStyle] for localization, that print the exact offset the timezone is in at the given moment in time.
+     */
     enum class Gmt : TimeZoneStyle {
 
         /**

@@ -10,7 +10,7 @@ import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 /**
  * Options to pass when formatting time.
  *
- * @property styleOptions options defining which style to use
+ * @property styleOptions options defining the appearance of the localized time
  * @property hourCycle if not null, overrides the hour cycle (H11, H12, H23, H24) to use. When `null`, uses the locale's default
  * @param SO the type of [TimeStyleOptions] to use, either [TimeStyleOptions.Local] or [TimeStyleOptions.Zoned].
  */
@@ -101,6 +101,11 @@ sealed interface TimeComponents : TimeStyleOptions {
     val fractionalSecondDigits: Int
     val dayPeriodStyle: DayPeriodStyle?
 
+    /**
+     * Interface defining the style for each component of a **local** time.
+     *
+     * @see TimeComponents
+     */
     data class Local(
         override val hourStyle: HourStyle,
         override val minuteStyle: MinuteStyle?,
@@ -116,6 +121,11 @@ sealed interface TimeComponents : TimeStyleOptions {
         }
     }
 
+    /**
+     * Interface defining the style for each component of a **zoned** time.
+     *
+     * @see TimeComponents
+     */
     data class Zoned(
         override val hourStyle: HourStyle,
         override val minuteStyle: MinuteStyle?,

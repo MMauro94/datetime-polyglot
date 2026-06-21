@@ -5,6 +5,18 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import kotlinx.datetime.LocalDate
 
+/**
+ * Localizer for [LocalDate].
+ *
+ * Create once and re-use for localizing multiple values with the same [options].
+ * Use [LocalDate.localize] for one-off localizations.
+ *
+ * Examples:
+ * - `1/8/26`
+ * - `Jan 8, 2026`
+ * - `January 8, 2026`
+ * - `Thursday, January 8, 2026`
+ */
 // For now this constructor is private because it's useless for users to manually create a DateOptions instance
 expect class LocalDateLocalizer private constructor(
     options: DateOptions,

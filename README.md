@@ -1,6 +1,9 @@
 # datetime-polyglot
 
-![Maven Central Version](https://img.shields.io/maven-central/v/dev.mmauro/datetime-polyglot?strategy=latestProperty)
+[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Maven Central Version](https://img.shields.io/maven-central/v/dev.mmauro/datetime-polyglot?strategy=latestProperty)](https://central.sonatype.com/artifact/dev.mmauro/datetime-polyglot)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.3.21-blue?logo=kotlin)](http://kotlinlang.org)
+[![API reference (KDoc)](https://img.shields.io/badge/API%20Reference-KDoc-blue)](https://datetime-polyglot.mmauro.dev/)
 
 Multiplatform localization library for Kotlin date/time objects, either from stdlib
 or [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime).
@@ -17,6 +20,7 @@ The library uses a different localization backend depending on the platform:
 > [!NOTE]
 > While the library strives to provide a uniform API that mostly returns consistent values, subtle differences between
 > various localization backends exist.
+> You should not rely on localized strings being identical between platforms.
 
 ## Setup
 
@@ -66,11 +70,11 @@ In general, each type of data that can be localized will have:
 These should be used when the component to format is standalone (e.g. calendar header), and should not be mixed with
 other date components.
 
-| Data type                                                                                                  | Localizer class / Extension function             | Options class      | Examples                                                                    |
-|------------------------------------------------------------------------------------------------------------|--------------------------------------------------|--------------------|-----------------------------------------------------------------------------|
-| [`Month`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-month/)           | `MonthLocalizer` <br> `Month.localize()`         | `MonthOptions`     | `January` <br> `Jan` <br> `J` <br> `1`                                      |
-| [`DayOfWeek`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-day-of-week/) | `DayOfWeekLocalizer` <br> `DayOfWeek.localize()` | `DayOfWeekOptions` | `Monday` <br> `Mo` <br> `Mon` <br> `M`                                      |
-| [`TimeZone`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-time-zone/)    | `TimeZoneLocalizer` <br> `TimeZone.localize()`   | `TimeZoneOptions`  | `America/Los_Angeles` <br> `PT` <br> `Pacific Time` <br> `Los Angeles Time` |
+| Data type                                                                                                  | Localizer class / Extension function                                                                                                                                                           | Examples                                                                    |
+|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| [`Month`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-month/)           | [`MonthLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.standalone/-month-localizer/index.html) <br> `Month.localize()`               | `January` <br> `Jan` <br> `J` <br> `1`                                      |
+| [`DayOfWeek`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-day-of-week/) | [`DayOfWeekLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.standalone/-day-of-week-localizer/index.html) <br> `DayOfWeek.localize()` | `Monday` <br> `Mon` <br> `Mo` <br> `M`                                      |
+| [`TimeZone`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-time-zone/)    | [`TimeZoneLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.standalone/-time-zone-localizer/index.html) <br> `TimeZone.localize()`     | `America/Los_Angeles` <br> `PT` <br> `Pacific Time` <br> `Los Angeles Time` |
 
 ### Absolute date/time
 
@@ -81,11 +85,11 @@ If you need only partial information, convert first to the appropriate type and 
 For instance, if you have an `Instant` but are only interested in the time component, you should first convert to
 `LocalDateTime`, then get the `LocalTime` part, and finally localize it.
 
-| Data type                                                                                                          | Localizer class / Extension function                     | Options class          | Examples                                                                                                                       |
-|--------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| [`LocalDate`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-date/)          | `LocalDateLocalizer` <br> `LocalDate.localize()`         | `DateOptions`          | `1/8/26` <br> `Jan 8, 2026` <br> `January 8, 2026` <br> `Thursday, January 8, 2026`                                            |
-| [`LocalTime`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-time/)          | `LocalTimeLocalizer` <br> `LocalTime.localize()`         | `LocalTimeOptions`     | `9:05 PM` <br> `9:05:08 PM` <br> `21:05` <br> `21:05:08.123` <br> `9 at night`                                                 |
-| [`LocalDateTime`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-date-time/) | `LocalDateTimeLocalizer` <br> `LocalDateTime.localize()` | `LocalDateTimeOptions` | `1/8/26 9:05 PM` <br> `Jan 8, 2026, 9 at night` <br> `January 8, 2026 at 9:31:45 PM` <br> `Thursday, January 8, 2026 at 21:05` |
-| [`YearMonth`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-year-month/)          | `YearMonthLocalizer` <br> `YearMonth.localize()`         | `YearMonthOptions`     | `January 2026` <br> `Jan 26` <br> `01/2026`                                                                                    |
-| Year ([`Int`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/))                                         | `YearLocalizer` <br> _No extension function_             | `YearOptions`          | `2026` <br> `26` <br> `2026 AD` <br> `2026 Anno Domini`                                                                        |
+| Data type                                                                                                          | Localizer class / Extension function                                                                                                                                                                     | Examples                                                                                                                       |
+|--------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| [`LocalDate`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-date/)          | [`LocalDateLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.absolute/-local-date-localizer/index.html) <br> `LocalDate.localize()`              | `1/8/26` <br> `Jan 8, 2026` <br> `January 8, 2026` <br> `Thursday, January 8, 2026`                                            |
+| [`LocalTime`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-time/)          | [`LocalTimeLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.absolute/-local-time-localizer/index.html) <br> `LocalTime.localize()`              | `9:05 PM` <br> `9:05:08 PM` <br> `21:05` <br> `21:05:08.123` <br> `9 at night`                                                 |
+| [`LocalDateTime`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-date-time/) | [`LocalDateTimeLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.absolute/-local-date-time-localizer/index.html) <br> `LocalDateTime.localize()` | `1/8/26 9:05 PM` <br> `Jan 8, 2026, 9 at night` <br> `January 8, 2026 at 9:31:45 PM` <br> `Thursday, January 8, 2026 at 21:05` |
+| [`YearMonth`](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-year-month/)          | [`YearMonthLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.absolute/-year-month-localizer/index.html) <br> `YearMonth.localize()`              | `January 2026` <br> `Jan 26` <br> `01/2026`                                                                                    |
+| Year ([`Int`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/))                                         | [`YearLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.absolute/-year-localizer/index.html) <br> _No extension function_                        | `2026` <br> `26` <br> `2026 AD` <br> `2026 Anno Domini`                                                                        |
 
