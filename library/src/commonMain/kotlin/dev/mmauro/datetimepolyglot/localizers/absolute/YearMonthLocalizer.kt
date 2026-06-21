@@ -8,6 +8,9 @@ import dev.mmauro.datetimepolyglot.styles.MonthStyle
 import dev.mmauro.datetimepolyglot.styles.YearStyle
 import kotlinx.datetime.YearMonth
 
+/**
+ * Localization options for [YearMonthLocalizer] and [YearMonth.parse].
+ */
 data class YearMonthOptions(
     override val eraStyle: EraStyle? = null,
     override val yearStyle: YearStyle = YearStyle.NUMERIC,
@@ -17,6 +20,17 @@ data class YearMonthOptions(
     override val dayOfWeekStyle: Nothing? get() = null
 }
 
+/**
+ * Localizer for [YearMonth].
+ *
+ * Create once and re-use for localizing multiple values with the same [options].
+ * Use [YearMonth.localize] for one-off localizations.
+ *
+ * Examples:
+ * - `January 2026`
+ * - `Jan 26`
+ * - `01/2026`
+ */
 expect class YearMonthLocalizer(
     options: YearMonthOptions,
     locale: PlatformLocale = getDefaultLocale(),

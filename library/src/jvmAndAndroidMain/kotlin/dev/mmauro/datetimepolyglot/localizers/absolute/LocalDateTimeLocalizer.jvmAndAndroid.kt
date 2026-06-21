@@ -21,11 +21,21 @@ actual class LocalDateTimeLocalizer actual constructor(
     }
 }
 
+/**
+ * Allows creation of mixed style and components between date and time, which is not possible in all platforms
+ *
+ * @see LocalDateTimeOptions
+ */
 operator fun LocalDateTimeOptions.Companion.invoke(
     dateOptions: DateStyleOptions,
     timeOptions: LocalTimeOptions
 ): LocalDateTimeOptions = LocalDateTimeOptions(DateOptions(dateOptions), timeOptions)
 
+/**
+ * Allows creation of mixed style and components between date and time, which is not possible in all platforms
+ *
+ * @see LocalDateTimeOptions
+ */
 operator fun LocalDateTimeOptions.Companion.invoke(
     dateOptions: DateStyleOptions,
     timeOptions: TimeStyleOptions.Local

@@ -6,6 +6,9 @@ import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.styles.EraStyle
 import dev.mmauro.datetimepolyglot.styles.YearStyle
 
+/**
+ * Localization options for [YearLocalizer].
+ */
 data class YearOptions(
     override val eraStyle: EraStyle? = null,
     override val yearStyle: YearStyle = YearStyle.NUMERIC,
@@ -15,6 +18,17 @@ data class YearOptions(
     override val dayOfWeekStyle: Nothing? get() = null
 }
 
+/**
+ * Localizer for years ([Int]).
+ *
+ * Because kotlinx-datetime doesn't provide a standard type for a year, there is no extension function equivalent for one-off localizations.
+ *
+ * Examples:
+ * - `2026`
+ * - `26`
+ * - `2026 AD`
+ * - `2026 Anno Domini`
+ */
 expect class YearLocalizer(
     options: YearOptions,
     locale: PlatformLocale = getDefaultLocale(),
