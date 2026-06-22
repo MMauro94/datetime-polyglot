@@ -158,7 +158,20 @@ dependencies {
 
 val dokkaStorage = layout.projectDirectory.dir("../dokka")
 dokka {
+    dokkaPublications.html {
+        failOnWarning = true
+    }
     dokkaSourceSets {
+        configureEach {
+            externalDocumentationLinks.register("kotlinx-datetime") {
+                url("https://kotlinlang.org/api/kotlinx-datetime/")
+            }
+            sourceLink {
+                localDirectory.set(file(rootDir))
+                val ref = gitInfo.currentVersion.get().let { if (it.preRelease.equals("SNAPSHOT")) "main" else "v$it" }
+                remoteUrl("https://github.com/MMauro94/datetime-polyglot/tree/$ref")
+            }
+        }
         named("jvmAndAndroidMain") {
             displayName = "JVM + Android"
         }

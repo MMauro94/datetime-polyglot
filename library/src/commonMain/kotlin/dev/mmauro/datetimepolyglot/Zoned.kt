@@ -15,7 +15,7 @@ data class Zoned<out T>(
 )
 
 /**
- * Returns a civil datetime value that this instant [value] has in the specified [timeZone].
+ * Returns a civil datetime value that this instant [Zoned.value] has in the specified [Zoned.timeZone].
  *
  * @see Instant.toLocalDateTime
  */
