@@ -31,7 +31,7 @@ jobs:
         run: echo "version=$(./gradlew findLatestStableRelease --quiet)" >> $GITHUB_OUTPUT
 
       - name: Checkout latest release tag
-        run: git checkout ${{ steps.version.outputs.version }}
+        run: git checkout v${{ steps.version.outputs.version }}
 
       # IMPORTANT: Checkout of Dokka branch is done BEFORE generating docs
       - name: Checkout dokka branch
