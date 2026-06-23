@@ -42,7 +42,10 @@ jobs:
 
       - name: Extract current version
         id: version
-        run: echo "version=$(./gradlew getCurrentVersion --quiet)" >> $GITHUB_OUTPUT
+        run: |
+          EXTRACTED_VERSION="$(./gradlew getCurrentVersion --quiet)"
+          echo "Extracted version: $EXTRACTED_VERSION"
+          echo "version=$EXTRACTED_VERSION" >> $GITHUB_OUTPUT
 
       - name: Commit dokka branch
         uses: EndBug/add-and-commit@v10

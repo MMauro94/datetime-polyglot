@@ -16,11 +16,9 @@ class DefaultGitInfoExtension(
     private val providers: ProviderFactory
 ) : GitInfoExtension {
 
-    // TODO remove ifEmpty/isIgnoreExitValue when we have at least one version
     override val latestVersion = providers.exec {
         commandLine("git", "describe", "--tags", "--abbrev=0", "--match", "v*")
-        isIgnoreExitValue = true
-    }.standardOutput.asText.map { Version.fromTag(it.ifEmpty { "v0.0.0" }) }
+    }.standardOutput.asText.map { Version.fromTag(it) }
 
     override val currentVersion = providers.exec {
         commandLine("git", "tag", "--points-at", "HEAD", "v*")
@@ -49,6 +47,6 @@ class DefaultGitInfoExtension(
                 .filter { it.isNotEmpty() }
                 .map { Version.fromTag(it) }
                 .filter { it.isStable }
-                .maxOrNull() // TODO remove orNull once we have at least one release version
+                .max()
         }
 }

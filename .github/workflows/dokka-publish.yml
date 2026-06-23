@@ -30,7 +30,6 @@ jobs:
         run: echo "version=$(./gradlew findLatestStableRelease --quiet)" >> $GITHUB_OUTPUT
 
       - name: Checkout latest release tag
-        if: ${{ steps.version.outputs.version != '' }} # TODO remove once we have at least one stable version
         run: git checkout ${{ steps.version.outputs.version }}
 
       # IMPORTANT: Checkout of Dokka branch is done BEFORE generating docs
