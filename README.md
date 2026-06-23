@@ -24,7 +24,16 @@ The library uses a different localization backend depending on the platform:
 
 ## Setup
 
-This library is still **WIP**, no release has been published yet.
+Add to your dependencies:
+
+```kotlin
+dependencies {
+    implementation("dev.mmauro:datetime-polyglot:<version>")
+}
+```
+
+See latest version in badge above or look directly
+at [Maven Central page](https://central.sonatype.com/artifact/dev.mmauro/datetime-polyglot).
 
 <details>
 
