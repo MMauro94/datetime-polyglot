@@ -46,7 +46,7 @@ class DefaultGitInfoExtension(
                 .split("\n")
                 .filter { it.isNotEmpty() }
                 .map { Version.fromTag(it) }
-                .filter { it.isStable }
+                .filter { it.preRelease == null }
                 .max()
         }
 }
