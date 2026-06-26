@@ -4,10 +4,10 @@ import android.icu.text.DateFormat as AndroidDateFormat
 import android.icu.text.DateTimePatternGenerator
 import android.icu.util.ULocale
 import android.os.Build
-import androidx.annotation.RequiresApi
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaZoneId
@@ -16,10 +16,12 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.Month
-import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.temporal.Temporal
+import android.icu.text.MeasureFormat as IcuMeasureFormat
+import android.icu.util.Measure as IcuMeasure
+import android.icu.util.MeasureUnit as IcuMeasureUnit
 import android.icu.util.TimeZone as IcuTimeZone
 
 // DATE FORMAT
@@ -155,6 +157,21 @@ private fun TimeZoneStyle.toIcuStyle() = when (this) {
     // GMT
     TimeZoneStyle.Gmt.SHORT -> IcuTimeZone.SHORT_GMT
     TimeZoneStyle.Gmt.LONG -> IcuTimeZone.LONG_GMT
+}
+
+// UNITS
+internal actual typealias MeasureFormat = IcuMeasureFormat
+internal actual typealias MeasureUnit = IcuMeasureUnit
+internal actual typealias Measure = IcuMeasure
+
+internal actual fun getMeasureFormat(locale: PlatformLocale, durationStyle: DurationStyle): MeasureFormat {
+    return IcuMeasureFormat.getInstance(locale, durationStyle.toIcuFormatWidth())
+}
+
+private fun DurationStyle.toIcuFormatWidth() = when(this) {
+    DurationStyle.NARROW -> IcuMeasureFormat.FormatWidth.NARROW
+    DurationStyle.SHORT -> IcuMeasureFormat.FormatWidth.SHORT
+    DurationStyle.WIDE -> IcuMeasureFormat.FormatWidth.WIDE
 }
 
 // LOCALE

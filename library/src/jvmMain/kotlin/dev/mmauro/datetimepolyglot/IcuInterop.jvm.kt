@@ -5,6 +5,7 @@ import com.ibm.icu.util.ULocale
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaZoneId
@@ -15,7 +16,10 @@ import java.time.Month
 import java.time.ZonedDateTime
 import java.time.temporal.Temporal
 import com.ibm.icu.text.DateFormat as IcuDateFormat
+import com.ibm.icu.text.MeasureFormat as IcuMeasureFormat
+import com.ibm.icu.util.MeasureUnit as IcuMeasureUnit
 import com.ibm.icu.text.SimpleDateFormat as IcuSimpleDateFormat
+import com.ibm.icu.util.Measure as IcuMeasure
 import com.ibm.icu.util.TimeZone as IcuTimeZone
 
 
@@ -94,6 +98,21 @@ private fun TimeZoneStyle.toIcuStyle() = when (this) {
     // GMT
     TimeZoneStyle.Gmt.SHORT -> IcuTimeZone.SHORT_GMT
     TimeZoneStyle.Gmt.LONG -> IcuTimeZone.LONG_GMT
+}
+
+// UNITS
+internal actual typealias MeasureFormat = IcuMeasureFormat
+internal actual typealias MeasureUnit = IcuMeasureUnit
+internal actual typealias Measure = IcuMeasure
+
+internal actual fun getMeasureFormat(locale: PlatformLocale, durationStyle: DurationStyle): MeasureFormat {
+    return IcuMeasureFormat.getInstance(locale, durationStyle.toIcuFormatWidth())
+}
+
+private fun DurationStyle.toIcuFormatWidth() = when(this) {
+    DurationStyle.NARROW -> IcuMeasureFormat.FormatWidth.NARROW
+    DurationStyle.SHORT -> IcuMeasureFormat.FormatWidth.SHORT
+    DurationStyle.WIDE -> IcuMeasureFormat.FormatWidth.WIDE
 }
 
 // LOCALE
