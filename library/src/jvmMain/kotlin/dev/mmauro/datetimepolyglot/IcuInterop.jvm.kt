@@ -1,6 +1,7 @@
 package dev.mmauro.datetimepolyglot
 
 import com.ibm.icu.text.DateTimePatternGenerator
+import com.ibm.icu.text.DisplayContext
 import com.ibm.icu.util.ULocale
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
@@ -15,8 +16,10 @@ import java.time.LocalTime
 import java.time.Month
 import java.time.ZonedDateTime
 import java.time.temporal.Temporal
+import kotlin.time.DurationUnit
 import com.ibm.icu.text.DateFormat as IcuDateFormat
 import com.ibm.icu.text.MeasureFormat as IcuMeasureFormat
+import com.ibm.icu.text.RelativeDateTimeFormatter as IcuRelativeDateTimeFormatter
 import com.ibm.icu.util.MeasureUnit as IcuMeasureUnit
 import com.ibm.icu.text.SimpleDateFormat as IcuSimpleDateFormat
 import com.ibm.icu.util.Measure as IcuMeasure
@@ -100,6 +103,31 @@ private fun TimeZoneStyle.toIcuStyle() = when (this) {
     TimeZoneStyle.Gmt.LONG -> IcuTimeZone.LONG_GMT
 }
 
+// RELATIVE TIME
+internal actual typealias RelativeDateTimeFormatter = IcuRelativeDateTimeFormatter
+
+internal actual fun getRelativeDateTimeFormatter(locale: PlatformLocale, style: DurationStyle): RelativeDateTimeFormatter {
+    val style = when (style) {
+        DurationStyle.NARROW -> IcuRelativeDateTimeFormatter.Style.NARROW
+        DurationStyle.SHORT -> IcuRelativeDateTimeFormatter.Style.SHORT
+        DurationStyle.WIDE -> IcuRelativeDateTimeFormatter.Style.LONG
+    }
+    return IcuRelativeDateTimeFormatter.getInstance(locale, null, style, DisplayContext.CAPITALIZATION_NONE)
+}
+
+internal actual fun RelativeDateTimeFormatter.formatNumeric(quantity: Long, unit: DurationUnit): String {
+    val relativeUnit = when (unit) {
+        DurationUnit.NANOSECONDS -> error("nanosecond unit not supported")
+        DurationUnit.MICROSECONDS -> error("microsecond unit not supported")
+        DurationUnit.MILLISECONDS -> error("millisecond unit not supported")
+        DurationUnit.SECONDS -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.SECOND
+        DurationUnit.MINUTES -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.MINUTE
+        DurationUnit.HOURS -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.HOUR
+        DurationUnit.DAYS -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.DAY
+    }
+    return formatNumeric(quantity.toDouble(), relativeUnit)
+}
+
 // UNITS
 internal actual typealias MeasureFormat = IcuMeasureFormat
 internal actual typealias MeasureUnit = IcuMeasureUnit
@@ -109,7 +137,7 @@ internal actual fun getMeasureFormat(locale: PlatformLocale, durationStyle: Dura
     return IcuMeasureFormat.getInstance(locale, durationStyle.toIcuFormatWidth())
 }
 
-private fun DurationStyle.toIcuFormatWidth() = when(this) {
+private fun DurationStyle.toIcuFormatWidth() = when (this) {
     DurationStyle.NARROW -> IcuMeasureFormat.FormatWidth.NARROW
     DurationStyle.SHORT -> IcuMeasureFormat.FormatWidth.SHORT
     DurationStyle.WIDE -> IcuMeasureFormat.FormatWidth.WIDE
