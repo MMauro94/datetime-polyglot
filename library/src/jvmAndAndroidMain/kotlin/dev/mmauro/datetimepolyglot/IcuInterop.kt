@@ -42,7 +42,7 @@ internal expect fun TimeZone.getDisplayName(style: TimeZoneStyle, locale: Platfo
 
 // UNITS
 internal expect class MeasureFormat {
-    fun format(obj: Any): String
+    fun formatMeasures(vararg measures: Measure): String
 }
 
 internal expect class MeasureUnit
