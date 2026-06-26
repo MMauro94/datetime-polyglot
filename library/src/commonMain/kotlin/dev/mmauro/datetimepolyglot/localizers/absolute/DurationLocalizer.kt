@@ -19,7 +19,7 @@ data class DurationOptions(
     val minUnit: DurationUnit = DurationUnit.SECONDS,
     val maxUnits: Int = 2,
     val omitZeros: Boolean = true,
-    val width: DurationStyle = DurationStyle.WIDE,
+    val style: DurationStyle = DurationStyle.WIDE,
 ) {
     init {
         require(maxUnits > 0) { "maxUnits must be greater than zero" }

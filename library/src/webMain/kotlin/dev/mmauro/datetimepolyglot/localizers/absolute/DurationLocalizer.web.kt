@@ -29,7 +29,7 @@ actual class DurationLocalizer actual constructor(
 
     private val listFormat = ListFormat(locale, unsafeJso {
         type = ListFormatType.unit
-        style = when (options.width) {
+        style = when (options.style) {
             DurationStyle.NARROW -> ListFormatStyle.narrow
             DurationStyle.SHORT -> ListFormatStyle.short
             DurationStyle.WIDE -> ListFormatStyle.long
@@ -68,7 +68,7 @@ actual class DurationLocalizer actual constructor(
                 DurationUnit.DAYS -> "day"
                 else -> error("Unknown duration unit: ${this@numberFormat}")
             }
-            unitDisplay = when (options.width) {
+            unitDisplay = when (options.style) {
                 DurationStyle.NARROW -> UnitDisplay.narrow
                 DurationStyle.SHORT -> UnitDisplay.short
                 DurationStyle.WIDE -> UnitDisplay.long
