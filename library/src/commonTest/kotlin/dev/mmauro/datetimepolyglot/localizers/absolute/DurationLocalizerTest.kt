@@ -170,6 +170,18 @@ val DurationLocalizerTestFactory = funSpec {
             }
         }
 
+        context("if zero localization") {
+            withTests(Duration.ZERO, 59.seconds) { duration ->
+                duration.localize(
+                    options = DurationOptions(
+                        minUnit = DurationUnit.MINUTES,
+                        ifZeroLocalization = { locale -> "special value in $locale" },
+                    ),
+                    locale = LOCALE_ENGLISH,
+                ) shouldBeLocalizedAs "special value in en"
+            }
+        }
+
         context("works in a different language") {
             withTests(
                 nameFn = { it.toString() },

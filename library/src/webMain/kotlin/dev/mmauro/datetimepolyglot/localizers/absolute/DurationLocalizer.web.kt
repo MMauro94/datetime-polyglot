@@ -38,16 +38,13 @@ actual class DurationLocalizer actual constructor(
 
     @OptIn(ExperimentalWasmJsInterop::class)
     actual override fun localize(value: Duration): String {
-        value.requireValidAbsoluteDuration()
+        return value.internalLocalize(options, locale) { filteredUnits ->
+            val localizedUnits = filteredUnits.map { (value, unit) -> unit.numberFormat().format(value.toJsBigInt()).toJsString() }
 
-        val localizedUnits = options
-            .detectUnits(value)
-            .filter(options)
-            .map { (value, unit) -> unit.numberFormat().format(value.toJsBigInt()).toJsString() }
-
-        // For some reason JsArray doesn't implement JsIterable in Kotlin, but this works regardless. Let's suppress compiler warnings
-        @Suppress("CAST_NEVER_SUCCEEDS", "UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
-        return listFormat.format(localizedUnits.toJsArray() as JsIterable<JsString>)
+            // For some reason JsArray doesn't implement JsIterable in Kotlin, but this works regardless. Let's suppress compiler warnings
+            @Suppress("CAST_NEVER_SUCCEEDS", "UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
+            listFormat.format(localizedUnits.toJsArray() as JsIterable<JsString>)
+        }
     }
 
     private fun DurationUnit.numberFormat(): NumberFormat {
