@@ -22,6 +22,6 @@ actual class DurationLocalizer actual constructor(
             .filter(options)
             .map { (value, unit) -> Measure(value, unit.toIcuTimeUnit()) }
 
-        return measureFormat.format(measures)
+        return measureFormat.formatMeasures(*measures.toTypedArray())
     }
 }
