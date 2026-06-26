@@ -20,6 +20,30 @@ public final class dev/mmauro/datetimepolyglot/HourCycle : java/lang/Enum {
 public final class dev/mmauro/datetimepolyglot/HourCycle$Companion {
 }
 
+public abstract interface class dev/mmauro/datetimepolyglot/RelativeLocalizer {
+	public abstract fun localize (Ljava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public final class dev/mmauro/datetimepolyglot/TickingValue {
+	public synthetic fun <init> (Ljava/lang/Object;Lkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2-FghU774 ()Lkotlin/time/Duration;
+	public final fun copy-6Au4x4Y (Ljava/lang/Object;Lkotlin/time/Duration;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static synthetic fun copy-6Au4x4Y$default (Ldev/mmauro/datetimepolyglot/TickingValue;Ljava/lang/Object;Lkotlin/time/Duration;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNextTick-FghU774 ()Lkotlin/time/Duration;
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/TickingValueKt {
+	public static final fun combine (Ldev/mmauro/datetimepolyglot/TickingValue;Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function2;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun flatMap (Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function1;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun map (Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function1;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun withNextTickAtMost-6Au4x4Y (Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/time/Duration;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
 public final class dev/mmauro/datetimepolyglot/Zoned {
 	public fun <init> (Ljava/lang/Object;Lkotlinx/datetime/TimeZone;)V
 	public final fun component1 ()Ljava/lang/Object;
@@ -98,19 +122,21 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/DurationLocal
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions {
 	public fun <init> ()V
-	public fun <init> (Lkotlin/time/DurationUnit;IZLdev/mmauro/datetimepolyglot/styles/DurationStyle;)V
-	public synthetic fun <init> (Lkotlin/time/DurationUnit;IZLdev/mmauro/datetimepolyglot/styles/DurationStyle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkotlin/time/DurationUnit;IZLdev/mmauro/datetimepolyglot/styles/DurationStyle;Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Lkotlin/time/DurationUnit;IZLdev/mmauro/datetimepolyglot/styles/DurationStyle;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lkotlin/time/DurationUnit;
 	public final fun component2 ()I
 	public final fun component3 ()Z
 	public final fun component4 ()Ldev/mmauro/datetimepolyglot/styles/DurationStyle;
-	public final fun copy (Lkotlin/time/DurationUnit;IZLdev/mmauro/datetimepolyglot/styles/DurationStyle;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;
-	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;Lkotlin/time/DurationUnit;IZLdev/mmauro/datetimepolyglot/styles/DurationStyle;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;
+	public final fun component5 ()Lkotlin/jvm/functions/Function1;
+	public final fun copy (Lkotlin/time/DurationUnit;IZLdev/mmauro/datetimepolyglot/styles/DurationStyle;Lkotlin/jvm/functions/Function1;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;Lkotlin/time/DurationUnit;IZLdev/mmauro/datetimepolyglot/styles/DurationStyle;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIfZeroLocalization ()Lkotlin/jvm/functions/Function1;
 	public final fun getMaxUnits ()I
 	public final fun getMinUnit ()Lkotlin/time/DurationUnit;
 	public final fun getOmitZeros ()Z
-	public final fun getWidth ()Ldev/mmauro/datetimepolyglot/styles/DurationStyle;
+	public final fun getStyle ()Ldev/mmauro/datetimepolyglot/styles/DurationStyle;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -364,6 +390,24 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantO
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions$Companion {
+}
+
+public abstract interface annotation class dev/mmauro/datetimepolyglot/localizers/relative/ExperimentalMultiUnitRelativeDuration : java/lang/annotation/Annotation {
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/relative/MultiUnitRelativeDurationLocalizer : dev/mmauro/datetimepolyglot/RelativeLocalizer {
+	public fun <init> ()V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;Lcom/ibm/icu/util/ULocale;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getLocale ()Lcom/ibm/icu/util/ULocale;
+	public final fun getOptions ()Ldev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;
+	public synthetic fun localize (Ljava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public fun localize-LRDsOJo (J)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/relative/MultiUnitRelativeDurationLocalizerKt {
+	public static final fun localizeRelativeMultiUnit-KLykuaI (JLdev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;Lcom/ibm/icu/util/ULocale;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static synthetic fun localizeRelativeMultiUnit-KLykuaI$default (JLdev/mmauro/datetimepolyglot/localizers/absolute/DurationOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/standalone/DayOfWeekLocalizer : dev/mmauro/datetimepolyglot/DateTimeLocalizer {

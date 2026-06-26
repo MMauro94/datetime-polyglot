@@ -9,7 +9,7 @@ import dev.mmauro.datetimepolyglot.styles.YearStyle
 import kotlinx.datetime.YearMonth
 
 /**
- * Localization options for [YearMonthLocalizer] and [YearMonth.parse].
+ * Localization options for [YearMonthLocalizer] and [YearMonth.localize].
  */
 data class YearMonthOptions(
     override val eraStyle: EraStyle? = null,
