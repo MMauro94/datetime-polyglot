@@ -2,11 +2,9 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.DateTimeLocalizer
 import dev.mmauro.datetimepolyglot.Measure
-import dev.mmauro.datetimepolyglot.MeasureFormat
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getMeasureFormat
 import dev.mmauro.datetimepolyglot.utils.toIcuTimeUnit
-import dev.mmauro.datetimepolyglot.utils.unitPart
 import kotlin.time.Duration
 
 actual class DurationLocalizer actual constructor(
@@ -14,7 +12,7 @@ actual class DurationLocalizer actual constructor(
     locale: PlatformLocale
 ) : DateTimeLocalizer<Duration> {
 
-    private val measureFormat = getMeasureFormat(locale, options.width)
+    private val measureFormat = getMeasureFormat(locale, options.style)
 
     actual override fun localize(value: Duration): String {
         value.requireValidAbsoluteDuration()

@@ -51,7 +51,7 @@ val DurationLocalizerTestFactory = funSpec {
                     omitZeros = omitZeros,
                     minUnit = minUnit,
                     maxUnits = maxUnits,
-                    width = DurationStyle.WIDE,
+                    style = DurationStyle.WIDE,
                 )
                 test(options.toString()) {
                     duration.localize(options, locale) shouldBeLocalizedAs expected
@@ -164,7 +164,7 @@ val DurationLocalizerTestFactory = funSpec {
                 DurationStyle.WIDE to "1 hour, 5 minutes",
             ) { (durationWidth, expected) ->
                 (1.hours + 5.minutes).localize(
-                    options = DurationOptions(width = durationWidth),
+                    options = DurationOptions(style = durationWidth),
                     locale = LOCALE_ENGLISH,
                 ) shouldBeLocalizedAs expected
             }
