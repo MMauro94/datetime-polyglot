@@ -2,8 +2,15 @@ package dev.mmauro.datetimepolyglot.utils
 
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.core.tuple
 import io.kotest.datatest.withData
+import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.shouldBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.duration
+import io.kotest.property.arbitrary.enum
+import io.kotest.property.checkAll
+import kotlin.math.absoluteValue
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
@@ -41,4 +48,99 @@ class DurationTest : FunSpec({
             }
         }
     }
+
+    context("remainderUntilNextUnitBoundary") {
+        context("positive values") {
+            withData(
+                nameFn = { "${it.a}, ${it.b} -> ${it.c}" },
+                tuple(1.hours, DurationUnit.MINUTES, 1.nanoseconds),
+                tuple(3.hours + 20.minutes, DurationUnit.HOURS, 20.minutes + 1.nanoseconds),
+                tuple(1.hours, DurationUnit.HOURS, 1.nanoseconds),
+                tuple(5.seconds + 230.milliseconds, DurationUnit.SECONDS, 230.milliseconds + 1.nanoseconds),
+                tuple(5.seconds, DurationUnit.MILLISECONDS, 1.nanoseconds),
+                tuple(5.minutes, DurationUnit.HOURS, 1.hours + 5.minutes),
+                tuple(5.minutes, DurationUnit.DAYS, 1.days + 5.minutes),
+            ) { (duration, unit, expected) ->
+                duration.getAndTestRemainderUntilNextUnitBoundary(unit) shouldBe expected
+            }
+        }
+        context("zero duration") {
+            withData(
+                nameFn = { "${it.first} -> ${it.second}" },
+                DurationUnit.NANOSECONDS to 1.nanoseconds,
+                DurationUnit.MILLISECONDS to 1.milliseconds,
+                DurationUnit.SECONDS to 1.seconds,
+                DurationUnit.MINUTES to 1.minutes,
+                DurationUnit.HOURS to 1.hours,
+                DurationUnit.DAYS to 1.days,
+            ) { (unit, expected) ->
+                Duration.ZERO.getAndTestRemainderUntilNextUnitBoundary(unit) shouldBe expected
+            }
+        }
+        context("negative values") {
+            withData(
+                nameFn = { "${it.a}, ${it.b} -> ${it.c}" },
+                tuple(1.hours, DurationUnit.MINUTES, 1.minutes),
+                tuple(1.hours + 20.minutes, DurationUnit.HOURS, 40.minutes),
+                tuple(1.hours, DurationUnit.HOURS, 1.hours),
+                tuple(5.seconds + 230.milliseconds, DurationUnit.SECONDS, 770.milliseconds),
+                tuple(5.seconds, DurationUnit.MILLISECONDS, 1.milliseconds),
+                tuple(5.minutes, DurationUnit.HOURS, 55.minutes),
+                tuple(5.minutes, DurationUnit.DAYS, 23.hours + 55.minutes),
+            ) { (duration, unit, expected) ->
+                (-duration).getAndTestRemainderUntilNextUnitBoundary(unit) shouldBe expected
+            }
+        }
+
+        test("check that the desired unit actually changes") {
+            checkAll(
+                iterations = 10_000,
+                Arb.duration(-100.days..100.days),
+                Arb.enum<DurationUnit>(),
+            ) { duration, unit ->
+                duration.getAndTestRemainderUntilNextUnitBoundary(unit)
+            }
+        }
+    }
 })
+
+
+// IDE complains if we don't put the else, but then the compiler produces a warning if we put it. Let's suppress that warning.
+// RC is that DurationUnit is declared as an expect enum - https://youtrack.jetbrains.com/issue/KT-38750
+@Suppress("REDUNDANT_ELSE_IN_WHEN")
+private val DurationUnit.maxValue
+    get() = when (this) {
+        DurationUnit.NANOSECONDS -> 1000
+        DurationUnit.MICROSECONDS -> 1000
+        DurationUnit.MILLISECONDS -> 1000
+        DurationUnit.SECONDS -> 60
+        DurationUnit.MINUTES -> 60
+        DurationUnit.HOURS -> 24
+        DurationUnit.DAYS -> null
+        else -> error("Unknown duration unit: $this")
+    }
+
+private fun DurationUnit.increase(value: Long): Long {
+    val next = value + 1
+    return maxValue?.let { next % it } ?: next
+}
+
+private fun DurationUnit.decrease(value: Long): Long? {
+    val prev = value - 1
+    return if (prev < 0) {
+        maxValue?.let { prev + it }
+    } else {
+        prev
+    }
+}
+
+private fun Duration.getAndTestRemainderUntilNextUnitBoundary(unit: DurationUnit): Duration {
+    val prevUnit = this.unitPart(unit).absoluteValue
+    val remainder = this.remainderUntilNextUnitBoundary(unit)
+    val newDuration = this - remainder
+    val nextUnit = newDuration.unitPart(unit).absoluteValue
+
+    nextUnit shouldBeIn setOfNotNull(unit.decrease(prevUnit), unit.increase(prevUnit))
+
+    return remainder
+}
