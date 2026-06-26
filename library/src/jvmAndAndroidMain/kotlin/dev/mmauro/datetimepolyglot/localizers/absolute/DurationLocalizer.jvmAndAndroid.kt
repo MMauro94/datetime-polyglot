@@ -9,19 +9,15 @@ import kotlin.time.Duration
 
 actual class DurationLocalizer actual constructor(
     private val options: DurationOptions,
-    locale: PlatformLocale
+    private val locale: PlatformLocale
 ) : DateTimeLocalizer<Duration> {
 
     private val measureFormat = getMeasureFormat(locale, options.style)
 
     actual override fun localize(value: Duration): String {
-        value.requireValidAbsoluteDuration()
-
-        val measures = options
-            .detectUnits(value)
-            .filter(options)
-            .map { (value, unit) -> Measure(value, unit.toIcuTimeUnit()) }
-
-        return measureFormat.formatMeasures(*measures.toTypedArray())
+        return value.internalLocalize(options, locale) { filteredUnits ->
+            val measures = filteredUnits.map { (value, unit) -> Measure(value, unit.toIcuTimeUnit()) }
+            measureFormat.formatMeasures(*measures.toTypedArray())
+        }
     }
 }

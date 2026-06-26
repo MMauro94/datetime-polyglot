@@ -46,9 +46,7 @@ internal expect class MeasureFormat {
 }
 
 internal expect class MeasureUnit
-internal expect class Measure(number: Number, unit: MeasureUnit) {
-    fun getNumber(): Number
-}
+internal expect class Measure(number: Number, unit: MeasureUnit)
 
 internal expect fun getMeasureFormat(locale: PlatformLocale, durationStyle: DurationStyle): MeasureFormat
 
