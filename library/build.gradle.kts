@@ -106,6 +106,7 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotest.framework)
             implementation(libs.kotest.assertions.core)
+            implementation(libs.kotest.property)
         }
 
         androidMain.dependencies {

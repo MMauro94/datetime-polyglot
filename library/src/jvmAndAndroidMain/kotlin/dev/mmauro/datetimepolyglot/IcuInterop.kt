@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone
 import java.time.LocalDate
@@ -38,6 +39,18 @@ internal expect fun getDateTimeFormatInstance(
 
 // TIMEZONE
 internal expect fun TimeZone.getDisplayName(style: TimeZoneStyle, locale: PlatformLocale): String
+
+// UNITS
+internal expect class MeasureFormat {
+    fun format(obj: Any): String
+}
+
+internal expect class MeasureUnit
+internal expect class Measure(number: Number, unit: MeasureUnit) {
+    fun getNumber(): Number
+}
+
+internal expect fun getMeasureFormat(locale: PlatformLocale, durationStyle: DurationStyle): MeasureFormat
 
 // LOCALE
 internal expect fun PlatformLocale.getDefaultHourCycle(): HourCycle
