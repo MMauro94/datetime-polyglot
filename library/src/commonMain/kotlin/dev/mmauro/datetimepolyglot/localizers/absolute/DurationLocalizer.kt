@@ -12,12 +12,13 @@ import kotlin.time.DurationUnit
 /**
  * Localization options for [DurationLocalizer] and [Duration.localize]
  *
- * @property minUnit minimum unit that will be in output. If the [Duration] is smaller, `0 <min-unit>` will be returned (see also the
+ * @property minUnit the smallest unit that will be in output. If the [Duration] is smaller, `0 <min-unit>` will be returned (see also the
  * [ifZeroLocalization] parameter)
  * @property maxUnits maximum number of units that will be retuned. If the [Duration] spans more than [maxUnits] units (e.g. 3h 1m 3s), only
  * the biggest [maxUnits] will be returned.
  * @property omitZeros whether to omit middle units that are zero. If a unit is omitted, the next non-zero smaller one will be returned
  * (e.g. omitZero=false, maxUnits=2, output=3h 0m; omitZero=true, maxUnits=2, output=3h 3s)
+ * @property style the style of duration units
  * @property ifZeroLocalization string that will be returned as-is in case if all allowable units to display are zero. Note that this
  * doesn't necessarily mean that the passed [Duration] is itself [Duration.ZERO], but rather that it's smaller than the [minUnit]. If this
  * is null, the default `0 <min-unit>` localized string will be returned in this case.

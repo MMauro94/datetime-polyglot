@@ -11,6 +11,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.Month
 import java.time.ZonedDateTime
+import kotlin.time.DurationUnit
 
 internal const val ICU_UNICODE_HOUR_CYCLE_EXTENSION_KEY = "hc"
 
@@ -39,6 +40,12 @@ internal expect fun getDateTimeFormatInstance(
 
 // TIMEZONE
 internal expect fun TimeZone.getDisplayName(style: TimeZoneStyle, locale: PlatformLocale): String
+
+// RELATIVE TIME
+internal expect class RelativeDateTimeFormatter
+
+internal expect fun getRelativeDateTimeFormatter(locale: PlatformLocale, style: DurationStyle): RelativeDateTimeFormatter
+internal expect fun RelativeDateTimeFormatter.formatNumeric(quantity: Long, unit: DurationUnit): String
 
 // UNITS
 internal expect class MeasureFormat {

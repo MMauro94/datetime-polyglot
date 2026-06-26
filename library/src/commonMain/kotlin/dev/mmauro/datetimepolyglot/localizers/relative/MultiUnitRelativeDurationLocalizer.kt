@@ -30,6 +30,13 @@ annotation class ExperimentalMultiUnitRelativeDuration
  * the output string is present.
  * The words "ago" and "in" are not included in the output because localized relative-time phrases for multi-unit durations are not
  * standardized and are not provided by ICU/CLDR.
+ *
+ * If "ago" and "in" are required, use [RelativeDurationLocalizer] which uses a single unit.
+ *
+ * Examples:
+ * - `1h 5m`
+ * - `1 hr, 5 min`
+ * - `1 hour, 5 minutes`
  */
 @ExperimentalMultiUnitRelativeDuration
 class MultiUnitRelativeDurationLocalizer(
@@ -52,6 +59,11 @@ class MultiUnitRelativeDurationLocalizer(
     }
 }
 
+/**
+ * Localizes this [Duration] relatively with a multiple units with the given [options] in the given [locale].
+ *
+ * @see MultiUnitRelativeDurationLocalizer
+ */
 @ExperimentalMultiUnitRelativeDuration
 fun Duration.localizeRelativeMultiUnit(
     options: DurationOptions = DurationOptions(),

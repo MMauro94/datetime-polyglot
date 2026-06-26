@@ -210,23 +210,23 @@ val DurationLocalizerTestFactory = funSpec {
         }
 
         test("not enough units to fulfill max units") {
-            val formatter = DurationOptions(
+            val options = DurationOptions(
                 omitZeros = true,
                 minUnit = DurationUnit.MINUTES,
                 maxUnits = 2,
             )
-            formatter.detectUnits(40.minutes) shouldBe listOf(
+            options.detectUnits(40.minutes) shouldBe listOf(
                 40L to DurationUnit.MINUTES,
             )
         }
 
         test("duration is smaller than 1 minUnit") {
-            val formatter = DurationOptions(
+            val options = DurationOptions(
                 omitZeros = true,
                 minUnit = DurationUnit.HOURS,
                 maxUnits = 2,
             )
-            formatter.detectUnits(59.minutes + 59.seconds) shouldBe listOf(
+            options.detectUnits(59.minutes + 59.seconds) shouldBe listOf(
                 0L to DurationUnit.HOURS,
             )
         }
@@ -234,12 +234,12 @@ val DurationLocalizerTestFactory = funSpec {
         context("a zero duration returns a single unit equal to minUnit") {
             withContexts(DurationUnit.entries) { minUnit ->
                 withTests(nameFn = { "maxUnits=$it" }, 1, 2, 3) { maxUnits ->
-                    val formatter = DurationOptions(
+                    val options = DurationOptions(
                         omitZeros = true,
                         minUnit = minUnit,
                         maxUnits = maxUnits,
                     )
-                    formatter.detectUnits(Duration.ZERO) shouldBe listOf(0L to minUnit)
+                    options.detectUnits(Duration.ZERO) shouldBe listOf(0L to minUnit)
                 }
             }
         }
