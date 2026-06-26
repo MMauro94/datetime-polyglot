@@ -1,6 +1,5 @@
-package dev.mmauro.datetimepolyglot.localizers.utils
+package dev.mmauro.datetimepolyglot.utils
 
-import dev.mmauro.datetimepolyglot.utils.unitPart
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -15,7 +14,7 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 
-class Duration : FunSpec({
+class DurationTest : FunSpec({
     context("unitPart") {
         val duration = 69.days + 13.hours + 40.minutes + 21.seconds + 320.milliseconds + 255.microseconds + 420.nanoseconds
         withData(
