@@ -7,8 +7,10 @@ dokka = "2.2.0"
 icu = "78.3"
 kotest = "6.2.1"
 kotlin = "2.4.0"
+kotlinpoet = "2.3.0"
 kotlinx-datetime = "0.8.0"
 ksp = "2.3.6"
+semver = "3.1.0"
 vanniktechMavenPublish = "0.37.0"
 
 [libraries]
@@ -19,8 +21,10 @@ kotest-framework = { module = "io.kotest:kotest-framework-engine", version.ref =
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-runner-junit4 = { module = "io.kotest:kotest-runner-junit4", version.ref = "kotest" }
+kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 ibm-icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu" }
+semver = { module = "io.github.z4kn4fein:semver", version.ref = "semver" }
 
 [plugins]
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
