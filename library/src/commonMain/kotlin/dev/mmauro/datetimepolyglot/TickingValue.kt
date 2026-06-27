@@ -24,7 +24,7 @@ data class TickingValue<out T>(val value: T, val nextTick: Duration?) {
 }
 
 /**
- * Returns a [TickingValue] with the same [value] and with the next tick being the min of its value and [nextTick].
+ * Returns a [TickingValue] with the same [TickingValue.value] and with the next tick being the min of its value and [nextTick].
  *
  * Passing a `null` [nextTick] will return a [TickingValue] equivalent to this.
  */
