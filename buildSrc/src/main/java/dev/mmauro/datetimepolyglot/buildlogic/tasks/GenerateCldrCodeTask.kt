@@ -32,23 +32,20 @@ enum class DateStyle(val icu: Int, val polyglot: MemberName) {
 }
 
 open class GenerateCldrCodeTask : DefaultTask() {
-    private val generatedRoot = project.layout.buildDirectory.dir("generated/cldr").get().asFile
+    private val output = project.layout.buildDirectory.dir("generated/cldr").get().asFile
 
     init {
         group = "datetimepolyglot"
-        description = ""
-        outputs.dir(generatedRoot)
+        description = "Generates code that has hardcoded CLDR data. Needed for stuff that is not exposed by all localization backends."
+        outputs.dir(output)
     }
-
-    private fun sourceSetRoot(name: String) = generatedRoot.resolve(name)
 
     @TaskAction
     fun run() {
-        generatedRoot.deleteRecursively()
-        generatedRoot.mkdirs()
+        output.deleteRecursively()
+        output.mkdirs()
 
-        val commonMain = sourceSetRoot("commonMain")
-        dateTimeJoinerFile().writeTo(commonMain)
+        dateTimeJoinerFile().writeTo(output)
     }
 
     // This code needs to be generated because:
