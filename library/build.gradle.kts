@@ -1,4 +1,5 @@
 import dev.mmauro.datetimepolyglot.buildlogic.extensions.GitInfoExtension
+import dev.mmauro.datetimepolyglot.buildlogic.tasks.GenerateCldrCodeTask
 import dev.mmauro.datetimepolyglot.buildlogic.tasks.PrintVersionTask
 import io.github.z4kn4fein.semver.Version
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -6,6 +7,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -134,6 +136,10 @@ kotlin {
             implementation(npm("@js-joda/timezone", "2.25.1"))
         }
     }
+
+    sourceSets.configureEach {
+        kotlin.srcDir(project.layout.buildDirectory.dir("generated/cldr/${this.name}"))
+    }
 }
 
 tasks.named<Test>("jvmTest").configure {
@@ -147,6 +153,11 @@ tasks.register<PrintVersionTask>("getCurrentVersion") {
 tasks.register<PrintVersionTask>("findLatestStableRelease") {
     description = "Print the latest stable version found in the repository"
     version = gitInfo.latestStableRelease
+}
+
+val generateCldrCodeTask = tasks.register<GenerateCldrCodeTask>("generateCldrCode") {}
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
+    dependsOn(generateCldrCodeTask)
 }
 
 project.plugins.withType<NodeJsPlugin> {

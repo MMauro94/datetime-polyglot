@@ -122,7 +122,7 @@ private fun SimpleDateFormat.overrideHourCycleIfNecessary(locale: PlatformLocale
     }
 }
 
-private fun DateStyle.toDateFormatStyle() = when (this) {
+internal fun DateStyle.toDateFormatStyle() = when (this) {
     DateStyle.SHORT -> AndroidDateFormat.SHORT
     DateStyle.MEDIUM -> AndroidDateFormat.MEDIUM
     DateStyle.LONG -> AndroidDateFormat.LONG

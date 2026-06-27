@@ -63,7 +63,7 @@ internal actual fun getDateTimeFormatInstance(
     ) as SimpleDateFormat
 }
 
-private fun DateStyle.toDateFormatStyle() = when (this) {
+internal fun DateStyle.toDateFormatStyle() = when (this) {
     DateStyle.SHORT -> IcuDateFormat.SHORT
     DateStyle.MEDIUM -> IcuDateFormat.MEDIUM
     DateStyle.LONG -> IcuDateFormat.LONG
