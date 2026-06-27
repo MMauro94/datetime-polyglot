@@ -27,6 +27,8 @@ val gitInfo = extensions.getByType(GitInfoExtension::class.java)
 
 version = gitInfo.currentVersion.get().toString()
 
+val generateCldrCodeTask = tasks.register<GenerateCldrCodeTask>("generateCldrCode") {}
+
 kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
@@ -101,8 +103,12 @@ kotlin {
         jvmTest.get().dependsOn(jvmAndAndroidTest)
 
 
-        commonMain.dependencies {
-            implementation(libs.kotlinx.datetime)
+        commonMain {
+            kotlin.srcDir(generateCldrCodeTask)
+
+            dependencies {
+                implementation(libs.kotlinx.datetime)
+            }
         }
 
         commonTest.dependencies {
@@ -136,10 +142,6 @@ kotlin {
             implementation(npm("@js-joda/timezone", "2.25.1"))
         }
     }
-
-    sourceSets.configureEach {
-        kotlin.srcDir(project.layout.buildDirectory.dir("generated/cldr/${this.name}"))
-    }
 }
 
 tasks.named<Test>("jvmTest").configure {
@@ -153,11 +155,6 @@ tasks.register<PrintVersionTask>("getCurrentVersion") {
 tasks.register<PrintVersionTask>("findLatestStableRelease") {
     description = "Print the latest stable version found in the repository"
     version = gitInfo.latestStableRelease
-}
-
-val generateCldrCodeTask = tasks.register<GenerateCldrCodeTask>("generateCldrCode") {}
-tasks.withType<KotlinCompilationTask<*>>().configureEach {
-    dependsOn(generateCldrCodeTask)
 }
 
 project.plugins.withType<NodeJsPlugin> {
