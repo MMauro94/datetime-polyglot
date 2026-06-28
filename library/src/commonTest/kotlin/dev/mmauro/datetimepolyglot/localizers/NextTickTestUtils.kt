@@ -1,4 +1,4 @@
-package dev.mmauro.datetimepolyglot.localizers.relative
+package dev.mmauro.datetimepolyglot.localizers
 
 import dev.mmauro.datetimepolyglot.TickingValue
 import io.kotest.assertions.withClue

@@ -4,6 +4,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.absolute.TickingDurationLocalizer
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.utils.remainderUntilNextUnitBoundary
 import kotlin.time.Duration
@@ -36,7 +37,7 @@ data class RelativeDurationOptions(
 }
 
 /**
- * Formats a single [Duration] unit (usually the biggest one) in a relative way.
+ * Localizes a single [Duration] unit (usually the biggest one) in a relative way.
  *
  * The [localize] function returns a [TickingValue] value indicating when a new [localize] call is required to update the value.
  *
@@ -46,7 +47,7 @@ data class RelativeDurationOptions(
  * For instance, if given the duration `10 seconds`, this class assumes that in `1.5 seconds` the [Duration] would be `8.5 seconds`.
  *
  * The output string will contain the correct localized words for "in" and "ago".
- * If "ago" and "in" are not required, use [MultiUnitRelativeDurationLocalizer] which can also use a multiple units.
+ * If you just need the "next tick" behavior but do not want the relative localization, you can use [TickingDurationLocalizer] instead.
  *
  * Examples:
  * - `10 minutes ago`

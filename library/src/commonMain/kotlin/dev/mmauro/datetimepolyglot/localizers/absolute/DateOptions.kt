@@ -17,7 +17,7 @@ data class DateOptions(
 )
 
 /**
- * Defines the format style for a date (year, month and day).
+ * Defines the localization style for a date (year, month and day).
  *
  * @see DateStyle
  * @see DateComponents

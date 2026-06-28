@@ -9,7 +9,7 @@ import kotlin.math.absoluteValue
 import kotlin.time.Duration
 
 actual class DurationLocalizer actual constructor(
-    private val options: DurationOptions,
+    internal actual val options: DurationOptions,
     private val locale: PlatformLocale
 ) : PolyglotValueLocalizer<Duration, String> {
 

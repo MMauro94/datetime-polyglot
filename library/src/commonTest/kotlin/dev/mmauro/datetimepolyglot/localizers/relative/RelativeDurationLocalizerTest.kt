@@ -3,9 +3,10 @@ package dev.mmauro.datetimepolyglot.localizers.relative
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.TEST_PLATFORM
-import dev.mmauro.datetimepolyglot.TestPlatform
 import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.TickingValue
+import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
+import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import io.kotest.core.spec.style.FunSpec
