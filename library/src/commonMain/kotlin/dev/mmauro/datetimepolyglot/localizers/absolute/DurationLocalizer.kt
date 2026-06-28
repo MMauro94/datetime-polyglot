@@ -20,7 +20,7 @@ import kotlin.time.DurationUnit
  * the biggest [maxUnits] will be returned.
  * @property omitZeros whether to omit middle units that are zero. If a unit is omitted, the next non-zero smaller one will be returned
  * (e.g. omitZero=false, maxUnits=2, output=3h 0m; omitZero=true, maxUnits=2, output=3h 3s)
- * @property style the style of duration units
+ * @property style the style of duration units, Also applies to the style of the list (in case there is more than one unit to show)
  * @property ifZeroLocalization string that will be returned as-is in case if all allowable units to display are zero. Note that this
  * doesn't necessarily mean that the passed [Duration] is itself [Duration.ZERO], but rather that it's smaller than the [minUnit]. If this
  * is null, the default `0 <min-unit>` localized string will be returned in this case.
@@ -84,7 +84,6 @@ internal fun Duration.internalLocalize(
     locale: PlatformLocale,
     localizeBlock: (filteredUnits: List<Pair<Long, DurationUnit>>) -> String,
 ): String {
-    require(this == Duration.ZERO || this.isPositive()) { "duration must be positive or zero" }
     require(this.isFinite()) { "duration must be finite" }
 
     val units = options.detectUnits(this)
