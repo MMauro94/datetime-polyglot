@@ -3,7 +3,6 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
-import dev.mmauro.datetimepolyglot.localizers.relative.MultiUnitRelativeDurationLocalizer
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDurationLocalizer
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.utils.unitPart
@@ -40,8 +39,10 @@ data class DurationOptions(
 /**
  * Localizer for [Duration].
  *
- * This is meant to format "static" duration, that don't change over time (e.g. a movie length).
- * For formatting durations that change over time see [RelativeDurationLocalizer] and [MultiUnitRelativeDurationLocalizer].
+ * This is meant to localize "static" duration, that don't change over time (e.g. a movie length).
+ *
+ * For localizing durations that change over time see [TickingDurationLocalizer].
+ * For localizing durations relatively, see [RelativeDurationLocalizer].
  *
  * Create once and re-use for localizing multiple values with the same [options].
  * Use [Duration.localize] for one-off localizations.
@@ -55,6 +56,8 @@ expect class DurationLocalizer(
     options: DurationOptions = DurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotValueLocalizer<Duration, String> {
+    internal val options: DurationOptions
+
     override fun localize(value: Duration): String
 }
 

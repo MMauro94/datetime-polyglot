@@ -26,7 +26,7 @@ import kotlin.time.Duration
 import kotlin.time.DurationUnit
 
 actual class DurationLocalizer actual constructor(
-    private val options: DurationOptions,
+    internal actual val options: DurationOptions,
     private val locale: PlatformLocale
 ) : PolyglotValueLocalizer<Duration, String> {
 

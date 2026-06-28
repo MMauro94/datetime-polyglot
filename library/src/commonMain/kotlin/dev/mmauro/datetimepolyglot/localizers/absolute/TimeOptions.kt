@@ -8,7 +8,7 @@ import dev.mmauro.datetimepolyglot.styles.SecondStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 
 /**
- * Options to pass when formatting time.
+ * Options to pass when localizing time.
  *
  * @property styleOptions options defining the appearance of the localized time
  * @property hourCycle if not null, overrides the hour cycle (H11, H12, H23, H24) to use. When `null`, uses the locale's default
