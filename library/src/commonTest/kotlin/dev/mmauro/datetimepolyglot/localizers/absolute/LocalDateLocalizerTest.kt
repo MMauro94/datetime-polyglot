@@ -107,7 +107,7 @@ suspend fun FunSpecContainerScope.dateComponentsTests(
     context("year style").config(
         enabledOrReasonIf = noPlatforms(
             platforms = Js.Node + Android,
-            reason = "NodeJS and Android have a bug formatting older dates: 01/01/123 gets formatted as Jan 2nd instead of Jan 1st"
+            reason = "NodeJS and Android have a bug localizing older dates: 01/01/123 gets formatted as Jan 2nd instead of Jan 1st"
         )
     ) {
         fun YearStyle.test() {
@@ -184,7 +184,7 @@ suspend fun FunSpecContainerScope.dateComponentsTests(
         }
 
         test("SHORT").config(
-            enabledOrReasonIf = noWeb("Web formats DayOfWeekStyle.SHORT differently (see DayOfWeekLocalizerTest)"),
+            enabledOrReasonIf = noWeb("Web localizes DayOfWeekStyle.SHORT differently (see DayOfWeekLocalizerTest)"),
         ) {
             DayOfWeekStyle.SHORT.test()
         }
