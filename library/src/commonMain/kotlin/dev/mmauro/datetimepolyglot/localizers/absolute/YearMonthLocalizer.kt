@@ -1,6 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.DateTimeLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.styles.EraStyle
@@ -34,7 +34,7 @@ data class YearMonthOptions(
 expect class YearMonthLocalizer(
     options: YearMonthOptions,
     locale: PlatformLocale = getDefaultLocale(),
-) : DateTimeLocalizer<YearMonth> {
+) : PolyglotDateTimeLocalizer<YearMonth> {
 
     override fun localize(value: YearMonth): String
 }

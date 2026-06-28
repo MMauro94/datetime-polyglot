@@ -1,9 +1,9 @@
 package dev.mmauro.datetimepolyglot.localizers.relative
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
-import dev.mmauro.datetimepolyglot.RelativeLocalizer
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DurationLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DurationOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.detectUnits
@@ -18,6 +18,7 @@ annotation class ExperimentalMultiUnitRelativeDuration
 /**
  * Formats a [Duration] in the same way as a [DurationLocalizer] does, but this is meant to be used to format relative values that change
  * over time.
+ * For static durations use [DurationLocalizer] instead.
  *
  * The [localize] function returns a [TickingValue] value indicating when a new [localize] call is required to update the value.
  *
@@ -42,7 +43,7 @@ annotation class ExperimentalMultiUnitRelativeDuration
 class MultiUnitRelativeDurationLocalizer(
     val options: DurationOptions = DurationOptions(),
     val locale: PlatformLocale = getDefaultLocale(),
-) : RelativeLocalizer<Duration> {
+) : PolyglotValueLocalizer<Duration, TickingValue<String>> {
 
     private val durationLocalizer = DurationLocalizer(options, locale)
 

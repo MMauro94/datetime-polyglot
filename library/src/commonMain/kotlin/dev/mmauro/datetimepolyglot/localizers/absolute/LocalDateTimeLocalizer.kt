@@ -1,6 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.DateTimeLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import kotlinx.datetime.LocalDateTime
@@ -44,7 +44,7 @@ data class LocalDateTimeOptions internal constructor(
 expect class LocalDateTimeLocalizer(
     options: LocalDateTimeOptions,
     locale: PlatformLocale = getDefaultLocale(),
-) : DateTimeLocalizer<LocalDateTime> {
+) : PolyglotDateTimeLocalizer<LocalDateTime> {
 
     override fun localize(value: LocalDateTime): String
 }

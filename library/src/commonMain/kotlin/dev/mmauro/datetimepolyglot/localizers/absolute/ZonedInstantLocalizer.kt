@@ -1,14 +1,10 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.DateTimeZonedLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
-import dev.mmauro.datetimepolyglot.localizers.absolute.localize
-import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.YearMonth.Companion
-import kotlinx.datetime.YearMonth.Companion.parse
 import kotlin.time.Instant
 
 /**
@@ -52,7 +48,7 @@ data class ZonedInstantOptions internal constructor(
 expect class ZonedInstantLocalizer(
     options: ZonedInstantOptions,
     locale: PlatformLocale = getDefaultLocale(),
-) : DateTimeZonedLocalizer<Instant> {
+) : PolyglotDateTimeZonedLocalizer<Instant> {
 
     override fun localize(value: Zoned<Instant>): String
 }

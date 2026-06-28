@@ -1,6 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.DateTimeZonedLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
@@ -9,16 +9,14 @@ import js.array.asSequence
 import js.intl.DateTimeFormat
 import js.intl.DateTimeFormatOptions
 import js.intl.TimeZoneNameFormat
-import js.intl.long
 import js.intl.shortOffset
 import js.objects.unsafeJso
-import kotlin.js.toList
 import kotlin.time.Instant
 
 actual class ZonedInstantLocalizer actual constructor(
     private val options: ZonedInstantOptions,
     private val locale: PlatformLocale
-) : DateTimeZonedLocalizer<Instant> {
+) : PolyglotDateTimeZonedLocalizer<Instant> {
 
     actual override fun localize(value: Zoned<Instant>): String {
         val formatOptions = unsafeJso<DateTimeFormatOptions> {

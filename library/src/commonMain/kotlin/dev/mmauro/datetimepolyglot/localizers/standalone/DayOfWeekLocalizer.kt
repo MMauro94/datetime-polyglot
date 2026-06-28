@@ -1,6 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.standalone
 
-import dev.mmauro.datetimepolyglot.DateTimeLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
@@ -34,7 +34,7 @@ data class DayOfWeekOptions(
 expect class DayOfWeekLocalizer(
     options: DayOfWeekOptions = DayOfWeekOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : DateTimeLocalizer<DayOfWeek> {
+) : PolyglotDateTimeLocalizer<DayOfWeek> {
     override fun localize(value: DayOfWeek): String
 }
 

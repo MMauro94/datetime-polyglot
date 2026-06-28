@@ -1,9 +1,9 @@
 package dev.mmauro.datetimepolyglot.localizers.relative
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
-import dev.mmauro.datetimepolyglot.RelativeLocalizer
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.utils.remainderUntilNextUnitBoundary
 import kotlin.time.Duration
@@ -36,7 +36,7 @@ data class RelativeDurationOptions(
 }
 
 /**
- * Formats a single [Duration] unit in a relative way.
+ * Formats a single [Duration] unit (usually the biggest one) in a relative way.
  *
  * The [localize] function returns a [TickingValue] value indicating when a new [localize] call is required to update the value.
  *
@@ -58,7 +58,7 @@ data class RelativeDurationOptions(
 expect class RelativeDurationLocalizer(
     options: RelativeDurationOptions = RelativeDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : RelativeLocalizer<Duration> {
+) : PolyglotValueLocalizer<Duration, TickingValue<String>> {
 
     override fun localize(value: Duration): TickingValue<String>
 }

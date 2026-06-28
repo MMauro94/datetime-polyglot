@@ -1,12 +1,9 @@
-package dev.mmauro.datetimepolyglot
+package dev.mmauro.datetimepolyglot.localizers
 
 /**
- * Class that allows to localize a date/time value [T].
+ * Marker interface for all localizer classes of datetime-polyglot.
  *
  * Note that any class implementing this interface is **not** strictly required to return the same exact string for the same value in
  * different platforms.
  */
-interface DateTimeLocalizer<T> {
-
-    fun localize(value: T): String
-}
+sealed interface PolyglotLocalizer

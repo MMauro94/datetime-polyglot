@@ -1,9 +1,8 @@
 package dev.mmauro.datetimepolyglot.localizers.standalone
 
-import dev.mmauro.datetimepolyglot.DateTimeLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
-import dev.mmauro.datetimepolyglot.styles.toMonthFormat
 import dev.mmauro.datetimepolyglot.styles.toTimeZoneNameFormat
 import js.array.asSequence
 import js.date.Date
@@ -18,7 +17,7 @@ private val REFERENCE_DATE = Date(0.0)
 actual class TimeZoneLocalizer actual constructor(
     private val options: TimeZoneOptions,
     private val locale: PlatformLocale
-) : DateTimeLocalizer<TimeZone> {
+) : PolyglotDateTimeLocalizer<TimeZone> {
 
     actual override fun localize(value: TimeZone): String {
         if (options.style == TimeZoneStyle.Generic.ID) {

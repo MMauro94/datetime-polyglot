@@ -1,8 +1,10 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.DateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.relative.MultiUnitRelativeDurationLocalizer
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDurationLocalizer
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.utils.unitPart
 import kotlin.collections.ifEmpty
@@ -38,6 +40,9 @@ data class DurationOptions(
 /**
  * Localizer for [Duration].
  *
+ * This is meant to format "static" duration, that don't change over time (e.g. a movie length).
+ * For formatting durations that change over time see [RelativeDurationLocalizer] and [MultiUnitRelativeDurationLocalizer].
+ *
  * Create once and re-use for localizing multiple values with the same [options].
  * Use [Duration.localize] for one-off localizations.
  *
@@ -49,7 +54,7 @@ data class DurationOptions(
 expect class DurationLocalizer(
     options: DurationOptions = DurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : DateTimeLocalizer<Duration> {
+) : PolyglotValueLocalizer<Duration, String> {
     override fun localize(value: Duration): String
 }
 
