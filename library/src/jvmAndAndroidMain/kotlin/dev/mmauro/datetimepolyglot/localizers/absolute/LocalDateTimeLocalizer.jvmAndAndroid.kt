@@ -1,6 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.DateTimeLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.format
 import kotlinx.datetime.LocalDateTime
@@ -9,7 +9,7 @@ import kotlinx.datetime.toJavaLocalDateTime
 actual class LocalDateTimeLocalizer actual constructor(
     options: LocalDateTimeOptions,
     locale: PlatformLocale
-) : DateTimeLocalizer<LocalDateTime> {
+) : PolyglotDateTimeLocalizer<LocalDateTime> {
 
     private val dateFormat = ComponentsOptions(
         dateOptions = options.dateOptions.toComponentOptions(),

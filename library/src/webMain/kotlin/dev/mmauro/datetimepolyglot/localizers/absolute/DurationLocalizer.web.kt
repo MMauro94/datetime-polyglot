@@ -1,7 +1,7 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.DateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import js.intl.ListFormat
 import js.intl.ListFormatStyle
@@ -25,7 +25,7 @@ import kotlin.time.DurationUnit
 actual class DurationLocalizer actual constructor(
     private val options: DurationOptions,
     private val locale: PlatformLocale
-) : DateTimeLocalizer<Duration> {
+) : PolyglotValueLocalizer<Duration, String> {
 
     private val listFormat = ListFormat(locale, unsafeJso {
         type = ListFormatType.unit

@@ -1,8 +1,8 @@
 package dev.mmauro.datetimepolyglot.localizers.relative
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
-import dev.mmauro.datetimepolyglot.RelativeLocalizer
 import dev.mmauro.datetimepolyglot.TickingValue
+import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import js.intl.RelativeTimeFormat
 import js.intl.RelativeTimeFormatNumeric
@@ -23,7 +23,7 @@ import kotlin.time.DurationUnit
 actual class RelativeDurationLocalizer actual constructor(
     private val options: RelativeDurationOptions,
     private val locale: PlatformLocale
-) : RelativeLocalizer<Duration> {
+) : PolyglotValueLocalizer<Duration, TickingValue<String>> {
 
     private val relativeTimeFormat = RelativeTimeFormat(locale, unsafeJso {
         style = when (options.style) {

@@ -1,6 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.standalone
 
-import dev.mmauro.datetimepolyglot.DateTimeLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.styles.toMonthFormat
 import dev.mmauro.datetimepolyglot.toPlainDate
@@ -13,7 +13,7 @@ import kotlinx.datetime.Month
 actual class MonthLocalizer actual constructor(
     options: MonthOptions,
     locale: PlatformLocale,
-) : DateTimeLocalizer<Month> {
+) : PolyglotDateTimeLocalizer<Month> {
 
     private val formatOptions: DateTimeFormatOptions = unsafeJso { month = options.style.toMonthFormat() }
 

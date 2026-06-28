@@ -1,6 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.standalone
 
-import dev.mmauro.datetimepolyglot.DateTimeLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
@@ -30,7 +30,7 @@ data class TimeZoneOptions(
 expect class TimeZoneLocalizer(
     options: TimeZoneOptions = TimeZoneOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : DateTimeLocalizer<TimeZone> {
+) : PolyglotDateTimeLocalizer<TimeZone> {
     override fun localize(value: TimeZone): String
 }
 
