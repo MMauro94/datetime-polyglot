@@ -76,7 +76,7 @@ In general, each type of data that can be localized will have:
 
 ### Standalone date/time attributes
 
-These should be used when the component to format is standalone (e.g. calendar header), and should not be mixed with
+These should be used when the component to localize is standalone (e.g. calendar header), and should not be mixed with
 other date components.
 
 | Data type                                                                                                  | Localizer class / Extension function                                                                                                                                                           | Examples                                                                    |
@@ -87,7 +87,7 @@ other date components.
 
 ### Absolute date/time
 
-This should be used when you want to format an absolute date/time object to show the user.
+This should be used when you want to localize an absolute date/time object to show the user.
 Avoid concatenating values from these localizers, always use the output of a localizer in full.
 
 If you need only partial information, convert first to the appropriate type and then localize that.
