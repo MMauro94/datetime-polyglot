@@ -23,3 +23,13 @@ fun Zoned<Instant>.toLocalDateTime() = value.toLocalDateTime(timeZone)
 
 operator fun Zoned<Instant>.plus(duration: Duration) = Zoned(value + duration, timeZone)
 operator fun Zoned<Instant>.minus(duration: Duration) = Zoned(value - duration, timeZone)
+
+/**
+ * Returns a [Zoned]<[Instant]> using this [Clock] as source and [TimeZone.currentSystemDefault] for timezone.
+ */
+fun Clock.zonedNow(): Zoned<Instant> {
+    return Zoned(
+        value = now(),
+        timeZone = TimeZone.currentSystemDefault(),
+    )
+}

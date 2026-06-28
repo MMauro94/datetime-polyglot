@@ -7,7 +7,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -17,6 +16,7 @@ plugins {
     alias(libs.plugins.kotest)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.mokkery)
     id("dtp")
 }
 
@@ -107,11 +107,13 @@ kotlin {
             kotlin.srcDir(generateCldrCodeTask)
 
             dependencies {
+                implementation(libs.kotlinx.coroutines)
                 implementation(libs.kotlinx.datetime)
             }
         }
 
         commonTest.dependencies {
+            implementation(libs.kotlinx.coroutines.test)
             implementation(libs.kotest.framework)
             implementation(libs.kotest.assertions.core)
             implementation(libs.kotest.property)
