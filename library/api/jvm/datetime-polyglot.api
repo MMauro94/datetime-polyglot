@@ -49,6 +49,7 @@ public final class dev/mmauro/datetimepolyglot/ZonedKt {
 	public static final fun minus-HG0u8IE (Ldev/mmauro/datetimepolyglot/Zoned;J)Ldev/mmauro/datetimepolyglot/Zoned;
 	public static final fun plus-HG0u8IE (Ldev/mmauro/datetimepolyglot/Zoned;J)Ldev/mmauro/datetimepolyglot/Zoned;
 	public static final fun toLocalDateTime (Ldev/mmauro/datetimepolyglot/Zoned;)Lkotlinx/datetime/LocalDateTime;
+	public static final fun zonedNow (Lkotlin/time/Clock;)Ldev/mmauro/datetimepolyglot/Zoned;
 }
 
 public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer {
@@ -58,6 +59,17 @@ public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotD
 }
 
 public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer {
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer {
+	public abstract fun localize (Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizerKt {
+	public static final fun localize (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static synthetic fun localize$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun localizeAsFlow (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun localizeAsFlow$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer {
