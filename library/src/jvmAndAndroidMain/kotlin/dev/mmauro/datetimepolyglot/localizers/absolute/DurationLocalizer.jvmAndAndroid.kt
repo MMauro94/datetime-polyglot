@@ -5,6 +5,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getMeasureFormat
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.utils.toIcuTimeUnit
+import kotlin.math.absoluteValue
 import kotlin.time.Duration
 
 actual class DurationLocalizer actual constructor(
@@ -16,7 +17,9 @@ actual class DurationLocalizer actual constructor(
 
     actual override fun localize(value: Duration): String {
         return value.internalLocalize(options, locale) { filteredUnits ->
-            val measures = filteredUnits.map { (value, unit) -> Measure(value, unit.toIcuTimeUnit()) }
+            val measures = filteredUnits
+                .mapIndexed { i, (value, unit) -> Measure(if (i == 0) value else value.absoluteValue, unit.toIcuTimeUnit()) }
+
             measureFormat.formatMeasures(*measures.toTypedArray())
         }
     }

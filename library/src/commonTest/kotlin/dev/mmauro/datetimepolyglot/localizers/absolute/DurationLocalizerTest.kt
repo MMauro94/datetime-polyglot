@@ -4,6 +4,9 @@ import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.LOCALE_POLISH
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.TEST_PLATFORM
+import dev.mmauro.datetimepolyglot.TestPlatform
+import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import io.kotest.assertions.throwables.shouldThrow
@@ -63,8 +66,6 @@ val DurationLocalizerTestFactory = funSpec {
             withTests(
                 Duration.INFINITE,
                 -Duration.INFINITE,
-                -1.nanoseconds,
-                -5.minutes
             ) { duration ->
                 shouldThrow<IllegalArgumentException> {
                     duration.localize()
@@ -190,6 +191,23 @@ val DurationLocalizerTestFactory = funSpec {
                 LOCALE_POLISH to "1 godzina i 5 minut",
             ) { (locale, expected) ->
                 (1.hours + 5.minutes).localize(locale = locale) shouldBeLocalizedAs expected
+            }
+        }
+
+        context("works for negative values") {
+            // Note: older ICU bundled in SDK 28 incorrectly uses plural form for -1
+            withTests(
+                nameFn = { it.toString() },
+                LOCALE_ENGLISH to when (val platform = TEST_PLATFORM) {
+                    is Android if platform.sdk <= 28 -> "-1 hours, 5 minutes"
+                    else -> "-1 hour, 5 minutes"
+                },
+                LOCALE_ITALIAN to when (val platform = TEST_PLATFORM) {
+                    is Android if platform.sdk <= 28 -> "-1 ore e 5 minuti"
+                    else -> "-1 ora e 5 minuti"
+                },
+            ) { (locale, expected) ->
+                (-(1.hours + 5.minutes)).localize(locale = locale) shouldBeLocalizedAs expected
             }
         }
     }
