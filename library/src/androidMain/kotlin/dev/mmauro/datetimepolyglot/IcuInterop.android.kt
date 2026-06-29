@@ -7,6 +7,9 @@ import android.os.Build
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone
@@ -18,7 +21,6 @@ import java.time.Month
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.temporal.Temporal
-import kotlin.time.DurationUnit
 import android.icu.text.DateFormat as AndroidDateFormat
 import android.icu.text.MeasureFormat as IcuMeasureFormat
 import android.icu.text.RelativeDateTimeFormatter as IcuRelativeDateTimeFormatter
@@ -166,26 +168,56 @@ private fun TimeZoneStyle.toIcuStyle() = when (this) {
 
 internal actual typealias RelativeDateTimeFormatter = IcuRelativeDateTimeFormatter
 
-internal actual fun getRelativeDateTimeFormatter(locale: PlatformLocale, style: DurationStyle): RelativeDateTimeFormatter {
+internal actual fun getRelativeDateTimeFormatter(locale: PlatformLocale, style: RelativeUnitStyle): RelativeDateTimeFormatter {
     val style = when (style) {
-        DurationStyle.NARROW -> IcuRelativeDateTimeFormatter.Style.NARROW
-        DurationStyle.SHORT -> IcuRelativeDateTimeFormatter.Style.SHORT
-        DurationStyle.WIDE -> IcuRelativeDateTimeFormatter.Style.LONG
+        RelativeUnitStyle.NARROW -> IcuRelativeDateTimeFormatter.Style.NARROW
+        RelativeUnitStyle.SHORT -> IcuRelativeDateTimeFormatter.Style.SHORT
+        RelativeUnitStyle.LONG -> IcuRelativeDateTimeFormatter.Style.LONG
     }
     return IcuRelativeDateTimeFormatter.getInstance(locale, null, style, DisplayContext.CAPITALIZATION_NONE)
 }
 
-internal actual fun RelativeDateTimeFormatter.formatNumeric(quantity: Long, unit: DurationUnit): String {
+internal actual fun RelativeDateTimeFormatter.formatNumeric(quantity: Double, unit: RelativeUnit): String {
     val relativeUnit = when (unit) {
-        DurationUnit.NANOSECONDS -> error("nanosecond unit not supported")
-        DurationUnit.MICROSECONDS -> error("microsecond unit not supported")
-        DurationUnit.MILLISECONDS -> error("millisecond unit not supported")
-        DurationUnit.SECONDS -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.SECOND
-        DurationUnit.MINUTES -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.MINUTE
-        DurationUnit.HOURS -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.HOUR
-        DurationUnit.DAYS -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.DAY
+        RelativeUnit.SECOND -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.SECOND
+        RelativeUnit.MINUTE -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.MINUTE
+        RelativeUnit.HOUR -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.HOUR
+        RelativeUnit.DAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.DAY
+        RelativeUnit.WEEK -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.WEEK
+        RelativeUnit.MONTH -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.MONTH
+        RelativeUnit.YEAR -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.YEAR
     }
-    return formatNumeric(quantity.toDouble(), relativeUnit)
+    return formatNumeric(quantity, relativeUnit)
+}
+
+internal actual fun RelativeDateTimeFormatter.formatDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
+    val direction = when (direction) {
+        RelativeDirection.LAST_2 -> IcuRelativeDateTimeFormatter.Direction.LAST_2
+        RelativeDirection.LAST -> IcuRelativeDateTimeFormatter.Direction.LAST
+        RelativeDirection.THIS -> IcuRelativeDateTimeFormatter.Direction.THIS
+        RelativeDirection.NEXT -> IcuRelativeDateTimeFormatter.Direction.NEXT
+        RelativeDirection.NEXT_2 -> IcuRelativeDateTimeFormatter.Direction.NEXT_2
+    }
+    val unit = when (unit) {
+        RelativeUnit.SECOND -> return null
+        RelativeUnit.MINUTE -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            IcuRelativeDateTimeFormatter.AbsoluteUnit.MINUTE
+        } else {
+            return null
+        }
+
+        RelativeUnit.HOUR -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            IcuRelativeDateTimeFormatter.AbsoluteUnit.HOUR
+        } else {
+            return null
+        }
+
+        RelativeUnit.DAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.DAY
+        RelativeUnit.WEEK -> IcuRelativeDateTimeFormatter.AbsoluteUnit.WEEK
+        RelativeUnit.MONTH -> IcuRelativeDateTimeFormatter.AbsoluteUnit.MONTH
+        RelativeUnit.YEAR -> IcuRelativeDateTimeFormatter.AbsoluteUnit.YEAR
+    }
+    return format(direction, unit)
 }
 
 

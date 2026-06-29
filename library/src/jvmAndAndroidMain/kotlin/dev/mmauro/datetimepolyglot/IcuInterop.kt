@@ -3,6 +3,9 @@ package dev.mmauro.datetimepolyglot
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone
@@ -44,8 +47,9 @@ internal expect fun TimeZone.getDisplayName(style: TimeZoneStyle, locale: Platfo
 // RELATIVE TIME
 internal expect class RelativeDateTimeFormatter
 
-internal expect fun getRelativeDateTimeFormatter(locale: PlatformLocale, style: DurationStyle): RelativeDateTimeFormatter
-internal expect fun RelativeDateTimeFormatter.formatNumeric(quantity: Long, unit: DurationUnit): String
+internal expect fun getRelativeDateTimeFormatter(locale: PlatformLocale, style: RelativeUnitStyle): RelativeDateTimeFormatter
+internal expect fun RelativeDateTimeFormatter.formatNumeric(quantity: Double, unit: RelativeUnit): String
+internal expect fun RelativeDateTimeFormatter.formatDirection(direction: RelativeDirection, unit: RelativeUnit): String?
 
 // UNITS
 internal expect class MeasureFormat {
