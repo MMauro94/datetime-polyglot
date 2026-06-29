@@ -56,12 +56,46 @@ data class RelativeDurationOptions(
  * - `4 hr. ago`
  * - `in 2 days`
  */
-expect class RelativeDurationLocalizer(
-    options: RelativeDurationOptions = RelativeDurationOptions(),
-    locale: PlatformLocale = getDefaultLocale(),
+class RelativeDurationLocalizer(
+    private val options: RelativeDurationOptions = RelativeDurationOptions(),
+    private val locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotValueLocalizer<Duration, TickingValue<String>> {
 
-    override fun localize(value: Duration): TickingValue<String>
+    private val relativeUnitLocalizer = RelativeUnitLocalizer(
+        style = when (options.style) {
+            DurationStyle.NARROW -> RelativeUnitStyle.NARROW
+            DurationStyle.SHORT -> RelativeUnitStyle.SHORT
+            DurationStyle.WIDE -> RelativeUnitStyle.LONG
+        },
+        locale = locale,
+    )
+
+    override fun localize(value: Duration): TickingValue<String> {
+        require(value.isFinite()) { "duration must be finite" }
+
+        val unit = options.detectUnit(value)
+        val unitValue = value.toLong(unit)
+
+        val nextTick = value.remainderUntilNextUnitBoundary(unit)
+
+        if (unitValue == 0L) {
+            options.ifZeroLocalization(locale)?.let { return TickingValue(it, nextTick) }
+        }
+        @Suppress("REDUNDANT_ELSE_IN_WHEN")
+        val relativeUnit = when (unit) {
+            // IDE complains if we don't put the else, but then the compiler produces a warning if we put it. Let's suppress that warning.
+            // RC is that DurationUnit is declared as an expect enum - https://youtrack.jetbrains.com/issue/KT-38750
+            DurationUnit.NANOSECONDS -> error("nanosecond unit not supported")
+            DurationUnit.MICROSECONDS -> error("microsecond unit not supported")
+            DurationUnit.MILLISECONDS -> error("millisecond unit not supported")
+            DurationUnit.SECONDS -> RelativeUnit.SECOND
+            DurationUnit.MINUTES -> RelativeUnit.MINUTE
+            DurationUnit.HOURS -> RelativeUnit.HOUR
+            DurationUnit.DAYS -> RelativeUnit.DAY
+            else -> error("Unknown duration unit: $unit")
+        }
+        return TickingValue(relativeUnitLocalizer.localizeNumeric(unitValue.toDouble(), relativeUnit), nextTick)
+    }
 }
 
 /**
@@ -84,22 +118,4 @@ internal fun RelativeDurationOptions.detectUnit(value: Duration): DurationUnit {
         .dropWhile { value.toLong(it) == 0L }
         .firstOrNull()
         ?: minUnit
-}
-
-internal fun Duration.internalLocalize(
-    options: RelativeDurationOptions,
-    locale: PlatformLocale,
-    localizeBlock: (value: Long, unit: DurationUnit) -> String,
-): TickingValue<String> {
-    require(this.isFinite()) { "duration must be finite" }
-
-    val unit = options.detectUnit(this)
-    val value = toLong(unit)
-
-    val nextTick = remainderUntilNextUnitBoundary(unit)
-
-    if (value == 0L) {
-        options.ifZeroLocalization(locale)?.let { return TickingValue(it, nextTick) }
-    }
-    return TickingValue(localizeBlock(value, unit), nextTick)
 }

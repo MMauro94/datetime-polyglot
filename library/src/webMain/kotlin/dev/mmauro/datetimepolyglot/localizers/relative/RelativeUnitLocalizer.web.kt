@@ -1,0 +1,72 @@
+package dev.mmauro.datetimepolyglot.localizers.relative
+
+import dev.mmauro.datetimepolyglot.PlatformLocale
+import js.intl.RelativeTimeFormat
+import js.intl.RelativeTimeFormatNumeric
+import js.intl.RelativeTimeFormatStyle
+import js.intl.RelativeTimeFormatUnit
+import js.intl.always
+import js.intl.auto
+import js.intl.day
+import js.intl.hour
+import js.intl.long
+import js.intl.minute
+import js.intl.month
+import js.intl.narrow
+import js.intl.second
+import js.intl.short
+import js.intl.week
+import js.intl.year
+import js.objects.unsafeJso
+
+internal actual class RelativeUnitLocalizer actual constructor(
+    style: RelativeUnitStyle,
+    locale: PlatformLocale
+) {
+
+    private val numericRelativeTimeFormat = RelativeTimeFormat(locale, unsafeJso {
+        this.style = style.toJsRelativeTimeFormatStyle()
+        this.numeric = RelativeTimeFormatNumeric.always
+    })
+
+    private val relativeTimeFormat = RelativeTimeFormat(locale, unsafeJso {
+        this.style = style.toJsRelativeTimeFormatStyle()
+        this.numeric = RelativeTimeFormatNumeric.auto
+    })
+
+    actual fun localizeNumeric(value: Double, unit: RelativeUnit): String {
+        return numericRelativeTimeFormat.format(value, unit.toJsRelativeTimeFormatUnit())
+    }
+
+    actual fun localizeDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
+        val formatted = relativeTimeFormat.format(direction.offset.toDouble(), unit.toJsRelativeTimeFormatUnit())
+
+        // We need to return null if the direction format doesn't exist
+        // Since JS doesn't expose this directly, we are just checking if the format is identical to the numeric one
+        if (formatted == localizeNumeric(direction.offset.toDouble(), unit)) {
+            return null
+        }
+
+        return formatted
+    }
+}
+
+private fun RelativeUnitStyle.toJsRelativeTimeFormatStyle(): RelativeTimeFormatStyle {
+    return when (this) {
+        RelativeUnitStyle.NARROW -> RelativeTimeFormatStyle.narrow
+        RelativeUnitStyle.SHORT -> RelativeTimeFormatStyle.short
+        RelativeUnitStyle.LONG -> RelativeTimeFormatStyle.long
+    }
+}
+
+private fun RelativeUnit.toJsRelativeTimeFormatUnit(): RelativeTimeFormatUnit {
+    return when (this) {
+        RelativeUnit.SECOND -> RelativeTimeFormatUnit.second
+        RelativeUnit.MINUTE -> RelativeTimeFormatUnit.minute
+        RelativeUnit.HOUR -> RelativeTimeFormatUnit.hour
+        RelativeUnit.DAY -> RelativeTimeFormatUnit.day
+        RelativeUnit.WEEK -> RelativeTimeFormatUnit.week
+        RelativeUnit.MONTH -> RelativeTimeFormatUnit.month
+        RelativeUnit.YEAR -> RelativeTimeFormatUnit.year
+    }
+}
