@@ -35,7 +35,7 @@ val RelativeDurationLocalizerTestFactory = funSpec {
     }
 
     context("zero duration") {
-        val localizer = RelativeDurationLocalizer(locale = LOCALE_ENGLISH)
+        val localizer = RelativeDurationLocalizer(locale = LOCALE_ENGLISH, options = RelativeDurationOptions(ifZeroLocalization = { null }))
         localizer.localizeAndTestNextTick(Duration.ZERO) shouldBeLocalizedAs TickingValue(
             value = "in 0 seconds",
             nextTick = 1.seconds,
@@ -110,18 +110,32 @@ val RelativeDurationLocalizerTestFactory = funSpec {
         }
     }
 
-    test("ifZeroLocalization") {
-        val localizer = RelativeDurationLocalizer(
-            options = RelativeDurationOptions(
-                minUnit = DurationUnit.HOURS,
-                ifZeroLocalization = { locale -> "special case for $locale" }
-            ),
-            locale = LOCALE_ITALIAN,
-        )
-        localizer.localizeAndTestNextTick(2.minutes) shouldBeLocalizedAs TickingValue(
-            value = "special case for it",
-            nextTick = 1.hours + 2.minutes,
-        )
+    context("ifZeroLocalization") {
+        context("default case") {
+            withTests(
+                DurationUnit.SECONDS to "now",
+                DurationUnit.MINUTES to "in 0 minutes",
+            ) { (minUnit, expected) ->
+                val localizer = RelativeDurationLocalizer(
+                    options = RelativeDurationOptions(minUnit = minUnit),
+                    locale = LOCALE_ENGLISH,
+                )
+                localizer.localizeAndTestNextTick(500.milliseconds).value shouldBeLocalizedAs expected
+            }
+        }
+        test("custom case") {
+            val localizer = RelativeDurationLocalizer(
+                options = RelativeDurationOptions(
+                    minUnit = DurationUnit.HOURS,
+                    ifZeroLocalization = { locale -> "special case for $locale" }
+                ),
+                locale = LOCALE_ITALIAN,
+            )
+            localizer.localizeAndTestNextTick(2.minutes) shouldBeLocalizedAs TickingValue(
+                value = "special case for it",
+                nextTick = 1.hours + 2.minutes,
+            )
+        }
     }
 
     context("nextTick") {
