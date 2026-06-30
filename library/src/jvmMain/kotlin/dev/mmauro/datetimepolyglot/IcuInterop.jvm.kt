@@ -131,10 +131,7 @@ internal actual fun RelativeDateTimeFormatter.formatNumeric(quantity: Double, un
     return formatNumeric(quantity, relativeUnit)
 }
 
-internal actual fun RelativeDateTimeFormatter.formatDirection(
-    direction: RelativeDirection,
-    unit: RelativeUnit
-): String? {
+internal actual fun RelativeDateTimeFormatter.formatDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
     val direction = when (direction) {
         RelativeDirection.LAST_2 -> IcuRelativeDateTimeFormatter.Direction.LAST_2
         RelativeDirection.LAST -> IcuRelativeDateTimeFormatter.Direction.LAST
@@ -152,6 +149,10 @@ internal actual fun RelativeDateTimeFormatter.formatDirection(
         RelativeUnit.YEAR -> IcuRelativeDateTimeFormatter.AbsoluteUnit.YEAR
     }
     return format(direction, unit)
+}
+
+internal actual fun RelativeDateTimeFormatter.formatNow(): String? {
+    return format(IcuRelativeDateTimeFormatter.Direction.PLAIN, IcuRelativeDateTimeFormatter.AbsoluteUnit.NOW)
 }
 
 // UNITS

@@ -50,6 +50,7 @@ internal expect class RelativeDateTimeFormatter
 internal expect fun getRelativeDateTimeFormatter(locale: PlatformLocale, style: RelativeUnitStyle): RelativeDateTimeFormatter
 internal expect fun RelativeDateTimeFormatter.formatNumeric(quantity: Double, unit: RelativeUnit): String
 internal expect fun RelativeDateTimeFormatter.formatDirection(direction: RelativeDirection, unit: RelativeUnit): String?
+internal expect fun RelativeDateTimeFormatter.formatNow(): String?
 
 // UNITS
 internal expect class MeasureFormat {

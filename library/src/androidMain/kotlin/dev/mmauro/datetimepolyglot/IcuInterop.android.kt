@@ -220,6 +220,9 @@ internal actual fun RelativeDateTimeFormatter.formatDirection(direction: Relativ
     return format(direction, unit)
 }
 
+internal actual fun RelativeDateTimeFormatter.formatNow(): String? {
+    return format(IcuRelativeDateTimeFormatter.Direction.PLAIN, IcuRelativeDateTimeFormatter.AbsoluteUnit.NOW)
+}
 
 // UNITS
 internal actual typealias MeasureFormat = IcuMeasureFormat
