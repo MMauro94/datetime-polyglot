@@ -473,6 +473,24 @@ public final class dev/mmauro/datetimepolyglot/localizers/relative/RelativeDurat
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/mmauro/datetimepolyglot/localizers/relative/RelativeInstantLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer {
+	public fun <init> ()V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDurationOptions;Lcom/ibm/icu/util/ULocale;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDurationOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun localize (Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public fun localize (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public final fun localize (Lkotlin/time/Instant;Lkotlin/time/Instant;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/relative/RelativeInstantLocalizerKt {
+	public static final fun localizeRelative (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDurationOptions;Lcom/ibm/icu/util/ULocale;Lkotlin/time/Clock;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun localizeRelative (Lkotlin/time/Instant;Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDurationOptions;Lcom/ibm/icu/util/ULocale;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static synthetic fun localizeRelative$default (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDurationOptions;Lcom/ibm/icu/util/ULocale;Lkotlin/time/Clock;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static synthetic fun localizeRelative$default (Lkotlin/time/Instant;Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDurationOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun localizeRelativeAsFlow (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDurationOptions;Lcom/ibm/icu/util/ULocale;Lkotlin/time/Clock;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun localizeRelativeAsFlow$default (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDurationOptions;Lcom/ibm/icu/util/ULocale;Lkotlin/time/Clock;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+}
+
 public final class dev/mmauro/datetimepolyglot/localizers/standalone/DayOfWeekLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer {
 	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/standalone/DayOfWeekOptions;Lcom/ibm/icu/util/ULocale;)V
