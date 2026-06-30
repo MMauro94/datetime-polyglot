@@ -10,6 +10,8 @@ import dev.mmauro.datetimepolyglot.utils.remainderUntilNextUnitBoundary
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 
+private typealias IfZeroLocalization = RelativeDurationLocalizer.ZeroLocalizationContext.(PlatformLocale) -> String?
+
 /**
  * Localization options for [RelativeDurationLocalizer] and [Duration.localizeRelative]
  *
@@ -20,13 +22,20 @@ import kotlin.time.DurationUnit
  * @property style the style of the duration unit
  * @property ifZeroLocalization string that will be returned as-is in case if the computed unit is zero.
  * Note that this doesn't necessarily mean that the passed [Duration] is itself [Duration.ZERO], but rather that it's smaller than the
- * [minUnit]. If this is null, the default `0 <min-unit>` localized string will be returned in this case.
+ * [minUnit]. If this returns null, the default `0 <min-unit>` localized string will be used. By default, this localizes the string "now" if
+ * the min unit is seconds, returns `null` otherwise.
  */
 data class RelativeDurationOptions(
     val minUnit: DurationUnit = DurationUnit.SECONDS,
     val maxUnit: DurationUnit? = null,
     val style: DurationStyle = DurationStyle.WIDE,
-    val ifZeroLocalization: (PlatformLocale) -> String? = { null },
+    val ifZeroLocalization: IfZeroLocalization = {
+        if (minUnit == DurationUnit.SECONDS) {
+            localizeNow()
+        } else {
+            null
+        }
+    },
 ) {
     init {
         require(minUnit >= DurationUnit.SECONDS) { "units smaller than seconds are not supported" }
@@ -61,6 +70,10 @@ class RelativeDurationLocalizer(
     private val locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotValueLocalizer<Duration, TickingValue<String>> {
 
+    interface ZeroLocalizationContext {
+        fun localizeNow(): String?
+    }
+
     private val relativeUnitLocalizer = RelativeUnitLocalizer(
         style = when (options.style) {
             DurationStyle.NARROW -> RelativeUnitStyle.NARROW
@@ -79,7 +92,11 @@ class RelativeDurationLocalizer(
         val nextTick = value.remainderUntilNextUnitBoundary(unit)
 
         if (unitValue == 0L) {
-            options.ifZeroLocalization(locale)?.let { return TickingValue(it, nextTick) }
+            val zeroLocalizationContext = object : ZeroLocalizationContext {
+                override fun localizeNow() = relativeUnitLocalizer.localizeNow()
+            }
+            val ifZeroLocalization = options.ifZeroLocalization
+            zeroLocalizationContext.ifZeroLocalization(locale)?.let { return TickingValue(it, nextTick) }
         }
         @Suppress("REDUNDANT_ELSE_IN_WHEN")
         val relativeUnit = when (unit) {
