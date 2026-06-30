@@ -21,7 +21,7 @@ import kotlin.time.Instant
  * Note that any class implementing this interface is **not** strictly required to return the same exact string for the same value in
  * different platforms.
  */
-interface PolyglotReferenceValueLocalizer<T> : PolyglotLocalizer {
+interface PolyglotReferenceValueLocalizer<in T> : PolyglotLocalizer {
     fun localize(value: T, reference: Zoned<Instant>): TickingValue<String>
 }
 
