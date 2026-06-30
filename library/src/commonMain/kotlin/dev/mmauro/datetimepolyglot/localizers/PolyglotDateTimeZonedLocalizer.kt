@@ -11,4 +11,4 @@ import dev.mmauro.datetimepolyglot.Zoned
  * Note that any class implementing this interface is **not** strictly required to return the same exact string for the same value in
  * different platforms.
  */
-interface PolyglotDateTimeZonedLocalizer<T> : PolyglotValueLocalizer<Zoned<T>, String>
+interface PolyglotDateTimeZonedLocalizer<in T> : PolyglotValueLocalizer<Zoned<T>, String>
