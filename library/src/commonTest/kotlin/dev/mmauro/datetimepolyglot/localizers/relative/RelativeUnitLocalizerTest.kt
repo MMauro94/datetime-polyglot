@@ -6,10 +6,12 @@ import dev.mmauro.datetimepolyglot.LOCALE_POLISH
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withTests
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.property.Arb
+import io.kotest.property.arbitrary.element
 import io.kotest.property.arbitrary.enum
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
@@ -22,7 +24,7 @@ class RelativeUnitLocalizerTest : FunSpec({
         }
         test("now") {
             val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
-            localizer.localizeNumeric(0.0, RelativeUnit.DAY) shouldBeLocalizedAs "in 0 days"
+            localizer.localizeNumeric(0.0, RelativeUnit.SECOND) shouldBeLocalizedAs "in 0 seconds"
         }
         test("future") {
             val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
@@ -72,10 +74,20 @@ class RelativeUnitLocalizerTest : FunSpec({
             }
         }
 
+        context("second") {
+            test("this second localization should return null") {
+                checkAll(Arb.element(LOCALE_ENGLISH, LOCALE_ITALIAN, LOCALE_POLISH), Arb.enum<RelativeUnitStyle>()) { locale, style ->
+                    val localizer = RelativeUnitLocalizer(style, locale)
+                    localizer.localizeDirection(RelativeDirection.THIS, RelativeUnit.SECOND).shouldBeNull()
+                }
+            }
+        }
+
         context("styles") {
             withTests(RelativeUnitStyle.entries) { style ->
                 val localizer = RelativeUnitLocalizer(style = style, locale = LOCALE_ENGLISH)
-                localizer.localizeDirection(RelativeDirection.LAST, RelativeUnit.MONTH).shouldNotBeNull() shouldBeLocalizedAs when (style) {
+                localizer.localizeDirection(RelativeDirection.LAST, RelativeUnit.MONTH)
+                    .shouldNotBeNull() shouldBeLocalizedAs when (style) {
                     RelativeUnitStyle.NARROW -> "last mo."
                     RelativeUnitStyle.SHORT -> "last mo."
                     RelativeUnitStyle.LONG -> "last month"
@@ -100,6 +112,18 @@ class RelativeUnitLocalizerTest : FunSpec({
                 localizer.localizeDirection(direction, relativeUnit)
                     .shouldNotBe(localizer.localizeNumeric(direction.offset.toDouble(), relativeUnit))
             }
+        }
+    }
+
+    context("localizeNow") {
+        withTests(
+            nameFn = { it.first.toString() },
+            LOCALE_ENGLISH to "now",
+            LOCALE_ITALIAN to "ora",
+            LOCALE_POLISH to "teraz",
+        ) { (locale, expected) ->
+            val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale)
+            localizer.localizeNow() shouldBe expected
         }
     }
 })

@@ -5,6 +5,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 internal expect class RelativeUnitLocalizer(style: RelativeUnitStyle, locale: PlatformLocale) {
     fun localizeNumeric(value: Double, unit: RelativeUnit): String
     fun localizeDirection(direction: RelativeDirection, unit: RelativeUnit): String?
+    fun localizeNow(): String?
 }
 
 internal enum class RelativeUnit {

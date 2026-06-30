@@ -39,6 +39,11 @@ internal actual class RelativeUnitLocalizer actual constructor(
     }
 
     actual fun localizeDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
+        // JS returns the string "now" for this case
+        if (direction == RelativeDirection.THIS && unit == RelativeUnit.SECOND) {
+            return null
+        }
+
         val formatted = relativeTimeFormat.format(direction.offset.toDouble(), unit.toJsRelativeTimeFormatUnit())
 
         // We need to return null if the direction format doesn't exist
@@ -48,6 +53,10 @@ internal actual class RelativeUnitLocalizer actual constructor(
         }
 
         return formatted
+    }
+
+    actual fun localizeNow(): String? {
+        return relativeTimeFormat.format(0.0, RelativeTimeFormatUnit.second)
     }
 }
 
