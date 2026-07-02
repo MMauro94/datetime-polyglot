@@ -1,17 +1,40 @@
 package dev.mmauro.datetimepolyglot.localizers
 
 import dev.mmauro.datetimepolyglot.TickingValue
+import dev.mmauro.datetimepolyglot.Zoned
+import dev.mmauro.datetimepolyglot.plus
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.scopes.FunSpecContainerScope
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.property.Arb
+import io.kotest.property.arbitrary.KotlinInstantRange
+import io.kotest.property.arbitrary.arbitrary
 import io.kotest.property.arbitrary.duration
+import io.kotest.property.arbitrary.element
+import io.kotest.property.arbitrary.kotlinInstant
+import io.kotest.property.arbitrary.map
 import io.kotest.property.checkAll
+import kotlinx.datetime.TimeZone
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.nanoseconds
+import kotlin.time.Instant
+
+data class WithReferenceFormatParams<T>(val value: T, val reference: Zoned<Instant>) {
+    operator fun plus(duration: Duration) = WithReferenceFormatParams(value, reference + duration)
+}
+
+fun <T> Arb.Companion.withReferenceFormatParams(
+    value: Arb<T>,
+    referenceRange: KotlinInstantRange = Instant.DISTANT_PAST..Instant.DISTANT_FUTURE,
+) = arbitrary {
+    WithReferenceFormatParams(
+        value = value.bind(),
+        reference = Arb.zonedInstant(referenceRange).bind(),
+    )
+}
 
 /**
  * Runs tests that validate that the computed [TickingValue.nextTick] is correctly predicting a change in localization.
@@ -50,6 +73,30 @@ suspend fun <P> FunSpecContainerScope.nextTickPredictsChangeTest(
         }
     }
 }
+
+
+/**
+ * Version of [nextTickPredictsChangeTest] to test a formatter accepting a [T] and a [Zoned]<[Instant]>.
+ */
+suspend fun <T> FunSpecContainerScope.nextTickPredictsChangeTest(
+    arbitraryArb: Arb<T>,
+    smallArb: (Zoned<Instant>) -> Arb<T>,
+    localize: (T, reference: Zoned<Instant>) -> TickingValue<String>,
+    referenceRange: KotlinInstantRange = Instant.DISTANT_PAST..Instant.DISTANT_FUTURE,
+) = nextTickPredictsChangeTest(
+    arbitraryArb = Arb.withReferenceFormatParams(arbitraryArb, referenceRange),
+    smallArb = { diff ->
+        arbitrary {
+            val reference = Arb.zonedInstant(referenceRange).bind()
+            WithReferenceFormatParams(
+                value = smallArb(reference + diff.bind()).bind(),
+                reference = reference,
+            )
+        }
+    },
+    advanceBy = WithReferenceFormatParams<T>::plus,
+    localize = { localize(it.value, it.reference) },
+)
 
 private fun <P> testNextTickPredictsChange(
     value: P,
@@ -92,4 +139,26 @@ fun <P> localizeAndTestNextTick(
             localize = localize,
         )
     }
+}
+
+fun Arb.Companion.kotlinTimeZone() = Arb.element(TimeZone.availableZoneIds).map { TimeZone.of(it) }
+
+fun Arb.Companion.zonedInstant(instantRange: KotlinInstantRange = Instant.DISTANT_PAST..Instant.DISTANT_FUTURE) = arbitrary {
+    Zoned(
+        value = Arb.kotlinInstant(instantRange).bind(),
+        timeZone = Arb.kotlinTimeZone().bind(),
+    )
+}
+
+fun <T> localizeAndTestNextTick(
+    value: T,
+    reference: Zoned<Instant>,
+    localize: (T, reference: Zoned<Instant>) -> TickingValue<String>,
+): TickingValue<String> {
+    val params = WithReferenceFormatParams(value, reference)
+    return localizeAndTestNextTick(
+        params = params,
+        advanceBy = WithReferenceFormatParams<T>::plus,
+        localize = { localize(it.value, it.reference) },
+    )
 }

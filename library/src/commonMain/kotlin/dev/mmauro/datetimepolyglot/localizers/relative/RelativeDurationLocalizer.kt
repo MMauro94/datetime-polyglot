@@ -5,7 +5,7 @@ import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.TickingDurationLocalizer
-import dev.mmauro.datetimepolyglot.styles.DurationStyle
+import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.utils.remainderUntilNextUnitBoundary
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
@@ -28,7 +28,7 @@ private typealias IfZeroLocalization = RelativeDurationLocalizer.ZeroLocalizatio
 data class RelativeDurationOptions(
     val minUnit: DurationUnit = DurationUnit.SECONDS,
     val maxUnit: DurationUnit? = null,
-    val style: DurationStyle = DurationStyle.WIDE,
+    val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
     val ifZeroLocalization: IfZeroLocalization = {
         if (minUnit == DurationUnit.SECONDS) {
             localizeNow()
@@ -75,11 +75,7 @@ class RelativeDurationLocalizer(
     }
 
     private val relativeUnitLocalizer = RelativeUnitLocalizer(
-        style = when (options.style) {
-            DurationStyle.NARROW -> RelativeUnitStyle.NARROW
-            DurationStyle.SHORT -> RelativeUnitStyle.SHORT
-            DurationStyle.WIDE -> RelativeUnitStyle.LONG
-        },
+        style = options.style,
         locale = locale,
     )
 

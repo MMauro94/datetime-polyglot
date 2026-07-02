@@ -9,7 +9,7 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
-import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnitStyle
+import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone

@@ -5,6 +5,7 @@ import dev.mmauro.datetimepolyglot.formatDirection
 import dev.mmauro.datetimepolyglot.formatNow
 import dev.mmauro.datetimepolyglot.formatNumeric
 import dev.mmauro.datetimepolyglot.getRelativeDateTimeFormatter
+import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 
 internal actual class RelativeUnitLocalizer actual constructor(
     style: RelativeUnitStyle,
