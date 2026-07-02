@@ -8,7 +8,7 @@ import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
 import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
-import dev.mmauro.datetimepolyglot.styles.DurationStyle
+import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.funSpec
 import io.kotest.datatest.withTests
@@ -93,19 +93,19 @@ val RelativeDurationLocalizerTestFactory = funSpec {
     }
 
     context("styles") {
-        withTests(DurationStyle.entries) { style ->
+        withTests(RelativeUnitStyle.entries) { style ->
             val localizer = RelativeDurationLocalizer(
                 options = RelativeDurationOptions(style = style),
                 locale = LOCALE_ENGLISH,
             )
             localizer.localizeAndTestNextTick(-(4.hours + 5.minutes)).value shouldBeLocalizedAs when (style) {
-                DurationStyle.NARROW -> when (val platform = TEST_PLATFORM) {
+                RelativeUnitStyle.NARROW -> when (val platform = TEST_PLATFORM) {
                     is Android if platform.sdk < 34 -> "4 hr. ago"
                     else -> "4h ago"
                 }
 
-                DurationStyle.SHORT -> "4 hr. ago"
-                DurationStyle.WIDE -> "4 hours ago"
+                RelativeUnitStyle.SHORT -> "4 hr. ago"
+                RelativeUnitStyle.LONG -> "4 hours ago"
             }
         }
     }

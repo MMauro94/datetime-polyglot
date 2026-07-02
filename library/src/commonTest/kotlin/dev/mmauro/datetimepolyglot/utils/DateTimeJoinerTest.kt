@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot.utils
 import dev.mmauro.datetimepolyglot.ALL_LOCALES
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
+import dev.mmauro.datetimepolyglot.LOCALE_POLISH
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import io.kotest.core.spec.style.FunSpec
@@ -61,8 +62,8 @@ class DateTimeJoiner : FunSpec({
         val time = Uuid.random().toString()
         checkAll(Arb.element(ALL_LOCALES), Arb.enum<DateStyle>()) { locale, style ->
             val result = joinDateAndTime(
-                locale = LOCALE_ENGLISH,
-                style = DateStyle.FULL,
+                locale = locale,
+                style = style,
                 date = date,
                 time = time,
             )

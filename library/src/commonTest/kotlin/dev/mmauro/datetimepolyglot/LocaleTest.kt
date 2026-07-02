@@ -1,6 +1,8 @@
 package dev.mmauro.datetimepolyglot
 
-expect val LOCALE_ITALIAN: PlatformLocale
-expect val LOCALE_POLISH: PlatformLocale
+val LOCALE_ITALIAN = getLocale("it")
+val LOCALE_POLISH = getLocale("pl")
 
 expect val ALL_LOCALES: List<PlatformLocale>
+
+expect fun getLocale(name: String): PlatformLocale

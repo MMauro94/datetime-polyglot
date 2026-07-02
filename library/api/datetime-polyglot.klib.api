@@ -23,6 +23,22 @@ final enum class dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle : dev
     final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle> // dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle.values|values#static(){}[0]
 }
 
+final enum class dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection : kotlin/Enum<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection> { // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection|null[0]
+    enum entry LAST // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.LAST|null[0]
+    enum entry LAST_2 // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.LAST_2|null[0]
+    enum entry NEXT // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.NEXT|null[0]
+    enum entry NEXT_2 // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.NEXT_2|null[0]
+    enum entry THIS // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.THIS|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection> // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.entries.<get-entries>|<get-entries>#static(){}[0]
+    final val offset // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.offset|{}offset[0]
+        final fun <get-offset>(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.offset.<get-offset>|<get-offset>(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection> // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection.values|values#static(){}[0]
+}
+
 final enum class dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle> { // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle|null[0]
     enum entry NUMERIC // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle.NUMERIC|null[0]
     enum entry NUMERIC_PADDED_2_DIGITS // dev.mmauro.datetimepolyglot.styles/DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS|null[0]
@@ -117,6 +133,18 @@ final enum class dev.mmauro.datetimepolyglot.styles/MonthStyle : kotlin/Enum<dev
 
     final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/MonthStyle // dev.mmauro.datetimepolyglot.styles/MonthStyle.valueOf|valueOf#static(kotlin.String){}[0]
     final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/MonthStyle> // dev.mmauro.datetimepolyglot.styles/MonthStyle.values|values#static(){}[0]
+}
+
+final enum class dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle> { // dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle|null[0]
+    enum entry LONG // dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle.LONG|null[0]
+    enum entry NARROW // dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle.NARROW|null[0]
+    enum entry SHORT // dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle.SHORT|null[0]
+
+    final val entries // dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle> // dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle // dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle> // dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle.values|values#static(){}[0]
 }
 
 final enum class dev.mmauro.datetimepolyglot.styles/SecondStyle : kotlin/Enum<dev.mmauro.datetimepolyglot.styles/SecondStyle> { // dev.mmauro.datetimepolyglot.styles/SecondStyle|null[0]
@@ -580,7 +608,7 @@ final class dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationLoca
 }
 
 final class dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions { // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions|null[0]
-    constructor <init>(kotlin.time/DurationUnit = ..., kotlin.time/DurationUnit? = ..., dev.mmauro.datetimepolyglot.styles/DurationStyle = ..., kotlin/Function2<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationLocalizer.ZeroLocalizationContext, js.intl/Locale, kotlin/String?> = ...) // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.<init>|<init>(kotlin.time.DurationUnit;kotlin.time.DurationUnit?;dev.mmauro.datetimepolyglot.styles.DurationStyle;kotlin.Function2<dev.mmauro.datetimepolyglot.localizers.relative.RelativeDurationLocalizer.ZeroLocalizationContext,js.intl.Locale,kotlin.String?>){}[0]
+    constructor <init>(kotlin.time/DurationUnit = ..., kotlin.time/DurationUnit? = ..., dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle = ..., kotlin/Function2<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationLocalizer.ZeroLocalizationContext, js.intl/Locale, kotlin/String?> = ...) // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.<init>|<init>(kotlin.time.DurationUnit;kotlin.time.DurationUnit?;dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle;kotlin.Function2<dev.mmauro.datetimepolyglot.localizers.relative.RelativeDurationLocalizer.ZeroLocalizationContext,js.intl.Locale,kotlin.String?>){}[0]
 
     final val ifZeroLocalization // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.ifZeroLocalization|{}ifZeroLocalization[0]
         final fun <get-ifZeroLocalization>(): kotlin/Function2<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationLocalizer.ZeroLocalizationContext, js.intl/Locale, kotlin/String?> // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.ifZeroLocalization.<get-ifZeroLocalization>|<get-ifZeroLocalization>(){}[0]
@@ -589,13 +617,13 @@ final class dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOpti
     final val minUnit // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.minUnit|{}minUnit[0]
         final fun <get-minUnit>(): kotlin.time/DurationUnit // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.minUnit.<get-minUnit>|<get-minUnit>(){}[0]
     final val style // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.style|{}style[0]
-        final fun <get-style>(): dev.mmauro.datetimepolyglot.styles/DurationStyle // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.style.<get-style>|<get-style>(){}[0]
+        final fun <get-style>(): dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.style.<get-style>|<get-style>(){}[0]
 
     final fun component1(): kotlin.time/DurationUnit // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.component1|component1(){}[0]
     final fun component2(): kotlin.time/DurationUnit? // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.component2|component2(){}[0]
-    final fun component3(): dev.mmauro.datetimepolyglot.styles/DurationStyle // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.component3|component3(){}[0]
+    final fun component3(): dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.component3|component3(){}[0]
     final fun component4(): kotlin/Function2<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationLocalizer.ZeroLocalizationContext, js.intl/Locale, kotlin/String?> // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.component4|component4(){}[0]
-    final fun copy(kotlin.time/DurationUnit = ..., kotlin.time/DurationUnit? = ..., dev.mmauro.datetimepolyglot.styles/DurationStyle = ..., kotlin/Function2<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationLocalizer.ZeroLocalizationContext, js.intl/Locale, kotlin/String?> = ...): dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.copy|copy(kotlin.time.DurationUnit;kotlin.time.DurationUnit?;dev.mmauro.datetimepolyglot.styles.DurationStyle;kotlin.Function2<dev.mmauro.datetimepolyglot.localizers.relative.RelativeDurationLocalizer.ZeroLocalizationContext,js.intl.Locale,kotlin.String?>){}[0]
+    final fun copy(kotlin.time/DurationUnit = ..., kotlin.time/DurationUnit? = ..., dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle = ..., kotlin/Function2<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationLocalizer.ZeroLocalizationContext, js.intl/Locale, kotlin/String?> = ...): dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.copy|copy(kotlin.time.DurationUnit;kotlin.time.DurationUnit?;dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle;kotlin.Function2<dev.mmauro.datetimepolyglot.localizers.relative.RelativeDurationLocalizer.ZeroLocalizationContext,js.intl.Locale,kotlin.String?>){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.relative/RelativeDurationOptions.toString|toString(){}[0]
@@ -606,6 +634,29 @@ final class dev.mmauro.datetimepolyglot.localizers.relative/RelativeInstantLocal
 
     final fun localize(kotlin.time/Instant, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>): dev.mmauro.datetimepolyglot/TickingValue<kotlin/String> // dev.mmauro.datetimepolyglot.localizers.relative/RelativeInstantLocalizer.localize|localize(kotlin.time.Instant;dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>){}[0]
     final fun localize(kotlin.time/Instant, kotlin.time/Instant): dev.mmauro.datetimepolyglot/TickingValue<kotlin/String> // dev.mmauro.datetimepolyglot.localizers.relative/RelativeInstantLocalizer.localize|localize(kotlin.time.Instant;kotlin.time.Instant){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotReferenceValueLocalizer<kotlin/Int> { // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearLocalizer|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions = ..., js.intl/Locale = ...) // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearLocalizer.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearOptions;js.intl.Locale){}[0]
+
+    final fun localize(kotlin/Int, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>): dev.mmauro.datetimepolyglot/TickingValue<kotlin/String> // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearLocalizer.localize|localize(kotlin.Int;dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>){}[0]
+    final fun localizeDiff(kotlin/Int): kotlin/String // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearLocalizer.localizeDiff|localizeDiff(kotlin.Int){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions { // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle = ..., kotlin.collections/List<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection> = ...) // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.<init>|<init>(dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle;kotlin.collections.List<dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection>){}[0]
+
+    final val allowedDirections // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.allowedDirections|{}allowedDirections[0]
+        final fun <get-allowedDirections>(): kotlin.collections/List<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection> // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.allowedDirections.<get-allowedDirections>|<get-allowedDirections>(){}[0]
+    final val style // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.style|{}style[0]
+        final fun <get-style>(): dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.style.<get-style>|<get-style>(){}[0]
+
+    final fun component1(): dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.component1|component1(){}[0]
+    final fun component2(): kotlin.collections/List<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection> // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.component2|component2(){}[0]
+    final fun copy(dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle = ..., kotlin.collections/List<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection> = ...): dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.copy|copy(dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle;kotlin.collections.List<dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.toString|toString(){}[0]
 }
 
 final class dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeLocalizer<kotlinx.datetime/DayOfWeek> { // dev.mmauro.datetimepolyglot.localizers.standalone/DayOfWeekLocalizer|null[0]

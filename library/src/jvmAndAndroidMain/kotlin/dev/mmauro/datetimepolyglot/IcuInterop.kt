@@ -5,7 +5,7 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
-import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnitStyle
+import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone
@@ -14,7 +14,6 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.Month
 import java.time.ZonedDateTime
-import kotlin.time.DurationUnit
 
 internal const val ICU_UNICODE_HOUR_CYCLE_EXTENSION_KEY = "hc"
 

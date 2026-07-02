@@ -1,6 +1,7 @@
 package dev.mmauro.datetimepolyglot.localizers.relative
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import js.intl.RelativeTimeFormat
 import js.intl.RelativeTimeFormatNumeric
 import js.intl.RelativeTimeFormatStyle
