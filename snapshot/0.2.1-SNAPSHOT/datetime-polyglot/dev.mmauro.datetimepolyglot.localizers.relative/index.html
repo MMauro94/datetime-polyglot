@@ -114,7 +114,22 @@
     <div class="tabs-section-body">
       <div data-togglable="TYPE">
         <h2 class="tableheader">Types</h2>
-        <div class="table"><a data-name="-2832480%2FClasslikes%2F-394989919" anchor-label="RelativeDurationLocalizer" id="-2832480%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+        <div class="table"><a data-name="-546257994%2FClasslikes%2F-394989919" anchor-label="RelativeDirection" id="-546257994%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-relative-direction/index.html"><span>Relative</span><wbr></wbr><span><span>Direction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-546257994%2FClasslikes%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-relative-direction/index.html">RelativeDirection</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-relative-direction/index.html">RelativeDirection</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2832480%2FClasslikes%2F-394989919" anchor-label="RelativeDurationLocalizer" id="-2832480%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -139,7 +154,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-relative-duration-options/index.html">RelativeDurationOptions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>minUnit<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration-unit/index.html">DurationUnit</a><span class="token operator"> = </span>DurationUnit.SECONDS<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxUnit<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration-unit/index.html">DurationUnit</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>style<span class="token operator">: </span><a href="../dev.mmauro.datetimepolyglot.styles/-duration-style/index.html">DurationStyle</a><span class="token operator"> = </span>DurationStyle.WIDE<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>ifZeroLocalization<span class="token operator">: </span><span data-unresolved-link="dev.mmauro.datetimepolyglot.localizers.relative/IfZeroLocalization///PointingToDeclaration/">IfZeroLocalization</span><span class="token operator"> = </span>{
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-relative-duration-options/index.html">RelativeDurationOptions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>minUnit<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration-unit/index.html">DurationUnit</a><span class="token operator"> = </span>DurationUnit.SECONDS<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxUnit<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration-unit/index.html">DurationUnit</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>style<span class="token operator">: </span><a href="../dev.mmauro.datetimepolyglot.styles/-relative-unit-style/index.html">RelativeUnitStyle</a><span class="token operator"> = </span>RelativeUnitStyle.LONG<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>ifZeroLocalization<span class="token operator">: </span><span data-unresolved-link="dev.mmauro.datetimepolyglot.localizers.relative/IfZeroLocalization///PointingToDeclaration/">IfZeroLocalization</span><span class="token operator"> = </span>{
         if (minUnit == DurationUnit.SECONDS) {
             localizeNow()
         } else {
@@ -176,6 +191,36 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-relative-instant-options/index.html">RelativeInstantOptions</a><span class="token operator"> = </span><a href="-relative-duration-options/index.html">RelativeDurationOptions</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1130837495%2FClasslikes%2F-394989919" anchor-label="RelativeYearLocalizer" id="-1130837495%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-relative-year-localizer/index.html"><span>Relative</span><wbr></wbr><span>Year</span><wbr></wbr><span><span>Localizer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1130837495%2FClasslikes%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-relative-year-localizer/index.html">RelativeYearLocalizer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">options<span class="token operator">: </span><a href="-relative-year-options/index.html">RelativeYearOptions</a><span class="token operator"> = </span>RelativeYearOptions()<span class="token punctuation">, </span></span><span class="parameter ">locale<span class="token operator">: </span><a href="../dev.mmauro.datetimepolyglot/-platform-locale/index.html">PlatformLocale</a><span class="token operator"> = </span>getDefaultLocale()</span></span><span class="token punctuation">)</span> : <a href="../dev.mmauro.datetimepolyglot.localizers/-polyglot-reference-value-localizer/index.html">PolyglotReferenceValueLocalizer</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Localizes a year relative to a <a href="../dev.mmauro.datetimepolyglot/-zoned/index.html">Zoned</a><<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a>> reference point.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1486558420%2FClasslikes%2F-394989919" anchor-label="RelativeYearOptions" id="1486558420%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-relative-year-options/index.html"><span>Relative</span><wbr></wbr><span>Year</span><wbr></wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1486558420%2FClasslikes%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-relative-year-options/index.html">RelativeYearOptions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>style<span class="token operator">: </span><a href="../dev.mmauro.datetimepolyglot.styles/-relative-unit-style/index.html">RelativeUnitStyle</a><span class="token operator"> = </span>RelativeUnitStyle.LONG<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>allowedDirections<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-relative-direction/index.html">RelativeDirection</a><span class="token operator">&gt;</span><span class="token operator"> = </span>RelativeDirection.entries</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Localization options for <a href="-relative-year-localizer/index.html">RelativeYearLocalizer</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
