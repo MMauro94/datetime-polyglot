@@ -8,18 +8,17 @@ import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getLocale
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
 import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
+import dev.mmauro.datetimepolyglot.localizers.year
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.toLocalDateTime
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.funSpec
 import io.kotest.core.tuple
-import io.kotest.datatest.withContexts
 import io.kotest.datatest.withTests
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.element
-import io.kotest.property.arbitrary.int
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
@@ -72,21 +71,30 @@ val RelativeYearLocalizerTestFactory = funSpec {
                 }
             }
 
-            context("different styles are respected") {
-                withContexts(
-                    nameFn = { it.toString() },
-                    tuple(RelativeUnitStyle.LONG, 2025, "last year"),
-                    tuple(RelativeUnitStyle.LONG, 2036, "in 10 years"),
-                    tuple(RelativeUnitStyle.SHORT, 2025, "last yr."),
-                    tuple(RelativeUnitStyle.SHORT, 2028, "in 2 yr."),
-                    tuple(RelativeUnitStyle.NARROW, 2025, "last yr."),
-                    tuple(RelativeUnitStyle.NARROW, 2036, when (val platform = TEST_PLATFORM) {
-                        is Android if platform.sdk < 34 -> "in 10 yr."
-                        else -> "in 10y"
-                    }),
-                ) { (style, year, expected) ->
-                    val localizer = RelativeYearLocalizer(locale = LOCALE_ENGLISH, options = RelativeYearOptions(style = style))
-                    localizer.localizeAndTestNextTick(year, REFERENCE).value shouldBe expected
+            context("styles") {
+                context("numeric") {
+                    withTests(RelativeUnitStyle.entries) { style ->
+                        val localizer = RelativeYearLocalizer(locale = LOCALE_ENGLISH, options = RelativeYearOptions(style = style))
+                        localizer.localizeAndTestNextTick(2030, REFERENCE).value shouldBe when (style) {
+                            RelativeUnitStyle.NARROW -> when (val platform = TEST_PLATFORM) {
+                                is Android if platform.sdk < 34 -> "in 4 yr."
+                                else -> "in 4y"
+                            }
+
+                            RelativeUnitStyle.SHORT -> "in 4 yr."
+                            RelativeUnitStyle.LONG -> "in 4 years"
+                        }
+                    }
+                }
+                context("word") {
+                    withTests(RelativeUnitStyle.entries) { style ->
+                        val localizer = RelativeYearLocalizer(locale = LOCALE_ENGLISH, options = RelativeYearOptions(style = style))
+                        localizer.localizeAndTestNextTick(2026, REFERENCE).value shouldBe when (style) {
+                            RelativeUnitStyle.NARROW -> "this yr."
+                            RelativeUnitStyle.SHORT -> "this yr."
+                            RelativeUnitStyle.LONG -> "this year"
+                        }
+                    }
                 }
             }
 
@@ -115,7 +123,7 @@ val RelativeYearLocalizerTestFactory = funSpec {
         val localizer = RelativeYearLocalizer(locale = LOCALE_ENGLISH)
 
         nextTickPredictsChangeTest(
-            arbitraryArb = Arb.int(min = 1800, max = 2100),
+            arbitraryArb = Arb.year(),
             smallArb = { Arb.element(it.toLocalDateTime().year) },
             localize = localizer::localize,
         )
