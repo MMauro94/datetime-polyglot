@@ -141,14 +141,7 @@ fun <P> localizeAndTestNextTick(
     }
 }
 
-fun Arb.Companion.kotlinTimeZone() = Arb.element(TimeZone.availableZoneIds).map { TimeZone.of(it) }
 
-fun Arb.Companion.zonedInstant(instantRange: KotlinInstantRange = Instant.DISTANT_PAST..Instant.DISTANT_FUTURE) = arbitrary {
-    Zoned(
-        value = Arb.kotlinInstant(instantRange).bind(),
-        timeZone = Arb.kotlinTimeZone().bind(),
-    )
-}
 
 fun <T> localizeAndTestNextTick(
     value: T,
