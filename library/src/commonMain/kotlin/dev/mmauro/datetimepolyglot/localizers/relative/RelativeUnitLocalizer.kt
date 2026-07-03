@@ -34,3 +34,8 @@ internal fun RelativeUnitLocalizer.localize(value: Double, unit: RelativeUnit, a
     }
     return localizeNumeric(value, unit)
 }
+
+internal interface RelativeUnitOptions {
+    val style: RelativeUnitStyle
+    val allowedDirections: List<RelativeDirection>
+}

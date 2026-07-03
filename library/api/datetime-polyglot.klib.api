@@ -643,7 +643,7 @@ final class dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearLocalize
     final fun localizeDiff(kotlin/Int): kotlin/String // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearLocalizer.localizeDiff|localizeDiff(kotlin.Int){}[0]
 }
 
-final class dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions { // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions|null[0]
+final class dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions : dev.mmauro.datetimepolyglot.localizers.relative/RelativeUnitOptions { // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions|null[0]
     constructor <init>(dev.mmauro.datetimepolyglot.styles/RelativeUnitStyle = ..., kotlin.collections/List<dev.mmauro.datetimepolyglot.localizers.relative/RelativeDirection> = ...) // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.<init>|<init>(dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle;kotlin.collections.List<dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection>){}[0]
 
     final val allowedDirections // dev.mmauro.datetimepolyglot.localizers.relative/RelativeYearOptions.allowedDirections|{}allowedDirections[0]
