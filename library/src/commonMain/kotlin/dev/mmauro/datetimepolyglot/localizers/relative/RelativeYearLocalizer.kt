@@ -21,9 +21,9 @@ import kotlin.time.Instant
  * to force numeric localization (e.g. `1 year ago`)
  */
 data class RelativeYearOptions(
-    val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
-    val allowedDirections: List<RelativeDirection> = RelativeDirection.entries,
-)
+    override val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
+    override val allowedDirections: List<RelativeDirection> = RelativeDirection.entries,
+) : RelativeUnitOptions
 
 /**
  * Localizes a year relative to a [Zoned]<[Instant]> reference point.
