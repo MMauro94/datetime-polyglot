@@ -2,6 +2,8 @@ package dev.mmauro.datetimepolyglot.localizers.relative
 
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
+import dev.mmauro.datetimepolyglot.TEST_PLATFORM
+import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getLocale
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
@@ -10,6 +12,7 @@ import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.toLocalDateTime
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.core.spec.style.funSpec
 import io.kotest.core.tuple
 import io.kotest.datatest.withContexts
 import io.kotest.datatest.withTests
@@ -25,7 +28,7 @@ import kotlin.time.Instant
 private val REFERENCE_DATE = LocalDate.parse("2026-04-01")
 private val REFERENCE = Zoned(REFERENCE_DATE.atStartOfDayIn(TimeZone.UTC), TimeZone.UTC)
 
-class RelativeYearLocalizerTest : FunSpec({
+val RelativeYearLocalizerTestFactory = funSpec {
     context("localizer") {
         context("localized string") {
             context("numeric") {
@@ -77,7 +80,10 @@ class RelativeYearLocalizerTest : FunSpec({
                     tuple(RelativeUnitStyle.SHORT, 2025, "last yr."),
                     tuple(RelativeUnitStyle.SHORT, 2028, "in 2 yr."),
                     tuple(RelativeUnitStyle.NARROW, 2025, "last yr."),
-                    tuple(RelativeUnitStyle.NARROW, 2036, "in 10y"),
+                    tuple(RelativeUnitStyle.NARROW, 2036, when (val platform = TEST_PLATFORM) {
+                        is Android if platform.sdk < 34 -> "in 10 yr."
+                        else -> "in 10y"
+                    }),
                 ) { (style, year, expected) ->
                     val localizer = RelativeYearLocalizer(locale = LOCALE_ENGLISH, options = RelativeYearOptions(style = style))
                     localizer.localizeAndTestNextTick(year, REFERENCE).value shouldBe expected
@@ -99,21 +105,25 @@ class RelativeYearLocalizerTest : FunSpec({
                 }
             }
         }
-
-        test("localizeDiff") {
-            RelativeYearLocalizer(locale = LOCALE_ENGLISH).localizeDiff(-1) shouldBeLocalizedAs "last year"
-        }
-
-        context("next tick") {
-            val localizer = RelativeYearLocalizer(locale = LOCALE_ENGLISH)
-
-            nextTickPredictsChangeTest(
-                arbitraryArb = Arb.int(min = 1800, max = 2100),
-                smallArb = { Arb.element(it.toLocalDateTime().year) },
-                localize = localizer::localize,
-            )
-        }
     }
+
+    test("localizeDiff") {
+        RelativeYearLocalizer(locale = LOCALE_ENGLISH).localizeDiff(-1) shouldBeLocalizedAs "last year"
+    }
+
+    context("next tick") {
+        val localizer = RelativeYearLocalizer(locale = LOCALE_ENGLISH)
+
+        nextTickPredictsChangeTest(
+            arbitraryArb = Arb.int(min = 1800, max = 2100),
+            smallArb = { Arb.element(it.toLocalDateTime().year) },
+            localize = localizer::localize,
+        )
+    }
+}
+
+class RelativeYearLocalizerTest : FunSpec({
+    include(RelativeYearLocalizerTestFactory)
 })
 
 private fun RelativeYearLocalizer.localizeAndTestNextTick(year: Int, reference: Zoned<Instant>) =
