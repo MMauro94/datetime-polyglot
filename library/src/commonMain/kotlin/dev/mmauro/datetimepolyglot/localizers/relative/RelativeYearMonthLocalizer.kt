@@ -63,7 +63,7 @@ class RelativeYearMonthLocalizer(
      * Convenience function to format an already calculated diff of months (e.g. -1 for `last month`).
      */
     fun localizeDiff(diff: Int): String {
-        return relativeUnitLocalizer.localize(diff.toDouble(), RelativeUnit.MONTH, options.allowedDirections)
+        return relativeUnitLocalizer.localize(diff.toDouble(), RelativeUnit.DateTimeComponent.MONTH, options.allowedDirections)
     }
 
     override fun localize(value: YearMonth, reference: Zoned<Instant>): TickingValue<String> {

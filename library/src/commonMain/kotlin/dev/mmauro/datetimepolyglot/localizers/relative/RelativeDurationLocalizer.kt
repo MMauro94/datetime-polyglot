@@ -101,10 +101,10 @@ class RelativeDurationLocalizer(
             DurationUnit.NANOSECONDS -> error("nanosecond unit not supported")
             DurationUnit.MICROSECONDS -> error("microsecond unit not supported")
             DurationUnit.MILLISECONDS -> error("millisecond unit not supported")
-            DurationUnit.SECONDS -> RelativeUnit.SECOND
-            DurationUnit.MINUTES -> RelativeUnit.MINUTE
-            DurationUnit.HOURS -> RelativeUnit.HOUR
-            DurationUnit.DAYS -> RelativeUnit.DAY
+            DurationUnit.SECONDS -> RelativeUnit.DateTimeComponent.SECOND
+            DurationUnit.MINUTES -> RelativeUnit.DateTimeComponent.MINUTE
+            DurationUnit.HOURS -> RelativeUnit.DateTimeComponent.HOUR
+            DurationUnit.DAYS -> RelativeUnit.DateTimeComponent.DAY
             else -> error("Unknown duration unit: $unit")
         }
         return TickingValue(relativeUnitLocalizer.localizeNumeric(unitValue.toDouble(), relativeUnit), nextTick)

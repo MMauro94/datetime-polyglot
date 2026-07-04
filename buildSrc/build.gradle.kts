@@ -10,6 +10,7 @@ dependencies {
     implementation(libs.semver)
     implementation(libs.kotlinpoet)
     implementation(libs.ibm.icu4j)
+    implementation(libs.kotlinx.datetime)
 }
 
 gradlePlugin {

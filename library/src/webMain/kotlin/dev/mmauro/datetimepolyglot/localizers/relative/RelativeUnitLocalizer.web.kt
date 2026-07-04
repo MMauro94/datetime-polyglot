@@ -2,6 +2,7 @@ package dev.mmauro.datetimepolyglot.localizers.relative
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
+import dev.mmauro.datetimepolyglot.utils.localizeRelativeDayOfWeek
 import js.intl.RelativeTimeFormat
 import js.intl.RelativeTimeFormatNumeric
 import js.intl.RelativeTimeFormatStyle
@@ -21,39 +22,45 @@ import js.intl.year
 import js.objects.unsafeJso
 
 internal actual class RelativeUnitLocalizer actual constructor(
-    style: RelativeUnitStyle,
-    locale: PlatformLocale
+    private val style: RelativeUnitStyle,
+    private val locale: PlatformLocale
 ) {
 
     private val numericRelativeTimeFormat = RelativeTimeFormat(locale, unsafeJso {
-        this.style = style.toJsRelativeTimeFormatStyle()
+        this.style = this@RelativeUnitLocalizer.style.toJsRelativeTimeFormatStyle()
         this.numeric = RelativeTimeFormatNumeric.always
     })
 
     private val relativeTimeFormat = RelativeTimeFormat(locale, unsafeJso {
-        this.style = style.toJsRelativeTimeFormatStyle()
+        this.style = this@RelativeUnitLocalizer.style.toJsRelativeTimeFormatStyle()
         this.numeric = RelativeTimeFormatNumeric.auto
     })
 
-    actual fun localizeNumeric(value: Double, unit: RelativeUnit): String {
+    actual fun localizeNumeric(value: Double, unit: RelativeUnit.DateTimeComponent): String {
         return numericRelativeTimeFormat.format(value, unit.toJsRelativeTimeFormatUnit())
     }
 
     actual fun localizeDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
         // JS returns the string "now" for this case
-        if (direction == RelativeDirection.THIS && unit == RelativeUnit.SECOND) {
+        if (direction == RelativeDirection.THIS && unit == RelativeUnit.DateTimeComponent.SECOND) {
             return null
         }
 
-        val formatted = relativeTimeFormat.format(direction.offset.toDouble(), unit.toJsRelativeTimeFormatUnit())
+        return when (unit) {
+            is RelativeUnit.DateTimeComponent -> {
+                val formatted = relativeTimeFormat.format(direction.offset.toDouble(), unit.toJsRelativeTimeFormatUnit())
 
-        // We need to return null if the direction format doesn't exist
-        // Since JS doesn't expose this directly, we are just checking if the format is identical to the numeric one
-        if (formatted == localizeNumeric(direction.offset.toDouble(), unit)) {
-            return null
+                // We need to return null if the direction format doesn't exist
+                // Since JS doesn't expose this directly, we are just checking if the format is identical to the numeric one
+                if (formatted == localizeNumeric(direction.offset.toDouble(), unit)) {
+                    null
+                } else {
+                    formatted
+                }
+            }
+
+            is RelativeUnit.DayOfWeek -> localizeRelativeDayOfWeek(locale, style, direction, unit.dayOfWeek)
         }
-
-        return formatted
     }
 
     actual fun localizeNow(): String? {
@@ -69,14 +76,14 @@ private fun RelativeUnitStyle.toJsRelativeTimeFormatStyle(): RelativeTimeFormatS
     }
 }
 
-private fun RelativeUnit.toJsRelativeTimeFormatUnit(): RelativeTimeFormatUnit {
+private fun RelativeUnit.DateTimeComponent.toJsRelativeTimeFormatUnit(): RelativeTimeFormatUnit {
     return when (this) {
-        RelativeUnit.SECOND -> RelativeTimeFormatUnit.second
-        RelativeUnit.MINUTE -> RelativeTimeFormatUnit.minute
-        RelativeUnit.HOUR -> RelativeTimeFormatUnit.hour
-        RelativeUnit.DAY -> RelativeTimeFormatUnit.day
-        RelativeUnit.WEEK -> RelativeTimeFormatUnit.week
-        RelativeUnit.MONTH -> RelativeTimeFormatUnit.month
-        RelativeUnit.YEAR -> RelativeTimeFormatUnit.year
+        RelativeUnit.DateTimeComponent.SECOND -> RelativeTimeFormatUnit.second
+        RelativeUnit.DateTimeComponent.MINUTE -> RelativeTimeFormatUnit.minute
+        RelativeUnit.DateTimeComponent.HOUR -> RelativeTimeFormatUnit.hour
+        RelativeUnit.DateTimeComponent.DAY -> RelativeTimeFormatUnit.day
+        RelativeUnit.DateTimeComponent.WEEK -> RelativeTimeFormatUnit.week
+        RelativeUnit.DateTimeComponent.MONTH -> RelativeTimeFormatUnit.month
+        RelativeUnit.DateTimeComponent.YEAR -> RelativeTimeFormatUnit.year
     }
 }

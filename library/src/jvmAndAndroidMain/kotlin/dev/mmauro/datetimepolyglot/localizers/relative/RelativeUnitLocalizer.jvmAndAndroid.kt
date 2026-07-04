@@ -13,7 +13,7 @@ internal actual class RelativeUnitLocalizer actual constructor(
 ) {
     private val relativeDateTimeFormatter = getRelativeDateTimeFormatter(locale, style)
 
-    actual fun localizeNumeric(value: Double, unit: RelativeUnit): String {
+    actual fun localizeNumeric(value: Double, unit: RelativeUnit.DateTimeComponent): String {
         return relativeDateTimeFormatter.formatNumeric(value, unit)
     }
 

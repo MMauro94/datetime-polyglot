@@ -3,11 +3,13 @@ package dev.mmauro.datetimepolyglot.utils
 import dev.mmauro.datetimepolyglot.ALL_LOCALES
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
-import dev.mmauro.datetimepolyglot.LOCALE_POLISH
+import dev.mmauro.datetimepolyglot.localeFromBcp47LanguageTag
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
+import io.kotest.datatest.withTests
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.element
@@ -55,6 +57,22 @@ class DateTimeJoiner : FunSpec({
             date = "Thursday, January 8, 2026",
             time = "9:31:45 PM",
         ) shouldBeLocalizedAs "Thursday, January 8, 2026 at 9:31:45 PM"
+    }
+
+    context("works with big locales") {
+        withTests(
+            localeFromBcp47LanguageTag("it-Latn-IT-u-ca-gregory-fw-mon-hc-h23") to "ddddd alle ore ttttt",
+            localeFromBcp47LanguageTag("en-US-u-ca-gregory-hc-h12-nu-latn") to "ddddd at ttttt",
+            localeFromBcp47LanguageTag("es-VE-u-ca-gregory-hc-h12-nu-latn") to "ddddd a las ttttt",
+        ) { (locale, expected) ->
+            val localized = joinDateAndTime(
+                locale = locale,
+                style = DateStyle.LONG,
+                date = "ddddd",
+                time = "ttttt",
+            )
+            localized shouldBe expected
+        }
     }
 
     test("date and time should always be present in the output string") {
