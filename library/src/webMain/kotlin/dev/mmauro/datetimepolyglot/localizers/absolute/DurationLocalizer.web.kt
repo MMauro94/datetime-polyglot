@@ -22,6 +22,7 @@ import js.numbers.JsInt
 import js.numbers.JsNumbers.toJsInt
 import js.objects.Record
 import js.objects.unsafeJso
+import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 
@@ -30,6 +31,7 @@ actual class DurationLocalizer actual constructor(
     private val locale: PlatformLocale
 ) : PolyglotValueLocalizer<Duration, String> {
 
+    @ExperimentalWasmJsInterop
     actual override fun localize(value: Duration): String {
         return value.internalLocalize(options, locale) { filteredUnits ->
             val durationFormat = DurationFormat(locale, unsafeJso {

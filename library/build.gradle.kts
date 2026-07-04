@@ -31,6 +31,7 @@ val generateCldrCodeTask = tasks.register<GenerateCldrCodeTask>("generateCldrCod
 
 kotlin {
     compilerOptions {
+        allWarningsAsErrors = true
         freeCompilerArgs.add("-Xexpect-actual-classes")
         freeCompilerArgs.add("-Xconsistent-data-class-copy-visibility")
     }
