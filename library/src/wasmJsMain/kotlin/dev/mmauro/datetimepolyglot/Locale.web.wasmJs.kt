@@ -6,4 +6,4 @@ import js.intl.Locale
 internal actual val LOCALE_ENGLISH = PlatformLocale("en".toJsString())
 
 @OptIn(ExperimentalWasmJsInterop::class)
-internal actual fun localeFromString(locale: String) = Locale(locale.toJsString())
+internal actual fun localeFromBcp47LanguageTag(tag: String) = Locale(tag.toJsString())

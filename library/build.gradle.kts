@@ -1,5 +1,5 @@
 import dev.mmauro.datetimepolyglot.buildlogic.extensions.GitInfoExtension
-import dev.mmauro.datetimepolyglot.buildlogic.tasks.GenerateCldrCodeTask
+import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.GenerateCldrCodeTask
 import dev.mmauro.datetimepolyglot.buildlogic.tasks.PrintVersionTask
 import io.github.z4kn4fein.semver.Version
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -27,7 +27,7 @@ val gitInfo = extensions.getByType(GitInfoExtension::class.java)
 
 version = gitInfo.currentVersion.get().toString()
 
-val generateCldrCodeTask = tasks.register<GenerateCldrCodeTask>("generateCldrCode") {}
+val generateCldrCodeTask = tasks.register<GenerateCldrCodeTask>("generateCldrCode")
 
 kotlin {
     compilerOptions {
@@ -103,14 +103,9 @@ kotlin {
         getByName("androidDeviceTest").dependsOn(jvmAndAndroidTest)
         jvmTest.get().dependsOn(jvmAndAndroidTest)
 
-
-        commonMain {
-            kotlin.srcDir(generateCldrCodeTask)
-
-            dependencies {
-                implementation(libs.kotlinx.coroutines)
-                implementation(libs.kotlinx.datetime)
-            }
+        commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines)
+            implementation(libs.kotlinx.datetime)
         }
 
         commonTest.dependencies {
@@ -120,8 +115,11 @@ kotlin {
             implementation(libs.kotest.property)
         }
 
-        androidMain.dependencies {
-            implementation(libs.androidx.annotationJvm)
+        androidMain {
+            kotlin.srcDir(generateCldrCodeTask.get().androidMainOutput)
+            dependencies {
+                implementation(libs.androidx.annotationJvm)
+            }
         }
 
         jvmMain.dependencies {
@@ -136,13 +134,25 @@ kotlin {
             implementation(libs.kotest.runner.junit4)
         }
 
-        webMain.dependencies {
-            implementation(kotlinWrappers.js)
-            implementation(kotlinWrappers.jsPlainObject)
+        webMain {
+            kotlin.srcDir(generateCldrCodeTask.get().webMainOutput)
+
+            dependencies {
+                implementation(kotlinWrappers.js)
+                implementation(kotlinWrappers.jsPlainObject)
+            }
         }
 
         webTest.dependencies {
             implementation(npm("@js-joda/timezone", "2.25.1"))
+        }
+    }
+
+    targets.configureEach {
+        compilations.configureEach {
+            compileTaskProvider.configure {
+                dependsOn(generateCldrCodeTask)
+            }
         }
     }
 }

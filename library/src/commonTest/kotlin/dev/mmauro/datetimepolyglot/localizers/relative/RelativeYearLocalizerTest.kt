@@ -5,7 +5,7 @@ import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.TEST_PLATFORM
 import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.Zoned
-import dev.mmauro.datetimepolyglot.getLocale
+import dev.mmauro.datetimepolyglot.localeFromBcp47LanguageTag
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
 import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
 import dev.mmauro.datetimepolyglot.localizers.year
@@ -65,7 +65,7 @@ val RelativeYearLocalizerTestFactory = funSpec {
                     nameFn = { it.first.toString() },
                     LOCALE_ENGLISH to "in 1,000,000 years",
                     LOCALE_ITALIAN to "tra 1.000.000 anni",
-                    getLocale("hi") to "10,00,000 वर्ष में",
+                    localeFromBcp47LanguageTag("hi") to "10,00,000 वर्ष में",
                 ) { (locale, expected) ->
                     RelativeYearLocalizer(locale = locale).localizeAndTestNextTick(1_002_026, REFERENCE).value shouldBe expected
                 }

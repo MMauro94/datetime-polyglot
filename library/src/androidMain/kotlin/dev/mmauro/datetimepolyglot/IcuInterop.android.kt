@@ -12,6 +12,7 @@ import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaZoneId
 import java.time.LocalDate
@@ -179,13 +180,22 @@ internal actual fun getRelativeDateTimeFormatter(locale: PlatformLocale, style: 
 
 internal actual fun RelativeDateTimeFormatter.formatNumeric(quantity: Double, unit: RelativeUnit): String {
     val relativeUnit = when (unit) {
-        RelativeUnit.SECOND -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.SECOND
-        RelativeUnit.MINUTE -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.MINUTE
-        RelativeUnit.HOUR -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.HOUR
-        RelativeUnit.DAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.DAY
-        RelativeUnit.WEEK -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.WEEK
-        RelativeUnit.MONTH -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.MONTH
-        RelativeUnit.YEAR -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.YEAR
+        RelativeUnit.DateTimeComponent.SECOND -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.SECOND
+        RelativeUnit.DateTimeComponent.MINUTE -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.MINUTE
+        RelativeUnit.DateTimeComponent.HOUR -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.HOUR
+        RelativeUnit.DateTimeComponent.DAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.DAY
+        RelativeUnit.DateTimeComponent.WEEK -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.WEEK
+        RelativeUnit.DateTimeComponent.MONTH -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.MONTH
+        RelativeUnit.DateTimeComponent.YEAR -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.YEAR
+        is RelativeUnit.DayOfWeek -> when (unit.dayOfWeek) {
+            DayOfWeek.MONDAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.MONDAY
+            DayOfWeek.TUESDAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.TUESDAY
+            DayOfWeek.WEDNESDAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.WEDNESDAY
+            DayOfWeek.THURSDAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.THURSDAY
+            DayOfWeek.FRIDAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.FRIDAY
+            DayOfWeek.SATURDAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.SATURDAY
+            DayOfWeek.SUNDAY -> IcuRelativeDateTimeFormatter.RelativeDateTimeUnit.SUNDAY
+        }
     }
     return formatNumeric(quantity, relativeUnit)
 }
@@ -199,23 +209,32 @@ internal actual fun RelativeDateTimeFormatter.formatDirection(direction: Relativ
         RelativeDirection.NEXT_2 -> IcuRelativeDateTimeFormatter.Direction.NEXT_2
     }
     val unit = when (unit) {
-        RelativeUnit.SECOND -> return null
-        RelativeUnit.MINUTE -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        RelativeUnit.DateTimeComponent.SECOND -> return null
+        RelativeUnit.DateTimeComponent.MINUTE -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             IcuRelativeDateTimeFormatter.AbsoluteUnit.MINUTE
         } else {
             return null
         }
 
-        RelativeUnit.HOUR -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        RelativeUnit.DateTimeComponent.HOUR -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             IcuRelativeDateTimeFormatter.AbsoluteUnit.HOUR
         } else {
             return null
         }
 
-        RelativeUnit.DAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.DAY
-        RelativeUnit.WEEK -> IcuRelativeDateTimeFormatter.AbsoluteUnit.WEEK
-        RelativeUnit.MONTH -> IcuRelativeDateTimeFormatter.AbsoluteUnit.MONTH
-        RelativeUnit.YEAR -> IcuRelativeDateTimeFormatter.AbsoluteUnit.YEAR
+        RelativeUnit.DateTimeComponent.DAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.DAY
+        RelativeUnit.DateTimeComponent.WEEK -> IcuRelativeDateTimeFormatter.AbsoluteUnit.WEEK
+        RelativeUnit.DateTimeComponent.MONTH -> IcuRelativeDateTimeFormatter.AbsoluteUnit.MONTH
+        RelativeUnit.DateTimeComponent.YEAR -> IcuRelativeDateTimeFormatter.AbsoluteUnit.YEAR
+        is RelativeUnit.DayOfWeek -> when (unit.dayOfWeek) {
+            DayOfWeek.MONDAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.MONDAY
+            DayOfWeek.TUESDAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.TUESDAY
+            DayOfWeek.WEDNESDAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.WEDNESDAY
+            DayOfWeek.THURSDAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.THURSDAY
+            DayOfWeek.FRIDAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.FRIDAY
+            DayOfWeek.SATURDAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.SATURDAY
+            DayOfWeek.SUNDAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.SUNDAY
+        }
     }
     return format(direction, unit)
 }

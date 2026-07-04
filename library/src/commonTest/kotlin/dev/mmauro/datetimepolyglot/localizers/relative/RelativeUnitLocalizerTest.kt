@@ -16,26 +16,27 @@ import io.kotest.property.arbitrary.element
 import io.kotest.property.arbitrary.enum
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
+import kotlinx.datetime.DayOfWeek
 
 class RelativeUnitLocalizerTest : FunSpec({
     context("localizeNumeric") {
         test("past") {
             val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
-            localizer.localizeNumeric(-1.0, RelativeUnit.DAY) shouldBeLocalizedAs "1 day ago"
+            localizer.localizeNumeric(-1.0, RelativeUnit.DateTimeComponent.DAY) shouldBeLocalizedAs "1 day ago"
         }
         test("now") {
             val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
-            localizer.localizeNumeric(0.0, RelativeUnit.SECOND) shouldBeLocalizedAs "in 0 seconds"
+            localizer.localizeNumeric(0.0, RelativeUnit.DateTimeComponent.SECOND) shouldBeLocalizedAs "in 0 seconds"
         }
         test("future") {
             val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
-            localizer.localizeNumeric(1.0, RelativeUnit.DAY) shouldBeLocalizedAs "in 1 day"
+            localizer.localizeNumeric(1.0, RelativeUnit.DateTimeComponent.DAY) shouldBeLocalizedAs "in 1 day"
         }
 
         context("styles") {
             withTests(RelativeUnitStyle.entries) { style ->
                 val localizer = RelativeUnitLocalizer(style = style, locale = LOCALE_ENGLISH)
-                localizer.localizeNumeric(-1.0, RelativeUnit.MINUTE) shouldBeLocalizedAs when (style) {
+                localizer.localizeNumeric(-1.0, RelativeUnit.DateTimeComponent.MINUTE) shouldBeLocalizedAs when (style) {
                     RelativeUnitStyle.NARROW -> "1m ago"
                     RelativeUnitStyle.SHORT -> "1 min. ago"
                     RelativeUnitStyle.LONG -> "1 minute ago"
@@ -45,7 +46,7 @@ class RelativeUnitLocalizerTest : FunSpec({
 
         context("different locale") {
             val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.SHORT, locale = LOCALE_ITALIAN)
-            localizer.localizeNumeric(5.0, RelativeUnit.WEEK) shouldBeLocalizedAs "tra 5 sett."
+            localizer.localizeNumeric(5.0, RelativeUnit.DateTimeComponent.WEEK) shouldBeLocalizedAs "tra 5 sett."
         }
     }
 
@@ -53,7 +54,7 @@ class RelativeUnitLocalizerTest : FunSpec({
         context("day") {
             withTests(RelativeDirection.entries) { direction ->
                 val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
-                localizer.localizeDirection(direction, RelativeUnit.DAY) shouldBe when (direction) {
+                localizer.localizeDirection(direction, RelativeUnit.DateTimeComponent.DAY) shouldBe when (direction) {
                     RelativeDirection.LAST_2 -> null
                     RelativeDirection.LAST -> "yesterday"
                     RelativeDirection.THIS -> "today"
@@ -65,7 +66,7 @@ class RelativeUnitLocalizerTest : FunSpec({
         context("year") {
             withTests(RelativeDirection.entries) { direction ->
                 val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
-                localizer.localizeDirection(direction, RelativeUnit.YEAR) shouldBe when (direction) {
+                localizer.localizeDirection(direction, RelativeUnit.DateTimeComponent.YEAR) shouldBe when (direction) {
                     RelativeDirection.LAST_2 -> null
                     RelativeDirection.LAST -> "last year"
                     RelativeDirection.THIS -> "this year"
@@ -79,7 +80,20 @@ class RelativeUnitLocalizerTest : FunSpec({
             test("this second localization should return null") {
                 checkAll(Arb.element(LOCALE_ENGLISH, LOCALE_ITALIAN, LOCALE_POLISH), Arb.enum<RelativeUnitStyle>()) { locale, style ->
                     val localizer = RelativeUnitLocalizer(style, locale)
-                    localizer.localizeDirection(RelativeDirection.THIS, RelativeUnit.SECOND).shouldBeNull()
+                    localizer.localizeDirection(RelativeDirection.THIS, RelativeUnit.DateTimeComponent.SECOND).shouldBeNull()
+                }
+            }
+        }
+
+        context("day of the week") {
+            withTests(RelativeDirection.entries) { direction ->
+                val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
+                localizer.localizeDirection(direction, RelativeUnit.DayOfWeek(DayOfWeek.WEDNESDAY)) shouldBe when (direction) {
+                    RelativeDirection.LAST_2 -> null
+                    RelativeDirection.LAST -> "last Wednesday"
+                    RelativeDirection.THIS -> "this Wednesday"
+                    RelativeDirection.NEXT -> "next Wednesday"
+                    RelativeDirection.NEXT_2 -> null
                 }
             }
         }
@@ -87,7 +101,7 @@ class RelativeUnitLocalizerTest : FunSpec({
         context("styles") {
             withTests(RelativeUnitStyle.entries) { style ->
                 val localizer = RelativeUnitLocalizer(style = style, locale = LOCALE_ENGLISH)
-                localizer.localizeDirection(RelativeDirection.LAST, RelativeUnit.MONTH)
+                localizer.localizeDirection(RelativeDirection.LAST, RelativeUnit.DateTimeComponent.MONTH)
                     .shouldNotBeNull() shouldBeLocalizedAs when (style) {
                     RelativeUnitStyle.NARROW -> "last mo."
                     RelativeUnitStyle.SHORT -> "last mo."
@@ -98,13 +112,14 @@ class RelativeUnitLocalizerTest : FunSpec({
 
         context("different locale") {
             val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ITALIAN)
-            localizer.localizeDirection(RelativeDirection.LAST_2, RelativeUnit.DAY).shouldNotBeNull() shouldBeLocalizedAs "l’altro ieri"
+            localizer.localizeDirection(RelativeDirection.LAST_2, RelativeUnit.DateTimeComponent.DAY)
+                .shouldNotBeNull() shouldBeLocalizedAs "l’altro ieri"
         }
 
         test("should never be formatted identically as localizeNumeric") {
             checkAll(
                 Arb.enum<RelativeDirection>(),
-                Arb.enum<RelativeUnit>(),
+                Arb.enum<RelativeUnit.DateTimeComponent>(),
                 Arb.enum<RelativeUnitStyle>(),
                 listOf(LOCALE_ENGLISH, LOCALE_ITALIAN, LOCALE_POLISH).exhaustive(),
             ) { direction, relativeUnit, style, locale ->

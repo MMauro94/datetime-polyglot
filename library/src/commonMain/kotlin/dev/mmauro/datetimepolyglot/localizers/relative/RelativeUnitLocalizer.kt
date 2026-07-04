@@ -4,19 +4,24 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 
 internal expect class RelativeUnitLocalizer(style: RelativeUnitStyle, locale: PlatformLocale) {
-    fun localizeNumeric(value: Double, unit: RelativeUnit): String
+    fun localizeNumeric(value: Double, unit: RelativeUnit.DateTimeComponent): String
     fun localizeDirection(direction: RelativeDirection, unit: RelativeUnit): String?
     fun localizeNow(): String?
 }
 
-internal enum class RelativeUnit {
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY,
-    WEEK,
-    MONTH,
-    YEAR,
+internal sealed interface RelativeUnit {
+
+    data class DayOfWeek(val dayOfWeek: kotlinx.datetime.DayOfWeek) : RelativeUnit
+
+    enum class DateTimeComponent : RelativeUnit {
+        SECOND,
+        MINUTE,
+        HOUR,
+        DAY,
+        WEEK,
+        MONTH,
+        YEAR,
+    }
 }
 
 enum class RelativeDirection(val offset: Int) {
@@ -27,7 +32,7 @@ enum class RelativeDirection(val offset: Int) {
     NEXT_2(2),
 }
 
-internal fun RelativeUnitLocalizer.localize(value: Double, unit: RelativeUnit, allowedDirection: List<RelativeDirection>): String {
+internal fun RelativeUnitLocalizer.localize(value: Double, unit: RelativeUnit.DateTimeComponent, allowedDirection: List<RelativeDirection>): String {
     val direction = RelativeDirection.entries.find { it.offset == value.toInt() }
     if (direction != null && direction in allowedDirection) {
         localizeDirection(direction, unit)?.let { return it }

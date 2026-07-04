@@ -55,7 +55,7 @@ class RelativeYearLocalizer(
      * Convenience function to format an already calculated diff of years (e.g. -1 for `last year`).
      */
     fun localizeDiff(diff: Int): String {
-        return relativeUnitLocalizer.localize(diff.toDouble(), RelativeUnit.YEAR, options.allowedDirections)
+        return relativeUnitLocalizer.localize(diff.toDouble(), RelativeUnit.DateTimeComponent.YEAR, options.allowedDirections)
     }
 
     override fun localize(value: Int, reference: Zoned<Instant>): TickingValue<String> {
