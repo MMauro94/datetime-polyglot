@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withTests
 import io.kotest.matchers.shouldBe
+import kotlinx.datetime.DayOfWeek
 
 class LocaleTest : FunSpec({
     context("base locale") {
@@ -14,6 +15,17 @@ class LocaleTest : FunSpec({
             "en" to "en",
         ) { (locale, expected) ->
             localeFromBcp47LanguageTag(locale).baseLocale.bcp47LanguageTag shouldBe expected
+        }
+    }
+
+    context("firstDayOfWeek") {
+        withTests(
+            "en-US" to DayOfWeek.SUNDAY,
+            "it" to DayOfWeek.MONDAY,
+            "en-IE" to DayOfWeek.MONDAY,
+            "it-u-fw-wed" to DayOfWeek.WEDNESDAY,
+        ) { (locale, expected) ->
+            localeFromBcp47LanguageTag(locale).firstDayOfWeek shouldBe expected
         }
     }
 

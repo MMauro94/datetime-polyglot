@@ -145,6 +145,7 @@ kotlin {
 
         webTest.dependencies {
             implementation(npm("@js-joda/timezone", "2.25.1"))
+            implementation(npm("weekstart", "2.0.0"))
         }
     }
 }

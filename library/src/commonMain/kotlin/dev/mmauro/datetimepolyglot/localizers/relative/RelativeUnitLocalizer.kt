@@ -5,7 +5,7 @@ import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 
 internal expect class RelativeUnitLocalizer(style: RelativeUnitStyle, locale: PlatformLocale) {
     fun localizeNumeric(value: Double, unit: RelativeUnit.DateTimeComponent): String
-    fun localizeDirection(direction: RelativeDirection, unit: RelativeUnit): String?
+    fun localizeDiffDirection(direction: RelativeDirection, unit: RelativeUnit): String?
     fun localizeNow(): String?
 }
 
@@ -32,15 +32,15 @@ enum class RelativeDirection(val offset: Int) {
     NEXT_2(2),
 }
 
-internal fun RelativeUnitLocalizer.localize(value: Double, unit: RelativeUnit.DateTimeComponent, allowedDirection: List<RelativeDirection>): String {
+internal fun RelativeUnitLocalizer.localizeDiffDirection(value: Double, unit: RelativeUnit.DateTimeComponent, allowedDirection: Set<RelativeDirection>): String? {
     val direction = RelativeDirection.entries.find { it.offset == value.toInt() }
     if (direction != null && direction in allowedDirection) {
-        localizeDirection(direction, unit)?.let { return it }
+        localizeDiffDirection(direction, unit)?.let { return it }
     }
-    return localizeNumeric(value, unit)
+    return null
 }
 
 internal interface RelativeUnitOptions {
     val style: RelativeUnitStyle
-    val allowedDirections: List<RelativeDirection>
+    val allowedDirections: Set<RelativeDirection>
 }

@@ -17,7 +17,7 @@ internal actual class RelativeUnitLocalizer actual constructor(
         return relativeDateTimeFormatter.formatNumeric(value, unit)
     }
 
-    actual fun localizeDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
+    actual fun localizeDiffDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
         return relativeDateTimeFormatter.formatDirection(direction, unit)
     }
 

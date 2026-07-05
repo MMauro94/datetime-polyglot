@@ -40,7 +40,7 @@ internal actual class RelativeUnitLocalizer actual constructor(
         return numericRelativeTimeFormat.format(value, unit.toJsRelativeTimeFormatUnit())
     }
 
-    actual fun localizeDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
+    actual fun localizeDiffDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
         // JS returns the string "now" for this case
         if (direction == RelativeDirection.THIS && unit == RelativeUnit.DateTimeComponent.SECOND) {
             return null

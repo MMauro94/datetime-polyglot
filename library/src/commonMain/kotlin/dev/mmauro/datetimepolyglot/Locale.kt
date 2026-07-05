@@ -1,5 +1,7 @@
 package dev.mmauro.datetimepolyglot
 
+import kotlinx.datetime.DayOfWeek
+
 internal expect val LOCALE_ENGLISH: PlatformLocale
 
 expect class PlatformLocale
@@ -12,6 +14,7 @@ internal expect val PlatformLocale.baseLocale: PlatformLocale
 
 internal expect fun localeFromBcp47LanguageTag(tag: String): PlatformLocale
 
+internal expect val PlatformLocale.firstDayOfWeek: DayOfWeek
 
 /**
  * Implements [RFC 4647, section 3.4](https://datatracker.ietf.org/doc/html/rfc4647#section-3.4)'s algorithm to look up locales, returning
