@@ -101,9 +101,9 @@ val RelativeYearLocalizerTestFactory = funSpec {
             context("allowedDirections is respected") {
                 withTests(
                     nameFn = { it.toString() },
-                    tuple(emptyList(), 2025, "1 year ago"),
-                    tuple(listOf(RelativeDirection.LAST), 2025, "last year"),
-                    tuple(listOf(RelativeDirection.LAST), 2027, "in 1 year"),
+                    tuple(emptySet(), 2025, "1 year ago"),
+                    tuple(setOf(RelativeDirection.LAST), 2025, "last year"),
+                    tuple(setOf(RelativeDirection.LAST), 2027, "in 1 year"),
                 ) { (allowedDirections, year, expected) ->
                     val localizer = RelativeYearLocalizer(
                         locale = LOCALE_ENGLISH,

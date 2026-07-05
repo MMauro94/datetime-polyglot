@@ -18,11 +18,11 @@ import kotlin.time.Instant
  *
  * @property style the style of the year
  * @property allowedDirections list of allowed relative directions to use for word style localization (e.g. `last year'). Pass an empty list
- * to force numeric localization (e.g. `1 year ago`)
+ * to force numeric localization (e.g. `1 year ago`). All directions are enabled by default.
  */
 data class RelativeYearOptions(
     override val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
-    override val allowedDirections: List<RelativeDirection> = RelativeDirection.entries,
+    override val allowedDirections: Set<RelativeDirection> = RelativeDirection.entries.toSet(),
 ) : RelativeUnitOptions
 
 /**
@@ -55,7 +55,8 @@ class RelativeYearLocalizer(
      * Convenience function to format an already calculated diff of years (e.g. -1 for `last year`).
      */
     fun localizeDiff(diff: Int): String {
-        return relativeUnitLocalizer.localize(diff.toDouble(), RelativeUnit.DateTimeComponent.YEAR, options.allowedDirections)
+        return relativeUnitLocalizer.localizeDiffDirection(diff.toDouble(), RelativeUnit.DateTimeComponent.YEAR, options.allowedDirections)
+            ?: relativeUnitLocalizer.localizeNumeric(diff.toDouble(), RelativeUnit.DateTimeComponent.YEAR)
     }
 
     override fun localize(value: Int, reference: Zoned<Instant>): TickingValue<String> {

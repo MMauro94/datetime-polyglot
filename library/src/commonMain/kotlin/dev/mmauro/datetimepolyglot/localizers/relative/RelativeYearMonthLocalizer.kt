@@ -10,8 +10,6 @@ import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.toLocalDateTime
 import kotlinx.coroutines.flow.Flow
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.Month
 import kotlinx.datetime.YearMonth
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.monthsUntil
@@ -25,11 +23,11 @@ import kotlin.time.Instant
  *
  * @property style the style of the year
  * @property allowedDirections list of allowed relative directions to use for word style localization (e.g. `last month'). Pass an empty list
- * to force numeric localization (e.g. `1 month ago`)
+ * to force numeric localization (e.g. `1 month ago`). All directions are enabled by default.
  */
 data class RelativeYearMonthOptions(
     override val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
-    override val allowedDirections: List<RelativeDirection> = RelativeDirection.entries,
+    override val allowedDirections: Set<RelativeDirection> = RelativeDirection.entries.toSet(),
 ) : RelativeUnitOptions
 
 /**
@@ -63,7 +61,8 @@ class RelativeYearMonthLocalizer(
      * Convenience function to format an already calculated diff of months (e.g. -1 for `last month`).
      */
     fun localizeDiff(diff: Int): String {
-        return relativeUnitLocalizer.localize(diff.toDouble(), RelativeUnit.DateTimeComponent.MONTH, options.allowedDirections)
+        return relativeUnitLocalizer.localizeDiffDirection(diff.toDouble(), RelativeUnit.DateTimeComponent.MONTH, options.allowedDirections)
+            ?: relativeUnitLocalizer.localizeNumeric(diff.toDouble(), RelativeUnit.DateTimeComponent.MONTH)
     }
 
     override fun localize(value: YearMonth, reference: Zoned<Instant>): TickingValue<String> {

@@ -54,7 +54,7 @@ class RelativeUnitLocalizerTest : FunSpec({
         context("day") {
             withTests(RelativeDirection.entries) { direction ->
                 val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
-                localizer.localizeDirection(direction, RelativeUnit.DateTimeComponent.DAY) shouldBe when (direction) {
+                localizer.localizeDiffDirection(direction, RelativeUnit.DateTimeComponent.DAY) shouldBe when (direction) {
                     RelativeDirection.LAST_2 -> null
                     RelativeDirection.LAST -> "yesterday"
                     RelativeDirection.THIS -> "today"
@@ -66,7 +66,7 @@ class RelativeUnitLocalizerTest : FunSpec({
         context("year") {
             withTests(RelativeDirection.entries) { direction ->
                 val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
-                localizer.localizeDirection(direction, RelativeUnit.DateTimeComponent.YEAR) shouldBe when (direction) {
+                localizer.localizeDiffDirection(direction, RelativeUnit.DateTimeComponent.YEAR) shouldBe when (direction) {
                     RelativeDirection.LAST_2 -> null
                     RelativeDirection.LAST -> "last year"
                     RelativeDirection.THIS -> "this year"
@@ -80,7 +80,7 @@ class RelativeUnitLocalizerTest : FunSpec({
             test("this second localization should return null") {
                 checkAll(Arb.element(LOCALE_ENGLISH, LOCALE_ITALIAN, LOCALE_POLISH), Arb.enum<RelativeUnitStyle>()) { locale, style ->
                     val localizer = RelativeUnitLocalizer(style, locale)
-                    localizer.localizeDirection(RelativeDirection.THIS, RelativeUnit.DateTimeComponent.SECOND).shouldBeNull()
+                    localizer.localizeDiffDirection(RelativeDirection.THIS, RelativeUnit.DateTimeComponent.SECOND).shouldBeNull()
                 }
             }
         }
@@ -88,7 +88,7 @@ class RelativeUnitLocalizerTest : FunSpec({
         context("day of the week") {
             withTests(RelativeDirection.entries) { direction ->
                 val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ENGLISH)
-                localizer.localizeDirection(direction, RelativeUnit.DayOfWeek(DayOfWeek.WEDNESDAY)) shouldBe when (direction) {
+                localizer.localizeDiffDirection(direction, RelativeUnit.DayOfWeek(DayOfWeek.WEDNESDAY)) shouldBe when (direction) {
                     RelativeDirection.LAST_2 -> null
                     RelativeDirection.LAST -> "last Wednesday"
                     RelativeDirection.THIS -> "this Wednesday"
@@ -101,7 +101,7 @@ class RelativeUnitLocalizerTest : FunSpec({
         context("styles") {
             withTests(RelativeUnitStyle.entries) { style ->
                 val localizer = RelativeUnitLocalizer(style = style, locale = LOCALE_ENGLISH)
-                localizer.localizeDirection(RelativeDirection.LAST, RelativeUnit.DateTimeComponent.MONTH)
+                localizer.localizeDiffDirection(RelativeDirection.LAST, RelativeUnit.DateTimeComponent.MONTH)
                     .shouldNotBeNull() shouldBeLocalizedAs when (style) {
                     RelativeUnitStyle.NARROW -> "last mo."
                     RelativeUnitStyle.SHORT -> "last mo."
@@ -112,7 +112,7 @@ class RelativeUnitLocalizerTest : FunSpec({
 
         context("different locale") {
             val localizer = RelativeUnitLocalizer(style = RelativeUnitStyle.LONG, locale = LOCALE_ITALIAN)
-            localizer.localizeDirection(RelativeDirection.LAST_2, RelativeUnit.DateTimeComponent.DAY)
+            localizer.localizeDiffDirection(RelativeDirection.LAST_2, RelativeUnit.DateTimeComponent.DAY)
                 .shouldNotBeNull() shouldBeLocalizedAs "l’altro ieri"
         }
 
@@ -125,7 +125,7 @@ class RelativeUnitLocalizerTest : FunSpec({
             ) { direction, relativeUnit, style, locale ->
                 val localizer = RelativeUnitLocalizer(style, locale)
 
-                localizer.localizeDirection(direction, relativeUnit)
+                localizer.localizeDiffDirection(direction, relativeUnit)
                     .shouldNotBe(localizer.localizeNumeric(direction.offset.toDouble(), relativeUnit))
             }
         }
