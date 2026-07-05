@@ -116,7 +116,7 @@ kotlin {
         }
 
         androidMain {
-            kotlin.srcDir(generateCldrCodeTask.get().androidMainOutput)
+            kotlin.srcDir(generateCldrCodeTask.map { it.androidMainOutput })
             dependencies {
                 implementation(libs.androidx.annotationJvm)
             }
@@ -135,7 +135,7 @@ kotlin {
         }
 
         webMain {
-            kotlin.srcDir(generateCldrCodeTask.get().webMainOutput)
+            kotlin.srcDir(generateCldrCodeTask.map { it.webMainOutput })
 
             dependencies {
                 implementation(kotlinWrappers.js)
@@ -145,14 +145,6 @@ kotlin {
 
         webTest.dependencies {
             implementation(npm("@js-joda/timezone", "2.25.1"))
-        }
-    }
-
-    targets.configureEach {
-        compilations.configureEach {
-            compileTaskProvider.configure {
-                dependsOn(generateCldrCodeTask)
-            }
         }
     }
 }
