@@ -17,7 +17,7 @@ import io.kotest.property.arbitrary.enum
 import io.kotest.property.checkAll
 import kotlin.uuid.Uuid
 
-class DateTimeJoiner : FunSpec({
+class DateTimeJoinerTest : FunSpec({
     context("English") {
         withData(DateStyle.entries) { style ->
             joinDateAndTime(
@@ -61,6 +61,7 @@ class DateTimeJoiner : FunSpec({
 
     context("works with big locales") {
         withTests(
+            nameFn = { it.first.toString() },
             localeFromBcp47LanguageTag("it-Latn-IT-u-ca-gregory-fw-mon-hc-h23") to "ddddd alle ore ttttt",
             localeFromBcp47LanguageTag("en-US-u-ca-gregory-hc-h12-nu-latn") to "ddddd at ttttt",
             localeFromBcp47LanguageTag("es-VE-u-ca-gregory-hc-h12-nu-latn") to "ddddd a las ttttt",

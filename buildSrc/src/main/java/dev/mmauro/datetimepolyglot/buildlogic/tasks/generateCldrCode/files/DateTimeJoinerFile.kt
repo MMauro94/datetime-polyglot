@@ -22,12 +22,12 @@ import kotlin.uuid.Uuid
 // This code needs to be generated because:
 // - Android ICU doesn't expose SimpleFormatterImpl.formatRawPattern
 // - JS Intl doesn't expose anything that can let us find this joiner pattern in CLDR data
-fun dateTimeJoinerFile(): FileSpec {
+fun dateTimeJoinerFile(platformName: String): FileSpec {
     val patternTemplates = ULocale.getAvailableLocales()
         .groupBy { whenForLocale(it) }
 
     val dateTimeJoinPatternFun = FunSpec.builder("joinDateAndTime")
-        .addModifiers(KModifier.INTERNAL)
+        .addModifiers(KModifier.INTERNAL, KModifier.ACTUAL)
         .addParameter("locale", PLATFORM_LOCALE)
         .addParameter("style", DateStyle.POLYGLOT_CLASS)
         .addParameter("date", String::class)
@@ -47,7 +47,7 @@ fun dateTimeJoinerFile(): FileSpec {
         )
         .build()
 
-    return FileSpec.builder("${POLYGLOT_MAIN_PACKAGE}.utils", "DateTimeJoiner")
+    return FileSpec.builder("${POLYGLOT_MAIN_PACKAGE}.utils", "DateTimeJoiner.$platformName")
         .addFunction(dateTimeJoinPatternFun)
         .build()
 }
