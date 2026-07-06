@@ -22,7 +22,7 @@ import kotlin.time.Duration
 import kotlin.time.Instant
 
 /**
- * Localization options for [RelativeLocalDateLocalizer].
+ * Localization options for [RelativeLocalDateLocalizer], [LocalDate.localizeRelative], and [LocalDate.localizeRelativeAsFlow].
  *
  * @property style the style of the date
  * @property allowedDirections list of allowed relative directions to use for word style localization (e.g. `yesterday'). Pass an empty list
