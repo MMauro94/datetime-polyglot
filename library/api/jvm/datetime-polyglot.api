@@ -68,8 +68,8 @@ public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotR
 public final class dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizerKt {
 	public static final fun localize (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;)Ldev/mmauro/datetimepolyglot/TickingValue;
 	public static synthetic fun localize$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
-	public static final fun localizeAsFlow (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;)Lkotlinx/coroutines/flow/Flow;
-	public static synthetic fun localizeAsFlow$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun localizeAsFlow-Q2Q30fc (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;Lkotlin/time/Duration;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun localizeAsFlow-Q2Q30fc$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;Lkotlin/time/Duration;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer {
