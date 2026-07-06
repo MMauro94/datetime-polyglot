@@ -26,8 +26,8 @@ data class TickingDurationOptions(
 )
 
 /**
- * Localizes a [Duration] in the same exact way as a [DurationLocalizer], but this is meant to be used to localize relative values that
- * change over time.
+ * Localizes a [Duration] in the same exact way as a [DurationLocalizer], but this is meant to be used to localize duration values that
+ * change over time (e.g. a countdown).
  * For static durations use [DurationLocalizer] instead.
  *
  * The [TickingValue.value] will be the same as the output of [Duration.localize].
@@ -36,6 +36,9 @@ data class TickingDurationOptions(
  * "moves" backwards, i.e. a positive duration means something that will happen in the future, and a negative duration something that has
  * happened in the past.
  * For instance, if given the duration `10 seconds`, this class assumes that in `1.5 seconds` the [Duration] would be `8.5 seconds`.
+ *
+ * Create once and re-use for localizing multiple values with the same [options].
+ * Use [Duration.localizeTicking] for one-off localizations.
  *
  * Examples:
  * - `1h 5m`

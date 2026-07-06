@@ -32,6 +32,8 @@ data class RelativeYearOptions(
  *
  * Localization could, based on [options], prioritize a word style localization (e.g. `last year`) over a numeric style (e.g. `1 year ago`).
  *
+ * Because kotlinx-datetime doesn't provide a standard type for a year, there is no extension function equivalent for one-off localizations.
+ *
  * Examples:
  * - `last yr.`
  * - `this year`

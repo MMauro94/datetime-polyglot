@@ -67,6 +67,9 @@ data class RelativeLocalDateOptions(
  * Notice how in the example `next Thursday` cannot be produced because it would be ambiguous (does it mean in 1 day or in 8 days?). In this
  * case it would fall back to the regular numeric relative format (i.e. `in 8 days`).
  *
+ * Create once and re-use for localizing multiple values with the same [options].
+ * Use [LocalDate.localizeRelative] or [LocalDate.localizeRelativeAsFlow] for one-off localizations.
+ *
  * Examples:
  * - `today`
  * - `yesteday`
