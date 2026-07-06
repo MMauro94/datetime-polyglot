@@ -19,7 +19,7 @@ import kotlin.time.Clock
 import kotlin.time.Instant
 
 /**
- * Localization options for [RelativeYearMonthLocalizer].
+ * Localization options for [RelativeYearMonthLocalizer], [YearMonth.localizeRelative], and [YearMonth.localizeRelativeAsFlow].
  *
  * @property style the style of the year
  * @property allowedDirections list of allowed relative directions to use for word style localization (e.g. `last month'). Pass an empty list

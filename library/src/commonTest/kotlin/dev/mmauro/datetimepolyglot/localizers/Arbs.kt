@@ -14,9 +14,13 @@ import io.kotest.property.arbitrary.long
 import io.kotest.property.arbitrary.map
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateRange
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.YearMonth
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Instant
 
 fun Arb.Companion.year(min: Int = 1800, max: Int = 2100) = Arb.int(min = min, max = max)
@@ -31,6 +35,18 @@ fun Arb.Companion.localDate(
     max: LocalDate = LocalDate(2030, Month.DECEMBER, 31),
 ): Arb<LocalDate> {
     return Arb.long(min = min.toEpochDays(), max = max.toEpochDays()).map { LocalDate.fromEpochDays(it) }
+}
+
+fun Arb.Companion.localDateTime(
+    min: LocalDateTime = LocalDateTime(1970, Month.JANUARY, 1, 0, 0),
+    max: LocalDateTime = LocalDateTime(2030, Month.DECEMBER, 31, 23, 59, 59, 999_999_999),
+): Arb<LocalDateTime> {
+    return Arb.kotlinInstant(
+        minValue = min.toInstant(TimeZone.UTC),
+        maxValue = max.toInstant(TimeZone.UTC),
+    ).map {
+        it.toLocalDateTime(TimeZone.UTC)
+    }
 }
 
 fun Arb.Companion.timeZone() = Arb.element(TimeZone.availableZoneIds).map { TimeZone.of(it) }

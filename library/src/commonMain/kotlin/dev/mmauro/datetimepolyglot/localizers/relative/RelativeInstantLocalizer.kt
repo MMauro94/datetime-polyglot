@@ -11,6 +11,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlin.time.Clock
 import kotlin.time.Instant
 
+/**
+ * Localization options for [RelativeInstantLocalizer], [Instant.localizeRelative], and [Instant.localizeRelativeAsFlow].
+ */
 typealias RelativeInstantOptions = RelativeDurationOptions
 
 /**
