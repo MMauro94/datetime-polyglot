@@ -30,8 +30,8 @@ open class GenerateCldrCodeTask : DefaultTask() {
             it.mkdirs()
         }
 
-        dateTimeJoinerFile().writeTo(androidMainOutput)
-        dateTimeJoinerFile().writeTo(webMainOutput)
+        dateTimeJoinerFile("android").writeTo(androidMainOutput)
+        dateTimeJoinerFile("web").writeTo(webMainOutput)
 
         relativeDateOfWeekFiles().writeTo(webMainOutput)
     }
