@@ -38,12 +38,15 @@ data class RelativeYearMonthOptions(
  * Localization could, based on [options], prioritize a word style localization (e.g. `last month`) over a numeric style (e.g.
  * `1 month ago`).
  *
+ * Create once and re-use for localizing multiple values with the same [options].
+ * Use [YearMonth.localizeRelative] or [YearMonth.localizeRelativeAsFlow] for one-off localizations.
+ *
  * Examples:
  * - `this month`
- * - `last month`
+ * - `last mo.`
  * - `next month`
  * - `4 months ago`
- * - `in 34 months`
+ * - `in 34mo.`
  *
  * @see PolyglotReferenceValueLocalizer
  */

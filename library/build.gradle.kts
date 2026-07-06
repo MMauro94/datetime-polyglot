@@ -181,6 +181,9 @@ dokka {
             externalDocumentationLinks.register("kotlinx-datetime") {
                 url("https://kotlinlang.org/api/kotlinx-datetime/")
             }
+            externalDocumentationLinks.register("kotlinx-coroutines") {
+                url("https://kotlinlang.org/api/kotlinx.coroutines/")
+            }
             sourceLink {
                 localDirectory.set(file(rootDir))
                 val ref = gitInfo.currentVersion.get().let { if (it.preRelease.equals("SNAPSHOT")) "main" else "v$it" }

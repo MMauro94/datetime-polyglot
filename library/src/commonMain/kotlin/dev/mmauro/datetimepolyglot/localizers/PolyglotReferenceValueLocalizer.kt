@@ -7,6 +7,7 @@ import dev.mmauro.datetimepolyglot.zonedNow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlin.math.max
 import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Instant
@@ -16,7 +17,7 @@ import kotlin.time.Instant
  * type [String].
  *
  * The [TickingValue.nextTick] represent the amount of time that the reference needs to advance by for the [TickingValue.value] to change,
- * thus requiring a new call to [localize] with the same exact value but updated reference.
+ * thus requiring a new call to [localize] with the same exact value but updated reference, assuming that the time moves forward linearly.
  *
  * If you are using coroutines, a convenience [localizeAsFlow] is also provided.
  *

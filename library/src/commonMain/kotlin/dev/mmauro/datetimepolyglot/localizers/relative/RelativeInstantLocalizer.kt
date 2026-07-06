@@ -21,6 +21,9 @@ typealias RelativeInstantOptions = RelativeDurationOptions
  *
  * For this reason, the [options] required here are identical to [RelativeDurationLocalizer].
  *
+ * Create once and re-use for localizing multiple values with the same [options].
+ * Use [Instant.localizeRelative] or [Instant.localizeRelativeAsFlow] for one-off localizations.
+ *
  * Examples:
  * - `10 minutes ago`
  * - `in 1 hour`
