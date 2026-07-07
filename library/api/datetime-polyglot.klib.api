@@ -10,6 +10,10 @@ open annotation class dev.mmauro.datetimepolyglot.localizers.absolute/Experiment
     constructor <init>() // dev.mmauro.datetimepolyglot.localizers.absolute/ExperimentalTickingDurationLocalizer.<init>|<init>(){}[0]
 }
 
+open annotation class dev.mmauro.datetimepolyglot.localizers.absolute/ExperimentalZonedLocalizer : kotlin/Annotation { // dev.mmauro.datetimepolyglot.localizers.absolute/ExperimentalZonedLocalizer|null[0]
+    constructor <init>() // dev.mmauro.datetimepolyglot.localizers.absolute/ExperimentalZonedLocalizer.<init>|<init>(){}[0]
+}
+
 final enum class dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle : dev.mmauro.datetimepolyglot.localizers.absolute/DateStyleOptions, kotlin/Enum<dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle> { // dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle|null[0]
     enum entry FULL // dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle.FULL|null[0]
     enum entry LONG // dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle.LONG|null[0]
@@ -595,6 +599,28 @@ final class dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantOptions 
     final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantOptions.toString|toString(){}[0]
 
     final object Companion // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantOptions.Companion|null[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeZonedLocalizer<kotlin/Int> { // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearLocalizer|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions = ..., js.intl/Locale = ...) // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearLocalizer.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.absolute.ZonedYearOptions;js.intl.Locale){}[0]
+
+    final fun localize(dev.mmauro.datetimepolyglot/Zoned<kotlin/Int>): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearLocalizer.localize|localize(dev.mmauro.datetimepolyglot.Zoned<kotlin.Int>){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions { // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.localizers.absolute/YearOptions = ..., dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions = ...) // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.absolute.YearOptions;dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions){}[0]
+
+    final val timeZoneOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.timeZoneOptions|{}timeZoneOptions[0]
+        final fun <get-timeZoneOptions>(): dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.timeZoneOptions.<get-timeZoneOptions>|<get-timeZoneOptions>(){}[0]
+    final val yearOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.yearOptions|{}yearOptions[0]
+        final fun <get-yearOptions>(): dev.mmauro.datetimepolyglot.localizers.absolute/YearOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.yearOptions.<get-yearOptions>|<get-yearOptions>(){}[0]
+
+    final fun component1(): dev.mmauro.datetimepolyglot.localizers.absolute/YearOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.component1|component1(){}[0]
+    final fun component2(): dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.component2|component2(){}[0]
+    final fun copy(dev.mmauro.datetimepolyglot.localizers.absolute/YearOptions = ..., dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions = ...): dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.copy|copy(dev.mmauro.datetimepolyglot.localizers.absolute.YearOptions;dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearOptions.toString|toString(){}[0]
 }
 
 final class dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicYearLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotReferenceValueLocalizer<kotlin/Int> { // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicYearLocalizer|null[0]
