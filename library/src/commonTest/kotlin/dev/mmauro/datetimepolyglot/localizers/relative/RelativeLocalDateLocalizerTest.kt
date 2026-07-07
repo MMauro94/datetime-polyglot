@@ -27,14 +27,11 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Instant
-import kotlin.time.measureTime
 
 /**
  * Reference date used in most tests. This is a Wednesday
@@ -192,22 +189,21 @@ val RelativeLocalDateLocalizerTestFactory = funSpec {
                 test("jump forward") {
                     val date = LocalDate.parse("2025-03-30")
                     localizer.localizeAndTestNextTick(
-                        localDate = date,
+                        value = date,
                         reference = Zoned(date.atStartOfDayIn(tz), tz),
                     ).nextTick shouldBe 23.hours
                 }
                 test("jump backward") {
                     val date = LocalDate.parse("2025-10-26")
                     localizer.localizeAndTestNextTick(
-                        localDate = date,
+                        value = date,
                         reference = Zoned(date.atStartOfDayIn(tz), tz),
                     ).nextTick shouldBe 25.hours
                 }
             }
-            nextTickPredictsChangeTest(
+            localizer.nextTickPredictsChangeTest(
                 arbitraryArb = Arb.localDate(),
                 smallArb = { Arb.element(it.toLocalDateTime().date) },
-                localize = localizer::localize,
             )
         }
     }
@@ -216,6 +212,3 @@ val RelativeLocalDateLocalizerTestFactory = funSpec {
 class RelativeLocalDateLocalizerTest : FunSpec({
     include(RelativeLocalDateLocalizerTestFactory)
 })
-
-private fun RelativeLocalDateLocalizer.localizeAndTestNextTick(localDate: LocalDate, reference: Zoned<Instant>) =
-    localizeAndTestNextTick(localDate, reference, ::localize)

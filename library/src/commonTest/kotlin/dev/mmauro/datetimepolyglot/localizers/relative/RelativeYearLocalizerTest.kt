@@ -22,7 +22,6 @@ import io.kotest.property.arbitrary.element
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
-import kotlin.time.Instant
 
 private val REFERENCE_DATE = LocalDate.parse("2026-04-01")
 private val REFERENCE = Zoned(REFERENCE_DATE.atStartOfDayIn(TimeZone.UTC), TimeZone.UTC)
@@ -122,10 +121,9 @@ val RelativeYearLocalizerTestFactory = funSpec {
     context("next tick") {
         val localizer = RelativeYearLocalizer(locale = LOCALE_ENGLISH)
 
-        nextTickPredictsChangeTest(
+        localizer.nextTickPredictsChangeTest(
             arbitraryArb = Arb.year(),
             smallArb = { Arb.element(it.toLocalDateTime().year) },
-            localize = localizer::localize,
         )
     }
 }
@@ -133,6 +131,3 @@ val RelativeYearLocalizerTestFactory = funSpec {
 class RelativeYearLocalizerTest : FunSpec({
     include(RelativeYearLocalizerTestFactory)
 })
-
-private fun RelativeYearLocalizer.localizeAndTestNextTick(year: Int, reference: Zoned<Instant>) =
-    localizeAndTestNextTick(year, reference, ::localize)
