@@ -1,0 +1,73 @@
+package dev.mmauro.datetimepolyglot.localizers.dynamic
+
+import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.TickingValue
+import dev.mmauro.datetimepolyglot.Zoned
+import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.absolute.YearLocalizer
+import dev.mmauro.datetimepolyglot.localizers.absolute.YearOptions
+import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearLocalizer
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearOptions
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
+import kotlinx.datetime.atStartOfDayIn
+import kotlin.time.Instant
+
+/**
+ * Localization options for [DynamicYearLocalizer].
+ *
+ * @property relativeOptions options to use when the localization is relative
+ * @property absoluteOptions options to use when the localization is absolute
+ * @property relativeDiffRange configures the ranges of years difference with the reference point for which to use relative localization.
+ * By default, this is `-1..+1`, meaning only last, current, and next year are localized relatively.
+ */
+data class DynamicYearOptions(
+    val relativeOptions: RelativeYearOptions = RelativeYearOptions(),
+    val absoluteOptions: YearOptions = YearOptions(),
+    val relativeDiffRange: IntRange = -1..1,
+)
+
+/**
+ * Localizes a year dynamically (either absolute or relative to a [Zoned]<[Instant]> reference point).
+ *
+ * This class chooses between formatting with a [RelativeYearLocalizer] (if the difference is within the configured range), or falls back to
+ * absolute formatting via [YearLocalizer].
+ *
+ * As this class implements [PolyglotReferenceValueLocalizer], it allows to use [localizeAsFlow].
+ *
+ * Because kotlinx-datetime doesn't provide a standard type for a year, there is no extension function equivalent for one-off localizations.
+ *
+ * Examples:
+ * - `last year`
+ * - `1 year ago`
+ * - `in 5y`
+ * - `2026`
+ * - `2026 AD`
+ *
+ * @see PolyglotReferenceValueLocalizer
+ */
+class DynamicYearLocalizer(
+    private val options: DynamicYearOptions = DynamicYearOptions(),
+    locale: PlatformLocale = getDefaultLocale(),
+) : PolyglotReferenceValueLocalizer<Int> {
+
+    private val relativeYearLocalizer = RelativeYearLocalizer(options.relativeOptions, locale)
+    private val absoluteYearLocalizer = YearLocalizer(options.absoluteOptions, locale)
+
+    override fun localize(value: Int, reference: Zoned<Instant>): TickingValue<String> {
+        val dynamicLocalizer = DynamicLocalizer(
+            DynamicLocalizer.Case.Threshold(
+                startInclusive = LocalDate(year = value - options.relativeDiffRange.last, Month.JANUARY, day = 1)
+                    .atStartOfDayIn(reference.timeZone),
+                endExclusive = LocalDate(year = value - options.relativeDiffRange.first + 1, Month.JANUARY, day = 1)
+                    .atStartOfDayIn(reference.timeZone),
+                localizer = relativeYearLocalizer,
+            ),
+            default = DynamicLocalizer.Case.Default(absoluteYearLocalizer)
+        )
+
+        return dynamicLocalizer.localize(value, reference)
+    }
+}
