@@ -12,11 +12,7 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.KotlinInstantRange
 import io.kotest.property.arbitrary.arbitrary
 import io.kotest.property.arbitrary.duration
-import io.kotest.property.arbitrary.element
-import io.kotest.property.arbitrary.kotlinInstant
-import io.kotest.property.arbitrary.map
 import io.kotest.property.checkAll
-import kotlinx.datetime.TimeZone
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.nanoseconds
@@ -46,13 +42,14 @@ fun <T> Arb.Companion.withReferenceFormatParams(
  *
  * The second case guarantees that more realistic cases (where now and the value to localize are close) are covered.
  */
-suspend fun <P> FunSpecContainerScope.nextTickPredictsChangeTest(
+context(testScope: FunSpecContainerScope)
+private suspend fun <P> nextTickPredictsChangeTest(
     arbitraryArb: Arb<P>,
     smallArb: (Arb<Duration>) -> Arb<P>,
     advanceBy: P.(Duration) -> P,
     localize: (P) -> TickingValue<String>,
 ) {
-    context("correctly predicts date change") {
+    testScope.context("correctly predicts date change") {
         // This first test just checks arbitrary values
         // However, these values will likely be very far apart, and wouldn't necessarily test all relevant cases
         test("arbitrary values") {
@@ -74,14 +71,20 @@ suspend fun <P> FunSpecContainerScope.nextTickPredictsChangeTest(
     }
 }
 
+context(testScope: FunSpecContainerScope)
+suspend fun <P> PolyglotValueLocalizer<P, TickingValue<String>>.nextTickPredictsChangeTest(
+    arbitraryArb: Arb<P>,
+    smallArb: (Arb<Duration>) -> Arb<P>,
+    advanceBy: P.(Duration) -> P,
+) = nextTickPredictsChangeTest(arbitraryArb, smallArb, advanceBy, ::localize)
 
 /**
  * Version of [nextTickPredictsChangeTest] to test a formatter accepting a [T] and a [Zoned]<[Instant]>.
  */
-suspend fun <T> FunSpecContainerScope.nextTickPredictsChangeTest(
+context(_: FunSpecContainerScope)
+suspend fun <T> PolyglotReferenceValueLocalizer<T>.nextTickPredictsChangeTest(
     arbitraryArb: Arb<T>,
     smallArb: (Zoned<Instant>) -> Arb<T>,
-    localize: (T, reference: Zoned<Instant>) -> TickingValue<String>,
     referenceRange: KotlinInstantRange = Instant.DISTANT_PAST..Instant.DISTANT_FUTURE,
 ) = nextTickPredictsChangeTest(
     arbitraryArb = Arb.withReferenceFormatParams(arbitraryArb, referenceRange),
@@ -110,14 +113,14 @@ private fun <P> testNextTickPredictsChange(
         }
     } else {
         withClue("nextTick is ${localized.nextTick} would be @ ${value.advanceBy(localized.nextTick - 1.nanoseconds)}") {
-            withClue("localize at 1 nanosecond before nextTick should yield same relative value") {
+            withClue("localize at 1 nanosecond before nextTick should yield same value") {
                 localize(value.advanceBy(localized.nextTick - 1.nanoseconds)) should {
                     it.value shouldBe localized.value
                     it.nextTick shouldBe 1.nanoseconds
                 }
             }
 
-            withClue("localize at nextTick should yield different relative value") {
+            withClue("localize at nextTick should yield different value") {
                 localize(value.advanceBy(localized.nextTick)) should {
                     it.value shouldNotBe localized.value
                 }
@@ -126,7 +129,7 @@ private fun <P> testNextTickPredictsChange(
     }
 }
 
-fun <P> localizeAndTestNextTick(
+private fun <P> localizeAndTestNextTick(
     params: P,
     advanceBy: P.(Duration) -> P,
     localize: (P) -> TickingValue<String>,
@@ -141,12 +144,15 @@ fun <P> localizeAndTestNextTick(
     }
 }
 
+fun <T> PolyglotValueLocalizer<T, TickingValue<String>>.localizeAndTestNextTick(
+    value: T,
+    advanceBy: T.(Duration) -> T,
+) = localizeAndTestNextTick(value, advanceBy, ::localize)
 
 
-fun <T> localizeAndTestNextTick(
+fun <T> PolyglotReferenceValueLocalizer<T>.localizeAndTestNextTick(
     value: T,
     reference: Zoned<Instant>,
-    localize: (T, reference: Zoned<Instant>) -> TickingValue<String>,
 ): TickingValue<String> {
     val params = WithReferenceFormatParams(value, reference)
     return localizeAndTestNextTick(

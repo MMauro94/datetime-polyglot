@@ -146,11 +146,10 @@ val RelativeDurationLocalizerTestFactory = funSpec {
             }
         }
 
-        nextTickPredictsChangeTest(
+        localizer.nextTickPredictsChangeTest(
             arbitraryArb = Arb.duration(),
             smallArb = { it },
             advanceBy = Duration::minus,
-            localize = localizer::localize,
         )
     }
 }
@@ -161,8 +160,7 @@ class RelativeDurationLocalizerTest : FunSpec({
 
 private fun RelativeDurationLocalizer.localizeAndTestNextTick(duration: Duration): TickingValue<String> {
     return localizeAndTestNextTick(
-        params = duration,
+        value = duration,
         advanceBy = Duration::minus, // As time advances, the duration will go backwards
-        localize = ::localize,
     )
 }

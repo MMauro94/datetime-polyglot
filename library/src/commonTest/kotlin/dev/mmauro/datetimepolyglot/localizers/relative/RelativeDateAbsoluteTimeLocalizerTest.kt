@@ -26,7 +26,6 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
-import kotlin.time.Instant
 
 /**
  * Current date used in most tests. This is a Thursday
@@ -159,10 +158,9 @@ val RelativeDateAbsoluteTimeLocalizerTestFactory = funSpec {
                 }
             }
 
-            nextTickPredictsChangeTest(
+            localizer.nextTickPredictsChangeTest(
                 arbitraryArb = Arb.localDateTime(),
                 smallArb = { Arb.element(it.value.toLocalDateTime(it.timeZone)) },
-                localize = localizer::localize,
             )
         }
     }
@@ -172,6 +170,3 @@ val RelativeDateAbsoluteTimeLocalizerTestFactory = funSpec {
 class RelativeDateAbsoluteTimeLocalizerTest : FunSpec({
     include(RelativeDateAbsoluteTimeLocalizerTestFactory)
 })
-
-private fun RelativeDateAbsoluteTimeLocalizer.localizeAndTestNextTick(localDateTime: LocalDateTime, now: Zoned<Instant>) =
-    localizeAndTestNextTick(localDateTime, now, ::localize)

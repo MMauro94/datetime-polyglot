@@ -27,7 +27,6 @@ import kotlinx.datetime.YearMonth
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.plus
 import kotlinx.datetime.yearMonth
-import kotlin.time.Instant
 
 private val REFERENCE_DATE = LocalDate.parse("2026-04-01")
 private val REFERENCE = Zoned(REFERENCE_DATE.atStartOfDayIn(TimeZone.UTC), TimeZone.UTC)
@@ -119,10 +118,9 @@ val RelativeYearMonthLocalizerTestFactory = funSpec {
     context("next tick") {
         val localizer = RelativeYearMonthLocalizer(locale = LOCALE_ENGLISH)
 
-        nextTickPredictsChangeTest(
+        localizer.nextTickPredictsChangeTest(
             arbitraryArb = Arb.yearMonth(),
             smallArb = { Arb.element(it.toLocalDateTime().date.yearMonth) },
-            localize = localizer::localize,
         )
     }
 }
@@ -130,6 +128,3 @@ val RelativeYearMonthLocalizerTestFactory = funSpec {
 class RelativeYearMonthLocalizerTest : FunSpec({
     include(RelativeYearMonthLocalizerTestFactory)
 })
-
-private fun RelativeYearMonthLocalizer.localizeAndTestNextTick(yearMonth: YearMonth, reference: Zoned<Instant>) =
-    localizeAndTestNextTick(yearMonth, reference, ::localize)

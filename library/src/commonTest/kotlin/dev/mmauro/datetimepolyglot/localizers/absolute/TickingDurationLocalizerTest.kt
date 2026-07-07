@@ -97,11 +97,10 @@ class TickingDurationLocalizerTest : FunSpec({
                 }
             }
 
-            nextTickPredictsChangeTest(
+            localizer.nextTickPredictsChangeTest(
                 arbitraryArb = Arb.duration(),
                 smallArb = { it },
                 advanceBy = Duration::minus,
-                localize = localizer::localize,
             )
         }
     }
@@ -109,8 +108,7 @@ class TickingDurationLocalizerTest : FunSpec({
 
 private fun TickingDurationLocalizer.localizeAndTestNextTick(duration: Duration): TickingValue<String> {
     return localizeAndTestNextTick(
-        params = duration,
+        value = duration,
         advanceBy = Duration::minus, // As time advances, the duration will go backwards
-        localize = ::localize,
     )
 }
