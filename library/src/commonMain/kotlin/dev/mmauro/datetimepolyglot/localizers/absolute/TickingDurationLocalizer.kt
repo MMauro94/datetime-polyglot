@@ -2,10 +2,19 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
+import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.localize
+import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDurationLocalizer
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeInstantLocalizer
 import dev.mmauro.datetimepolyglot.utils.remainderUntilNextUnitBoundary
+import kotlinx.coroutines.flow.Flow
+import kotlin.time.Clock
 import kotlin.time.Duration
+import kotlin.time.Instant
 
 @RequiresOptIn(message = "This API is experimental. It could change or be dropped in the future without notice.")
 @Retention(AnnotationRetention.BINARY)
@@ -49,7 +58,7 @@ data class TickingDurationOptions(
 class TickingDurationLocalizer(
     private val options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotValueLocalizer<Duration, TickingValue<String>> {
+) : PolyglotValueLocalizer<Duration, TickingValue<String>>, PolyglotReferenceValueLocalizer<Instant> {
 
     private val durationLocalizer = DurationLocalizer(options.durationOptions, locale)
 
@@ -62,6 +71,14 @@ class TickingDurationLocalizer(
             value = durationLocalizer.localize(if (options.abs) value.absoluteValue else value),
             nextTick = units.minOf { (_, unit) -> value.remainderUntilNextUnitBoundary(unit) },
         )
+    }
+
+    fun localize(value: Instant, reference: Instant): TickingValue<String> {
+        return localize(value - reference)
+    }
+
+    override fun localize(value: Instant, reference: Zoned<Instant>): TickingValue<String> {
+        return localize(value, reference.value)
     }
 }
 
@@ -77,4 +94,53 @@ fun Duration.localizeTicking(
     locale: PlatformLocale = getDefaultLocale(),
 ): TickingValue<String> {
     return TickingDurationLocalizer(options, locale).localize(this)
+}
+
+
+/**
+ * Calculates the diff between this [Instant] and [reference], and localizes the result with the given [options] in the given [locale].
+ *
+ * @see Duration.localizeTicking
+ * @see TickingDurationLocalizer
+ */
+@ExperimentalTickingDurationLocalizer
+fun Instant.localizeDiff(
+    reference: Instant,
+    options: TickingDurationOptions = TickingDurationOptions(),
+    locale: PlatformLocale = getDefaultLocale(),
+): TickingValue<String> {
+    return TickingDurationLocalizer(options, locale).localize(this, reference)
+}
+
+/**
+ * Calculates the diff between this [Instant] and the current instnat of [clock], and localizes the result with the given [options] in the
+ * given [locale].
+ *
+ * @see Duration.localizeTicking
+ * @see TickingDurationLocalizer
+ */
+@ExperimentalTickingDurationLocalizer
+fun Instant.localizeDiff(
+    options: TickingDurationOptions = TickingDurationOptions(),
+    locale: PlatformLocale = getDefaultLocale(),
+    clock: Clock = Clock.System,
+): TickingValue<String> {
+    return TickingDurationLocalizer(options, locale).localize(this, clock)
+}
+
+/**
+ * Calculates the diff between this [Instant] and [clock], and localizes the result with the given [options] in the given [locale],
+ * returning a [Flow] that automatically receives new localizations as they are needed.
+ *
+ * @see Duration.localizeTicking
+ * @see TickingDurationLocalizer
+ * @see localizeAsFlow
+ */
+@ExperimentalTickingDurationLocalizer
+fun Instant.localizeDiffAsFlow(
+    options: TickingDurationOptions = TickingDurationOptions(),
+    locale: PlatformLocale = getDefaultLocale(),
+    clock: Clock = Clock.System,
+): Flow<String> {
+    return TickingDurationLocalizer(options, locale).localizeAsFlow(this, clock)
 }

@@ -223,15 +223,24 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeLoca
 	public static synthetic fun localize$default (Lkotlinx/datetime/LocalTime;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Local;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ljava/lang/String;
 }
 
-public final class dev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer {
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer, dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer {
 	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun localize (Ljava/lang/Object;)Ljava/lang/Object;
+	public synthetic fun localize (Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public fun localize (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public final fun localize (Lkotlin/time/Instant;Lkotlin/time/Instant;)Ldev/mmauro/datetimepolyglot/TickingValue;
 	public fun localize-LRDsOJo (J)Ldev/mmauro/datetimepolyglot/TickingValue;
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationLocalizerKt {
+	public static final fun localizeDiff (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;Lkotlin/time/Clock;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun localizeDiff (Lkotlin/time/Instant;Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static synthetic fun localizeDiff$default (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;Lkotlin/time/Clock;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static synthetic fun localizeDiff$default (Lkotlin/time/Instant;Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun localizeDiffAsFlow (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;Lkotlin/time/Clock;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun localizeDiffAsFlow$default (Lkotlin/time/Instant;Ldev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;Lkotlin/time/Clock;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun localizeTicking-KLykuaI (JLdev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;)Ldev/mmauro/datetimepolyglot/TickingValue;
 	public static synthetic fun localizeTicking-KLykuaI$default (JLdev/mmauro/datetimepolyglot/localizers/absolute/TickingDurationOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
 }
