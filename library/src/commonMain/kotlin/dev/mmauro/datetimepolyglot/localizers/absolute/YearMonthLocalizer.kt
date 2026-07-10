@@ -42,7 +42,7 @@ expect class YearMonthLocalizer(
 /**
  * Localizes this [YearMonth] with the given [options] in the given [locale].
  *
- * @see LocalTimeLocalizer
+ * @see YearMonthLocalizer
  */
 fun YearMonth.localize(
     options: YearMonthOptions,
