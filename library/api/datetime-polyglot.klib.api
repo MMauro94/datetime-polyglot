@@ -575,6 +575,21 @@ final class dev.mmauro.datetimepolyglot.localizers.absolute/YearOptions : dev.mm
     final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/YearOptions.toString|toString(){}[0]
 }
 
+final class dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions { // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.localizers.absolute/DateStyleOptions, dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions = ...) // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.absolute.DateStyleOptions;dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions){}[0]
+
+    final val dateOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.dateOptions|{}dateOptions[0]
+        final fun <get-dateOptions>(): dev.mmauro.datetimepolyglot.localizers.absolute/DateOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.dateOptions.<get-dateOptions>|<get-dateOptions>(){}[0]
+    final val timeZoneOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.timeZoneOptions|{}timeZoneOptions[0]
+        final fun <get-timeZoneOptions>(): dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.timeZoneOptions.<get-timeZoneOptions>|<get-timeZoneOptions>(){}[0]
+
+    final fun component1(): dev.mmauro.datetimepolyglot.localizers.absolute/DateOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.component1|component1(){}[0]
+    final fun component2(): dev.mmauro.datetimepolyglot.localizers.standalone/TimeZoneOptions // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.component2|component2(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions.toString|toString(){}[0]
+}
+
 final class dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeZonedLocalizer<kotlin.time/Instant> { // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantLocalizer|null[0]
     constructor <init>(dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantOptions, js.intl/Locale = ...) // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantLocalizer.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.absolute.ZonedInstantOptions;js.intl.Locale){}[0]
 
@@ -599,6 +614,12 @@ final class dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantOptions 
     final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantOptions.toString|toString(){}[0]
 
     final object Companion // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedInstantOptions.Companion|null[0]
+}
+
+final class dev.mmauro.datetimepolyglot.localizers.absolute/ZonedLocalDateLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeZonedLocalizer<kotlinx.datetime/LocalDate> { // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedLocalDateLocalizer|null[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions, js.intl/Locale = ...) // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedLocalDateLocalizer.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.absolute.ZonedDateOptions;js.intl.Locale){}[0]
+
+    final fun localize(dev.mmauro.datetimepolyglot/Zoned<kotlinx.datetime/LocalDate>): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedLocalDateLocalizer.localize|localize(dev.mmauro.datetimepolyglot.Zoned<kotlinx.datetime.LocalDate>){}[0]
 }
 
 final class dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeZonedLocalizer<kotlin/Int> { // dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearLocalizer|null[0]
@@ -870,6 +891,7 @@ final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.da
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/minus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/minus|minus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/plus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/plus|plus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/toLocalDateTime(): kotlinx.datetime/LocalDateTime // dev.mmauro.datetimepolyglot/toLocalDateTime|toLocalDateTime@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(){}[0]
+final fun (dev.mmauro.datetimepolyglot/Zoned<kotlinx.datetime/LocalDate>).dev.mmauro.datetimepolyglot.localizers.absolute/localize(dev.mmauro.datetimepolyglot.localizers.absolute/ZonedDateOptions, js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/localize|localize@dev.mmauro.datetimepolyglot.Zoned<kotlinx.datetime.LocalDate>(dev.mmauro.datetimepolyglot.localizers.absolute.ZonedDateOptions;js.intl.Locale){}[0]
 final fun (dev.mmauro.datetimepolyglot/Zoned<kotlinx.datetime/YearMonth>).dev.mmauro.datetimepolyglot.localizers.absolute/localize(dev.mmauro.datetimepolyglot.localizers.absolute/ZonedYearMonthOptions, js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/localize|localize@dev.mmauro.datetimepolyglot.Zoned<kotlinx.datetime.YearMonth>(dev.mmauro.datetimepolyglot.localizers.absolute.ZonedYearMonthOptions;js.intl.Locale){}[0]
 final fun (kotlin.time/Clock).dev.mmauro.datetimepolyglot/zonedNow(): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/zonedNow|zonedNow@kotlin.time.Clock(){}[0]
 final fun (kotlin.time/Duration).dev.mmauro.datetimepolyglot.localizers.absolute/localize(dev.mmauro.datetimepolyglot.localizers.absolute/DurationOptions = ..., js.intl/Locale = ...): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/localize|localize@kotlin.time.Duration(dev.mmauro.datetimepolyglot.localizers.absolute.DurationOptions;js.intl.Locale){}[0]

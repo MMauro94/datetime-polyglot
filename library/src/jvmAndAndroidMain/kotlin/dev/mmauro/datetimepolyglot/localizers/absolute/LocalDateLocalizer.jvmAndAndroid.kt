@@ -6,7 +6,7 @@ import dev.mmauro.datetimepolyglot.format
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toJavaLocalDate
 
-actual class LocalDateLocalizer private actual constructor(
+actual class LocalDateLocalizer internal actual constructor(
     options: DateOptions,
     locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<LocalDate> {
