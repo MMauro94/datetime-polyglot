@@ -7,6 +7,7 @@ import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
 import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
+import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.tuple
@@ -25,9 +26,10 @@ import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
+import kotlin.time.Instant
 
 class TickingDurationLocalizerTest : FunSpec({
-    context("localize") {
+    context("localize(Duration)") {
         // These are just basic smoke tests, as thorough testing is already carried out in DurationLocalizerTest for the localize and
         // remainderUntilNextUnitBoundary for the next tick
         context("basic tests") {
@@ -101,6 +103,30 @@ class TickingDurationLocalizerTest : FunSpec({
                 arbitraryArb = Arb.duration(),
                 smallArb = { it },
                 advanceBy = Duration::minus,
+            )
+        }
+    }
+
+    // These are just smoke tests to test the Instant ingress path
+    context("localize(Instant)") {
+        val instantA = Instant.parse("2026-04-05T10:00:00.000Z")
+        val instantB = Instant.parse("2026-04-05T11:15:00.000Z")
+        test("past") {
+            instantA.localizeDiff(reference = instantB, locale = LOCALE_ENGLISH) shouldBeLocalizedAs TickingValue(
+                value = "-1 hour, 15 minutes",
+                nextTick = 1.minutes,
+            )
+        }
+        test("now") {
+            instantA.localizeDiff(reference = instantA, locale = LOCALE_ENGLISH) shouldBeLocalizedAs TickingValue(
+                value = "0 seconds",
+                nextTick = 1.seconds,
+            )
+        }
+        test("future") {
+            instantB.localizeDiff(reference = instantA, locale = LOCALE_ENGLISH) shouldBeLocalizedAs TickingValue(
+                value = "1 hour, 15 minutes",
+                nextTick = 1.nanoseconds,
             )
         }
     }

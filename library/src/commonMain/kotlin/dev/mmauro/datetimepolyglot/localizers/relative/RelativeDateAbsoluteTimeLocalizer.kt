@@ -106,7 +106,7 @@ fun LocalDateTime.localizeRelativeDateAbsoluteTime(
 
 /**
  * Localizes this [LocalDateTime] relatively with respect to [clock], with a single unit with the given [options] in the given [locale],
- * returning a [Flow].
+ * returning a [Flow] that automatically receives new localizations as they are needed.
  *
  * @see RelativeDateAbsoluteTimeLocalizer
  * @see localizeAsFlow
