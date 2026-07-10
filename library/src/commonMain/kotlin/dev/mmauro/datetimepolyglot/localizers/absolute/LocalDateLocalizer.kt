@@ -17,8 +17,8 @@ import kotlinx.datetime.LocalDate
  * - `January 8, 2026`
  * - `Thursday, January 8, 2026`
  */
-// For now this constructor is private because it's useless for users to manually create a DateOptions instance
-expect class LocalDateLocalizer private constructor(
+// For now this constructor is internal because it's useless for users to manually create a DateOptions instance
+expect class LocalDateLocalizer internal constructor(
     options: DateOptions,
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<LocalDate> {

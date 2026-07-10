@@ -405,6 +405,18 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearOptions :
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedDateOptions {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;
+	public final fun component2 ()Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDateOptions ()Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;
+	public final fun getTimeZoneOptions ()Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer {
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -438,6 +450,18 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantO
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions$Companion {
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedLocalDateLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedDateOptions;Lcom/ibm/icu/util/ULocale;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedDateOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun localize (Ldev/mmauro/datetimepolyglot/Zoned;)Ljava/lang/String;
+	public synthetic fun localize (Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedLocalDateLocalizerKt {
+	public static final fun localize (Ldev/mmauro/datetimepolyglot/Zoned;Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedDateOptions;Lcom/ibm/icu/util/ULocale;)Ljava/lang/String;
+	public static synthetic fun localize$default (Ldev/mmauro/datetimepolyglot/Zoned;Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedDateOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ljava/lang/String;
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedYearLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer {
