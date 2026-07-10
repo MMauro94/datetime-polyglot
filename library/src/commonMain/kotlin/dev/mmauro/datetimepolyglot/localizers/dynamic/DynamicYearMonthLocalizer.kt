@@ -1,0 +1,120 @@
+package dev.mmauro.datetimepolyglot.localizers.dynamic
+
+import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.TickingValue
+import dev.mmauro.datetimepolyglot.Zoned
+import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthLocalizer
+import dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthOptions
+import dev.mmauro.datetimepolyglot.localizers.localize
+import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearMonthLocalizer
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearMonthOptions
+import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.YearMonth
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.minus
+import kotlin.time.Clock
+import kotlin.time.Instant
+
+/**
+ * Localization options for [DynamicYearMonthLocalizer].
+ *
+ * @property relativeOptions options to use when the localization is relative
+ * @property absoluteOptions options to use when the localization is absolute
+ * @property relativeDiffRange configures the ranges of months difference with the reference point for which to use relative localization.
+ * By default, this is `-1..+1`, meaning only last, current, and next months are localized relatively.
+ */
+data class DynamicYearMonthOptions(
+    val relativeOptions: RelativeYearMonthOptions = RelativeYearMonthOptions(),
+    val absoluteOptions: YearMonthOptions,
+    val relativeDiffRange: IntRange = -1..1,
+)
+
+/**
+ * Localizes a [YearMonth] dynamically (either absolute or relative to a [Zoned]<[Instant]> reference point).
+ *
+ * This class chooses between formatting with a [RelativeYearMonthLocalizer] (if the difference is within the configured range), or falls
+ * back to absolute formatting via [YearMonthLocalizer].
+ *
+ * Create once and re-use for localizing multiple values with the same [options].
+ * Use [YearMonth.localizeDynamic] or [YearMonth.localizeDynamicAsFlow] for one-off localizations.
+ *
+ *
+ * Examples:
+ * - `last month`
+ * - `1 month ago`
+ * - `in 5 mo`
+ * - `07/2026`
+ * - `July 2026`
+ *
+ * @see PolyglotReferenceValueLocalizer
+ */
+class DynamicYearMonthLocalizer(
+    private val options: DynamicYearMonthOptions,
+    locale: PlatformLocale = getDefaultLocale(),
+) : PolyglotReferenceValueLocalizer<YearMonth> {
+
+    private val relativeYearMonthLocalizer = RelativeYearMonthLocalizer(options.relativeOptions, locale)
+    private val absoluteYearMonthLocalizer = YearMonthLocalizer(options.absoluteOptions, locale)
+
+    override fun localize(value: YearMonth, reference: Zoned<Instant>): TickingValue<String> {
+        val dynamicLocalizer = DynamicLocalizer(
+            DynamicLocalizer.Case.Threshold(
+                startInclusive = value.minus(options.relativeDiffRange.last, DateTimeUnit.MONTH).firstDay
+                    .atStartOfDayIn(reference.timeZone),
+                endExclusive = value.minus(options.relativeDiffRange.first - 1, DateTimeUnit.MONTH).firstDay
+                    .atStartOfDayIn(reference.timeZone),
+                localizer = relativeYearMonthLocalizer,
+            ),
+            default = DynamicLocalizer.Case.Default(absoluteYearMonthLocalizer)
+        )
+
+        return dynamicLocalizer.localize(value, reference)
+    }
+}
+
+
+/**
+ * Localizes this [YearMonth] dynamically (either absolute or relative to a [Zoned]<[Instant]> reference point) with the given [options] in
+ * the given [locale].
+ *
+ * @see DynamicYearMonthLocalizer
+ */
+fun YearMonth.localizeDynamic(
+    reference: Zoned<Instant>,
+    options: DynamicYearMonthOptions,
+    locale: PlatformLocale = getDefaultLocale(),
+): TickingValue<String> {
+    return DynamicYearMonthLocalizer(options, locale).localize(this, reference)
+}
+
+/**
+ * Localizes this [YearMonth] dynamically (either absolute or relative to [clock]) with the given [options] in the given [locale].
+ *
+ * @see DynamicYearMonthLocalizer
+ */
+fun YearMonth.localizeDynamic(
+    options: DynamicYearMonthOptions,
+    locale: PlatformLocale = getDefaultLocale(),
+    clock: Clock = Clock.System,
+): TickingValue<String> {
+    return DynamicYearMonthLocalizer(options, locale).localize(this, clock)
+}
+
+/**
+ * Localizes this [YearMonth] dynamically (either absolute or relative to [clock]) with the given [options] in the given [locale], returning
+ * a [Flow] that automatically receives new localizations as they are needed.
+ *
+ * @see DynamicYearMonthLocalizer
+ * @see localizeAsFlow
+ */
+fun YearMonth.localizeDynamicAsFlow(
+    options: DynamicYearMonthOptions,
+    locale: PlatformLocale = getDefaultLocale(),
+    clock: Clock = Clock.System,
+): Flow<String> {
+    return DynamicYearMonthLocalizer(options, locale).localizeAsFlow(this, clock)
+}
