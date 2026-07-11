@@ -5,11 +5,12 @@ import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.localizers.DEFAULT_INSTANT_RANGE
-import dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthOptions
+import dev.mmauro.datetimepolyglot.localizers.absolute.DateComponents
+import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.localDate
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
 import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
-import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearMonthOptions
-import dev.mmauro.datetimepolyglot.localizers.yearMonth
+import dev.mmauro.datetimepolyglot.localizers.relative.RelativeLocalDateOptions
 import dev.mmauro.datetimepolyglot.styles.MonthStyle
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.toLocalDateTime
@@ -23,37 +24,37 @@ import io.kotest.property.arbitrary.element
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.YearMonth
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toInstant
 import kotlin.time.Duration.Companion.days
 
 private val NOW_DATE = LocalDateTime.parse("2026-06-01T00:00:00")
 private val NOW = Zoned(NOW_DATE.toInstant(TimeZone.UTC), TimeZone.UTC)
 
-val DynamicYearMonthLocalizerTestFactory = funSpec {
+val DynamicLocalDateLocalizerTestFactory = funSpec {
     context("localize") {
         context("dates over relative threshold are completely absolute") {
             withTests(
                 nameFn = { Pair(it.b, it.c).toString() },
                 tuple(
-                    DynamicYearMonthLocalizer(
+                    DynamicLocalDateLocalizer(
                         locale = LOCALE_ENGLISH,
-                        options = DynamicYearMonthOptions(
-                            absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.ABBREVIATED)
+                        options = DynamicLocalDateOptions(
+                            absoluteOptions = DateStyle.LONG
                         )
                     ),
-                    YearMonth(2026, Month.SEPTEMBER),
-                    TickingValue("Sep 2026", nextTick = 61.days),
+                    LocalDate(2026, Month.JUNE, 20),
+                    TickingValue("June 20, 2026", nextTick = 9.days),
                 ),
                 tuple(
-                    DynamicYearMonthLocalizer(
+                    DynamicLocalDateLocalizer(
                         locale = LOCALE_ENGLISH,
-                        options = DynamicYearMonthOptions(
-                            absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE)
+                        options = DynamicLocalDateOptions(
+                            absoluteOptions = DateComponents(monthStyle = MonthStyle.ABBREVIATED)
                         )
                     ),
-                    YearMonth(2020, Month.APRIL),
-                    TickingValue("April 2020", nextTick = null),
+                    LocalDate(2020, Month.APRIL, 14),
+                    TickingValue("Apr 14, 2020", nextTick = null),
                 ),
             ) { (localizer, yearMonth, expected) ->
                 localizer.localizeAndTestNextTick(yearMonth, NOW) shouldBe expected
@@ -65,25 +66,25 @@ val DynamicYearMonthLocalizerTestFactory = funSpec {
         withTests(
             nameFn = { Pair(it.b, it.c).toString() },
             tuple(
-                DynamicYearMonthLocalizer(
+                DynamicLocalDateLocalizer(
                     locale = LOCALE_ENGLISH,
-                    options = DynamicYearMonthOptions(
-                        absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE)
+                    options = DynamicLocalDateOptions(
+                        absoluteOptions = DateStyle.LONG,
                     ),
                 ),
-                YearMonth(2026, Month.JUNE),
-                TickingValue("this month", nextTick = 30.days),
+                LocalDate(2026, Month.JUNE, 1),
+                TickingValue("today", nextTick = 1.days),
             ),
             tuple(
-                DynamicYearMonthLocalizer(
+                DynamicLocalDateLocalizer(
                     locale = LOCALE_ENGLISH,
-                    options = DynamicYearMonthOptions(
-                        absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE),
-                        relativeOptions = RelativeYearMonthOptions(style = RelativeUnitStyle.SHORT)
+                    options = DynamicLocalDateOptions(
+                        absoluteOptions = DateStyle.SHORT,
+                        relativeOptions = RelativeLocalDateOptions(style = RelativeUnitStyle.SHORT)
                     ),
                 ),
-                YearMonth(2026, Month.MAY),
-                TickingValue("last mo.", nextTick = 30.days),
+                LocalDate(2026, Month.MAY, 25),
+                TickingValue("7 days ago", nextTick = 1.days),
             ),
         ) { (localizer, year, expected) ->
             localizer.localizeAndTestNextTick(year, NOW) shouldBe expected
@@ -91,42 +92,42 @@ val DynamicYearMonthLocalizerTestFactory = funSpec {
     }
 
     context("custom threshold") {
-        val localizer = DynamicYearMonthLocalizer(
+        val localizer = DynamicLocalDateLocalizer(
             locale = LOCALE_ITALIAN,
-            options = DynamicYearMonthOptions(
-                absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE),
-                relativeDiffRange = -10..5,
+            options = DynamicLocalDateOptions(
+                absoluteOptions = DateStyle.MEDIUM,
+                relativeDiffRange = -1..15,
             )
         )
 
         withTests(
             nameFn = { it.first.toString() },
-            YearMonth(2025, Month.JULY) to "luglio 2025",
-            YearMonth(2025, Month.AUGUST) to "10 mesi fa",
-            YearMonth(2026, Month.JUNE) to "questo mese",
-            YearMonth(2026, Month.NOVEMBER) to "tra 5 mesi",
-            YearMonth(2026, Month.DECEMBER) to "dicembre 2026",
+            LocalDate(2026, Month.MAY, 30) to "30 mag 2026",
+            LocalDate(2026, Month.MAY, 31) to "ieri",
+            LocalDate(2026, Month.JUNE, 1) to "oggi",
+            LocalDate(2026, Month.JUNE, 16) to "tra 15 giorni",
+            LocalDate(2026, Month.JUNE, 17) to "17 giu 2026",
         ) { (year, expected) ->
             localizer.localizeAndTestNextTick(year, NOW).value shouldBe expected
         }
     }
 
     context("nextTick") {
-        val localizer = DynamicYearMonthLocalizer(
+        val localizer = DynamicLocalDateLocalizer(
             locale = LOCALE_ENGLISH,
-            options = DynamicYearMonthOptions(
-                absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE),
+            options = DynamicLocalDateOptions(
+                absoluteOptions = DateStyle.LONG,
             ),
         )
 
         localizer.nextTickPredictsChangeTest(
-            arbitraryArb = Arb.yearMonth(),
-            smallArb = { Arb.element(it.toLocalDateTime().let { YearMonth(it.year, it.month) }) },
+            arbitraryArb = Arb.localDate(),
+            smallArb = { Arb.element(it.toLocalDateTime().date) },
             referenceRange = DEFAULT_INSTANT_RANGE,
         )
     }
 }
 
-class DynamicYearMonthLocalizerTest : FunSpec({
-    include(DynamicYearMonthLocalizerTestFactory)
+class DynamicLocalDateLocalizerTest : FunSpec({
+    include(DynamicLocalDateLocalizerTestFactory)
 })

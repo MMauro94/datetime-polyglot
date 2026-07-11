@@ -10,6 +10,7 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.YearOptions
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearLocalizer
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearOptions
+import dev.mmauro.datetimepolyglot.utils.map
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 import kotlinx.datetime.atStartOfDayIn
@@ -59,10 +60,11 @@ class DynamicYearLocalizer(
     override fun localize(value: Int, reference: Zoned<Instant>): TickingValue<String> {
         val dynamicLocalizer = DynamicLocalizer(
             DynamicLocalizer.Case.Threshold(
-                startInclusive = LocalDate(year = value - options.relativeDiffRange.last, Month.JANUARY, day = 1)
-                    .atStartOfDayIn(reference.timeZone),
-                endExclusive = LocalDate(year = value - options.relativeDiffRange.first + 1, Month.JANUARY, day = 1)
-                    .atStartOfDayIn(reference.timeZone),
+                range = DynamicLocalizer.Case.Threshold.computeRangeFromDiff(
+                    value = value,
+                    diff = options.relativeDiffRange,
+                    minus = Int::minus,
+                ).map { LocalDate(year = it, Month.JANUARY, day = 1).atStartOfDayIn(reference.timeZone) },
                 localizer = relativeYearLocalizer,
             ),
             default = DynamicLocalizer.Case.Default(absoluteYearLocalizer)
