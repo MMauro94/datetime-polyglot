@@ -23,23 +23,32 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Instant
 
-fun Arb.Companion.year(min: Int = 1800, max: Int = 2100) = Arb.int(min = min, max = max)
+const val DEFAULT_MIN_YEAR = 1950
+const val DEFAULT_MAX_YEAR = 2090
+
+
+val DEFAULT_MIN_DATE = LocalDateTime(DEFAULT_MIN_YEAR, Month.JANUARY, 1, 0, 0)
+val DEFAULT_MAX_DATE = LocalDateTime(DEFAULT_MAX_YEAR, Month.DECEMBER, 31, 23, 59, 59, 999_999_999)
+
+val DEFAULT_INSTANT_RANGE = DEFAULT_MIN_DATE.toInstant(TimeZone.UTC)..DEFAULT_MAX_DATE.toInstant(TimeZone.UTC)
+
+fun Arb.Companion.year(min: Int = DEFAULT_MIN_YEAR, max: Int = DEFAULT_MAX_YEAR) = Arb.int(min = min, max = max)
 
 fun Arb.Companion.yearMonth(
-    min: YearMonth = YearMonth(1800, Month.JANUARY),
-    max: YearMonth = YearMonth(2100, Month.DECEMBER),
+    min: YearMonth = YearMonth(DEFAULT_MIN_YEAR, Month.JANUARY),
+    max: YearMonth = YearMonth(DEFAULT_MAX_YEAR, Month.DECEMBER),
 ) = Arb.bind(Arb.year(min = min.year, max = max.year), Arb.enum<Month>(), ::YearMonth).filter { it in min..max }
 
 fun Arb.Companion.localDate(
-    min: LocalDate = LocalDate(1970, Month.JANUARY, 1),
-    max: LocalDate = LocalDate(2030, Month.DECEMBER, 31),
+    min: LocalDate = LocalDate(DEFAULT_MIN_YEAR, Month.JANUARY, 1),
+    max: LocalDate = LocalDate(DEFAULT_MAX_YEAR, Month.DECEMBER, 31),
 ): Arb<LocalDate> {
     return Arb.long(min = min.toEpochDays(), max = max.toEpochDays()).map { LocalDate.fromEpochDays(it) }
 }
 
 fun Arb.Companion.localDateTime(
-    min: LocalDateTime = LocalDateTime(1970, Month.JANUARY, 1, 0, 0),
-    max: LocalDateTime = LocalDateTime(2030, Month.DECEMBER, 31, 23, 59, 59, 999_999_999),
+    min: LocalDateTime = DEFAULT_MIN_DATE,
+    max: LocalDateTime = DEFAULT_MAX_DATE,
 ): Arb<LocalDateTime> {
     return Arb.kotlinInstant(
         minValue = min.toInstant(TimeZone.UTC),

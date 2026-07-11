@@ -4,6 +4,7 @@ import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
+import dev.mmauro.datetimepolyglot.localizers.DEFAULT_INSTANT_RANGE
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearOptions
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
 import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
@@ -94,13 +95,12 @@ val DynamicYearLocalizerTestFactory = funSpec {
     }
 
     context("nextTick") {
-        val dateRange = LocalDateTime.parse("1950-01-01T00:00")..LocalDateTime.parse("2090-01-01T00:00:00")
         val localizer = DynamicYearLocalizer(locale = LOCALE_ENGLISH)
 
         localizer.nextTickPredictsChangeTest(
-            arbitraryArb = Arb.year(min = 1950, max = 2090),
+            arbitraryArb = Arb.year(),
             smallArb = { Arb.element(it.toLocalDateTime().year) },
-            referenceRange = dateRange.start.toInstant(TimeZone.UTC)..dateRange.endInclusive.toInstant(TimeZone.UTC),
+            referenceRange = DEFAULT_INSTANT_RANGE,
         )
     }
 }

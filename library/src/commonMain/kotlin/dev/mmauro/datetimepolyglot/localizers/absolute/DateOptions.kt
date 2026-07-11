@@ -41,7 +41,7 @@ data class DateComponents(
     override val eraStyle: EraStyle? = null,
     override val yearStyle: YearStyle = YearStyle.NUMERIC_PADDED_4_DIGITS,
     override val monthStyle: MonthStyle,
-    override val dayOfMonthStyle: DayOfMonthStyle,
+    override val dayOfMonthStyle: DayOfMonthStyle = DayOfMonthStyle.NUMERIC,
     override val dayOfWeekStyle: DayOfWeekStyle? = null,
 ) : DateStyleOptions, ComponentsOptions.Date.Components
 

@@ -11,6 +11,7 @@ import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearMonthLocalizer
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearMonthOptions
+import dev.mmauro.datetimepolyglot.utils.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.YearMonth
@@ -63,10 +64,11 @@ class DynamicYearMonthLocalizer(
     override fun localize(value: YearMonth, reference: Zoned<Instant>): TickingValue<String> {
         val dynamicLocalizer = DynamicLocalizer(
             DynamicLocalizer.Case.Threshold(
-                startInclusive = value.minus(options.relativeDiffRange.last, DateTimeUnit.MONTH).firstDay
-                    .atStartOfDayIn(reference.timeZone),
-                endExclusive = value.minus(options.relativeDiffRange.first - 1, DateTimeUnit.MONTH).firstDay
-                    .atStartOfDayIn(reference.timeZone),
+                range = DynamicLocalizer.Case.Threshold.computeRangeFromDiff(
+                    value = value,
+                    diff = options.relativeDiffRange,
+                    minus = { this.minus(it, DateTimeUnit.MONTH) },
+                ).map { it.firstDay.atStartOfDayIn(reference.timeZone) },
                 localizer = relativeYearMonthLocalizer,
             ),
             default = DynamicLocalizer.Case.Default(absoluteYearMonthLocalizer)
