@@ -195,7 +195,7 @@ abstract interface <#A: in kotlin/Any?, #B: out kotlin/Any?> dev.mmauro.datetime
 
 abstract interface <#A: in kotlin/Any?> dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotValueLocalizer<#A, kotlin/String> // dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeLocalizer|null[0]
 
-abstract interface <#A: in kotlin/Any?> dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeZonedLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotValueLocalizer<dev.mmauro.datetimepolyglot/Zoned<#A>, kotlin/String> // dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeZonedLocalizer|null[0]
+abstract interface <#A: in kotlin/Any?> dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeZonedLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeLocalizer<dev.mmauro.datetimepolyglot/Zoned<#A>> // dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeZonedLocalizer|null[0]
 
 abstract interface <#A: in kotlin/Any?> dev.mmauro.datetimepolyglot.localizers/PolyglotReferenceValueLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotLocalizer { // dev.mmauro.datetimepolyglot.localizers/PolyglotReferenceValueLocalizer|null[0]
     abstract fun localize(#A, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>): dev.mmauro.datetimepolyglot/TickingValue<kotlin/String> // dev.mmauro.datetimepolyglot.localizers/PolyglotReferenceValueLocalizer.localize|localize(1:0;dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>){}[0]
