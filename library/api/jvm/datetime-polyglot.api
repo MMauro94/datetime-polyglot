@@ -55,7 +55,7 @@ public final class dev/mmauro/datetimepolyglot/ZonedKt {
 public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer {
 }
 
-public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer {
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer {
 }
 
 public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer {
