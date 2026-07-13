@@ -21,7 +21,6 @@ import kotlinx.datetime.minus
 import kotlin.time.Clock
 import kotlin.time.Instant
 
-private val DEFAULT_DIFF_RANGE = -10..10
 
 /**
  * Localization options for [DynamicLocalDateLocalizer].
@@ -43,6 +42,10 @@ data class DynamicLocalDateOptions private constructor(
         absoluteOptions: DateStyleOptions,
         relativeDiffRange: IntRange = DEFAULT_DIFF_RANGE,
     ) : this(relativeOptions, DateOptions(absoluteOptions), relativeDiffRange)
+
+    companion object {
+        internal val DEFAULT_DIFF_RANGE = -10..10
+    }
 }
 
 /**
