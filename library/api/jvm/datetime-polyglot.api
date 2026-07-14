@@ -46,6 +46,7 @@ public final class dev/mmauro/datetimepolyglot/Zoned {
 }
 
 public final class dev/mmauro/datetimepolyglot/ZonedKt {
+	public static final fun mapValue (Ldev/mmauro/datetimepolyglot/Zoned;Lkotlin/jvm/functions/Function1;)Ldev/mmauro/datetimepolyglot/Zoned;
 	public static final fun minus-HG0u8IE (Ldev/mmauro/datetimepolyglot/Zoned;J)Ldev/mmauro/datetimepolyglot/Zoned;
 	public static final fun plus-HG0u8IE (Ldev/mmauro/datetimepolyglot/Zoned;J)Ldev/mmauro/datetimepolyglot/Zoned;
 	public static final fun toLocalDateTime (Ldev/mmauro/datetimepolyglot/Zoned;)Lkotlinx/datetime/LocalDateTime;
@@ -838,6 +839,29 @@ public final class dev/mmauro/datetimepolyglot/localizers/relative/RelativeYearO
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getAllowedDirections ()Ljava/util/Set;
 	public fun getStyle ()Ldev/mmauro/datetimepolyglot/styles/RelativeUnitStyle;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/relative/RelativeZonedYearLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer {
+	public fun <init> ()V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeZonedYearOptions;Lcom/ibm/icu/util/ULocale;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeZonedYearOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun localize (Ldev/mmauro/datetimepolyglot/Zoned;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public synthetic fun localize (Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/relative/RelativeZonedYearOptions {
+	public fun <init> ()V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeYearOptions;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeYearOptions;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeYearOptions;
+	public final fun component2 ()Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;
+	public final fun copy (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeYearOptions;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;)Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeZonedYearOptions;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeZonedYearOptions;Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeYearOptions;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeZonedYearOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTimeZoneOptions ()Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;
+	public final fun getYearOptions ()Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeYearOptions;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
