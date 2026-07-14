@@ -52,6 +52,9 @@ public final class dev/mmauro/datetimepolyglot/ZonedKt {
 	public static final fun zonedNow (Lkotlin/time/Clock;)Ldev/mmauro/datetimepolyglot/Zoned;
 }
 
+public abstract interface annotation class dev/mmauro/datetimepolyglot/localizers/ExperimentalZonedLocalizer : java/lang/annotation/Annotation {
+}
+
 public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer {
 }
 
@@ -155,9 +158,6 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/DurationOptio
 }
 
 public abstract interface annotation class dev/mmauro/datetimepolyglot/localizers/absolute/ExperimentalTickingDurationLocalizer : java/lang/annotation/Annotation {
-}
-
-public abstract interface annotation class dev/mmauro/datetimepolyglot/localizers/absolute/ExperimentalZonedLocalizer : java/lang/annotation/Annotation {
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer {

@@ -2,16 +2,12 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.Zoned
+import dev.mmauro.datetimepolyglot.localizers.ExperimentalZonedLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneLocalizer
 import dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions
 import dev.mmauro.datetimepolyglot.utils.joinDateAndTime
-
-@RequiresOptIn(message = "This API is experimental. It could change or be dropped in the future without notice.")
-@Retention(AnnotationRetention.BINARY)
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
-annotation class ExperimentalZonedLocalizer
 
 @ExperimentalZonedLocalizer
 internal class ZonedLocalizer<T>(

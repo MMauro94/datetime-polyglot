@@ -10,8 +10,8 @@ open annotation class dev.mmauro.datetimepolyglot.localizers.absolute/Experiment
     constructor <init>() // dev.mmauro.datetimepolyglot.localizers.absolute/ExperimentalTickingDurationLocalizer.<init>|<init>(){}[0]
 }
 
-open annotation class dev.mmauro.datetimepolyglot.localizers.absolute/ExperimentalZonedLocalizer : kotlin/Annotation { // dev.mmauro.datetimepolyglot.localizers.absolute/ExperimentalZonedLocalizer|null[0]
-    constructor <init>() // dev.mmauro.datetimepolyglot.localizers.absolute/ExperimentalZonedLocalizer.<init>|<init>(){}[0]
+open annotation class dev.mmauro.datetimepolyglot.localizers/ExperimentalZonedLocalizer : kotlin/Annotation { // dev.mmauro.datetimepolyglot.localizers/ExperimentalZonedLocalizer|null[0]
+    constructor <init>() // dev.mmauro.datetimepolyglot.localizers/ExperimentalZonedLocalizer.<init>|<init>(){}[0]
 }
 
 final enum class dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle : dev.mmauro.datetimepolyglot.localizers.absolute/DateStyleOptions, kotlin/Enum<dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle> { // dev.mmauro.datetimepolyglot.localizers.absolute/DateStyle|null[0]
