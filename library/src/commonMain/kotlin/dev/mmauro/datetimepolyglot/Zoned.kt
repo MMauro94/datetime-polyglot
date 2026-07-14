@@ -33,3 +33,10 @@ fun Clock.zonedNow(): Zoned<Instant> {
         timeZone = TimeZone.currentSystemDefault(),
     )
 }
+
+/**
+ * Returns a new [Zoned] with the same [Zoned.timeZone] and the value returned by [transform].
+ */
+fun <T, R> Zoned<T>.mapValue(transform: (T) -> R): Zoned<R> {
+    return Zoned(transform(value), this.timeZone)
+}

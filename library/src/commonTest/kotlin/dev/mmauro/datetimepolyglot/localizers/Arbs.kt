@@ -60,9 +60,14 @@ fun Arb.Companion.localDateTime(
 
 fun Arb.Companion.timeZone() = Arb.element(TimeZone.availableZoneIds).map { TimeZone.of(it) }
 
-fun Arb.Companion.zonedInstant(instantRange: KotlinInstantRange = Instant.DISTANT_PAST..Instant.DISTANT_FUTURE) = arbitrary {
-    Zoned(
-        value = Arb.kotlinInstant(instantRange).bind(),
-        timeZone = Arb.timeZone().bind(),
-    )
+fun <T> Arb.Companion.zoned(valueArb: Arb<T>): Arb<Zoned<T>> {
+    return arbitrary {
+        Zoned(
+            value = valueArb.bind(),
+            timeZone = Arb.timeZone().bind(),
+        )
+    }
 }
+
+fun Arb.Companion.zonedInstant(instantRange: KotlinInstantRange = Instant.DISTANT_PAST..Instant.DISTANT_FUTURE) =
+    zoned(Arb.kotlinInstant(instantRange))
