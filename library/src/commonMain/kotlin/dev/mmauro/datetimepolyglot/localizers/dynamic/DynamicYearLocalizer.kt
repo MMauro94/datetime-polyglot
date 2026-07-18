@@ -4,6 +4,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearOptions
@@ -50,24 +51,33 @@ data class DynamicYearOptions(
  * @see PolyglotReferenceValueLocalizer
  */
 class DynamicYearLocalizer(
-    private val options: DynamicYearOptions = DynamicYearOptions(),
+    options: DynamicYearOptions = DynamicYearOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotReferenceValueLocalizer<Int> {
+) : PolyglotReferenceValueLocalizer<Int> by InternalDynamicYearLocalizer(
+    relativeLocalizer = RelativeYearLocalizer(options.relativeOptions, locale),
+    absoluteLocalizer = YearLocalizer(options.absoluteOptions, locale),
+    relativeDiffRange = options.relativeDiffRange,
+    yearProvider = { it },
+)
 
-    private val relativeYearLocalizer = RelativeYearLocalizer(options.relativeOptions, locale)
-    private val absoluteYearLocalizer = YearLocalizer(options.absoluteOptions, locale)
+internal class InternalDynamicYearLocalizer<T>(
+    private val relativeLocalizer: PolyglotReferenceValueLocalizer<T>,
+    private val absoluteLocalizer: PolyglotDateTimeLocalizer<T>,
+    private val relativeDiffRange: IntRange,
+    private val yearProvider: (T) -> Int,
+) : PolyglotReferenceValueLocalizer<T> {
 
-    override fun localize(value: Int, reference: Zoned<Instant>): TickingValue<String> {
+    override fun localize(value: T, reference: Zoned<Instant>): TickingValue<String> {
         val dynamicLocalizer = DynamicLocalizer(
             DynamicLocalizer.Case.Threshold(
                 range = DynamicLocalizer.Case.Threshold.computeRangeFromDiff(
-                    value = value,
-                    diff = options.relativeDiffRange,
+                    value = yearProvider(value),
+                    diff = relativeDiffRange,
                     minus = Int::minus,
                 ).map { LocalDate(year = it, Month.JANUARY, day = 1).atStartOfDayIn(reference.timeZone) },
-                localizer = relativeYearLocalizer,
+                localize = { value, reference -> relativeLocalizer.localize(value, reference) },
             ),
-            default = DynamicLocalizer.Case.Default(absoluteYearLocalizer)
+            default = DynamicLocalizer.Case.Default(absoluteLocalizer)
         )
 
         return dynamicLocalizer.localize(value, reference)
