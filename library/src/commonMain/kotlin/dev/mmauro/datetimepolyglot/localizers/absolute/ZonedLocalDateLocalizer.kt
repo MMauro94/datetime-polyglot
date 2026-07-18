@@ -36,9 +36,9 @@ data class ZonedDateOptions internal constructor(
  * Use [Zoned.localize] for one-off localizations.
  *
  * Examples:
- * - `January 2026, Los Angeles Time`
- * - `Jan 26, PT`
- * - `01/2026, Pacific Time`
+ * - `Thursday, January 8, 2026, Los Angeles Time`
+ * - `Jan 8, 2026, PT`
+ * - `1/8/26, Pacific Time`
  */
 @ExperimentalZonedLocalizer
 class ZonedLocalDateLocalizer(
