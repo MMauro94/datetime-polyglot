@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>dev.mmauro.datetimepolyglot</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<link href="../../styles/multimodule.css" rel="Stylesheet">
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
+                    datetime-polyglot
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;datetime-polyglot/dev.mmauro.datetimepolyglot/index.html&quot;}">0.4.0</dokka-template-command>        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true"
+                        data-filter=":datetime-polyglot/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":datetime-polyglot/commonMain"
+                                       data-filter=":datetime-polyglot/commonMain"/>
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    datetime-polyglot
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="datetime-polyglot::dev.mmauro.datetimepolyglot////PointingToDeclaration//-394989919">
+  <div class="breadcrumbs"><a href="../../index.html">datetime-polyglot</a><span class="delimiter">/</span><span class="current">dev.mmauro.datetimepolyglot</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-1938285239%2FClasslikes%2F-394989919" anchor-label="HourCycle" id="-1938285239%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hour-cycle/index.html"><span>Hour</span><wbr></wbr><span><span>Cycle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1938285239%2FClasslikes%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-hour-cycle/index.html">HourCycle</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-hour-cycle/index.html">HourCycle</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1632845782%2FClasslikes%2F-394989919" anchor-label="PlatformLocale" id="-1632845782%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-platform-locale/index.html"><span>Platform</span><wbr></wbr><span><span>Locale</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1632845782%2FClasslikes%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">class </span><a href="-platform-locale/index.html">PlatformLocale</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1316904939%2FClasslikes%2F-394989919" anchor-label="TickingValue" id="1316904939%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ticking-value/index.html"><span>Ticking</span><wbr></wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1316904939%2FClasslikes%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="-ticking-value/index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>value<span class="token operator">: </span><a href="-ticking-value/index.html">T</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>nextTick<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration/index.html">Duration</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This class holds a value of type <a href="-ticking-value/index.html">T</a> and a <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration/index.html">Duration</a> that indicates how much time needs to pass before recalculating <span data-unresolved-link="dev.mmauro.datetimepolyglot/TickingValue//#TypeParam(bounds=[kotlin.Any?])#kotlin.time.Duration?/PointingToCallableParameters(0)/">value</span> is required (i.e. how long since its production <span data-unresolved-link="dev.mmauro.datetimepolyglot/TickingValue//#TypeParam(bounds=[kotlin.Any?])#kotlin.time.Duration?/PointingToCallableParameters(1)/">nextTick</span> is valid for).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1092367923%2FClasslikes%2F-394989919" anchor-label="Zoned" id="1092367923%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-zoned/index.html"><span><span>Zoned</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1092367923%2FClasslikes%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-zoned/index.html">Zoned</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="-zoned/index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>value<span class="token operator">: </span><a href="-zoned/index.html">T</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>timeZone<span class="token operator">: </span><a href="https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-time-zone/index.html">TimeZone</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Hodler for a generic value <a href="-zoned/index.html">T</a> that is associated with a <a href="https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-time-zone/index.html">TimeZone</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="878906087%2FFunctions%2F-394989919" anchor-label="combine" id="878906087%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="combine.html"><span><span>combine</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="878906087%2FFunctions%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="combine.html">T1</a><span class="token punctuation">, </span><a href="combine.html">T2</a><span class="token punctuation">, </span><a href="combine.html">R</a><span class="token operator">&gt; </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="combine.html">T1</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="combine.html"><span class="token function">combine</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="combine.html">T2</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="combine.html">T1</a><span class="token punctuation">, </span><a href="combine.html">T2</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="combine.html">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="combine.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Combines two different <a href="-ticking-value/index.html">TickingValue</a>s.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1894467199%2FFunctions%2F-394989919" anchor-label="flatMap" id="-1894467199%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="flat-map.html"><span>flat</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1894467199%2FFunctions%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="flat-map.html">T</a><span class="token punctuation">, </span><a href="flat-map.html">R</a><span class="token operator">&gt; </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="flat-map.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="flat-map.html"><span class="token function">flatMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="flat-map.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="flat-map.html">R</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="flat-map.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Transforms this <a href="-ticking-value/index.html">TickingValue</a> using the <a href="flat-map.html">transform</a> function. The resulting <a href="-ticking-value/next-tick.html">TickingValue.nextTick</a> will be the min of the two, see also <a href="with-next-tick-at-most.html">withNextTickAtMost</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-305173539%2FFunctions%2F-394989919" anchor-label="map" id="-305173539%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="map.html"><span><span>map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-305173539%2FFunctions%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="map.html">T</a><span class="token punctuation">, </span><a href="map.html">R</a><span class="token operator">&gt; </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="map.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="map.html"><span class="token function">map</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="map.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="map.html">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="map.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Transforms the <a href="-ticking-value/value.html">TickingValue.value</a> from this instance from type <a href="map.html">T</a> to <a href="map.html">R</a> using <a href="map.html">transform</a> and returns a new <a href="-ticking-value/index.html">TickingValue</a> with it and the same <a href="-ticking-value/next-tick.html">TickingValue.nextTick</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="485192454%2FFunctions%2F-394989919" anchor-label="minus" id="485192454%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="minus.html"><span><span>minus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="485192454%2FFunctions%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">operator </span><span class="token keyword">fun </span><a href="-zoned/index.html">Zoned</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="minus.html"><span class="token function">minus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">duration<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration/index.html">Duration</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-zoned/index.html">Zoned</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-635712686%2FFunctions%2F-394989919" anchor-label="plus" id="-635712686%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="plus.html"><span><span>plus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-635712686%2FFunctions%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">operator </span><span class="token keyword">fun </span><a href="-zoned/index.html">Zoned</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="plus.html"><span class="token function">plus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">duration<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration/index.html">Duration</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-zoned/index.html">Zoned</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1381122701%2FFunctions%2F-394989919" anchor-label="toLocalDateTime" id="-1381122701%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-local-date-time.html"><span>to</span><wbr></wbr><span>Local</span><wbr></wbr><span>Date</span><wbr></wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1381122701%2FFunctions%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-zoned/index.html">Zoned</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="to-local-date-time.html"><span class="token function">toLocalDateTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-date-time/index.html">LocalDateTime</a></div><div class="brief "><p class="paragraph">Returns a civil datetime value that this instant <a href="-zoned/value.html">Zoned.value</a> has in the specified <a href="-zoned/time-zone.html">Zoned.timeZone</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-619594468%2FFunctions%2F-394989919" anchor-label="withNextTickAtMost" id="-619594468%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="with-next-tick-at-most.html"><span>with</span><wbr></wbr><span>Next</span><wbr></wbr><span>Tick</span><wbr></wbr><span>At</span><wbr></wbr><span><span>Most</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-619594468%2FFunctions%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="with-next-tick-at-most.html">T</a><span class="token operator">&gt; </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="with-next-tick-at-most.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="with-next-tick-at-most.html"><span class="token function">withNextTickAtMost</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">nextTick<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-duration/index.html">Duration</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="with-next-tick-at-most.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a <a href="-ticking-value/index.html">TickingValue</a> with the same <a href="-ticking-value/value.html">TickingValue.value</a> and with the next tick being the min of its value and <a href="with-next-tick-at-most.html">nextTick</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-773085332%2FFunctions%2F-394989919" anchor-label="zonedNow" id="-773085332%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="zoned-now.html"><span>zoned</span><wbr></wbr><span><span>Now</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-773085332%2FFunctions%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-clock/index.html">Clock</a><span class="token punctuation">.</span><a href="zoned-now.html"><span class="token function">zonedNow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-zoned/index.html">Zoned</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a <a href="-zoned/index.html">Zoned</a><<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a>> using this <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-clock/index.html">Clock</a> as source and <a href="https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-time-zone/-companion/current-system-default.html">TimeZone.currentSystemDefault</a> for timezone.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
