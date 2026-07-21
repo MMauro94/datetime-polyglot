@@ -107,8 +107,8 @@ sealed interface TimeComponents : TimeStyleOptions {
      * @see TimeComponents
      */
     data class Local(
-        override val hourStyle: HourStyle,
-        override val minuteStyle: MinuteStyle?,
+        override val hourStyle: HourStyle = HourStyle.NUMERIC,
+        override val minuteStyle: MinuteStyle? = MinuteStyle.NUMERIC,
         override val secondStyle: SecondStyle? = null,
         override val fractionalSecondDigits: Int = 0,
         override val dayPeriodStyle: DayPeriodStyle? = null,
@@ -127,8 +127,8 @@ sealed interface TimeComponents : TimeStyleOptions {
      * @see TimeComponents
      */
     data class Zoned(
-        override val hourStyle: HourStyle,
-        override val minuteStyle: MinuteStyle?,
+        override val hourStyle: HourStyle = HourStyle.NUMERIC,
+        override val minuteStyle: MinuteStyle? = MinuteStyle.NUMERIC,
         override val secondStyle: SecondStyle? = null,
         override val fractionalSecondDigits: Int = 0,
         override val dayPeriodStyle: DayPeriodStyle? = null,
