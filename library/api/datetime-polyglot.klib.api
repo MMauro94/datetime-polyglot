@@ -10,6 +10,10 @@ open annotation class dev.mmauro.datetimepolyglot.localizers.absolute/Experiment
     constructor <init>() // dev.mmauro.datetimepolyglot.localizers.absolute/ExperimentalTickingDurationLocalizer.<init>|<init>(){}[0]
 }
 
+open annotation class dev.mmauro.datetimepolyglot.localizers.dynamic/ExperimentalDynamicLocalizer : kotlin/Annotation { // dev.mmauro.datetimepolyglot.localizers.dynamic/ExperimentalDynamicLocalizer|null[0]
+    constructor <init>() // dev.mmauro.datetimepolyglot.localizers.dynamic/ExperimentalDynamicLocalizer.<init>|<init>(){}[0]
+}
+
 open annotation class dev.mmauro.datetimepolyglot.localizers/ExperimentalZonedLocalizer : kotlin/Annotation { // dev.mmauro.datetimepolyglot.localizers/ExperimentalZonedLocalizer|null[0]
     constructor <init>() // dev.mmauro.datetimepolyglot.localizers/ExperimentalZonedLocalizer.<init>|<init>(){}[0]
 }
@@ -337,6 +341,59 @@ sealed interface dev.mmauro.datetimepolyglot.styles/TimeZoneStyle { // dev.mmaur
 
         final fun valueOf(kotlin/String): dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific.valueOf|valueOf#static(kotlin.String){}[0]
         final fun values(): kotlin/Array<dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific> // dev.mmauro.datetimepolyglot.styles/TimeZoneStyle.Specific.values|values#static(){}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotReferenceValueLocalizer<#A> { // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer|null[0]
+    constructor <init>(kotlin.collections/List<dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold<#A>>, dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default<#A>) // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.<init>|<init>(kotlin.collections.List<dev.mmauro.datetimepolyglot.localizers.dynamic.DynamicLocalizer.Case.Threshold<1:0>>;dev.mmauro.datetimepolyglot.localizers.dynamic.DynamicLocalizer.Case.Default<1:0>){}[0]
+    constructor <init>(kotlin/Array<out dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold<#A>>..., dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default<#A>) // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.<init>|<init>(kotlin.Array<out|dev.mmauro.datetimepolyglot.localizers.dynamic.DynamicLocalizer.Case.Threshold<1:0>>...;dev.mmauro.datetimepolyglot.localizers.dynamic.DynamicLocalizer.Case.Default<1:0>){}[0]
+
+    final val default // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.default|{}default[0]
+        final fun <get-default>(): dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default<#A> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.default.<get-default>|<get-default>(){}[0]
+    final val thresholds // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.thresholds|{}thresholds[0]
+        final fun <get-thresholds>(): kotlin.collections/List<dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold<#A>> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.thresholds.<get-thresholds>|<get-thresholds>(){}[0]
+
+    final fun localize(#A, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>): dev.mmauro.datetimepolyglot/TickingValue<kotlin/String> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.localize|localize(1:0;dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>){}[0]
+
+    sealed interface <#A1: kotlin/Any?> Case { // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case|null[0]
+        abstract val localize // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.localize|{}localize[0]
+            abstract fun <get-localize>(): kotlin/Function2<#A1, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<kotlin/String>> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.localize.<get-localize>|<get-localize>(){}[0]
+
+        final class <#A2: kotlin/Any?> Default : dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case<#A2> { // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default|null[0]
+            constructor <init>(dev.mmauro.datetimepolyglot.localizers/PolyglotReferenceValueLocalizer<#A2>) // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer<1:0>){}[0]
+            constructor <init>(dev.mmauro.datetimepolyglot.localizers/PolyglotValueLocalizer<#A2, kotlin/String>) // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer<1:0,kotlin.String>){}[0]
+            constructor <init>(kotlin/Function2<#A2, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<kotlin/String>>) // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.<init>|<init>(kotlin.Function2<1:0,dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>,dev.mmauro.datetimepolyglot.TickingValue<kotlin.String>>){}[0]
+
+            final val localize // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.localize|{}localize[0]
+                final fun <get-localize>(): kotlin/Function2<#A2, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<kotlin/String>> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.localize.<get-localize>|<get-localize>(){}[0]
+
+            final fun component1(): kotlin/Function2<#A2, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<kotlin/String>> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.component1|component1(){}[0]
+            final fun copy(kotlin/Function2<#A2, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<kotlin/String>> = ...): dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default<#A2> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.copy|copy(kotlin.Function2<1:0,dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>,dev.mmauro.datetimepolyglot.TickingValue<kotlin.String>>){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Default.toString|toString(){}[0]
+        }
+
+        final class <#A2: kotlin/Any?> Threshold : dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case<#A2> { // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold|null[0]
+            constructor <init>(kotlin.ranges/OpenEndRange<kotlin.time/Instant>, dev.mmauro.datetimepolyglot.localizers/PolyglotReferenceValueLocalizer<#A2>) // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.<init>|<init>(kotlin.ranges.OpenEndRange<kotlin.time.Instant>;dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer<1:0>){}[0]
+            constructor <init>(kotlin.ranges/OpenEndRange<kotlin.time/Instant>, dev.mmauro.datetimepolyglot.localizers/PolyglotValueLocalizer<#A2, kotlin/String>) // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.<init>|<init>(kotlin.ranges.OpenEndRange<kotlin.time.Instant>;dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer<1:0,kotlin.String>){}[0]
+            constructor <init>(kotlin.ranges/OpenEndRange<kotlin.time/Instant>, kotlin/Function2<#A2, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<kotlin/String>>) // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.<init>|<init>(kotlin.ranges.OpenEndRange<kotlin.time.Instant>;kotlin.Function2<1:0,dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>,dev.mmauro.datetimepolyglot.TickingValue<kotlin.String>>){}[0]
+
+            final val localize // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.localize|{}localize[0]
+                final fun <get-localize>(): kotlin/Function2<#A2, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<kotlin/String>> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.localize.<get-localize>|<get-localize>(){}[0]
+            final val range // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.range|{}range[0]
+                final fun <get-range>(): kotlin.ranges/OpenEndRange<kotlin.time/Instant> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.range.<get-range>|<get-range>(){}[0]
+
+            final fun component1(): kotlin.ranges/OpenEndRange<kotlin.time/Instant> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.component1|component1(){}[0]
+            final fun component2(): kotlin/Function2<#A2, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<kotlin/String>> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.component2|component2(){}[0]
+            final fun contains(kotlin.time/Instant): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.contains|contains(kotlin.time.Instant){}[0]
+            final fun copy(kotlin.ranges/OpenEndRange<kotlin.time/Instant> = ..., kotlin/Function2<#A2, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<kotlin/String>> = ...): dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold<#A2> // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.copy|copy(kotlin.ranges.OpenEndRange<kotlin.time.Instant>;kotlin.Function2<1:0,dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>,dev.mmauro.datetimepolyglot.TickingValue<kotlin.String>>){}[0]
+            final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.equals|equals(kotlin.Any?){}[0]
+            final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.hashCode|hashCode(){}[0]
+            final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.toString|toString(){}[0]
+
+            final object Companion // dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer.Case.Threshold.Companion|null[0]
+        }
     }
 }
 

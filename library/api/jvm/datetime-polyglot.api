@@ -594,6 +594,51 @@ public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalDa
 public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalDateOptions$Companion {
 }
 
+public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer {
+	public fun <init> (Ljava/util/List;Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Default;)V
+	public fun <init> ([Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Threshold;Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Default;)V
+	public final fun getDefault ()Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Default;
+	public final fun getThresholds ()Ljava/util/List;
+	public fun localize (Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case {
+	public abstract fun getLocalize ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Default : dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case {
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;)V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer;)V
+	public fun <init> (Lkotlin/jvm/functions/Function2;)V
+	public final fun component1 ()Lkotlin/jvm/functions/Function2;
+	public final fun copy (Lkotlin/jvm/functions/Function2;)Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Default;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Default;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Default;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getLocalize ()Lkotlin/jvm/functions/Function2;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Threshold : dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case {
+	public static final field Companion Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Threshold$Companion;
+	public fun <init> (Lkotlin/ranges/OpenEndRange;Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;)V
+	public fun <init> (Lkotlin/ranges/OpenEndRange;Ldev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer;)V
+	public fun <init> (Lkotlin/ranges/OpenEndRange;Lkotlin/jvm/functions/Function2;)V
+	public final fun component1 ()Lkotlin/ranges/OpenEndRange;
+	public final fun component2 ()Lkotlin/jvm/functions/Function2;
+	public final fun contains (Lkotlin/time/Instant;)Z
+	public final fun copy (Lkotlin/ranges/OpenEndRange;Lkotlin/jvm/functions/Function2;)Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Threshold;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Threshold;Lkotlin/ranges/OpenEndRange;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Threshold;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getLocalize ()Lkotlin/jvm/functions/Function2;
+	public final fun getRange ()Lkotlin/ranges/OpenEndRange;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer$Case$Threshold$Companion {
+}
+
 public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicYearLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer {
 	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicYearOptions;Lcom/ibm/icu/util/ULocale;)V
@@ -674,6 +719,9 @@ public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicZonedYe
 	public final fun getRelativeOptions ()Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeZonedYearOptions;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface annotation class dev/mmauro/datetimepolyglot/localizers/dynamic/ExperimentalDynamicLocalizer : java/lang/annotation/Annotation {
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/relative/RelativeDateAbsoluteTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer {

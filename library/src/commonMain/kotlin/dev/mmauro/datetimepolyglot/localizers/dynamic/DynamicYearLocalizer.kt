@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalDynamicLocalizer::class)
+
 package dev.mmauro.datetimepolyglot.localizers.dynamic
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
@@ -75,7 +77,7 @@ internal class InternalDynamicYearLocalizer<T>(
                     diff = relativeDiffRange,
                     minus = Int::minus,
                 ).map { LocalDate(year = it, Month.JANUARY, day = 1).atStartOfDayIn(reference.timeZone) },
-                localize = { value, reference -> relativeLocalizer.localize(value, reference) },
+                localizer = relativeLocalizer,
             ),
             default = DynamicLocalizer.Case.Default(absoluteLocalizer)
         )
