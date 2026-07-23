@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>DynamicYearMonthLocalizer</title>
+    <title>DynamicLocalizer</title>
     <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
         <script>var pathToRoot = "../../../";</script>
     <script>document.documentElement.classList.replace("no-js", "js");</script>
@@ -44,7 +44,7 @@
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
         <div class="library-version" id="library-version">
-<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.dynamic/-dynamic-year-month-localizer/index.html&quot;}">0.4.1-SNAPSHOT</dokka-template-command>        </div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.dynamic/-dynamic-localizer/index.html&quot;}">0.4.1-SNAPSHOT</dokka-template-command>        </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
                 <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true"
@@ -104,28 +104,81 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" data-page-type="classlike" id="content" pageIds="datetime-polyglot::dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicYearMonthLocalizer///PointingToDeclaration//-394989919">
-  <div class="breadcrumbs"><a href="../../../index.html">datetime-polyglot</a><span class="delimiter">/</span><a href="../index.html">dev.mmauro.datetimepolyglot.localizers.dynamic</a><span class="delimiter">/</span><span class="current">DynamicYearMonthLocalizer</span></div>
+<div class="main-content" data-page-type="classlike" id="content" pageIds="datetime-polyglot::dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer///PointingToDeclaration//-394989919">
+  <div class="breadcrumbs"><a href="../../../index.html">datetime-polyglot</a><span class="delimiter">/</span><a href="../index.html">dev.mmauro.datetimepolyglot.localizers.dynamic</a><span class="delimiter">/</span><span class="current">DynamicLocalizer</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>Dynamic</span><wbr></wbr><span>Year</span><wbr></wbr><span>Month</span><wbr></wbr><span><span>Localizer</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">DynamicYearMonthLocalizer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">options<span class="token operator">: </span><a href="../-dynamic-year-month-options/index.html">DynamicYearMonthOptions</a><span class="token punctuation">, </span></span><span class="parameter ">locale<span class="token operator">: </span><a href="../../dev.mmauro.datetimepolyglot/-platform-locale/index.html">PlatformLocale</a><span class="token operator"> = </span>getDefaultLocale()</span></span><span class="token punctuation">)</span> : <a href="../../dev.mmauro.datetimepolyglot.localizers/-polyglot-reference-value-localizer/index.html">PolyglotReferenceValueLocalizer</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-year-month/index.html">YearMonth</a><span class="token operator">&gt; </span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/MMauro94/datetime-polyglot/tree/main/library/src/commonMain/kotlin/dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicYearMonthLocalizer.kt#L58">source</a>)</span></span></div><p class="paragraph">Localizes a <a href="https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-year-month/index.html">YearMonth</a> dynamically (either absolute or relative to a <a href="../../dev.mmauro.datetimepolyglot/-zoned/index.html">Zoned</a><<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a>> reference point).</p><p class="paragraph">This class chooses between formatting with a <a href="../../dev.mmauro.datetimepolyglot.localizers.relative/-relative-year-month-localizer/index.html">RelativeYearMonthLocalizer</a> (if the difference is within the configured range), or falls back to absolute formatting via <a href="../../dev.mmauro.datetimepolyglot.localizers.absolute/-year-month-localizer/index.html">YearMonthLocalizer</a>.</p><p class="paragraph">Create once and re-use for localizing multiple values with the same <span data-unresolved-link="dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicYearMonthLocalizer//#dev.mmauro.datetimepolyglot.localizers.dynamic.DynamicYearMonthOptions#dev.mmauro.datetimepolyglot.PlatformLocale/PointingToCallableParameters(0)/">options</span>. Use <a href="../localize-dynamic.html">YearMonth.localizeDynamic</a> or <a href="../localize-dynamic-as-flow.html">YearMonth.localizeDynamicAsFlow</a> for one-off localizations.</p><p class="paragraph">Examples:</p><ul><li><p class="paragraph"><code class="lang-kotlin">last month</code></p></li><li><p class="paragraph"><code class="lang-kotlin">1 month ago</code></p></li><li><p class="paragraph"><code class="lang-kotlin">in 5 mo</code></p></li><li><p class="paragraph"><code class="lang-kotlin">07/2026</code></p></li><li><p class="paragraph"><code class="lang-kotlin">July 2026</code></p></li></ul><h4 class="tableheader">See also</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../dev.mmauro.datetimepolyglot.localizers/-polyglot-reference-value-localizer/index.html"><span>Polyglot</span><wbr></wbr><span>Reference</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Localizer</span></span></a></div></span></div><div></div></div></div></div></div></div>
+    <h1 class="cover"><span>Dynamic</span><wbr></wbr><span><span>Localizer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">DynamicLocalizer</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>thresholds<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-case/-threshold/index.html">DynamicLocalizer.Case.Threshold</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>default<span class="token operator">: </span><a href="-case/-default/index.html">DynamicLocalizer.Case.Default</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../../dev.mmauro.datetimepolyglot.localizers/-polyglot-reference-value-localizer/index.html">PolyglotReferenceValueLocalizer</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt; </span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/MMauro94/datetime-polyglot/tree/main/library/src/commonMain/kotlin/dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalizer.kt#L28">source</a>)</span></span></div><p class="paragraph">Special localizer class that allows to pick an arbitrary <a href="../../dev.mmauro.datetimepolyglot.localizers/-polyglot-reference-value-localizer/index.html">PolyglotReferenceValueLocalizer</a> based on the current reference time.</p><p class="paragraph">On localization, it goes through each one of <span data-unresolved-link="dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer//#kotlin.collections.List[dev.mmauro.datetimepolyglot.localizers.dynamic.DynamicLocalizer.Case.Threshold[TypeParam(bounds=[kotlin.Any?])]]#dev.mmauro.datetimepolyglot.localizers.dynamic.DynamicLocalizer.Case.Default[TypeParam(bounds=[kotlin.Any?])]/PointingToCallableParameters(0)/">thresholds</span>, stopping at the first one whose reference is in <a href="-case/-threshold/range.html">Case.Threshold.range</a>, and returning its value. If the reference is in none of the thresholds' ranges, <span data-unresolved-link="dev.mmauro.datetimepolyglot.localizers.dynamic/DynamicLocalizer//#kotlin.collections.List[dev.mmauro.datetimepolyglot.localizers.dynamic.DynamicLocalizer.Case.Threshold[TypeParam(bounds=[kotlin.Any?])]]#dev.mmauro.datetimepolyglot.localizers.dynamic.DynamicLocalizer.Case.Default[TypeParam(bounds=[kotlin.Any?])]/PointingToCallableParameters(1)/">default</span> is selected instead.</p><p class="paragraph">Note that it is not recommended to provide thresholds that overlap. However, the class will not stop you from doing that and should work correctly regardless.</p><p class="paragraph">The next tick is selected with the minimum between the selected case and all thresholds that come before it.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="tableheader">Constructors</h2>
-        <div class="table"><a data-name="205504572%2FConstructors%2F-394989919" anchor-label="DynamicYearMonthLocalizer" id="205504572%2FConstructors%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+        <div class="table"><a data-name="1373449394%2FConstructors%2F-394989919" anchor-label="DynamicLocalizer" id="1373449394%2FConstructors%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-dynamic-year-month-localizer.html"><span>Dynamic</span><wbr></wbr><span>Year</span><wbr></wbr><span>Month</span><wbr></wbr><span><span>Localizer</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="205504572%2FConstructors%2F-394989919"></span>
+                  <div><a href="-dynamic-localizer.html"><span>Dynamic</span><wbr></wbr><span><span>Localizer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1373449394%2FConstructors%2F-394989919"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">options<span class="token operator">: </span><a href="../-dynamic-year-month-options/index.html">DynamicYearMonthOptions</a><span class="token punctuation">, </span></span><span class="parameter ">locale<span class="token operator">: </span><a href="../../dev.mmauro.datetimepolyglot/-platform-locale/index.html">PlatformLocale</a><span class="token operator"> = </span>getDefaultLocale()</span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">thresholds<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-case/-threshold/index.html">DynamicLocalizer.Case.Threshold</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">default<span class="token operator">: </span><a href="-case/-default/index.html">DynamicLocalizer.Case.Default</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>cases<span class="token operator">: </span><a href="-case/-threshold/index.html">DynamicLocalizer.Case.Threshold</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">default<span class="token operator">: </span><a href="-case/-default/index.html">DynamicLocalizer.Case.Default</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-1654503720%2FClasslikes%2F-394989919" anchor-label="Case" id="-1654503720%2FClasslikes%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-case/index.html"><span><span>Case</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1654503720%2FClasslikes%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">interface </span><a href="-case/index.html">Case</a><span class="token operator">&lt;</span><a href="-case/index.html">T</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="1648985926%2FProperties%2F-394989919" anchor-label="default" id="1648985926%2FProperties%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="default.html"><span><span>default</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1648985926%2FProperties%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="default.html">default</a><span class="token operator">: </span><a href="-case/-default/index.html">DynamicLocalizer.Case.Default</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="677677163%2FProperties%2F-394989919" anchor-label="thresholds" id="677677163%2FProperties%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="thresholds.html"><span><span>thresholds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="677677163%2FProperties%2F-394989919"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="thresholds.html">thresholds</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-case/-threshold/index.html">DynamicLocalizer.Case.Threshold</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -134,17 +187,17 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="-1296899093%2FFunctions%2F-394989919" anchor-label="localize" id="-1296899093%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+        <div class="table"><a data-name="777145343%2FFunctions%2F-394989919" anchor-label="localize" id="777145343%2FFunctions%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="localize.html"><span><span>localize</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1296899093%2FFunctions%2F-394989919"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="777145343%2FFunctions%2F-394989919"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="localize.html"><span class="token function">localize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-year-month/index.html">YearMonth</a><span class="token punctuation">, </span></span><span class="parameter ">reference<span class="token operator">: </span><a href="../../dev.mmauro.datetimepolyglot/-zoned/index.html">Zoned</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../dev.mmauro.datetimepolyglot/-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":datetime-polyglot/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="localize.html"><span class="token function">localize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="index.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">reference<span class="token operator">: </span><a href="../../dev.mmauro.datetimepolyglot/-zoned/index.html">Zoned</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-instant/index.html">Instant</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../dev.mmauro.datetimepolyglot/-ticking-value/index.html">TickingValue</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
