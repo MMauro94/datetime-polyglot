@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalDynamicLocalizer::class)
+
 package dev.mmauro.datetimepolyglot.localizers.dynamic
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
