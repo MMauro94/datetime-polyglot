@@ -20,8 +20,9 @@ data class ZonedDateOptions internal constructor(
     val dateOptions: DateOptions,
     val timeZoneOptions: TimeZoneOptions = TimeZoneOptions(),
 ) : PolyglotLocalizerOptions<ZonedLocalDateLocalizer> {
+
     constructor(
-        dateStyleOptions: DateStyleOptions,
+        dateStyleOptions: DateStyleOptions = Defaults.DATE,
         timeZoneOptions: TimeZoneOptions = TimeZoneOptions(),
     ) : this(DateOptions(dateStyleOptions), timeZoneOptions)
 
@@ -46,7 +47,7 @@ data class ZonedDateOptions internal constructor(
  */
 @ExperimentalZonedLocalizer
 class ZonedLocalDateLocalizer(
-    options: ZonedDateOptions,
+    options: ZonedDateOptions = ZonedDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeZonedLocalizer<LocalDate> {
 
@@ -68,6 +69,6 @@ class ZonedLocalDateLocalizer(
  */
 @ExperimentalZonedLocalizer
 fun Zoned<LocalDate>.localize(
-    options: ZonedDateOptions,
+    options: ZonedDateOptions = ZonedDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) = ZonedLocalDateLocalizer(options, locale).localize(this)

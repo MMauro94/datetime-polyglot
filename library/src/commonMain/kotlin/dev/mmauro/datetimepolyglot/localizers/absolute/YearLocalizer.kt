@@ -11,8 +11,8 @@ import dev.mmauro.datetimepolyglot.styles.YearStyle
  * Localization options for [YearLocalizer].
  */
 data class YearOptions(
-    override val eraStyle: EraStyle? = null,
-    override val yearStyle: YearStyle = YearStyle.NUMERIC,
+    override val eraStyle: EraStyle? = Defaults.ERA,
+    override val yearStyle: YearStyle = Defaults.YEAR,
 ) : ComponentsOptions.Date.Components, PolyglotLocalizerOptions<YearLocalizer> {
     @Deprecated(level = DeprecationLevel.HIDDEN, message = "Implementation detail, shouldn't be used")
     override val monthStyle: Nothing? get() = null

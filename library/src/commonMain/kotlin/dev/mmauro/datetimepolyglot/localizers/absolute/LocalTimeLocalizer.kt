@@ -24,7 +24,7 @@ import kotlinx.datetime.LocalTime
  * - `9 PM (second: 8.1)`
  */
 expect class LocalTimeLocalizer(
-    options: LocalTimeOptions<*>,
+    options: LocalTimeOptions<*> = LocalTimeOptions(Defaults.LOCAL_TIME),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<LocalTime> {
 
@@ -39,7 +39,7 @@ expect class LocalTimeLocalizer(
  * @see LocalTimeLocalizer
  */
 fun LocalTime.localize(
-    options: LocalTimeOptions<*>,
+    options: LocalTimeOptions<*> = LocalTimeOptions(Defaults.LOCAL_TIME),
     locale: PlatformLocale = getDefaultLocale(),
 ) = LocalTimeLocalizer(options, locale).localize(this)
 

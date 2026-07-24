@@ -16,7 +16,7 @@ import kotlinx.datetime.YearMonth
  */
 @ExperimentalZonedLocalizer
 data class ZonedYearMonthOptions(
-    val yearMonthOptions: YearMonthOptions,
+    val yearMonthOptions: YearMonthOptions = YearMonthOptions(),
     val timeZoneOptions: TimeZoneOptions = TimeZoneOptions(),
 ) : PolyglotLocalizerOptions<ZonedYearMonthLocalizer> {
     override fun localizer(locale: PlatformLocale) = ZonedYearMonthLocalizer(this, locale)
@@ -40,7 +40,7 @@ data class ZonedYearMonthOptions(
  */
 @ExperimentalZonedLocalizer
 class ZonedYearMonthLocalizer(
-    options: ZonedYearMonthOptions,
+    options: ZonedYearMonthOptions = ZonedYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeZonedLocalizer<YearMonth> {
 
@@ -62,6 +62,6 @@ class ZonedYearMonthLocalizer(
  */
 @ExperimentalZonedLocalizer
 fun Zoned<YearMonth>.localize(
-    options: ZonedYearMonthOptions,
+    options: ZonedYearMonthOptions = ZonedYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) = ZonedYearMonthLocalizer(options, locale).localize(this)
