@@ -33,7 +33,7 @@ val DayOfWeekLocalizerTestFactory = funSpec {
             },
             DayOfWeekStyle.ABBREVIATED to listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
         ) { (style, expected) ->
-            DayOfWeek.entries.map { it.localize(DayOfWeekOptions(style = style)) } shouldBe expected
+            DayOfWeek.entries.map { it.localize(DayOfWeekOptions(style = style), locale = LOCALE_ENGLISH) } shouldBe expected
         }
     }
 
