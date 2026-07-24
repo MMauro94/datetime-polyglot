@@ -96,6 +96,7 @@ public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotV
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateComponents : dev/mmauro/datetimepolyglot/localizers/absolute/ComponentsOptions$Date$Components, dev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
@@ -118,7 +119,9 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateComponent
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateOptions : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;
 	public final fun copy (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;
 	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;
@@ -208,6 +211,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateLoca
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun localize (Ljava/lang/Object;)Ljava/lang/Object;
@@ -221,7 +225,9 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTime
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions {
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeOptions;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeStyleOptions;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeStyleOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;
 	public final fun component2 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeOptions;
 	public fun equals (Ljava/lang/Object;)Z
@@ -251,12 +257,13 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeComp
 	public fun getMinuteStyle ()Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;
 	public fun getSecondStyle ()Ldev/mmauro/datetimepolyglot/styles/SecondStyle;
 	public synthetic fun getTimeZoneStyle ()Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;
-	public fun getTimeZoneStyle ()Ljava/lang/Void;
+	public synthetic fun getTimeZoneStyle ()Ljava/lang/Void;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeStyleOptions;Lcom/ibm/icu/util/ULocale;)V
@@ -367,6 +374,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearLocalizer
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearMonthLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun localize (Ljava/lang/Object;)Ljava/lang/Object;
@@ -379,6 +387,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearMonthLoca
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions, dev/mmauro/datetimepolyglot/localizers/absolute/ComponentsOptions$Date$Components {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
@@ -388,9 +397,9 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOpti
 	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;Ldev/mmauro/datetimepolyglot/styles/MonthStyle;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;
 	public fun equals (Ljava/lang/Object;)Z
 	public synthetic fun getDayOfMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;
-	public fun getDayOfMonthStyle ()Ljava/lang/Void;
+	public synthetic fun getDayOfMonthStyle ()Ljava/lang/Void;
 	public synthetic fun getDayOfWeekStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;
-	public fun getDayOfWeekStyle ()Ljava/lang/Void;
+	public synthetic fun getDayOfWeekStyle ()Ljava/lang/Void;
 	public fun getEraStyle ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
 	public fun getMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/MonthStyle;
 	public fun getYearStyle ()Ldev/mmauro/datetimepolyglot/styles/YearStyle;
@@ -410,12 +419,12 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/YearOptions :
 	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearOptions;Ldev/mmauro/datetimepolyglot/styles/EraStyle;Ldev/mmauro/datetimepolyglot/styles/YearStyle;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/absolute/YearOptions;
 	public fun equals (Ljava/lang/Object;)Z
 	public synthetic fun getDayOfMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfMonthStyle;
-	public fun getDayOfMonthStyle ()Ljava/lang/Void;
+	public synthetic fun getDayOfMonthStyle ()Ljava/lang/Void;
 	public synthetic fun getDayOfWeekStyle ()Ldev/mmauro/datetimepolyglot/styles/DayOfWeekStyle;
-	public fun getDayOfWeekStyle ()Ljava/lang/Void;
+	public synthetic fun getDayOfWeekStyle ()Ljava/lang/Void;
 	public fun getEraStyle ()Ldev/mmauro/datetimepolyglot/styles/EraStyle;
 	public synthetic fun getMonthStyle ()Ldev/mmauro/datetimepolyglot/styles/MonthStyle;
-	public fun getMonthStyle ()Ljava/lang/Void;
+	public synthetic fun getMonthStyle ()Ljava/lang/Void;
 	public fun getYearStyle ()Ldev/mmauro/datetimepolyglot/styles/YearStyle;
 	public fun hashCode ()I
 	public synthetic fun localizer (Lcom/ibm/icu/util/ULocale;)Ldev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer;
@@ -438,6 +447,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedDateOpti
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun localize (Ldev/mmauro/datetimepolyglot/Zoned;)Ljava/lang/String;
@@ -451,7 +461,9 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantL
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions {
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedTimeOptions;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedTimeOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedTimeStyleOptions;)V
+	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedTimeStyleOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;
 	public final fun component2 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedTimeOptions;
 	public fun equals (Ljava/lang/Object;)Z
@@ -464,6 +476,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantO
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedLocalDateLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedDateOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedDateOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun localize (Ldev/mmauro/datetimepolyglot/Zoned;)Ljava/lang/String;
@@ -476,6 +489,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedLocalDat
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedTimeComponents : dev/mmauro/datetimepolyglot/localizers/absolute/ComponentsOptions$TimeStyleOptions$Components, dev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents, dev/mmauro/datetimepolyglot/localizers/absolute/ZonedTimeStyleOptions {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/styles/HourStyle;Ldev/mmauro/datetimepolyglot/styles/MinuteStyle;Ldev/mmauro/datetimepolyglot/styles/SecondStyle;ILdev/mmauro/datetimepolyglot/styles/DayPeriodStyle;Ldev/mmauro/datetimepolyglot/styles/TimeZoneStyle;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/styles/HourStyle;
@@ -532,6 +546,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedYearLoca
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedYearMonthLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedYearMonthOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedYearMonthOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun localize (Ldev/mmauro/datetimepolyglot/Zoned;)Ljava/lang/String;
@@ -544,6 +559,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedYearMont
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedYearMonthOptions : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Ldev/mmauro/datetimepolyglot/localizers/standalone/TimeZoneOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;
@@ -577,6 +593,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedYearOpti
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicDateAbsoluteTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicDateAbsoluteTimeOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicDateAbsoluteTimeOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun localize (Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
@@ -593,6 +610,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicDateAbs
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicDateAbsoluteTimeOptions : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDateAbsoluteTimeOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions;Lkotlin/ranges/IntRange;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeDateAbsoluteTimeOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions;Lkotlin/ranges/IntRange;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeLocalDateOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;Lkotlin/ranges/IntRange;)V
@@ -613,6 +631,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicDateAbs
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalDateLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalDateOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicLocalDateOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun localize (Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
@@ -702,6 +721,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicYearLoc
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicYearMonthLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicYearMonthOptions;Lcom/ibm/icu/util/ULocale;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/dynamic/DynamicYearMonthOptions;Lcom/ibm/icu/util/ULocale;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun localize (Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
@@ -718,6 +738,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicYearMon
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/dynamic/DynamicYearMonthOptions : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions {
+	public fun <init> ()V
 	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeYearMonthOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Lkotlin/ranges/IntRange;)V
 	public synthetic fun <init> (Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeYearMonthOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/YearMonthOptions;Lkotlin/ranges/IntRange;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/relative/RelativeYearMonthOptions;

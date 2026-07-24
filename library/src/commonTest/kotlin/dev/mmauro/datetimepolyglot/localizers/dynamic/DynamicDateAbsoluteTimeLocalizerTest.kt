@@ -44,7 +44,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                     DynamicDateAbsoluteTimeLocalizer(
                         locale = LOCALE_ENGLISH,
                         options = DynamicDateAbsoluteTimeOptions(
-                            absoluteDateStyle = DateStyle.SHORT,
+                            absoluteDateOptions = DateStyle.SHORT,
                             timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                         )
                     ),
@@ -55,7 +55,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                     DynamicDateAbsoluteTimeLocalizer(
                         locale = LOCALE_ENGLISH,
                         options = DynamicDateAbsoluteTimeOptions(
-                            absoluteDateStyle = DateComponents(
+                            absoluteDateOptions = DateComponents(
                                 monthStyle = MonthStyle.ABBREVIATED,
                             ),
                             timeOptions = LocalTimeOptions(
@@ -83,7 +83,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                 DynamicDateAbsoluteTimeLocalizer(
                     locale = LOCALE_ENGLISH,
                     options = DynamicDateAbsoluteTimeOptions(
-                        absoluteDateStyle = DateStyle.SHORT,
+                        absoluteDateOptions = DateStyle.SHORT,
                         timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                     )
                 ),
@@ -94,7 +94,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                 DynamicDateAbsoluteTimeLocalizer(
                     locale = LOCALE_ENGLISH,
                     options = DynamicDateAbsoluteTimeOptions(
-                        absoluteDateStyle = DateStyle.SHORT,
+                        absoluteDateOptions = DateStyle.SHORT,
                         timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                         relativeDateOptions = RelativeLocalDateOptions(
                             style = RelativeUnitStyle.SHORT,
@@ -114,7 +114,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
         val localizer = DynamicDateAbsoluteTimeLocalizer(
             locale = LOCALE_ITALIAN,
             options = DynamicDateAbsoluteTimeOptions(
-                absoluteDateStyle = DateStyle.MEDIUM,
+                absoluteDateOptions = DateStyle.MEDIUM,
                 timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                 relativeDateDiffRange = -2..14,
                 relativeJoinerStyle = DateStyle.SHORT,
@@ -137,7 +137,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
         val localizer = DynamicDateAbsoluteTimeLocalizer(
             locale = LOCALE_ENGLISH,
             options = DynamicDateAbsoluteTimeOptions(
-                absoluteDateStyle = DateStyle.LONG,
+                absoluteDateOptions = DateStyle.LONG,
                 timeOptions = LocalTimeOptions(LocalTimeStyle.MEDIUM),
             )
         )

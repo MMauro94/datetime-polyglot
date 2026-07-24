@@ -12,6 +12,7 @@ import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyleOptions
+import dev.mmauro.datetimepolyglot.localizers.absolute.Defaults
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.localizeNow
@@ -45,7 +46,7 @@ data class DynamicLocalDateOptions private constructor(
 
     constructor(
         relativeOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
-        absoluteOptions: DateStyleOptions,
+        absoluteOptions: DateStyleOptions = Defaults.DATE,
         relativeDiffRange: IntRange = DEFAULT_DIFF_RANGE,
     ) : this(relativeOptions, DateOptions(absoluteOptions), relativeDiffRange)
 
@@ -75,7 +76,7 @@ data class DynamicLocalDateOptions private constructor(
  * @see PolyglotReferenceValueLocalizer
  */
 class DynamicLocalDateLocalizer(
-    private val options: DynamicLocalDateOptions,
+    private val options: DynamicLocalDateOptions = DynamicLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<LocalDate> {
 
@@ -108,7 +109,7 @@ class DynamicLocalDateLocalizer(
  */
 fun LocalDate.localizeDynamic(
     reference: Zoned<Instant>,
-    options: DynamicLocalDateOptions,
+    options: DynamicLocalDateOptions = DynamicLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ): TickingValue<String> {
     return DynamicLocalDateLocalizer(options, locale).localize(this, reference)
@@ -121,7 +122,7 @@ fun LocalDate.localizeDynamic(
  * @see DynamicLocalDateLocalizer
  */
 fun LocalDate.localizeDynamicNow(
-    options: DynamicLocalDateOptions,
+    options: DynamicLocalDateOptions = DynamicLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
     timeZone: TimeZone = TimeZone.currentSystemDefault(),
@@ -137,7 +138,7 @@ fun LocalDate.localizeDynamicNow(
  * @see localizeAsFlow
  */
 fun LocalDate.localizeDynamicAsFlow(
-    options: DynamicLocalDateOptions,
+    options: DynamicLocalDateOptions = DynamicLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,

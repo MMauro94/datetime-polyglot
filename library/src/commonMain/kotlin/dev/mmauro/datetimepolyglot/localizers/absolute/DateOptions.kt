@@ -16,7 +16,7 @@ import dev.mmauro.datetimepolyglot.utils.joinDateAndTime
  * options independent of usage of style or components options.
  */
 data class DateOptions(
-    val styleOptions: DateStyleOptions,
+    val styleOptions: DateStyleOptions = Defaults.DATE,
 ) : PolyglotLocalizerOptions<LocalDateLocalizer> {
     override fun localizer(locale: PlatformLocale) = LocalDateLocalizer(this, locale)
 }
@@ -65,11 +65,11 @@ enum class DateStyle : DateStyleOptions {
  * Class defining the style for each component of a date (year, month and day).
  */
 data class DateComponents(
-    override val eraStyle: EraStyle? = null,
-    override val yearStyle: YearStyle = YearStyle.NUMERIC_PADDED_4_DIGITS,
-    override val monthStyle: MonthStyle,
-    override val dayOfMonthStyle: DayOfMonthStyle = DayOfMonthStyle.NUMERIC,
-    override val dayOfWeekStyle: DayOfWeekStyle? = null,
+    override val eraStyle: EraStyle? = Defaults.ERA,
+    override val yearStyle: YearStyle = Defaults.YEAR,
+    override val monthStyle: MonthStyle = Defaults.MONTH,
+    override val dayOfMonthStyle: DayOfMonthStyle = Defaults.DAY_OF_MONTH,
+    override val dayOfWeekStyle: DayOfWeekStyle? = Defaults.DAY_OF_WEEK,
 ) : DateStyleOptions, ComponentsOptions.Date.Components
 
 internal fun DateOptions.toComponentOptions(): ComponentsOptions.Date {

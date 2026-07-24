@@ -9,6 +9,7 @@ import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.Defaults
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyle
@@ -34,12 +35,12 @@ import kotlin.time.Instant
 data class RelativeDateAbsoluteTimeOptions(
     val dateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     val timeOptions: LocalTimeOptions<*>,
-    val joinerStyle: DateStyle = DateStyle.LONG,
+    val joinerStyle: DateStyle = Defaults.JOINER,
 ) : PolyglotLocalizerOptions<RelativeDateAbsoluteTimeLocalizer> {
     constructor(
         dateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
-        timeOptions: LocalTimeStyleOptions = LocalTimeStyle.SHORT,
-        joinerStyle: DateStyle = DateStyle.LONG,
+        timeOptions: LocalTimeStyleOptions = Defaults.LOCAL_TIME,
+        joinerStyle: DateStyle = Defaults.JOINER,
     ) : this(dateOptions, LocalTimeOptions(timeOptions), joinerStyle)
 
     override fun localizer(locale: PlatformLocale) = RelativeDateAbsoluteTimeLocalizer(this, locale)

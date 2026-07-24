@@ -13,8 +13,15 @@ data class LocalDateTimeOptions private constructor(
     val dateOptions: DateOptions,
     val timeOptions: LocalTimeOptions<*>,
 ) : PolyglotLocalizerOptions<LocalDateTimeLocalizer> {
-    constructor(dateOptions: DateStyleOptions, timeOptions: LocalTimeOptions<*>) : this(DateOptions(dateOptions), timeOptions)
-    constructor(dateOptions: DateStyleOptions, timeOptions: LocalTimeStyleOptions) : this(dateOptions, LocalTimeOptions(timeOptions))
+    constructor(
+        dateOptions: DateStyleOptions = Defaults.DATE,
+        timeOptions: LocalTimeOptions<*> = LocalTimeOptions(Defaults.LOCAL_TIME),
+    ) : this(DateOptions(dateOptions), timeOptions)
+
+    constructor(
+        dateOptions: DateStyleOptions = Defaults.DATE,
+        timeOptions: LocalTimeStyleOptions,
+    ) : this(dateOptions, LocalTimeOptions(timeOptions))
 
     override fun localizer(locale: PlatformLocale) = LocalDateTimeLocalizer(this, locale)
 }
@@ -34,7 +41,7 @@ data class LocalDateTimeOptions private constructor(
  * - `Thursday, January 8, 2026 at 21:05`
  */
 expect class LocalDateTimeLocalizer(
-    options: LocalDateTimeOptions,
+    options: LocalDateTimeOptions = LocalDateTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<LocalDateTime> {
 
@@ -47,6 +54,6 @@ expect class LocalDateTimeLocalizer(
  * @see LocalDateTimeLocalizer
  */
 fun LocalDateTime.localize(
-    options: LocalDateTimeOptions,
+    options: LocalDateTimeOptions = LocalDateTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) = LocalDateTimeLocalizer(options, locale).localize(this)

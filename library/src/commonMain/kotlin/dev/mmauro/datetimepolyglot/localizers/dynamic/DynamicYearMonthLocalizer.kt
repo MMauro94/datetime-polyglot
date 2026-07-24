@@ -36,7 +36,7 @@ import kotlin.time.Instant
  */
 data class DynamicYearMonthOptions(
     val relativeOptions: RelativeYearMonthOptions = RelativeYearMonthOptions(),
-    val absoluteOptions: YearMonthOptions,
+    val absoluteOptions: YearMonthOptions = YearMonthOptions(),
     val relativeDiffRange: IntRange = -1..1,
 ) : PolyglotLocalizerOptions<DynamicYearMonthLocalizer> {
     override fun localizer(locale: PlatformLocale) = DynamicYearMonthLocalizer(this, locale)
@@ -62,7 +62,7 @@ data class DynamicYearMonthOptions(
  * @see PolyglotReferenceValueLocalizer
  */
 class DynamicYearMonthLocalizer(
-    private val options: DynamicYearMonthOptions,
+    private val options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<YearMonth> {
 
@@ -95,7 +95,7 @@ class DynamicYearMonthLocalizer(
  */
 fun YearMonth.localizeDynamic(
     reference: Zoned<Instant>,
-    options: DynamicYearMonthOptions,
+    options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ): TickingValue<String> {
     return DynamicYearMonthLocalizer(options, locale).localize(this, reference)
@@ -108,7 +108,7 @@ fun YearMonth.localizeDynamic(
  * @see DynamicYearMonthLocalizer
  */
 fun YearMonth.localizeDynamicNow(
-    options: DynamicYearMonthOptions,
+    options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
     timeZone: TimeZone = TimeZone.currentSystemDefault(),
@@ -124,7 +124,7 @@ fun YearMonth.localizeDynamicNow(
  * @see localizeAsFlow
  */
 fun YearMonth.localizeDynamicAsFlow(
-    options: DynamicYearMonthOptions,
+    options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,

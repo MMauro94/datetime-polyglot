@@ -12,6 +12,7 @@ import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyleOptions
+import dev.mmauro.datetimepolyglot.localizers.absolute.Defaults
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateTimeOptions
@@ -42,15 +43,15 @@ import kotlin.time.Instant
  */
 data class DynamicDateAbsoluteTimeOptions(
     val relativeOptions: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
-    val absoluteOptions: LocalDateTimeOptions,
+    val absoluteOptions: LocalDateTimeOptions = LocalDateTimeOptions(),
     val relativeDateDiffRange: IntRange = DynamicLocalDateOptions.DEFAULT_DIFF_RANGE,
 ) : PolyglotLocalizerOptions<DynamicDateAbsoluteTimeLocalizer> {
 
     constructor(
         relativeDateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
-        absoluteDateStyle: DateStyleOptions,
-        timeOptions: LocalTimeOptions<*>,
-        relativeJoinerStyle: DateStyle = DateStyle.LONG,
+        absoluteDateOptions: DateStyleOptions = Defaults.DATE,
+        timeOptions: LocalTimeOptions<*> = LocalTimeOptions(Defaults.LOCAL_TIME),
+        relativeJoinerStyle: DateStyle = Defaults.JOINER,
         relativeDateDiffRange: IntRange = DynamicLocalDateOptions.DEFAULT_DIFF_RANGE,
     ) : this(
         relativeOptions = RelativeDateAbsoluteTimeOptions(
@@ -59,7 +60,7 @@ data class DynamicDateAbsoluteTimeOptions(
             joinerStyle = relativeJoinerStyle,
         ),
         absoluteOptions = LocalDateTimeOptions(
-            dateOptions = absoluteDateStyle,
+            dateOptions = absoluteDateOptions,
             timeOptions = timeOptions,
         ),
         relativeDateDiffRange = relativeDateDiffRange,
@@ -89,7 +90,7 @@ data class DynamicDateAbsoluteTimeOptions(
  * @see PolyglotReferenceValueLocalizer
  */
 class DynamicDateAbsoluteTimeLocalizer(
-    private val options: DynamicDateAbsoluteTimeOptions,
+    private val options: DynamicDateAbsoluteTimeOptions = DynamicDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<LocalDateTime> {
 
@@ -121,7 +122,7 @@ class DynamicDateAbsoluteTimeLocalizer(
  */
 fun LocalDateTime.localizeDynamicDateAbsoluteTime(
     reference: Zoned<Instant>,
-    options: DynamicDateAbsoluteTimeOptions,
+    options: DynamicDateAbsoluteTimeOptions = DynamicDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ): TickingValue<String> {
     return DynamicDateAbsoluteTimeLocalizer(options, locale).localize(this, reference)
@@ -134,7 +135,7 @@ fun LocalDateTime.localizeDynamicDateAbsoluteTime(
  * @see DynamicDateAbsoluteTimeLocalizer
  */
 fun LocalDateTime.localizeDynamicDateAbsoluteTimeNow(
-    options: DynamicDateAbsoluteTimeOptions,
+    options: DynamicDateAbsoluteTimeOptions = DynamicDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
     timeZone: TimeZone = TimeZone.currentSystemDefault(),
@@ -150,7 +151,7 @@ fun LocalDateTime.localizeDynamicDateAbsoluteTimeNow(
  * @see localizeAsFlow
  */
 fun LocalDateTime.localizeDynamicDateAbsoluteTimeAsFlow(
-    options: DynamicDateAbsoluteTimeOptions,
+    options: DynamicDateAbsoluteTimeOptions = DynamicDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,

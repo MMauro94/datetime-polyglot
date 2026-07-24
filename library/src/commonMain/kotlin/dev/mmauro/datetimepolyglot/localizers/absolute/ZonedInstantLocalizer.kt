@@ -16,8 +16,15 @@ data class ZonedInstantOptions private constructor(
     val timeOptions: ZonedTimeOptions<*>,
 ) : PolyglotLocalizerOptions<ZonedInstantLocalizer> {
 
-    constructor(dateOptions: DateStyleOptions, timeOptions: ZonedTimeOptions<*>) : this(DateOptions(dateOptions), timeOptions)
-    constructor(dateOptions: DateStyleOptions, timeOptions: ZonedTimeStyleOptions) : this(dateOptions, ZonedTimeOptions(timeOptions))
+    constructor(
+        dateOptions: DateStyleOptions = Defaults.DATE,
+        timeOptions: ZonedTimeOptions<*> = ZonedTimeOptions(Defaults.ZONED_TIME),
+    ) : this(DateOptions(dateOptions), timeOptions)
+
+    constructor(
+        dateOptions: DateStyleOptions = Defaults.DATE,
+        timeOptions: ZonedTimeStyleOptions,
+    ) : this(dateOptions, ZonedTimeOptions(timeOptions))
 
     override fun localizer(locale: PlatformLocale) = ZonedInstantLocalizer(this, locale)
 }
@@ -37,7 +44,7 @@ data class ZonedInstantOptions private constructor(
  * - `Thursday, January 8, 2026 at 21:05 Los Angeles Time`
  */
 expect class ZonedInstantLocalizer(
-    options: ZonedInstantOptions,
+    options: ZonedInstantOptions = ZonedInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeZonedLocalizer<Instant> {
 
@@ -50,7 +57,7 @@ expect class ZonedInstantLocalizer(
  * @see ZonedInstantLocalizer
  */
 fun Zoned<Instant>.localize(
-    options: ZonedInstantOptions,
+    options: ZonedInstantOptions = ZonedInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) = ZonedInstantLocalizer(options, locale).localize(this)
 

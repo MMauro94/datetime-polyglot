@@ -23,7 +23,7 @@ expect class LocalDateLocalizer internal constructor(
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<LocalDate> {
 
-    constructor(options: DateStyleOptions, locale: PlatformLocale = getDefaultLocale())
+    constructor(options: DateStyleOptions = Defaults.DATE, locale: PlatformLocale = getDefaultLocale())
 
     override fun localize(value: LocalDate): String
 }
@@ -34,6 +34,6 @@ expect class LocalDateLocalizer internal constructor(
  * @see LocalDateLocalizer
  */
 fun LocalDate.localize(
-    options: DateStyleOptions,
+    options: DateStyleOptions = Defaults.DATE,
     locale: PlatformLocale = getDefaultLocale(),
 ) = LocalDateLocalizer(options, locale).localize(this)
