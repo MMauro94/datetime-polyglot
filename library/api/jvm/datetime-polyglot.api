@@ -112,6 +112,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateOptions {
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateStyle : java/lang/Enum, dev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions {
+	public static final field Companion Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle$Companion;
 	public static final field FULL Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;
 	public static final field LONG Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;
 	public static final field MEDIUM Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;
@@ -119,6 +120,10 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateStyle : j
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;
 	public static fun values ()[Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/absolute/DateStyle$Companion {
+	public final fun detectDateTimeJoinerStyle (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;)Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;
 }
 
 public abstract interface class dev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions {
@@ -185,17 +190,9 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTime
 	public static synthetic fun localize$default (Lkotlinx/datetime/LocalDateTime;Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ljava/lang/String;
 }
 
-public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeLocalizer_jvmAndAndroidKt {
-	public static final fun invoke (Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions$Companion;Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;)Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions;
-	public static final fun invoke (Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions$Companion;Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Local;)Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions;
-}
-
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions {
-	public static final field Companion Ldev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions$Companion;
-	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateComponents;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Local;)V
-	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateComponents;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;)V
-	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;)V
-	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Local;)V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;)V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Local;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;
 	public final fun component2 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;
 	public fun equals (Ljava/lang/Object;)Z
@@ -203,9 +200,6 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTime
 	public final fun getTimeOptions ()Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalDateTimeOptions$Companion {
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/LocalTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer {
@@ -441,17 +435,9 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantL
 	public static synthetic fun localize$default (Ldev/mmauro/datetimepolyglot/Zoned;Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions;Lcom/ibm/icu/util/ULocale;ILjava/lang/Object;)Ljava/lang/String;
 }
 
-public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantLocalizer_jvmAndAndroidKt {
-	public static final fun invoke (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions$Companion;Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;)Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions;
-	public static final fun invoke (Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions$Companion;Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Zoned;)Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions;
-}
-
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions {
-	public static final field Companion Ldev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions$Companion;
-	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateComponents;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeComponents$Zoned;)V
-	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateComponents;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;)V
-	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;)V
-	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyle;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyle$Zoned;)V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;)V
+	public fun <init> (Ldev/mmauro/datetimepolyglot/localizers/absolute/DateStyleOptions;Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeStyleOptions$Zoned;)V
 	public final fun component1 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/DateOptions;
 	public final fun component2 ()Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;
 	public fun equals (Ljava/lang/Object;)Z
@@ -459,9 +445,6 @@ public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantO
 	public final fun getTimeOptions ()Ldev/mmauro/datetimepolyglot/localizers/absolute/TimeOptions;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedInstantOptions$Companion {
 }
 
 public final class dev/mmauro/datetimepolyglot/localizers/absolute/ZonedLocalDateLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer {

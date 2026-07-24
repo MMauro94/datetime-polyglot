@@ -5,6 +5,7 @@ import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import dev.mmauro.datetimepolyglot.styles.EraStyle
 import dev.mmauro.datetimepolyglot.styles.MonthStyle
 import dev.mmauro.datetimepolyglot.styles.YearStyle
+import dev.mmauro.datetimepolyglot.utils.joinDateAndTime
 
 /**
  * Simple container class for [DateStyleOptions].
@@ -32,6 +33,26 @@ enum class DateStyle : DateStyleOptions {
     MEDIUM,
     LONG,
     FULL,
+    ;
+
+    companion object {
+        /**
+         * Selects the [DateStyle] to use for the joiner pattern between date and time from the [options] used to localize the date part.
+         *
+         * @see joinDateAndTime
+         */
+        fun detectDateTimeJoinerStyle(options: DateStyleOptions): DateStyle {
+            return when (options) {
+                is DateStyle -> options
+                is DateComponents -> when (options.monthStyle) {
+                    MonthStyle.WIDE -> if (options.dayOfWeekStyle !== null) FULL else LONG
+                    MonthStyle.ABBREVIATED -> MEDIUM
+                    else -> MEDIUM
+                }
+            }
+
+        }
+    }
 }
 
 /**

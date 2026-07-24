@@ -4,21 +4,25 @@ import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.toPlainDateTime
 import js.intl.DateTimeFormat
-import js.intl.DateTimeFormatOptions
-import js.objects.unsafeJso
+import js.temporal.PlainDateTime
 import kotlinx.datetime.LocalDateTime
+import kotlin.js.ExperimentalWasmJsInterop
 
 actual class LocalDateTimeLocalizer actual constructor(
-    private val options: LocalDateTimeOptions,
-    private val locale: PlatformLocale
+    options: LocalDateTimeOptions,
+    locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<LocalDateTime> {
 
+    @OptIn(ExperimentalWasmJsInterop::class)
+    private val baseDateTimeLocalizer = BaseDateTimeLocalizer<PlainDateTime>(
+        dateOptions = options.dateOptions,
+        timeOptions = options.timeOptions,
+        timeZone = null,
+        locale = locale,
+        formatToParts = DateTimeFormat::formatToParts,
+    )
+
     actual override fun localize(value: LocalDateTime): String {
-        val formatOptions = unsafeJso<DateTimeFormatOptions> {
-            fill(options.dateOptions.toComponentOptions())
-            fill(options.timeOptions.toComponentOptions())
-        }
-        val format = DateTimeFormat(locale.toString(), formatOptions)
-        return format.format(value.toPlainDateTime())
+        return baseDateTimeLocalizer.localize(value.toPlainDateTime())
     }
 }

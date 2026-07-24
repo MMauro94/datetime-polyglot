@@ -4,12 +4,16 @@ import dev.mmauro.datetimepolyglot.HourCycle
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.LOCALE_POLISH
+import dev.mmauro.datetimepolyglot.TEST_PLATFORM
+import dev.mmauro.datetimepolyglot.TestPlatform.Android
+import dev.mmauro.datetimepolyglot.TestPlatform.Jvm
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle
 import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import dev.mmauro.datetimepolyglot.styles.HourStyle
 import dev.mmauro.datetimepolyglot.styles.MinuteStyle
 import dev.mmauro.datetimepolyglot.styles.MonthStyle
+import dev.mmauro.datetimepolyglot.styles.SecondStyle
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.funSpec
 import io.kotest.datatest.withContexts
@@ -145,6 +149,59 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                 ),
                 locale = LOCALE_POLISH
             ) shouldBeLocalizedAs "8 stycznia 2026 21:31"
+        }
+    }
+
+    context("mix-matching date/time style and components works") {
+        context("date style with time components") {
+            withTests(DateStyle.entries) { dateStyle ->
+                DATE_TIME.localize(
+                    options = LocalDateTimeOptions(
+                        dateOptions = dateStyle,
+                        timeOptions = TimeComponents.Local(
+                            hourStyle = HourStyle.NUMERIC,
+                            minuteStyle = MinuteStyle.NUMERIC,
+                            secondStyle = SecondStyle.NUMERIC,
+                        ),
+                    ),
+                    locale = LOCALE_ENGLISH
+                ) shouldBeLocalizedAs when (dateStyle) {
+                    DateStyle.SHORT -> "1/8/26, 9:31:45 PM"
+                    DateStyle.MEDIUM -> "Jan 8, 2026, 9:31:45 PM"
+                    DateStyle.LONG -> when (val platform = TEST_PLATFORM) {
+                        is Android if platform.sdk <= 33 -> "January 8, 2026, 9:31:45 PM"
+                        else -> "January 8, 2026 at 9:31:45 PM"
+                    }
+
+                    DateStyle.FULL -> when (val platform = TEST_PLATFORM) {
+                        is Android if platform.sdk <= 33 -> "Thursday, January 8, 2026, 9:31:45 PM"
+                        else -> "Thursday, January 8, 2026 at 9:31:45 PM"
+                    }
+                }
+            }
+        }
+        context("date components with time style") {
+            withTests(MonthStyle.entries) { monthStyle ->
+                DATE_TIME.localize(
+                    options = LocalDateTimeOptions(
+                        dateOptions = DateComponents(
+                            monthStyle = monthStyle,
+                            dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
+                        ),
+                        timeOptions = TimeOptions(TimeStyle.Local.SHORT),
+                    ),
+                    locale = LOCALE_ENGLISH
+                ) shouldBeLocalizedAs when (monthStyle) {
+                    MonthStyle.NUMERIC -> "1/8/2026, 9:31 PM"
+                    MonthStyle.NUMERIC_PADDED_2_DIGITS -> "01/8/2026, 9:31 PM"
+                    MonthStyle.NARROW -> "J 8, 2026, 9:31 PM"
+                    MonthStyle.ABBREVIATED -> "Jan 8, 2026, 9:31 PM"
+                    MonthStyle.WIDE -> when (val platform = TEST_PLATFORM) {
+                        is Android if platform.sdk <= 33 -> "January 8, 2026, 9:31 PM"
+                        else -> "January 8, 2026 at 9:31 PM"
+                    }
+                }
+            }
         }
     }
 }
