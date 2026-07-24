@@ -578,7 +578,7 @@ final class dev.mmauro.datetimepolyglot.localizers.absolute/TickingDurationOptio
 }
 
 final class dev.mmauro.datetimepolyglot.localizers.absolute/YearLocalizer : dev.mmauro.datetimepolyglot.localizers/PolyglotDateTimeLocalizer<kotlin/Int> { // dev.mmauro.datetimepolyglot.localizers.absolute/YearLocalizer|null[0]
-    constructor <init>(dev.mmauro.datetimepolyglot.localizers.absolute/YearOptions, js.intl/Locale = ...) // dev.mmauro.datetimepolyglot.localizers.absolute/YearLocalizer.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.absolute.YearOptions;js.intl.Locale){}[0]
+    constructor <init>(dev.mmauro.datetimepolyglot.localizers.absolute/YearOptions = ..., js.intl/Locale = ...) // dev.mmauro.datetimepolyglot.localizers.absolute/YearLocalizer.<init>|<init>(dev.mmauro.datetimepolyglot.localizers.absolute.YearOptions;js.intl.Locale){}[0]
 
     final fun localize(kotlin/Int): kotlin/String // dev.mmauro.datetimepolyglot.localizers.absolute/YearLocalizer.localize|localize(kotlin.Int){}[0]
 }

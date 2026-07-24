@@ -30,7 +30,7 @@ data class YearOptions(
  * - `2026 Anno Domini`
  */
 expect class YearLocalizer(
-    options: YearOptions,
+    options: YearOptions = YearOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<Int> {
 
