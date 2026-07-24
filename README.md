@@ -10,12 +10,17 @@ or [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime).
 
 The library uses a different localization backend depending on the platform:
 
-| Platform            | Localization backend                                                                          |
-|---------------------|-----------------------------------------------------------------------------------------------|
-| JVM                 | [ICU4J](https://unicode-org.github.io/icu/userguide/icu4j/)                                   |
-| Android             | [android.icu](https://developer.android.com/guide/topics/resources/internationalization)      |
-| JS (Browser + Node) | [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) |
-| WASM (Browser)      | [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) |
+| Platform            | Localization backend                                                                           |
+|---------------------|------------------------------------------------------------------------------------------------|
+| JVM                 | [ICU4J](https://unicode-org.github.io/icu/userguide/icu4j/)                                    |
+| Android             | [android.icu](https://developer.android.com/guide/topics/resources/internationalization)¹      |
+| JS (Browser + Node) | [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)¹ |
+| WASM (Browser)      | [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)¹ |
+
+All other platforms are unsupported at the moment.
+
+¹ As not all features are supported by all localization platforms, some small amount of locale data is bundled with the
+library itself to backfill the missing APIs.
 
 > [!NOTE]
 > While the library strives to provide a uniform API that mostly returns consistent values, subtle differences between
@@ -34,6 +39,10 @@ dependencies {
 
 See latest version in badge above or look directly
 at [Maven Central page](https://central.sonatype.com/artifact/dev.mmauro/datetime-polyglot).
+
+This library uses [semantic versioning](https://semver.org/). At the current 0.y stage, expect minor breaking changes at
+every increment of y.
+Full API stability guarantees will come with the 1.0 milestone.
 
 <details>
 
