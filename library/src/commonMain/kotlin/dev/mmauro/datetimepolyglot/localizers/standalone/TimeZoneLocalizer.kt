@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot.localizers.standalone
 import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone
 
@@ -11,7 +12,9 @@ import kotlinx.datetime.TimeZone
  */
 data class TimeZoneOptions(
     val style: TimeZoneStyle.Generic = TimeZoneStyle.Generic.LOCATION,
-)
+) : PolyglotLocalizerOptions<TimeZoneLocalizer> {
+    override fun localizer(locale: PlatformLocale) = TimeZoneLocalizer(this, locale)
+}
 
 /**
  * Class to localize a standalone [TimeZone] for standalone usage.

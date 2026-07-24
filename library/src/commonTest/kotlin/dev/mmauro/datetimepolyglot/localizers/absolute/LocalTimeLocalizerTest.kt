@@ -28,33 +28,33 @@ private val TIME = LocalTime(hour = 21, minute = 5, second = 8, nanosecond = 123
 val LocalTimeLocalizerTestFactory = funSpec {
     context("styles") {
         context("normal") {
-            withTests(TimeStyle.Local.entries) { timeStyle ->
+            withTests(LocalTimeStyle.entries) { timeStyle ->
                 TIME.localize(timeStyle, LOCALE_ENGLISH) shouldBeLocalizedAs when (timeStyle) {
-                    TimeStyle.Local.SHORT -> "9:05 PM"
-                    TimeStyle.Local.MEDIUM -> "9:05:08 PM"
+                    LocalTimeStyle.SHORT -> "9:05 PM"
+                    LocalTimeStyle.MEDIUM -> "9:05:08 PM"
                 }
             }
         }
         context("with overridden hour cycle") {
             context("H24") {
-                withTests(TimeStyle.Local.entries) { timeStyle ->
+                withTests(LocalTimeStyle.entries) { timeStyle ->
                     TIME.localize(
-                        options = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24),
+                        options = LocalTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24),
                         locale = LOCALE_ENGLISH
                     ) shouldBeLocalizedAs when (timeStyle) {
-                        TimeStyle.Local.SHORT -> "21:05"
-                        TimeStyle.Local.MEDIUM -> "21:05:08"
+                        LocalTimeStyle.SHORT -> "21:05"
+                        LocalTimeStyle.MEDIUM -> "21:05:08"
                     }
                 }
             }
             context("H12") {
-                withTests(TimeStyle.Local.entries) { timeStyle ->
+                withTests(LocalTimeStyle.entries) { timeStyle ->
                     TIME.localize(
-                        options = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
+                        options = LocalTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
                         locale = LOCALE_ITALIAN
                     ) shouldBeLocalizedAs when (timeStyle) {
-                        TimeStyle.Local.SHORT -> "9:05 PM"
-                        TimeStyle.Local.MEDIUM -> "9:05:08 PM"
+                        LocalTimeStyle.SHORT -> "9:05 PM"
+                        LocalTimeStyle.MEDIUM -> "9:05:08 PM"
                     }
                 }
             }
@@ -64,7 +64,7 @@ val LocalTimeLocalizerTestFactory = funSpec {
     context("components") {
         test("basic test") {
             TIME.localize(
-                options = TimeComponents.Local(
+                options = LocalTimeComponents(
                     hourStyle = HourStyle.NUMERIC,
                     minuteStyle = MinuteStyle.NUMERIC,
                 ),
@@ -83,11 +83,11 @@ enum class TimeComponentTestLocale(val locale: PlatformLocale) {
 }
 
 suspend fun FunSpecContainerScope.timeComponentTests(
-    runTest: (time: LocalTime, options: TimeOptions<TimeComponents.Local>, locale: TimeComponentTestLocale, expected: String) -> Unit,
+    runTest: (time: LocalTime, options: LocalTimeOptions<LocalTimeComponents>, locale: TimeComponentTestLocale, expected: String) -> Unit,
 ) {
     context("hour style") {
         fun HourStyle.test() {
-            val components = TimeComponents.Local(
+            val components = LocalTimeComponents(
                 hourStyle = this,
                 minuteStyle = null,
             )
@@ -95,7 +95,7 @@ suspend fun FunSpecContainerScope.timeComponentTests(
                 HourStyle.NUMERIC -> "9 PM"
                 HourStyle.NUMERIC_PADDED_2_DIGITS -> "09 PM"
             }
-            runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
+            runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
         }
 
         withTests(HourStyle.entries - HourStyle.NUMERIC_PADDED_2_DIGITS) { hourStyle ->
@@ -113,29 +113,29 @@ suspend fun FunSpecContainerScope.timeComponentTests(
     }
     context("minute style") {
         withTests(MinuteStyle.entries) { minuteStyle ->
-            val components = TimeComponents.Local(
+            val components = LocalTimeComponents(
                 hourStyle = HourStyle.NUMERIC,
                 minuteStyle = minuteStyle,
             )
             // Note: no-padding request is not respected in this case by any platform
-            runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ENGLISH, "9:05 PM")
+            runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ENGLISH, "9:05 PM")
         }
     }
     context("second style") {
         context("with minutes") {
             withTests(SecondStyle.entries) { secondStyle ->
-                val components = TimeComponents.Local(
+                val components = LocalTimeComponents(
                     hourStyle = HourStyle.NUMERIC,
                     minuteStyle = MinuteStyle.NUMERIC,
                     secondStyle = secondStyle,
                 )
                 // Note: no-padding request is not respected in this case by any platform
-                runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ENGLISH, "9:05:08 PM")
+                runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ENGLISH, "9:05:08 PM")
             }
         }
         context("without minutes") {
             fun SecondStyle.test() {
-                val components = TimeComponents.Local(
+                val components = LocalTimeComponents(
                     hourStyle = HourStyle.NUMERIC,
                     minuteStyle = null,
                     secondStyle = this,
@@ -144,7 +144,7 @@ suspend fun FunSpecContainerScope.timeComponentTests(
                     SecondStyle.NUMERIC -> "9 PM (second: 8)"
                     SecondStyle.NUMERIC_PADDED_2_DIGITS -> "9 PM (second: 08)"
                 }
-                runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
+                runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
             }
 
             withTests(SecondStyle.entries - SecondStyle.NUMERIC_PADDED_2_DIGITS) { secondStyle ->
@@ -164,7 +164,7 @@ suspend fun FunSpecContainerScope.timeComponentTests(
     context("fractional second digits") {
         context("with minutes and seconds") {
             withTests(1..3) { fractionalSecondDigits ->
-                val components = TimeComponents.Local(
+                val components = LocalTimeComponents(
                     hourStyle = HourStyle.NUMERIC,
                     minuteStyle = MinuteStyle.NUMERIC,
                     secondStyle = SecondStyle.NUMERIC,
@@ -176,14 +176,14 @@ suspend fun FunSpecContainerScope.timeComponentTests(
                     3 -> "9:05:08.123 PM"
                     else -> error("invalid test case")
                 }
-                runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
+                runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
             }
         }
         context("with no minute but with seconds").config(
             enabledOrReasonIf = noWeb("Web platforms do not care for fractional second digits if minute is undefined (may be a bug?)"),
         ) {
             withTests(1..3) { fractionalSecondDigits ->
-                val components = TimeComponents.Local(
+                val components = LocalTimeComponents(
                     hourStyle = HourStyle.NUMERIC,
                     minuteStyle = null,
                     secondStyle = SecondStyle.NUMERIC,
@@ -195,12 +195,12 @@ suspend fun FunSpecContainerScope.timeComponentTests(
                     3 -> "9 PM (second: 8.123)"
                     else -> error("invalid test case")
                 }
-                runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
+                runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
             }
         }
         context("with no minute and seconds") {
             withTests(1..3) { fractionalSecondDigits ->
-                val components = TimeComponents.Local(
+                val components = LocalTimeComponents(
                     hourStyle = HourStyle.NUMERIC,
                     minuteStyle = null,
                     secondStyle = null,
@@ -221,36 +221,36 @@ suspend fun FunSpecContainerScope.timeComponentTests(
                         else -> error("invalid test case")
                     }
                 }
-                runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
+                runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ENGLISH, expected)
             }
         }
     }
     context("day period style") {
         context("using a h24 locale has no effect") {
             withTests(DayPeriodStyle.entries) { dayPeriodStyle ->
-                val components = TimeComponents.Local(
+                val components = LocalTimeComponents(
                     hourStyle = HourStyle.NUMERIC,
                     minuteStyle = null,
                     dayPeriodStyle = dayPeriodStyle,
                 )
-                runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ITALIAN, "21")
+                runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ITALIAN, "21")
             }
         }
         context("using a h12 locale") {
             withTests(DayPeriodStyle.entries) { dayPeriodStyle ->
-                val components = TimeComponents.Local(
+                val components = LocalTimeComponents(
                     hourStyle = HourStyle.NUMERIC,
                     minuteStyle = null,
                     dayPeriodStyle = dayPeriodStyle,
                 )
                 // Note: in most languages, all three styles have the same value
-                runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ENGLISH, "9 at night")
+                runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ENGLISH, "9 at night")
             }
         }
         context("using a h24 locale with overridden hour cycle") {
             withTests(DayPeriodStyle.entries) { dayPeriodStyle ->
-                val options = TimeOptions(
-                    styleOptions = TimeComponents.Local(
+                val options = LocalTimeOptions(
+                    styleOptions = LocalTimeComponents(
                         hourStyle = HourStyle.NUMERIC,
                         minuteStyle = null,
                         dayPeriodStyle = dayPeriodStyle,
@@ -263,14 +263,14 @@ suspend fun FunSpecContainerScope.timeComponentTests(
         }
         context("with other components") {
             withTests(DayPeriodStyle.entries) { dayPeriodStyle ->
-                val components = TimeComponents.Local(
+                val components = LocalTimeComponents(
                     hourStyle = HourStyle.NUMERIC,
                     minuteStyle = MinuteStyle.NUMERIC,
                     secondStyle = SecondStyle.NUMERIC,
                     dayPeriodStyle = dayPeriodStyle,
                 )
                 // Note: in most languages, all three styles have the same value
-                runTest(TIME, TimeOptions(components), TimeComponentTestLocale.ENGLISH, "9:05:08 at night")
+                runTest(TIME, LocalTimeOptions(components), TimeComponentTestLocale.ENGLISH, "9:05:08 at night")
             }
         }
     }

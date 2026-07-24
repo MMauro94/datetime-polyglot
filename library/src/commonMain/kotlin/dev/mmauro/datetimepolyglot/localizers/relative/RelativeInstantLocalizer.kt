@@ -4,6 +4,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
@@ -14,7 +15,11 @@ import kotlin.time.Instant
 /**
  * Localization options for [RelativeInstantLocalizer], [Instant.localizeRelative], and [Instant.localizeRelativeAsFlow].
  */
-typealias RelativeInstantOptions = RelativeDurationOptions
+data class RelativeInstantOptions(
+    val relativeDurationOptions: RelativeDurationOptions = RelativeDurationOptions(),
+) : PolyglotLocalizerOptions<RelativeInstantLocalizer> {
+    override fun localizer(locale: PlatformLocale) = RelativeInstantLocalizer(this, locale)
+}
 
 /**
  * Localizes an [Instant] relative to another one.
@@ -41,7 +46,10 @@ class RelativeInstantLocalizer(
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<Instant> {
 
-    private val relativeDurationLocalizer = RelativeDurationLocalizer(options, locale)
+    private val relativeDurationLocalizer = RelativeDurationLocalizer(
+        options = options.relativeDurationOptions,
+        locale = locale
+    )
 
     override fun localize(value: Instant, reference: Zoned<Instant>): TickingValue<String> {
         return localize(value, reference.value)

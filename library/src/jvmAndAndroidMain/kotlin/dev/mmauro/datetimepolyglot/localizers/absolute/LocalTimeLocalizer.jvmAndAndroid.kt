@@ -7,11 +7,11 @@ import kotlinx.datetime.LocalTime
 import kotlinx.datetime.toJavaLocalTime
 
 actual class LocalTimeLocalizer actual constructor(
-    options: TimeOptions<TimeStyleOptions.Local>,
+    options: LocalTimeOptions<*>,
     locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<LocalTime> {
 
-    actual constructor(options: TimeStyleOptions.Local, locale: PlatformLocale) : this(TimeOptions(options), locale)
+    actual constructor(options: LocalTimeStyleOptions, locale: PlatformLocale) : this(LocalTimeOptions(options), locale)
 
     private val dateFormat = ComponentsOptions(timeOptions = options.toComponentOptions()).toDateFormat(locale)
 

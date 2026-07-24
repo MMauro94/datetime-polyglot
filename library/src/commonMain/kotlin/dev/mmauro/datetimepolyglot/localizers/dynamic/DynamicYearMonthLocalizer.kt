@@ -6,6 +6,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthOptions
@@ -34,7 +35,9 @@ data class DynamicYearMonthOptions(
     val relativeOptions: RelativeYearMonthOptions = RelativeYearMonthOptions(),
     val absoluteOptions: YearMonthOptions,
     val relativeDiffRange: IntRange = -1..1,
-)
+) : PolyglotLocalizerOptions<DynamicYearMonthLocalizer> {
+    override fun localizer(locale: PlatformLocale) = DynamicYearMonthLocalizer(this, locale)
+}
 
 /**
  * Localizes a [YearMonth] dynamically (either absolute or relative to a [Zoned]<[Instant]> reference point).

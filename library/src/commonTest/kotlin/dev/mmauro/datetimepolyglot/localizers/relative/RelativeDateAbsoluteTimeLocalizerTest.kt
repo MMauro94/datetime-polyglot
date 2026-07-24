@@ -5,7 +5,7 @@ import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
-import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.localDateTime
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
 import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
@@ -62,7 +62,7 @@ val RelativeDateAbsoluteTimeLocalizerTestFactory = funSpec {
                     RelativeDateAbsoluteTimeLocalizer(
                         locale = LOCALE_ENGLISH,
                         options = RelativeDateAbsoluteTimeOptions(
-                            timeOptions = TimeStyle.Local.MEDIUM
+                            timeOptions = LocalTimeStyle.MEDIUM
                         ),
                     ),
                     LocalDateTime.parse("2026-01-01T04:13:05"),

@@ -3,9 +3,9 @@ package dev.mmauro.datetimepolyglot.localizers.relative
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.TickingDurationLocalizer
-import dev.mmauro.datetimepolyglot.localizers.absolute.localizeTicking
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.utils.remainderUntilNextUnitBoundary
 import kotlin.time.Duration
@@ -37,13 +37,15 @@ data class RelativeDurationOptions(
             null
         }
     },
-) {
+) : PolyglotLocalizerOptions<RelativeDurationLocalizer> {
     init {
         require(minUnit >= DurationUnit.SECONDS) { "units smaller than seconds are not supported" }
         if (maxUnit != null) {
             require(maxUnit >= minUnit) { "max unit must be grater or equal to min unit" }
         }
     }
+
+    override fun localizer(locale: PlatformLocale) = RelativeDurationLocalizer(this, locale)
 }
 
 /**

@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import kotlinx.datetime.LocalDateTime
 
 /**
@@ -10,10 +11,12 @@ import kotlinx.datetime.LocalDateTime
  */
 data class LocalDateTimeOptions private constructor(
     val dateOptions: DateOptions,
-    val timeOptions: LocalTimeOptions,
-) {
-    constructor(dateOptions: DateStyleOptions, timeOptions: LocalTimeOptions) : this(DateOptions(dateOptions), timeOptions)
-    constructor(dateOptions: DateStyleOptions, timeOptions: TimeStyleOptions.Local) : this(dateOptions, LocalTimeOptions(timeOptions))
+    val timeOptions: LocalTimeOptions<*>,
+) : PolyglotLocalizerOptions<LocalDateTimeLocalizer> {
+    constructor(dateOptions: DateStyleOptions, timeOptions: LocalTimeOptions<*>) : this(DateOptions(dateOptions), timeOptions)
+    constructor(dateOptions: DateStyleOptions, timeOptions: LocalTimeStyleOptions) : this(dateOptions, LocalTimeOptions(timeOptions))
+
+    override fun localizer(locale: PlatformLocale) = LocalDateTimeLocalizer(this, locale)
 }
 
 /**

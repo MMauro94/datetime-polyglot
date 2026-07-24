@@ -4,18 +4,18 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeOptions
-import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
-import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyleOptions
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyleOptions
 import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.map
 import dev.mmauro.datetimepolyglot.utils.joinDateAndTime
 import kotlinx.coroutines.flow.Flow
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlin.time.Clock
 import kotlin.time.Instant
@@ -30,14 +30,16 @@ import kotlin.time.Instant
  */
 data class RelativeDateAbsoluteTimeOptions(
     val dateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
-    val timeOptions: LocalTimeOptions,
+    val timeOptions: LocalTimeOptions<*>,
     val joinerStyle: DateStyle = DateStyle.LONG,
-) {
+) : PolyglotLocalizerOptions<RelativeDateAbsoluteTimeLocalizer> {
     constructor(
         dateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
-        timeOptions: TimeStyleOptions.Local = TimeStyle.Local.SHORT,
+        timeOptions: LocalTimeStyleOptions = LocalTimeStyle.SHORT,
         joinerStyle: DateStyle = DateStyle.LONG,
     ) : this(dateOptions, LocalTimeOptions(timeOptions), joinerStyle)
+
+    override fun localizer(locale: PlatformLocale) = RelativeDateAbsoluteTimeLocalizer(this, locale)
 }
 
 /**

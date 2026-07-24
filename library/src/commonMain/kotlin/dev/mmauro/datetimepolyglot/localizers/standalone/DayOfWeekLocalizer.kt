@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot.localizers.standalone
 import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.DayOfWeek
@@ -16,7 +17,9 @@ private val MONDAY_DATE = LocalDate(1970, 1, 5)
  */
 data class DayOfWeekOptions(
     val style: DayOfWeekStyle = DayOfWeekStyle.WIDE,
-)
+) : PolyglotLocalizerOptions<DayOfWeekLocalizer> {
+    override fun localizer(locale: PlatformLocale) = DayOfWeekLocalizer(this, locale)
+}
 
 /**
  * Class to localize a [DayOfWeek].

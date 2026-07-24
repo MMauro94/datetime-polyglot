@@ -6,6 +6,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyleOptions
@@ -37,13 +38,15 @@ data class DynamicLocalDateOptions private constructor(
     val relativeOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     val absoluteOptions: DateOptions,
     val relativeDiffRange: IntRange = DEFAULT_DIFF_RANGE,
-) {
+) : PolyglotLocalizerOptions<DynamicLocalDateLocalizer> {
 
     constructor(
         relativeOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
         absoluteOptions: DateStyleOptions,
         relativeDiffRange: IntRange = DEFAULT_DIFF_RANGE,
     ) : this(relativeOptions, DateOptions(absoluteOptions), relativeDiffRange)
+
+    override fun localizer(locale: PlatformLocale) = DynamicLocalDateLocalizer(this, locale)
 
     companion object {
         internal val DEFAULT_DIFF_RANGE = -10..10

@@ -4,6 +4,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localize
@@ -32,7 +33,9 @@ annotation class ExperimentalTickingDurationLocalizer
 data class TickingDurationOptions(
     val durationOptions: DurationOptions = DurationOptions(),
     val abs: Boolean = false,
-)
+) : PolyglotLocalizerOptions<TickingDurationLocalizer> {
+    override fun localizer(locale: PlatformLocale) = TickingDurationLocalizer(this, locale)
+}
 
 /**
  * Localizes a [Duration] in the same exact way as a [DurationLocalizer], but this is meant to be used to localize duration values that

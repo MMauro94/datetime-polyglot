@@ -11,7 +11,7 @@ import kotlinx.datetime.LocalTime
  * Create once and re-use for localizing multiple values with the same [options].
  * Use [LocalTime.localize] for one-off localizations.
  *
- * Note that only the hour is required when using [TimeComponents.Local], all others are optional and can be omitted if so desired.
+ * Note that only the hour is required when using [LocalTimeComponents], all others are optional and can be omitted if so desired.
  * In case of a "gap", the underlying implementation will try return a string containing only the required fields, which can be odd or
  * unexpected in some locales. One example of such case is the last example below.
  *
@@ -24,11 +24,11 @@ import kotlinx.datetime.LocalTime
  * - `9 PM (second: 8.1)`
  */
 expect class LocalTimeLocalizer(
-    options: LocalTimeOptions,
+    options: LocalTimeOptions<*>,
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<LocalTime> {
 
-    constructor(options: TimeStyleOptions.Local, locale: PlatformLocale = getDefaultLocale())
+    constructor(options: LocalTimeStyleOptions, locale: PlatformLocale = getDefaultLocale())
 
     override fun localize(value: LocalTime): String
 }
@@ -39,7 +39,7 @@ expect class LocalTimeLocalizer(
  * @see LocalTimeLocalizer
  */
 fun LocalTime.localize(
-    options: LocalTimeOptions,
+    options: LocalTimeOptions<*>,
     locale: PlatformLocale = getDefaultLocale(),
 ) = LocalTimeLocalizer(options, locale).localize(this)
 
@@ -49,7 +49,7 @@ fun LocalTime.localize(
  * @see LocalTimeLocalizer
  */
 fun LocalTime.localize(
-    options: TimeStyleOptions.Local,
+    options: LocalTimeStyleOptions,
     locale: PlatformLocale = getDefaultLocale(),
 ) = LocalTimeLocalizer(options, locale).localize(this)
 

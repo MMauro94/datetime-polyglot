@@ -1,5 +1,7 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
+import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle
 import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import dev.mmauro.datetimepolyglot.styles.EraStyle
@@ -15,7 +17,9 @@ import dev.mmauro.datetimepolyglot.utils.joinDateAndTime
  */
 data class DateOptions(
     val styleOptions: DateStyleOptions,
-)
+) : PolyglotLocalizerOptions<LocalDateLocalizer> {
+    override fun localizer(locale: PlatformLocale) = LocalDateLocalizer(this, locale)
+}
 
 /**
  * Defines the localization style for a date (year, month and day).
@@ -23,7 +27,9 @@ data class DateOptions(
  * @see DateStyle
  * @see DateComponents
  */
-sealed interface DateStyleOptions
+sealed interface DateStyleOptions : PolyglotLocalizerOptions<LocalDateLocalizer> {
+    override fun localizer(locale: PlatformLocale) = LocalDateLocalizer(this, locale)
+}
 
 /**
  * Defines a preset date style for localizing a date (year, month and day).
