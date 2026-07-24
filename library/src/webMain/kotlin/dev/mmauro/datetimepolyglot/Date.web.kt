@@ -3,11 +3,9 @@ package dev.mmauro.datetimepolyglot
 import js.temporal.PlainDate
 import js.temporal.PlainDateTime
 import js.temporal.PlainTime
-import js.temporal.PlainYearMonth
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
-import kotlinx.datetime.YearMonth
 import kotlinx.datetime.number
 import kotlin.time.Instant
 import js.temporal.Instant as JsInstant

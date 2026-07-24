@@ -4,31 +4,20 @@ import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateTimeOptions
 import kotlinx.datetime.TimeZone
 import kotlin.time.Instant
 
 /**
  * Localization options for [ZonedInstantLocalizer] and [Zoned.localize] (where [Zoned] is of type [Instant]).
  */
-data class ZonedInstantOptions internal constructor(
+data class ZonedInstantOptions private constructor(
     val dateOptions: DateOptions,
     val timeOptions: ZonedTimeOptions,
 ) {
 
-    // On JS, it's forbidden to mix styles and components, even when using e.g. date style and time components or vice versa
-    // So for now we are disallowing creation of mix-match DateTimeOptions
-    // This can be enabled on a per-platform version by adding a fake invoke constructor in the companion object
-
-    // With styles
-    constructor(dateOptions: DateStyle, timeOptions: TimeOptions<TimeStyle.Zoned>) : this(DateOptions(dateOptions), timeOptions)
-    constructor(dateOptions: DateStyle, timeOptions: TimeStyle.Zoned) : this(DateOptions(dateOptions), TimeOptions(timeOptions))
-
-    // With components
-    constructor(dateOptions: DateComponents, timeOptions: TimeOptions<TimeComponents.Zoned>) : this(DateOptions(dateOptions), timeOptions)
-    constructor(dateOptions: DateComponents, timeOptions: TimeComponents.Zoned) : this(DateOptions(dateOptions), TimeOptions(timeOptions))
-
-    companion object
-
+    constructor(dateOptions: DateStyleOptions, timeOptions: ZonedTimeOptions) : this(DateOptions(dateOptions), timeOptions)
+    constructor(dateOptions: DateStyleOptions, timeOptions: TimeStyleOptions.Zoned) : this(dateOptions, ZonedTimeOptions(timeOptions))
 }
 
 /**

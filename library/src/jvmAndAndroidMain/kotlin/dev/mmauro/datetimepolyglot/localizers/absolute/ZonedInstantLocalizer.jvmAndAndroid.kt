@@ -22,23 +22,3 @@ actual class ZonedInstantLocalizer actual constructor(
         return dateFormat.format(value.value.toJavaInstant().atZone(value.timeZone.toJavaZoneId()))
     }
 }
-
-/**
- * Allows creation of mixed style and components between date and time, which is not possible in all platforms
- *
- * @see ZonedInstantOptions
- */
-operator fun ZonedInstantOptions.Companion.invoke(
-    dateOptions: DateStyleOptions,
-    timeOptions: ZonedTimeOptions
-): ZonedInstantOptions = ZonedInstantOptions(DateOptions(dateOptions), timeOptions)
-
-/**
- * Allows creation of mixed style and components between date and time, which is not possible in all platforms
- *
- * @see ZonedInstantOptions
- */
-operator fun ZonedInstantOptions.Companion.invoke(
-    dateOptions: DateStyleOptions,
-    timeOptions: TimeStyleOptions.Zoned
-): ZonedInstantOptions = ZonedInstantOptions(DateOptions(dateOptions), TimeOptions(timeOptions))

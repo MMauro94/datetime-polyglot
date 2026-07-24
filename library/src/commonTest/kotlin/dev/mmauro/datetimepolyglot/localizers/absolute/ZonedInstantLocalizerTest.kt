@@ -5,6 +5,7 @@ import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.LOCALE_POLISH
 import dev.mmauro.datetimepolyglot.TEST_PLATFORM
+import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.TestPlatform.Js
 import dev.mmauro.datetimepolyglot.TestPlatform.Wasm
 import dev.mmauro.datetimepolyglot.Zoned
@@ -14,6 +15,7 @@ import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
 import dev.mmauro.datetimepolyglot.styles.HourStyle
 import dev.mmauro.datetimepolyglot.styles.MinuteStyle
 import dev.mmauro.datetimepolyglot.styles.MonthStyle
+import dev.mmauro.datetimepolyglot.styles.SecondStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import dev.mmauro.datetimepolyglot.styles.YearStyle
 import dev.mmauro.datetimepolyglot.toLocalDateTime
@@ -218,6 +220,60 @@ val ZonedInstantTestFactory = funSpec {
                 ),
                 locale = LOCALE_POLISH
             ) shouldBeLocalizedAs "19 czerwca 2026 12:25:45 GMT-7"
+        }
+
+        context("mix-matching date/time style and components works") {
+            context("date style with time components") {
+                withTests(DateStyle.entries) { dateStyle ->
+                    ZONED_INSTANT.localize(
+                        options = ZonedInstantOptions(
+                            dateOptions = dateStyle,
+                            timeOptions = TimeComponents.Zoned(
+                                hourStyle = HourStyle.NUMERIC,
+                                minuteStyle = MinuteStyle.NUMERIC,
+                                secondStyle = SecondStyle.NUMERIC,
+                                timeZoneStyle = TimeZoneStyle.Gmt.LONG
+                            ),
+                        ),
+                        locale = LOCALE_ENGLISH
+                    ) shouldBeLocalizedAs when (dateStyle) {
+                        DateStyle.SHORT -> "6/19/26, 12:25:45 PM GMT-07:00"
+                        DateStyle.MEDIUM -> "Jun 19, 2026, 12:25:45 PM GMT-07:00"
+                        DateStyle.LONG -> when (val platform = TEST_PLATFORM) {
+                            is Android if platform.sdk <= 33 -> "June 19, 2026, 12:25:45 PM GMT-07:00"
+                            else -> "June 19, 2026 at 12:25:45 PM GMT-07:00"
+                        }
+
+                        DateStyle.FULL -> when (val platform = TEST_PLATFORM) {
+                            is Android if platform.sdk <= 33 -> "Friday, June 19, 2026, 12:25:45 PM GMT-07:00"
+                            else -> "Friday, June 19, 2026 at 12:25:45 PM GMT-07:00"
+                        }
+                    }
+                }
+            }
+            context("date components with time style") {
+                withTests(MonthStyle.entries) { monthStyle ->
+                    ZONED_INSTANT.localize(
+                        options = ZonedInstantOptions(
+                            dateOptions = DateComponents(
+                                monthStyle = monthStyle,
+                                dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
+                            ),
+                            timeOptions = TimeOptions(TimeStyle.Zoned.LONG),
+                        ),
+                        locale = LOCALE_ENGLISH
+                    ) shouldBeLocalizedAs when (monthStyle) {
+                        MonthStyle.NUMERIC -> "6/19/2026, 12:25:45 PM PDT"
+                        MonthStyle.NUMERIC_PADDED_2_DIGITS -> "06/19/2026, 12:25:45 PM PDT"
+                        MonthStyle.NARROW -> "J 19, 2026, 12:25:45 PM PDT"
+                        MonthStyle.ABBREVIATED -> "Jun 19, 2026, 12:25:45 PM PDT"
+                        MonthStyle.WIDE -> when (val platform = TEST_PLATFORM) {
+                            is Android if platform.sdk <= 33 -> "June 19, 2026, 12:25:45 PM PDT"
+                            else -> "June 19, 2026 at 12:25:45 PM PDT"
+                        }
+                    }
+                }
+            }
         }
     }
 }
