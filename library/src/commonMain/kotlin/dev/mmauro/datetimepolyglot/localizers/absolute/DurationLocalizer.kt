@@ -2,6 +2,7 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDurationLocalizer
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
@@ -30,10 +31,12 @@ data class DurationOptions(
     val omitZeros: Boolean = true,
     val style: DurationStyle = DurationStyle.WIDE,
     val ifZeroLocalization: (PlatformLocale) -> String? = { null },
-) {
+) : PolyglotLocalizerOptions<DurationLocalizer> {
     init {
         require(maxUnits > 0) { "maxUnits must be greater than zero" }
     }
+
+    override fun localizer(locale: PlatformLocale) = DurationLocalizer(this, locale)
 }
 
 /**

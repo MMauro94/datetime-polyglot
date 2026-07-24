@@ -7,8 +7,8 @@ import js.intl.short
 import js.intl.TimeStyle.Companion as JsTimeStyle
 
 internal fun TimeStyle.toJsTimeStyle() = when (this) {
-    TimeStyle.Local.SHORT -> JsTimeStyle.short
-    TimeStyle.Local.MEDIUM -> JsTimeStyle.medium
-    TimeStyle.Zoned.LONG -> JsTimeStyle.long
-    TimeStyle.Zoned.FULL -> JsTimeStyle.full
+    LocalTimeStyle.SHORT -> JsTimeStyle.short
+    LocalTimeStyle.MEDIUM -> JsTimeStyle.medium
+    ZonedTimeStyle.LONG -> JsTimeStyle.long
+    ZonedTimeStyle.FULL -> JsTimeStyle.full
 }

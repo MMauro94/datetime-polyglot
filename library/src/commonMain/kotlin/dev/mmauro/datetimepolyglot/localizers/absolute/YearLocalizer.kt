@@ -3,6 +3,7 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.styles.EraStyle
 import dev.mmauro.datetimepolyglot.styles.YearStyle
 
@@ -12,10 +13,12 @@ import dev.mmauro.datetimepolyglot.styles.YearStyle
 data class YearOptions(
     override val eraStyle: EraStyle? = null,
     override val yearStyle: YearStyle = YearStyle.NUMERIC,
-) : ComponentsOptions.Date.Components {
+) : ComponentsOptions.Date.Components, PolyglotLocalizerOptions<YearLocalizer> {
     override val monthStyle: Nothing? get() = null
     override val dayOfMonthStyle: Nothing? get() = null
     override val dayOfWeekStyle: Nothing? get() = null
+
+    override fun localizer(locale: PlatformLocale) = YearLocalizer(this, locale)
 }
 
 /**

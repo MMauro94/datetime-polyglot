@@ -5,6 +5,7 @@ import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.ExperimentalZonedLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeZonedLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone
@@ -16,7 +17,9 @@ import kotlinx.datetime.TimeZone
 data class ZonedYearOptions(
     val yearOptions: YearOptions = YearOptions(),
     val timeZoneOptions: TimeZoneOptions = TimeZoneOptions(),
-)
+) : PolyglotLocalizerOptions<ZonedYearLocalizer> {
+    override fun localizer(locale: PlatformLocale) = ZonedYearLocalizer(this, locale)
+}
 
 /**
  * Localizer for [Zoned] years ([Zoned]<[Int]>).

@@ -5,6 +5,7 @@ import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.firstDayOfWeek
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
@@ -34,7 +35,9 @@ data class RelativeLocalDateOptions(
     override val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
     override val allowedDirections: Set<RelativeDirection> = RelativeDirection.entries.toSet(),
     val useRelativeDayOfWeek: Boolean = false,
-) : RelativeUnitOptions
+) : RelativeUnitOptions, PolyglotLocalizerOptions<RelativeLocalDateLocalizer> {
+    override fun localizer(locale: PlatformLocale) = RelativeLocalDateLocalizer(this, locale)
+}
 
 /**
  * Localizes a [LocalDate] relative to a [Zoned]<[Instant]> reference point.

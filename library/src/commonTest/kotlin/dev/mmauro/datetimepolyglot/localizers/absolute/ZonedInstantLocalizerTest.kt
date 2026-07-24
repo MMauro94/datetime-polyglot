@@ -39,10 +39,10 @@ val ZonedInstantTestFactory = funSpec {
     context("styles") {
         context("normal") {
             withContexts(nameFn = { "date style: $it" }, DateStyle.entries) { dateStyle ->
-                withTests(nameFn = { "time style: $it" }, TimeStyle.Zoned.entries) { timeStyle ->
+                withTests(nameFn = { "time style: $it" }, ZonedTimeStyle.entries) { timeStyle ->
                     val expectedTime = when (timeStyle) {
-                        TimeStyle.Zoned.LONG -> "12:25:45 PM PDT"
-                        TimeStyle.Zoned.FULL -> "12:25:45 PM Pacific Daylight Time"
+                        ZonedTimeStyle.LONG -> "12:25:45 PM PDT"
+                        ZonedTimeStyle.FULL -> "12:25:45 PM Pacific Daylight Time"
                     }
                     ZONED_INSTANT.localize(
                         options = ZonedInstantOptions(dateStyle, timeStyle),
@@ -59,30 +59,30 @@ val ZonedInstantTestFactory = funSpec {
 
         context("with overridden hour cycle") {
             context("H24") {
-                withTests(TimeStyle.Zoned.entries) { timeStyle ->
+                withTests(ZonedTimeStyle.entries) { timeStyle ->
                     ZONED_INSTANT.localize(
                         options = ZonedInstantOptions(
                             dateOptions = DateStyle.SHORT,
-                            timeOptions = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24)
+                            timeOptions = ZonedTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24)
                         ),
                         locale = LOCALE_ENGLISH
                     ) shouldBeLocalizedAs when (timeStyle) {
-                        TimeStyle.Zoned.LONG -> "6/19/26, 12:25:45 PDT"
-                        TimeStyle.Zoned.FULL -> "6/19/26, 12:25:45 Pacific Daylight Time"
+                        ZonedTimeStyle.LONG -> "6/19/26, 12:25:45 PDT"
+                        ZonedTimeStyle.FULL -> "6/19/26, 12:25:45 Pacific Daylight Time"
                     }
                 }
             }
             context("H12") {
-                withTests(TimeStyle.Zoned.entries) { timeStyle ->
+                withTests(ZonedTimeStyle.entries) { timeStyle ->
                     ZONED_INSTANT.localize(
                         options = ZonedInstantOptions(
                             dateOptions = DateStyle.SHORT,
-                            timeOptions = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
+                            timeOptions = ZonedTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
                         ),
                         locale = LOCALE_ITALIAN
                     ) shouldBeLocalizedAs when (timeStyle) {
-                        TimeStyle.Zoned.LONG -> "19/06/26, 12:25:45 PM GMT-7"
-                        TimeStyle.Zoned.FULL -> "19/06/26, 12:25:45 PM Ora legale del Pacifico USA"
+                        ZonedTimeStyle.LONG -> "19/06/26, 12:25:45 PM GMT-7"
+                        ZonedTimeStyle.FULL -> "19/06/26, 12:25:45 PM Ora legale del Pacifico USA"
                     }
                 }
             }
@@ -98,7 +98,7 @@ val ZonedInstantTestFactory = funSpec {
                         dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
                         dayOfWeekStyle = DayOfWeekStyle.ABBREVIATED,
                     ),
-                    timeOptions = TimeComponents.Zoned(
+                    timeOptions = ZonedTimeComponents(
                         hourStyle = HourStyle.NUMERIC,
                         minuteStyle = MinuteStyle.NUMERIC,
                         timeZoneStyle = TimeZoneStyle.Generic.NON_LOCATION_LONG,
@@ -114,7 +114,7 @@ val ZonedInstantTestFactory = funSpec {
             val localized = Zoned(instant, TimeZone.UTC).localize(
                 options = ZonedInstantOptions(
                     dateOptions = components,
-                    timeOptions = TimeComponents.Zoned(
+                    timeOptions = ZonedTimeComponents(
                         hourStyle = HourStyle.NUMERIC,
                         minuteStyle = MinuteStyle.NUMERIC,
                         timeZoneStyle = TimeZoneStyle.Generic.ID,
@@ -154,7 +154,7 @@ val ZonedInstantTestFactory = funSpec {
                 monthStyle = MonthStyle.ABBREVIATED,
                 dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
             ),
-            timeOptions = TimeComponents.Zoned(
+            timeOptions = ZonedTimeComponents(
                 hourStyle = HourStyle.NUMERIC,
                 minuteStyle = MinuteStyle.NUMERIC,
                 timeZoneStyle = timeZoneStyle,
@@ -206,7 +206,7 @@ val ZonedInstantTestFactory = funSpec {
             ZONED_INSTANT.localize(
                 options = ZonedInstantOptions(
                     dateOptions = DateStyle.MEDIUM,
-                    timeOptions = TimeStyle.Zoned.FULL,
+                    timeOptions = ZonedTimeStyle.FULL,
                 ),
                 locale = LOCALE_ITALIAN
             ) shouldBeLocalizedAs "19 giu 2026, 12:25:45 Ora legale del Pacifico USA"
@@ -216,7 +216,7 @@ val ZonedInstantTestFactory = funSpec {
             ZONED_INSTANT.localize(
                 options = ZonedInstantOptions(
                     dateOptions = DateStyle.LONG,
-                    timeOptions = TimeStyle.Zoned.LONG,
+                    timeOptions = ZonedTimeStyle.LONG,
                 ),
                 locale = LOCALE_POLISH
             ) shouldBeLocalizedAs "19 czerwca 2026 12:25:45 GMT-7"
@@ -228,7 +228,7 @@ val ZonedInstantTestFactory = funSpec {
                     ZONED_INSTANT.localize(
                         options = ZonedInstantOptions(
                             dateOptions = dateStyle,
-                            timeOptions = TimeComponents.Zoned(
+                            timeOptions = ZonedTimeComponents(
                                 hourStyle = HourStyle.NUMERIC,
                                 minuteStyle = MinuteStyle.NUMERIC,
                                 secondStyle = SecondStyle.NUMERIC,
@@ -259,7 +259,7 @@ val ZonedInstantTestFactory = funSpec {
                                 monthStyle = monthStyle,
                                 dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
                             ),
-                            timeOptions = TimeOptions(TimeStyle.Zoned.LONG),
+                            timeOptions = ZonedTimeOptions(ZonedTimeStyle.LONG),
                         ),
                         locale = LOCALE_ENGLISH
                     ) shouldBeLocalizedAs when (monthStyle) {

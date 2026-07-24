@@ -4,8 +4,10 @@ import com.ibm.icu.text.DateTimePatternGenerator
 import com.ibm.icu.text.DisplayContext
 import com.ibm.icu.util.ULocale
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.ZonedTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
@@ -74,10 +76,10 @@ internal fun DateStyle.toDateFormatStyle() = when (this) {
 }
 
 private fun TimeStyle.toDateFormatStyle() = when (this) {
-    TimeStyle.Local.SHORT -> IcuDateFormat.SHORT
-    TimeStyle.Local.MEDIUM -> IcuDateFormat.MEDIUM
-    TimeStyle.Zoned.LONG -> IcuDateFormat.LONG
-    TimeStyle.Zoned.FULL -> IcuDateFormat.FULL
+    LocalTimeStyle.SHORT -> IcuDateFormat.SHORT
+    LocalTimeStyle.MEDIUM -> IcuDateFormat.MEDIUM
+    ZonedTimeStyle.LONG -> IcuDateFormat.LONG
+    ZonedTimeStyle.FULL -> IcuDateFormat.FULL
 }
 
 // TIMEZONE

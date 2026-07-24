@@ -6,15 +6,16 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateComponents
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateTimeOptions
-import dev.mmauro.datetimepolyglot.localizers.absolute.TimeComponents
-import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
-import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeComponents
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeOptions
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDateAbsoluteTimeLocalizer
@@ -42,12 +43,12 @@ data class DynamicDateAbsoluteTimeOptions(
     val relativeOptions: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
     val absoluteOptions: LocalDateTimeOptions,
     val relativeDateDiffRange: IntRange = DynamicLocalDateOptions.DEFAULT_DIFF_RANGE,
-) {
+) : PolyglotLocalizerOptions<DynamicDateAbsoluteTimeLocalizer> {
 
     constructor(
         relativeDateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
         absoluteDateStyle: DateStyle,
-        timeOptions: TimeOptions<TimeStyle.Local>,
+        timeOptions: LocalTimeOptions<LocalTimeStyle>,
         relativeJoinerStyle: DateStyle = DateStyle.LONG,
         relativeDateDiffRange: IntRange = DynamicLocalDateOptions.DEFAULT_DIFF_RANGE,
     ) : this(
@@ -66,7 +67,7 @@ data class DynamicDateAbsoluteTimeOptions(
     constructor(
         relativeDateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
         absoluteDateStyle: DateComponents,
-        timeOptions: TimeOptions<TimeComponents.Local>,
+        timeOptions: LocalTimeOptions<LocalTimeComponents>,
         joinerStyle: DateStyle = DateStyle.LONG,
         relativeDateDiffRange: IntRange = DynamicLocalDateOptions.DEFAULT_DIFF_RANGE,
     ) : this(
@@ -81,6 +82,8 @@ data class DynamicDateAbsoluteTimeOptions(
         ),
         relativeDateDiffRange = relativeDateDiffRange,
     )
+
+    override fun localizer(locale: PlatformLocale) = DynamicDateAbsoluteTimeLocalizer(this, locale)
 }
 
 /**

@@ -4,6 +4,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.ExperimentalZonedLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions
@@ -19,10 +20,12 @@ import kotlin.time.Instant
 data class RelativeZonedYearOptions(
     val yearOptions: RelativeYearOptions = RelativeYearOptions(),
     val timeZoneOptions: TimeZoneOptions = TimeZoneOptions()
-)
+) : PolyglotLocalizerOptions<RelativeZonedYearLocalizer> {
+    override fun localizer(locale: PlatformLocale) = RelativeZonedYearLocalizer(this, locale)
+}
 
 /**
- * Localizes a [Zoned] year ([Zoned]<[Int]) relative to a [Zoned]<[Instant]> reference point.
+ * Localizes a [Zoned] year ([Zoned]<[Int]>) relative to a [Zoned]<[Instant]> reference point.
  *
  * This behaves identically to [RelativeYearLocalizer], but it also adds a [TimeZone] in the mix.
  * Note that the localized value is always relative to the reference time zone: the value's time zone is simply added in output, but it does

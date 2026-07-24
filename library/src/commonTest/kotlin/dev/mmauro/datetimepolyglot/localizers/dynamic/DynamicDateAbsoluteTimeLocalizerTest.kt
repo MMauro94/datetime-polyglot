@@ -7,9 +7,9 @@ import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.localizers.DEFAULT_INSTANT_RANGE
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateComponents
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
-import dev.mmauro.datetimepolyglot.localizers.absolute.TimeComponents
-import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
-import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeComponents
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeOptions
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.localDateTime
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
 import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
@@ -45,7 +45,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                         locale = LOCALE_ENGLISH,
                         options = DynamicDateAbsoluteTimeOptions(
                             absoluteDateStyle = DateStyle.SHORT,
-                            timeOptions = TimeOptions(TimeStyle.Local.SHORT),
+                            timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                         )
                     ),
                     LocalDateTime.parse("2026-01-25T15:50:00"),
@@ -58,8 +58,8 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                             absoluteDateStyle = DateComponents(
                                 monthStyle = MonthStyle.ABBREVIATED,
                             ),
-                            timeOptions = TimeOptions(
-                                TimeComponents.Local(
+                            timeOptions = LocalTimeOptions(
+                                LocalTimeComponents(
                                     hourStyle = HourStyle.NUMERIC,
                                     minuteStyle = MinuteStyle.NUMERIC,
                                     secondStyle = SecondStyle.NUMERIC,
@@ -84,7 +84,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                     locale = LOCALE_ENGLISH,
                     options = DynamicDateAbsoluteTimeOptions(
                         absoluteDateStyle = DateStyle.SHORT,
-                        timeOptions = TimeOptions(TimeStyle.Local.SHORT),
+                        timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                     )
                 ),
                 LocalDateTime.parse("2026-06-06T04:03:02"),
@@ -95,7 +95,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                     locale = LOCALE_ENGLISH,
                     options = DynamicDateAbsoluteTimeOptions(
                         absoluteDateStyle = DateStyle.SHORT,
-                        timeOptions = TimeOptions(TimeStyle.Local.SHORT),
+                        timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                         relativeDateOptions = RelativeLocalDateOptions(
                             style = RelativeUnitStyle.SHORT,
                         ),
@@ -115,7 +115,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
             locale = LOCALE_ITALIAN,
             options = DynamicDateAbsoluteTimeOptions(
                 absoluteDateStyle = DateStyle.MEDIUM,
-                timeOptions = TimeOptions(TimeStyle.Local.SHORT),
+                timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                 relativeDateDiffRange = -2..14,
                 relativeJoinerStyle = DateStyle.SHORT,
             )
@@ -138,7 +138,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
             locale = LOCALE_ENGLISH,
             options = DynamicDateAbsoluteTimeOptions(
                 absoluteDateStyle = DateStyle.LONG,
-                timeOptions = TimeOptions(TimeStyle.Local.MEDIUM),
+                timeOptions = LocalTimeOptions(LocalTimeStyle.MEDIUM),
             )
         )
 

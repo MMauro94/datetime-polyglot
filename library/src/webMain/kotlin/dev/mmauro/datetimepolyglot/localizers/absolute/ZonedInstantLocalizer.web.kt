@@ -28,7 +28,7 @@ actual class ZonedInstantLocalizer actual constructor(
             // We can force it by formatting to parts and overriding the specific part in this case
             partMapper = {
                 if (it.type == "timeZoneName"
-                    && options.timeOptions.styleOptions is TimeComponents.Zoned
+                    && options.timeOptions.styleOptions is ZonedTimeComponents
                     && options.timeOptions.styleOptions.timeZoneStyle == TimeZoneStyle.Generic.ID
                 ) {
                     value.timeZone.id

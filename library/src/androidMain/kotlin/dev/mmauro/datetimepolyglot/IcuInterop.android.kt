@@ -5,8 +5,10 @@ import android.icu.text.DisplayContext
 import android.icu.util.ULocale
 import android.os.Build
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.ZonedTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
@@ -133,10 +135,10 @@ internal fun DateStyle.toDateFormatStyle() = when (this) {
 }
 
 private fun TimeStyle.toDateFormatStyle() = when (this) {
-    TimeStyle.Local.SHORT -> AndroidDateFormat.SHORT
-    TimeStyle.Local.MEDIUM -> AndroidDateFormat.MEDIUM
-    TimeStyle.Zoned.LONG -> AndroidDateFormat.LONG
-    TimeStyle.Zoned.FULL -> AndroidDateFormat.FULL
+    LocalTimeStyle.SHORT -> AndroidDateFormat.SHORT
+    LocalTimeStyle.MEDIUM -> AndroidDateFormat.MEDIUM
+    ZonedTimeStyle.LONG -> AndroidDateFormat.LONG
+    ZonedTimeStyle.FULL -> AndroidDateFormat.FULL
 }
 
 // TIMEZONE

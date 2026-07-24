@@ -6,7 +6,6 @@ import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.LOCALE_POLISH
 import dev.mmauro.datetimepolyglot.TEST_PLATFORM
 import dev.mmauro.datetimepolyglot.TestPlatform.Android
-import dev.mmauro.datetimepolyglot.TestPlatform.Jvm
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.DayOfMonthStyle
 import dev.mmauro.datetimepolyglot.styles.DayOfWeekStyle
@@ -29,10 +28,10 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
     context("styles") {
         context("normal") {
             withContexts(nameFn = { "date style: $it" }, DateStyle.entries) { dateStyle ->
-                withTests(nameFn = { "time style: $it" }, TimeStyle.Local.entries) { timeStyle ->
+                withTests(nameFn = { "time style: $it" }, LocalTimeStyle.entries) { timeStyle ->
                     val expectedTime = when (timeStyle) {
-                        TimeStyle.Local.SHORT -> "9:31 PM"
-                        TimeStyle.Local.MEDIUM -> "9:31:45 PM"
+                        LocalTimeStyle.SHORT -> "9:31 PM"
+                        LocalTimeStyle.MEDIUM -> "9:31:45 PM"
                     }
                     DATE_TIME.localize(
                         LocalDateTimeOptions(dateStyle, timeStyle),
@@ -49,30 +48,30 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
 
         context("with overridden hour cycle") {
             context("H24") {
-                withTests(TimeStyle.Local.entries) { timeStyle ->
+                withTests(LocalTimeStyle.entries) { timeStyle ->
                     DATE_TIME.localize(
                         options = LocalDateTimeOptions(
                             dateOptions = DateStyle.SHORT,
-                            timeOptions = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24)
+                            timeOptions = LocalTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24)
                         ),
                         locale = LOCALE_ENGLISH
                     ) shouldBeLocalizedAs when (timeStyle) {
-                        TimeStyle.Local.SHORT -> "1/8/26, 21:31"
-                        TimeStyle.Local.MEDIUM -> "1/8/26, 21:31:45"
+                        LocalTimeStyle.SHORT -> "1/8/26, 21:31"
+                        LocalTimeStyle.MEDIUM -> "1/8/26, 21:31:45"
                     }
                 }
             }
             context("H12") {
-                withTests(TimeStyle.Local.entries) { timeStyle ->
+                withTests(LocalTimeStyle.entries) { timeStyle ->
                     DATE_TIME.localize(
                         options = LocalDateTimeOptions(
                             dateOptions = DateStyle.SHORT,
-                            timeOptions = TimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
+                            timeOptions = LocalTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
                         ),
                         locale = LOCALE_ITALIAN
                     ) shouldBeLocalizedAs when (timeStyle) {
-                        TimeStyle.Local.SHORT -> "08/01/26, 9:31 PM"
-                        TimeStyle.Local.MEDIUM -> "08/01/26, 9:31:45 PM"
+                        LocalTimeStyle.SHORT -> "08/01/26, 9:31 PM"
+                        LocalTimeStyle.MEDIUM -> "08/01/26, 9:31:45 PM"
                     }
                 }
             }
@@ -88,7 +87,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                         dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
                         dayOfWeekStyle = DayOfWeekStyle.ABBREVIATED,
                     ),
-                    timeOptions = TimeComponents.Local(
+                    timeOptions = LocalTimeComponents(
                         hourStyle = HourStyle.NUMERIC,
                         minuteStyle = MinuteStyle.NUMERIC,
                     )
@@ -101,7 +100,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
             val localized = date.atTime(DATE_TIME.time).localize(
                 options = LocalDateTimeOptions(
                     dateOptions = components,
-                    timeOptions = TimeComponents.Local(
+                    timeOptions = LocalTimeComponents(
                         hourStyle = HourStyle.NUMERIC,
                         minuteStyle = MinuteStyle.NUMERIC,
                     )
@@ -135,7 +134,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
             DATE_TIME.localize(
                 options = LocalDateTimeOptions(
                     dateOptions = DateStyle.MEDIUM,
-                    timeOptions = TimeStyle.Local.SHORT,
+                    timeOptions = LocalTimeStyle.SHORT,
                 ),
                 locale = LOCALE_ITALIAN
             ) shouldBeLocalizedAs "8 gen 2026, 21:31"
@@ -145,7 +144,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
             DATE_TIME.localize(
                 options = LocalDateTimeOptions(
                     dateOptions = DateStyle.LONG,
-                    timeOptions = TimeStyle.Local.SHORT,
+                    timeOptions = LocalTimeStyle.SHORT,
                 ),
                 locale = LOCALE_POLISH
             ) shouldBeLocalizedAs "8 stycznia 2026 21:31"
@@ -158,7 +157,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                 DATE_TIME.localize(
                     options = LocalDateTimeOptions(
                         dateOptions = dateStyle,
-                        timeOptions = TimeComponents.Local(
+                        timeOptions = LocalTimeComponents(
                             hourStyle = HourStyle.NUMERIC,
                             minuteStyle = MinuteStyle.NUMERIC,
                             secondStyle = SecondStyle.NUMERIC,
@@ -188,7 +187,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                             monthStyle = monthStyle,
                             dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
                         ),
-                        timeOptions = TimeOptions(TimeStyle.Local.SHORT),
+                        timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                     ),
                     locale = LOCALE_ENGLISH
                 ) shouldBeLocalizedAs when (monthStyle) {

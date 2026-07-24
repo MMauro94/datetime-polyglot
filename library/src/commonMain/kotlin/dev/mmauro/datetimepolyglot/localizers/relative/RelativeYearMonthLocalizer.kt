@@ -4,6 +4,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
@@ -28,7 +29,9 @@ import kotlin.time.Instant
 data class RelativeYearMonthOptions(
     override val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
     override val allowedDirections: Set<RelativeDirection> = RelativeDirection.entries.toSet(),
-) : RelativeUnitOptions
+) : RelativeUnitOptions, PolyglotLocalizerOptions<RelativeYearMonthLocalizer> {
+    override fun localizer(locale: PlatformLocale) = RelativeYearMonthLocalizer(this, locale)
+}
 
 /**
  * Localizes a [YearMonth] relative to a [Zoned]<[Instant]> reference point.
