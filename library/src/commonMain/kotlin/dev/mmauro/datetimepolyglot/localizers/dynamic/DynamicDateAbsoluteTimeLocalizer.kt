@@ -10,6 +10,7 @@ import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateComponents
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
+import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyleOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateTimeOptions
@@ -47,8 +48,8 @@ data class DynamicDateAbsoluteTimeOptions(
 
     constructor(
         relativeDateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
-        absoluteDateStyle: DateStyle,
-        timeOptions: LocalTimeOptions<LocalTimeStyle>,
+        absoluteDateStyle: DateStyleOptions,
+        timeOptions: LocalTimeOptions<*>,
         relativeJoinerStyle: DateStyle = DateStyle.LONG,
         relativeDateDiffRange: IntRange = DynamicLocalDateOptions.DEFAULT_DIFF_RANGE,
     ) : this(
@@ -56,25 +57,6 @@ data class DynamicDateAbsoluteTimeOptions(
             dateOptions = relativeDateOptions,
             timeOptions = timeOptions,
             joinerStyle = relativeJoinerStyle,
-        ),
-        absoluteOptions = LocalDateTimeOptions(
-            dateOptions = absoluteDateStyle,
-            timeOptions = timeOptions,
-        ),
-        relativeDateDiffRange = relativeDateDiffRange,
-    )
-
-    constructor(
-        relativeDateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
-        absoluteDateStyle: DateComponents,
-        timeOptions: LocalTimeOptions<LocalTimeComponents>,
-        joinerStyle: DateStyle = DateStyle.LONG,
-        relativeDateDiffRange: IntRange = DynamicLocalDateOptions.DEFAULT_DIFF_RANGE,
-    ) : this(
-        relativeOptions = RelativeDateAbsoluteTimeOptions(
-            dateOptions = relativeDateOptions,
-            timeOptions = timeOptions,
-            joinerStyle = joinerStyle,
         ),
         absoluteOptions = LocalDateTimeOptions(
             dateOptions = absoluteDateStyle,
