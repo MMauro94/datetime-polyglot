@@ -4,10 +4,6 @@ package dev.mmauro.datetimepolyglot.localizers
 
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
-import dev.mokkery.answering.calls
-import dev.mokkery.every
-import dev.mokkery.matcher.any
-import dev.mokkery.mock
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.IsolationMode
 import io.kotest.core.spec.style.FunSpec
@@ -16,9 +12,15 @@ import io.kotest.core.test.testCoroutineScheduler
 import io.kotest.engine.coroutines.testScheduler
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestCoroutineScheduler
+import kotlinx.datetime.FixedOffsetTimeZone
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.UtcOffset
 import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
@@ -26,69 +28,148 @@ import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Instant
 
-private const val LOCALIZED_VALUE = "value"
-
 class PolyglotReferenceValueLocalizerTest : FunSpec({
     isolationMode = IsolationMode.InstancePerLeaf
 
-    context("localizeAsFlow").config(coroutineTestScope = true) {
+    context("tickingValueToFlow").config(coroutineTestScope = true) {
         test("some next ticks and then null") {
-            val localizer = mockLocalizer(listOf(1.seconds, 5.minutes, null))
-            val flow = localizer.localizeAsFlow(LOCALIZED_VALUE, testScheduler.clock())
+            val flow = tickingValueToFlow(
+                clock = flowOf(testScheduler.clock()),
+                timeZone = flowOf(TimeZone.UTC),
+                tickingValueProvider = tickingValueProvider(listOf(1.seconds, 5.minutes, null)),
+            )
 
             flow.test {
                 withClue("flow should output second localized value after 1 second") {
                     testCoroutineScheduler.advanceTimeBy(1.seconds)
                     testCoroutineScheduler.runCurrent()
                     itemsCount shouldBe 2
-                    lastItem shouldBe "localized @ 1"
+                    lastItem shouldBe "localized @ 1 UTC"
                 }
 
                 withClue("flow should output third localized value after 5 minutes") {
                     testCoroutineScheduler.advanceTimeBy(5.minutes)
                     testCoroutineScheduler.runCurrent()
                     itemsCount shouldBe 3
-                    lastItem shouldBe "localized @ 301"
+                    lastItem shouldBe "localized @ 301 UTC"
                 }
 
                 shouldHaveStoppedEmittingValues()
             }
         }
         test("immediate null nextTick") {
-            val localizer = mockLocalizer(listOf(null))
-            val flow = localizer.localizeAsFlow(LOCALIZED_VALUE, testScheduler.clock())
+            val flow = tickingValueToFlow(
+                clock = flowOf(testScheduler.clock()),
+                timeZone = flowOf(TimeZone.UTC),
+                tickingValueProvider = tickingValueProvider(listOf(null)),
+            )
 
             flow.test {
                 shouldHaveStoppedEmittingValues()
             }
         }
         test("never ending next ticks") {
-            val localizer = mockLocalizer { 1.seconds }
-            val flow = localizer.localizeAsFlow(LOCALIZED_VALUE, testScheduler.clock())
+            val flow = tickingValueToFlow(
+                clock = flowOf(testScheduler.clock()),
+                timeZone = flowOf(TimeZone.UTC),
+                tickingValueProvider = tickingValueProvider { 1.seconds },
+            )
 
             flow.test {
                 withClue("verify flow output after 1 day") {
                     testCoroutineScheduler.advanceTimeBy(1.days)
                     testCoroutineScheduler.runCurrent()
                     itemsCount shouldBe 86401
-                    lastItem shouldBe "localized @ 86400"
+                    lastItem shouldBe "localized @ 86400 UTC"
+                }
+            }
+        }
+        test("clock update") {
+            val flow = tickingValueToFlow(
+                clock = flow {
+                    emit(testScheduler.clock())
+
+                    delay(1.seconds)
+                    val fixedClock = object : Clock {
+                        override fun now() = Instant.fromEpochSeconds(1234)
+                    }
+                    emit(fixedClock)
+
+                    delay(5.seconds)
+                    emit(fixedClock)
+                },
+                timeZone = flowOf(TimeZone.UTC),
+                tickingValueProvider = tickingValueProvider { null },
+            )
+
+            flow.test {
+                withClue("flow should recompute localized value after clock change") {
+                    testCoroutineScheduler.advanceTimeBy(1.seconds)
+                    testCoroutineScheduler.runCurrent()
+                    itemsCount shouldBe 2
+                    lastItem shouldBe "localized @ 1234 UTC"
+                }
+                withClue("flow should recompute localized value after clock change even if clock is identical") {
+                    testCoroutineScheduler.advanceTimeBy(5.seconds)
+                    testCoroutineScheduler.runCurrent()
+                    itemsCount shouldBe 3
+                    lastItem shouldBe "localized @ 1234 UTC"
+                }
+
+                shouldHaveStoppedEmittingValues()
+            }
+        }
+        test("timezone update") {
+            val flow = tickingValueToFlow(
+                clock = flowOf(testScheduler.clock()),
+                timeZone = flow {
+                    emit(TimeZone.UTC)
+
+                    delay(1.seconds)
+                    emit(TimeZone.of("Europe/London"))
+
+                    delay(1.minutes)
+                    emit(FixedOffsetTimeZone(UtcOffset(hours = -4)))
+
+                    delay(15.seconds)
+                    emit(FixedOffsetTimeZone(UtcOffset(hours = -4)))
+                },
+                tickingValueProvider = tickingValueProvider { null },
+            )
+
+            flow.test {
+                withClue("flow should recompute localized value after first time zone change") {
+                    testCoroutineScheduler.advanceTimeBy(1.seconds)
+                    testCoroutineScheduler.runCurrent()
+                    itemsCount shouldBe 2
+                    lastItem shouldBe "localized @ 1 Europe/London"
+                }
+                withClue("flow should recompute localized value after second time zone change") {
+                    testCoroutineScheduler.advanceTimeBy(1.minutes)
+                    testCoroutineScheduler.runCurrent()
+                    itemsCount shouldBe 3
+                    lastItem shouldBe "localized @ 61 -04:00"
+                }
+                withClue("flow should NOT recompute localized value if new identical timezone is emitted") {
+                    testCoroutineScheduler.advanceTimeBy(15.seconds)
+                    testCoroutineScheduler.runCurrent()
+                    itemsCount shouldBe 3
+                    lastItem shouldBe "localized @ 61 -04:00"
                 }
             }
         }
     }
 })
 
-private fun mockLocalizer(nextTicks: List<Duration?>): PolyglotReferenceValueLocalizer<String> {
-    return mockLocalizer(nextTick = { i -> nextTicks[i] })
+
+private fun tickingValueProvider(nextTicks: List<Duration?>): (reference: Zoned<Instant>) -> TickingValue<String> {
+    return tickingValueProvider(nextTick = { i -> nextTicks[i] })
 }
 
-private fun mockLocalizer(nextTick: (Int) -> Duration?): PolyglotReferenceValueLocalizer<String> {
-    return mock {
-        var count = 0
-        every { localize(LOCALIZED_VALUE, any()) } calls {
-            val reference = it.arg<Zoned<Instant>>(1)
-            TickingValue("localized @ ${reference.value.epochSeconds}", nextTick(count++))
-        }
+private fun tickingValueProvider(nextTick: (Int) -> Duration?): (reference: Zoned<Instant>) -> TickingValue<String> {
+    var count = 0
+    return { reference ->
+        TickingValue("localized @ ${reference.value.epochSeconds} ${reference.timeZone.id}", nextTick(count++))
     }
 }
 
@@ -116,7 +197,7 @@ private fun Flow<String>.test(test: FlowTestContext.() -> Unit) {
     withClue("flow should immediately output first localized value") {
         testScope.testCoroutineScheduler.runCurrent()
         context.itemsCount shouldBe 1
-        context.lastItem shouldBe "localized @ 0"
+        context.lastItem shouldBe "localized @ 0 UTC"
     }
 
     context.test()

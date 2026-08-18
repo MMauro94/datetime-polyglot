@@ -3,6 +3,8 @@
 package dev.mmauro.datetimepolyglot.localizers.dynamic
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
+import dev.mmauro.datetimepolyglot.SYSTEM_TIMEZONE
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
@@ -11,14 +13,15 @@ import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyleOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalDateLocalizer
-import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
+import dev.mmauro.datetimepolyglot.localizers.localizeNow
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeLocalDateLocalizer
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeLocalDateOptions
 import dev.mmauro.datetimepolyglot.utils.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.minus
 import kotlin.time.Clock
@@ -112,21 +115,23 @@ fun LocalDate.localizeDynamic(
 }
 
 /**
- * Localizes this [LocalDate] dynamically (either absolute or relative to [clock]) with the given [options] in the given [locale].
+ * Localizes this [LocalDate] dynamically (either absolute or relative to [clock] @ [timeZone]) with the given [options] in the given
+ * [locale].
  *
  * @see DynamicLocalDateLocalizer
  */
-fun LocalDate.localizeDynamic(
+fun LocalDate.localizeDynamicNow(
     options: DynamicLocalDateOptions,
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
+    timeZone: TimeZone = TimeZone.currentSystemDefault(),
 ): TickingValue<String> {
-    return DynamicLocalDateLocalizer(options, locale).localize(this, clock)
+    return DynamicLocalDateLocalizer(options, locale).localizeNow(this, clock, timeZone)
 }
 
 /**
- * Localizes this [LocalDate] dynamically (either absolute or relative to [clock]) with the given [options] in the given [locale], returning
- * a [Flow] that automatically receives new localizations as they are needed.
+ * Localizes this [LocalDate] dynamically (either absolute or relative to [clock] @ [timeZone]) with the given [options] in the given
+ * [locale], returning a [Flow] that automatically receives new localizations as they are needed.
  *
  * @see DynamicLocalDateLocalizer
  * @see localizeAsFlow
@@ -134,7 +139,8 @@ fun LocalDate.localizeDynamic(
 fun LocalDate.localizeDynamicAsFlow(
     options: DynamicLocalDateOptions,
     locale: PlatformLocale = getDefaultLocale(),
-    clock: Clock = Clock.System,
+    clock: Flow<Clock> = SYSTEM_CLOCK,
+    timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
 ): Flow<String> {
-    return DynamicLocalDateLocalizer(options, locale).localizeAsFlow(this, clock)
+    return DynamicLocalDateLocalizer(options, locale).localizeAsFlow(this, clock, timeZone)
 }

@@ -1,13 +1,17 @@
 package dev.mmauro.datetimepolyglot.localizers
 
+import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
+import dev.mmauro.datetimepolyglot.SYSTEM_TIMEZONE
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.withNextTickAtMost
-import dev.mmauro.datetimepolyglot.zonedNow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlin.math.max
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.transformLatest
+import kotlinx.datetime.TimeZone
 import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Instant
@@ -29,46 +33,78 @@ interface PolyglotReferenceValueLocalizer<in T> : PolyglotLocalizer {
 }
 
 /**
- * Localizes [value] by using the given [clock]'s [Clock.now] as a reference point, rather than passing the reference explicitly.
+ * Localizes [value] by using the given [clock]'s [Clock.now] and [timeZone] as a reference point, rather than passing the reference
+ * explicitly.
  */
-fun <T> PolyglotReferenceValueLocalizer<T>.localize(value: T, clock: Clock = Clock.System): TickingValue<String> {
-    return localize(value, clock.zonedNow())
+fun <T> PolyglotReferenceValueLocalizer<T>.localizeNow(
+    value: T,
+    clock: Clock = Clock.System,
+    timeZone: TimeZone = TimeZone.currentSystemDefault(),
+): TickingValue<String> {
+    return localize(value, Zoned(clock.now(), timeZone))
 }
 
 /**
- * Localizes [value] by using the given [clock]'s [Clock.now] as a reference point and returns a [Flow] that emits updated values based on
- * the underlying [TickingValue.nextTick]. This function assumes that the given [clock] moves forward linearly.
+ * Localizes [value] by using the given [clock]'s [Clock.now] and [timeZone] flows as a reference point and returns a [Flow] that emits
+ * updated values based on the underlying [TickingValue.nextTick].
+ * This function assumes that each [Clock] emitted by the [clock] flow moves forward linearly.
  *
- * The flow will automatically complete as soon as a localization returns `null` as [TickingValue.nextTick], as that means that the
- * localization is now "stable" and will not require further passes.
+ * The flow always immediately emits the localized value before any suspension point, assuming that [clock] and [timeZone] immediately emit
+ * a value as well.
  *
- * Important: please note that this function does **not** track changes on the given [clock]. If the clock changes (e.g. because of a NTP
- * sync or manual intervention), this function will not recompute the value immediately, but wait for the normal amount of time as returned
- * by [TickingValue.nextTick]. This might cause the localized value to be stale for a certain amount of time.
- * This should not normally be a problem given that usually adjustments are in the order of milliseconds.
- * If this is a concern for you can either track the clock changes in your platform and subscribe to a fresh [Flow] when it happens, or
- * provide a [maxTick] parameter, which guarantees a fresh computation at least every [maxTick].
- * Note that, as [Clock] is a source of [Instant]s (and not local values), DST changes are **not** affected by this, and will work
- * correctly.
- *
- * @param value the value to localized, passed as-is to [localize]
- * @param clock the clock to use to obtain the reference point
- * @param maxTick the maximum amount of to wait for a recomputation (as long as the underlying [localize] returns a non-null
- * [TickingValue.nextTick]). If null (the default), no max tick bound is applied.
+ * @param value the value to localized, passed as-is to [PolyglotReferenceValueLocalizer.localize]
+ * @param clock the [Clock] to use to obtain the [Instant] for the reference point. It is a [Flow] because the time might be changed (e.g.
+ * by an NTP sync or by the user manually adjusting the time). Whenever a value is emitted (even if it's the same [Clock] as before), the
+ * localized string is recomputed. See [SYSTEM_CLOCK] for more info.
+ * @param timeZone the [TimeZone] to use for the reference point. It is a [Flow] because it might change (e.g. if the user crosses a
+ * time zone line). When a different time zone is emitted, the localized string is recomputed. See [SYSTEM_TIMEZONE] for more info.
+ * @param maxTick the maximum amount of to wait for a recomputation (as long as the underlying [PolyglotReferenceValueLocalizer.localize]
+ * returns a non-null [TickingValue.nextTick]). If null (the default), no max tick bound is applied.
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 fun <T> PolyglotReferenceValueLocalizer<T>.localizeAsFlow(
     value: T,
-    clock: Clock = Clock.System,
+    clock: Flow<Clock> = SYSTEM_CLOCK,
+    timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
     maxTick: Duration? = null,
 ): Flow<String> {
-    return flow {
-        var last: TickingValue<String>
+    return tickingValueToFlow(clock, timeZone, maxTick, tickingValueProvider = { reference -> localize(value, reference) })
+}
+
+/**
+ * Uses the given [clock] and [timeZone] flows to compute the reference point passed to [tickingValueProvider] and returns the resulting
+ * [Flow]. This function assumes that each [Clock] emitted by the [clock] flow moves forward linearly.
+ *
+ * This function can be used to bridge any function returning a [TickingValue] to use a [Flow].
+ *
+ * The flow always immediately emits the value computed by [tickingValueProvider] before any suspension point, assuming that [clock] and
+ * [timeZone] immediately emit a value as well.
+ *
+ * This is the primitive that powers [localizeAsFlow].
+ *
+ * @param clock the [Clock] to use to obtain the [Instant] for the reference point. It is a [Flow] because the time might be changed (e.g.
+ * by an NTP sync or by the user manually adjusting the time). Whenever a value is emitted (even if it's the same [Clock] as before), the
+ * localized string is recomputed. See [SYSTEM_CLOCK] for more info.
+ * @param timeZone the [TimeZone] to use for the reference point. It is a [Flow] because it might change (e.g. if the user crosses a
+ * time zone line). When a different time zone is emitted, the localized string is recomputed. See [SYSTEM_TIMEZONE] for more info.
+ * @param maxTick the maximum amount of to wait for a recomputation (as long as the underlying [tickingValueProvider] returns a non-null
+ * [TickingValue.nextTick]). If null (the default), no max tick bound is applied.
+ */
+@OptIn(ExperimentalCoroutinesApi::class)
+fun <T> tickingValueToFlow(
+    clock: Flow<Clock> = SYSTEM_CLOCK,
+    timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
+    maxTick: Duration? = null,
+    tickingValueProvider: (reference: Zoned<Instant>) -> TickingValue<T>
+): Flow<T> {
+    return combine(clock, timeZone.distinctUntilChanged(), ::Pair).transformLatest { (clock, timeZone) ->
+        var last: TickingValue<T>
 
         do {
-            last = localize(value, clock)
+            last = tickingValueProvider(Zoned(clock.now(), timeZone))
             if (last.nextTick != null) {
-                // If the returned maxTick is null, it means that the localized string is not affected by the reference point anymore, so it
-                // doesn't make sense to keep applying maxTick in this case
+                // If the returned maxTick is null, it means that the localized string is not affected by the reference point anymore,
+                // so it doesn't make sense to keep applying maxTick in this case
                 last = last.withNextTickAtMost(maxTick)
             }
             emit(last.value)

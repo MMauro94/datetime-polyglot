@@ -2,7 +2,6 @@ package dev.mmauro.datetimepolyglot
 
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Instant
 
@@ -23,16 +22,6 @@ fun Zoned<Instant>.toLocalDateTime() = value.toLocalDateTime(timeZone)
 
 operator fun Zoned<Instant>.plus(duration: Duration) = Zoned(value + duration, timeZone)
 operator fun Zoned<Instant>.minus(duration: Duration) = Zoned(value - duration, timeZone)
-
-/**
- * Returns a [Zoned]<[Instant]> using this [Clock] as source and [TimeZone.currentSystemDefault] for timezone.
- */
-fun Clock.zonedNow(): Zoned<Instant> {
-    return Zoned(
-        value = now(),
-        timeZone = TimeZone.currentSystemDefault(),
-    )
-}
 
 /**
  * Returns a new [Zoned] with the same [Zoned.timeZone] and the value returned by [transform].

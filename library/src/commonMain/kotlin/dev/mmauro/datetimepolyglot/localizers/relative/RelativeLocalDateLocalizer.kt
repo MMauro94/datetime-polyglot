@@ -1,20 +1,23 @@
 package dev.mmauro.datetimepolyglot.localizers.relative
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
+import dev.mmauro.datetimepolyglot.SYSTEM_TIMEZONE
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.firstDayOfWeek
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
-import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
+import dev.mmauro.datetimepolyglot.localizers.localizeNow
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.toLocalDateTime
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.daysUntil
 import kotlinx.datetime.plus
@@ -152,21 +155,23 @@ fun LocalDate.localizeRelative(
 }
 
 /**
- * Localizes this [LocalDate] relatively with respect to [clock], with a single unit with the given [options] in the given [locale].
+ * Localizes this [LocalDate] relatively with respect to [clock] @ [timeZone], with a single unit with the given [options] in the given
+ * [locale].
  *
  * @see RelativeLocalDateLocalizer
  */
-fun LocalDate.localizeRelative(
+fun LocalDate.localizeRelativeNow(
     options: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
+    timeZone: TimeZone = TimeZone.currentSystemDefault(),
 ): TickingValue<String> {
-    return RelativeLocalDateLocalizer(options, locale).localize(this, clock)
+    return RelativeLocalDateLocalizer(options, locale).localizeNow(this, clock, timeZone)
 }
 
 /**
- * Localizes this [LocalDate] relatively with respect to [clock], with a single unit with the given [options] in the given [locale],
- * returning a [Flow] that automatically receives new localizations as they are needed.
+ * Localizes this [LocalDate] relatively with respect to [clock] @ [timeZone], with a single unit with the given [options] in the given
+ * [locale], returning a [Flow] that automatically receives new localizations as they are needed.
  *
  * @see RelativeLocalDateLocalizer
  * @see localizeAsFlow
@@ -174,7 +179,8 @@ fun LocalDate.localizeRelative(
 fun LocalDate.localizeRelativeAsFlow(
     options: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-    clock: Clock = Clock.System,
+    clock: Flow<Clock> = SYSTEM_CLOCK,
+    timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
 ): Flow<String> {
-    return RelativeLocalDateLocalizer(options, locale).localizeAsFlow(this, clock)
+    return RelativeLocalDateLocalizer(options, locale).localizeAsFlow(this, clock, timeZone)
 }

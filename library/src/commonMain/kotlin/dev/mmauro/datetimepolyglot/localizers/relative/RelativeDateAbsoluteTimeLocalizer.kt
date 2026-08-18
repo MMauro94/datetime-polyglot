@@ -1,6 +1,8 @@
 package dev.mmauro.datetimepolyglot.localizers.relative
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
+import dev.mmauro.datetimepolyglot.SYSTEM_TIMEZONE
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
@@ -11,12 +13,13 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyleOptions
-import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
+import dev.mmauro.datetimepolyglot.localizers.localizeNow
 import dev.mmauro.datetimepolyglot.map
 import dev.mmauro.datetimepolyglot.utils.joinDateAndTime
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
 import kotlin.time.Clock
 import kotlin.time.Instant
 
@@ -94,21 +97,23 @@ fun LocalDateTime.localizeRelativeDateAbsoluteTime(
 }
 
 /**
- * Localizes this [LocalDateTime] relatively with respect to [clock], with a single unit with the given [options] in the given [locale].
+ * Localizes this [LocalDateTime] relatively with respect to [clock] @ [timeZone], with a single unit with the given [options] in the given
+ * [locale].
  *
  * @see RelativeDateAbsoluteTimeLocalizer
  */
-fun LocalDateTime.localizeRelativeDateAbsoluteTime(
+fun LocalDateTime.localizeRelativeDateAbsoluteTimeNow(
     options: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
+    timeZone: TimeZone = TimeZone.currentSystemDefault(),
 ): TickingValue<String> {
-    return RelativeDateAbsoluteTimeLocalizer(options, locale).localize(this, clock)
+    return RelativeDateAbsoluteTimeLocalizer(options, locale).localizeNow(this, clock, timeZone)
 }
 
 /**
- * Localizes this [LocalDateTime] relatively with respect to [clock], with a single unit with the given [options] in the given [locale],
- * returning a [Flow] that automatically receives new localizations as they are needed.
+ * Localizes this [LocalDateTime] relatively with respect to [clock] @ [timeZone], with a single unit with the given [options] in the given
+ * [locale], returning a [Flow] that automatically receives new localizations as they are needed.
  *
  * @see RelativeDateAbsoluteTimeLocalizer
  * @see localizeAsFlow
@@ -116,7 +121,8 @@ fun LocalDateTime.localizeRelativeDateAbsoluteTime(
 fun LocalDateTime.localizeRelativeDateAbsoluteTimeAsFlow(
     options: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-    clock: Clock = Clock.System,
+    clock: Flow<Clock> = SYSTEM_CLOCK,
+    timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
 ): Flow<String> {
-    return RelativeDateAbsoluteTimeLocalizer(options, locale).localizeAsFlow(this, clock)
+    return RelativeDateAbsoluteTimeLocalizer(options, locale).localizeAsFlow(this, clock, timeZone)
 }
