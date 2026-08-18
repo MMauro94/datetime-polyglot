@@ -1,16 +1,15 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
-import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
-import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDurationLocalizer
-import dev.mmauro.datetimepolyglot.localizers.relative.RelativeInstantLocalizer
+import dev.mmauro.datetimepolyglot.localizers.localizeNow
 import dev.mmauro.datetimepolyglot.utils.remainderUntilNextUnitBoundary
 import kotlinx.coroutines.flow.Flow
 import kotlin.time.Clock
@@ -116,19 +115,20 @@ fun Instant.localizeDiff(
 }
 
 /**
- * Calculates the diff between this [Instant] and the current instnat of [clock], and localizes the result with the given [options] in the
+ * Calculates the diff between this [Instant] and the current instant of [clock], and localizes the result with the given [options] in the
  * given [locale].
  *
  * @see Duration.localizeTicking
  * @see TickingDurationLocalizer
  */
 @ExperimentalTickingDurationLocalizer
-fun Instant.localizeDiff(
+fun Instant.localizeDiffNow(
     options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
+    // Timezone is useless here
 ): TickingValue<String> {
-    return TickingDurationLocalizer(options, locale).localize(this, clock)
+    return TickingDurationLocalizer(options, locale).localizeNow(this, clock)
 }
 
 /**
@@ -143,7 +143,8 @@ fun Instant.localizeDiff(
 fun Instant.localizeDiffAsFlow(
     options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-    clock: Clock = Clock.System,
+    clock: Flow<Clock> = SYSTEM_CLOCK,
+    // Timezone is useless here
 ): Flow<String> {
     return TickingDurationLocalizer(options, locale).localizeAsFlow(this, clock)
 }

@@ -3,6 +3,8 @@
 package dev.mmauro.datetimepolyglot.localizers.dynamic
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
+import dev.mmauro.datetimepolyglot.SYSTEM_TIMEZONE
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
@@ -10,13 +12,14 @@ import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthOptions
-import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
+import dev.mmauro.datetimepolyglot.localizers.localizeNow
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearMonthLocalizer
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeYearMonthOptions
 import dev.mmauro.datetimepolyglot.utils.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.YearMonth
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.minus
@@ -99,21 +102,23 @@ fun YearMonth.localizeDynamic(
 }
 
 /**
- * Localizes this [YearMonth] dynamically (either absolute or relative to [clock]) with the given [options] in the given [locale].
+ * Localizes this [YearMonth] dynamically (either absolute or relative to [clock] @ [timeZone]) with the given [options] in the given
+ * [locale].
  *
  * @see DynamicYearMonthLocalizer
  */
-fun YearMonth.localizeDynamic(
+fun YearMonth.localizeDynamicNow(
     options: DynamicYearMonthOptions,
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
+    timeZone: TimeZone = TimeZone.currentSystemDefault(),
 ): TickingValue<String> {
-    return DynamicYearMonthLocalizer(options, locale).localize(this, clock)
+    return DynamicYearMonthLocalizer(options, locale).localizeNow(this, clock, timeZone)
 }
 
 /**
- * Localizes this [YearMonth] dynamically (either absolute or relative to [clock]) with the given [options] in the given [locale], returning
- * a [Flow] that automatically receives new localizations as they are needed.
+ * Localizes this [YearMonth] dynamically (either absolute or relative to [clock] @ [timeZone]) with the given [options] in the given
+ * [locale], returning a [Flow] that automatically receives new localizations as they are needed.
  *
  * @see DynamicYearMonthLocalizer
  * @see localizeAsFlow
@@ -121,7 +126,8 @@ fun YearMonth.localizeDynamic(
 fun YearMonth.localizeDynamicAsFlow(
     options: DynamicYearMonthOptions,
     locale: PlatformLocale = getDefaultLocale(),
-    clock: Clock = Clock.System,
+    clock: Flow<Clock> = SYSTEM_CLOCK,
+    timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
 ): Flow<String> {
-    return DynamicYearMonthLocalizer(options, locale).localizeAsFlow(this, clock)
+    return DynamicYearMonthLocalizer(options, locale).localizeAsFlow(this, clock, timeZone)
 }

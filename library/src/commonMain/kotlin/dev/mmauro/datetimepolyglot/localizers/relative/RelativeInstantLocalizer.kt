@@ -1,14 +1,17 @@
 package dev.mmauro.datetimepolyglot.localizers.relative
 
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
+import dev.mmauro.datetimepolyglot.SYSTEM_TIMEZONE
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
-import dev.mmauro.datetimepolyglot.localizers.localize
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
+import dev.mmauro.datetimepolyglot.localizers.localizeNow
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.TimeZone
 import kotlin.time.Clock
 import kotlin.time.Instant
 
@@ -75,21 +78,23 @@ fun Instant.localizeRelative(
 }
 
 /**
- * Localizes this [Instant] relatively with respect to [clock], with a single unit with the given [options] in the given [locale].
+ * Localizes this [Instant] relatively with respect to [clock] @ [timeZone], with a single unit with the given [options] in the given
+ * [locale].
  *
  * @see RelativeDurationLocalizer
  */
-fun Instant.localizeRelative(
+fun Instant.localizeRelativeNow(
     options: RelativeInstantOptions = RelativeInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
+    timeZone: TimeZone = TimeZone.currentSystemDefault(),
 ): TickingValue<String> {
-    return RelativeInstantLocalizer(options, locale).localize(this, clock)
+    return RelativeInstantLocalizer(options, locale).localizeNow(this, clock, timeZone)
 }
 
 /**
- * Localizes this [Instant] relatively with respect to [clock], with a single unit with the given [options] in the given [locale], returning
- * a [Flow].
+ * Localizes this [Instant] relatively with respect to [clock] @ [timeZone], with a single unit with the given [options] in the given
+ * [locale], returning a [Flow].
  *
  * @see RelativeDurationLocalizer
  * @see localizeAsFlow
@@ -97,7 +102,8 @@ fun Instant.localizeRelative(
 fun Instant.localizeRelativeAsFlow(
     options: RelativeInstantOptions = RelativeInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-    clock: Clock = Clock.System,
+    clock: Flow<Clock> = SYSTEM_CLOCK,
+    timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
 ): Flow<String> {
-    return RelativeInstantLocalizer(options, locale).localizeAsFlow(this, clock)
+    return RelativeInstantLocalizer(options, locale).localizeAsFlow(this, clock, timeZone)
 }
