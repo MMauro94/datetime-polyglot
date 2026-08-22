@@ -17,7 +17,9 @@ data class YearMonthOptions(
     override val yearStyle: YearStyle = YearStyle.NUMERIC,
     override val monthStyle: MonthStyle?,
 ) : ComponentsOptions.Date.Components, PolyglotLocalizerOptions<YearMonthLocalizer> {
+    @Deprecated(level = DeprecationLevel.HIDDEN, message = "Implementation detail, shouldn't be used")
     override val dayOfMonthStyle: Nothing? get() = null
+    @Deprecated(level = DeprecationLevel.HIDDEN, message = "Implementation detail, shouldn't be used")
     override val dayOfWeekStyle: Nothing? get() = null
 
     override fun localizer(locale: PlatformLocale) = YearMonthLocalizer(this, locale)

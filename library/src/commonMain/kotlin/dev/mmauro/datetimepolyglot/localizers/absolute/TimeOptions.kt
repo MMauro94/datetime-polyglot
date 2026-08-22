@@ -133,6 +133,7 @@ data class LocalTimeComponents(
     override val dayPeriodStyle: DayPeriodStyle? = null,
 ) : TimeComponents, LocalTimeStyleOptions, ComponentsOptions.TimeStyleOptions.Components {
 
+    @Deprecated(level = DeprecationLevel.HIDDEN, message = "Implementation detail, shouldn't be used")
     override val timeZoneStyle: Nothing? get() = null
 
     init {
