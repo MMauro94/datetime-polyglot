@@ -2,7 +2,7 @@
     <application>
         <provider
                 android:name="dev.mmauro.datetimepolyglot.DatetimePolyglotProvider"
-                android:authorities="dev.mmauro.datetimepolyglot.DatetimePolyglotProvider"
+                android:authorities="${applicationId}.DatetimePolyglotProvider"
                 android:exported="false"
         />
     </application>
