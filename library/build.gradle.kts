@@ -41,7 +41,7 @@ kotlin {
     explicitApi()
 
     jvm()
-    androidLibrary {
+    android {
         namespace = "dev.mmauro.datetimepolyglot"
         compileSdk =
             libs.versions.android.compileSdk
@@ -97,13 +97,13 @@ kotlin {
 
     sourceSets {
         // Create JVM+Android common source sets
-        val jvmAndAndroidMain by creating {
+        val jvmAndAndroidMain = create("jvmAndAndroidMain") {
             dependsOn(commonMain.get())
         }
         androidMain.get().dependsOn(jvmAndAndroidMain)
         jvmMain.get().dependsOn(jvmAndAndroidMain)
 
-        val jvmAndAndroidTest by creating {
+        val jvmAndAndroidTest = create("jvmAndAndroidTest") {
             dependsOn(commonTest.get())
         }
         getByName("androidDeviceTest").dependsOn(jvmAndAndroidTest)
@@ -219,7 +219,7 @@ dokka {
                         folder
                             .listFiles {
                                 it.isDirectory && Version.parse(it.name) > gitInfo.latestVersion.get()
-                            }.toList()
+                            }.orEmpty().toList()
                     },
             )
 

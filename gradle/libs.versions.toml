@@ -2,17 +2,23 @@
 android-minSdk = "28"
 android-compileSdk = "36"
 androidx-annotationJvm = "1.10.0"
-agp = "9.0.1"
+agp = "9.1.1"
 dokka = "2.2.0"
 icu = "78.3"
-kotest = "6.2.1"
-kotlin = "2.4.0"
-kotlinpoet = "2.3.0"
+# 6.2.4 breaks Android device tests with:
+# NoClassDefFoundError: Failed resolution of: Ljava/lang/StackWalker$Option
+# https://github.com/kotest/kotest/issues/6221
+kotest = "6.2.3"
+# 2.4.20 breaks wasmJsBrowserTest with:
+# "SyntaxError: import.meta may only appear in a module"
+# https://youtrack.jetbrains.com/issue/KT-87116
+kotlin = "2.4.10"
+kotlinpoet = "2.4.0"
 kotlinx-coroutines = "1.11.0"
 kotlinx-datetime = "0.8.0"
 ktlint-plugin = "14.2.0"
 ksp = "2.3.6"
-mokkery = "3.4.2"
+mokkery = "3.5.0"
 semver = "3.1.0"
 vanniktechMavenPublish = "0.37.0"
 

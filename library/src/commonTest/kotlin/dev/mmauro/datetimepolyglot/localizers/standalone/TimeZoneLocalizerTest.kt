@@ -5,6 +5,7 @@ import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TEST_PLATFORM
 import dev.mmauro.datetimepolyglot.TestPlatform
+import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle.Generic.ID
@@ -68,14 +69,14 @@ val TimeZoneLocalizerTestFactory = funSpec {
         TestCase("UTC", LOCALE_ITALIAN) {
             when (it) {
                 ID -> "UTC"
-                NON_LOCATION_SHORT -> when (TEST_PLATFORM) {
-                    // Older versions of ICU (<78) bundled in Android only output "GMT"
-                    is TestPlatform.Android -> "GMT"
+                NON_LOCATION_SHORT -> when (val platform = TEST_PLATFORM) {
+                    // Older ICU versions (<78) in older Android SDKs (<37) only output "GMT"
+                    is Android if platform.sdk < 37 -> "GMT"
                     else -> "GMT+0"
                 }
-                NON_LOCATION_LONG, LOCATION -> when (TEST_PLATFORM) {
-                    // Older versions of ICU (<78) bundled in Android only output "GMT"
-                    is TestPlatform.Android -> "GMT"
+                NON_LOCATION_LONG, LOCATION -> when (val platform = TEST_PLATFORM) {
+                    // Older ICU versions (<78) in older Android SDKs (<37) only output "GMT"
+                    is Android if platform.sdk < 37 -> "GMT"
                     else -> "GMT+00:00"
                 }
             }
@@ -83,14 +84,14 @@ val TimeZoneLocalizerTestFactory = funSpec {
         TestCase("Universal", LOCALE_ENGLISH) {
             when (it) {
                 ID -> "Universal"
-                NON_LOCATION_SHORT -> when (TEST_PLATFORM) {
-                    // Older versions of ICU (<78) bundled in Android only output "GMT"
-                    is TestPlatform.Android -> "GMT"
+                NON_LOCATION_SHORT -> when (val platform = TEST_PLATFORM) {
+                    // Older ICU versions (<78) in older Android SDKs (<37) only output "GMT"
+                    is Android if platform.sdk < 37 -> "GMT"
                     else -> "GMT+0"
                 }
-                NON_LOCATION_LONG, LOCATION -> when (TEST_PLATFORM) {
-                    // Older versions of ICU (<78) bundled in Android only output "GMT"
-                    is TestPlatform.Android -> "GMT"
+                NON_LOCATION_LONG, LOCATION -> when (val platform = TEST_PLATFORM) {
+                    // Older ICU versions (<78) in older Android SDKs (<37) only output "GMT"
+                    is Android if platform.sdk < 37 -> "GMT"
                     else -> "GMT+00:00"
                 }
             }
@@ -112,6 +113,8 @@ val TimeZoneLocalizerTestFactory = funSpec {
     }
 }
 
-class TimeZoneLocalizerTest : FunSpec({
-    include(TimeZoneLocalizerTestFactory)
-})
+class TimeZoneLocalizerTest : FunSpec(
+    {
+        include(TimeZoneLocalizerTestFactory)
+    },
+)
