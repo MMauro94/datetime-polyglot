@@ -10,8 +10,8 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.ZonedTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
-import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
+import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.TimeZone
@@ -25,11 +25,10 @@ import java.time.temporal.Temporal
 import com.ibm.icu.text.DateFormat as IcuDateFormat
 import com.ibm.icu.text.MeasureFormat as IcuMeasureFormat
 import com.ibm.icu.text.RelativeDateTimeFormatter as IcuRelativeDateTimeFormatter
-import com.ibm.icu.util.MeasureUnit as IcuMeasureUnit
 import com.ibm.icu.text.SimpleDateFormat as IcuSimpleDateFormat
 import com.ibm.icu.util.Measure as IcuMeasure
+import com.ibm.icu.util.MeasureUnit as IcuMeasureUnit
 import com.ibm.icu.util.TimeZone as IcuTimeZone
-
 
 // DATE FORMAT
 internal actual typealias DateFormat = IcuDateFormat
@@ -52,19 +51,19 @@ internal actual fun getDateFormatInstance(dateStyle: DateStyle, locale: Platform
 internal actual fun getTimeFormatInstance(timeOptions: TimeOptions<TimeStyle>, locale: PlatformLocale): SimpleDateFormat {
     return IcuDateFormat.getTimeInstance(
         timeOptions.styleOptions.toDateFormatStyle(),
-        locale.withHourCycle(timeOptions.hourCycle)
+        locale.withHourCycle(timeOptions.hourCycle),
     ) as SimpleDateFormat
 }
 
 internal actual fun getDateTimeFormatInstance(
     dateStyle: DateStyle,
     timeOptions: TimeOptions<TimeStyle>,
-    locale: PlatformLocale
+    locale: PlatformLocale,
 ): SimpleDateFormat {
     return IcuDateFormat.getDateTimeInstance(
         dateStyle.toDateFormatStyle(),
         timeOptions.styleOptions.toDateFormatStyle(),
-        locale.withHourCycle(timeOptions.hourCycle)
+        locale.withHourCycle(timeOptions.hourCycle),
     ) as SimpleDateFormat
 }
 
@@ -98,11 +97,9 @@ private fun TimeZoneStyle.toIcuStyle() = when (this) {
     TimeZoneStyle.Generic.NON_LOCATION_SHORT -> IcuTimeZone.SHORT_GENERIC
     TimeZoneStyle.Generic.NON_LOCATION_LONG -> IcuTimeZone.LONG_GENERIC
     TimeZoneStyle.Generic.LOCATION -> IcuTimeZone.GENERIC_LOCATION
-
     // Specific
     TimeZoneStyle.Specific.NON_LOCATION_SHORT -> IcuTimeZone.SHORT
     TimeZoneStyle.Specific.NON_LOCATION_LONG -> IcuTimeZone.LONG
-
     // GMT
     TimeZoneStyle.Gmt.SHORT -> IcuTimeZone.SHORT_GMT
     TimeZoneStyle.Gmt.LONG -> IcuTimeZone.LONG_GMT

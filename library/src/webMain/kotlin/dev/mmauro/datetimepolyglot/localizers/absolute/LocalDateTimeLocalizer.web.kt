@@ -1,7 +1,7 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.toPlainDateTime
 import js.intl.DateTimeFormat
 import js.temporal.PlainDateTime
@@ -10,7 +10,7 @@ import kotlin.js.ExperimentalWasmJsInterop
 
 public actual class LocalDateTimeLocalizer actual constructor(
     options: LocalDateTimeOptions,
-    locale: PlatformLocale
+    locale: PlatformLocale,
 ) : PolyglotDateTimeLocalizer<LocalDateTime> {
 
     @OptIn(ExperimentalWasmJsInterop::class)

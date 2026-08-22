@@ -31,7 +31,7 @@ public actual val SYSTEM_CLOCK: Flow<Clock.System> by lazy {
 
         APPLICATION_CONTEXT.registerReceiver(
             receiver,
-            IntentFilter(Intent.ACTION_TIME_CHANGED)
+            IntentFilter(Intent.ACTION_TIME_CHANGED),
         )
 
         send(Clock.System)
@@ -57,7 +57,7 @@ public actual val SYSTEM_TIMEZONE: Flow<TimeZone> by lazy {
 
         APPLICATION_CONTEXT.registerReceiver(
             receiver,
-            IntentFilter(Intent.ACTION_TIMEZONE_CHANGED)
+            IntentFilter(Intent.ACTION_TIMEZONE_CHANGED),
         )
 
         awaitClose {

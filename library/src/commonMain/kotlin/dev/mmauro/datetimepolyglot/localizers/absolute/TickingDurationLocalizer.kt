@@ -98,7 +98,6 @@ public fun Duration.localizeTicking(
     return TickingDurationLocalizer(options, locale).localize(this)
 }
 
-
 /**
  * Calculates the diff between this [Instant] and [reference], and localizes the result with the given [options] in the given [locale].
  *

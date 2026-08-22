@@ -43,12 +43,12 @@ public class DynamicLocalizer<T>(
 
             public constructor(
                 range: OpenEndRange<Instant>,
-                localizer: PolyglotReferenceValueLocalizer<T>
+                localizer: PolyglotReferenceValueLocalizer<T>,
             ) : this(range, localizer::localize)
 
             public constructor(
                 range: OpenEndRange<Instant>,
-                localizer: PolyglotValueLocalizer<T, String>
+                localizer: PolyglotValueLocalizer<T, String>,
             ) : this(range, localize = { value, _ -> TickingValue(localizer.localize(value), nextTick = null) })
 
             public operator fun contains(value: Instant): Boolean = value in range
@@ -75,7 +75,7 @@ public class DynamicLocalizer<T>(
         ) : Case<T> {
 
             public constructor(
-                localizer: PolyglotReferenceValueLocalizer<T>
+                localizer: PolyglotReferenceValueLocalizer<T>,
             ) : this(localizer::localize)
 
             public constructor(localizer: PolyglotValueLocalizer<T, String>) : this(

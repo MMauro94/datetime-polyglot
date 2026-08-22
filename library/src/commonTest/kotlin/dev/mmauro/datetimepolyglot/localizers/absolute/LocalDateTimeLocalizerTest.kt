@@ -35,7 +35,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                     }
                     DATE_TIME.localize(
                         LocalDateTimeOptions(dateStyle, timeStyle),
-                        LOCALE_ENGLISH
+                        LOCALE_ENGLISH,
                     ) shouldBeLocalizedAs when (dateStyle) {
                         DateStyle.SHORT -> "1/8/26, $expectedTime"
                         DateStyle.MEDIUM -> "Jan 8, 2026, $expectedTime"
@@ -52,9 +52,9 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                     DATE_TIME.localize(
                         options = LocalDateTimeOptions(
                             dateOptions = DateStyle.SHORT,
-                            timeOptions = LocalTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24)
+                            timeOptions = LocalTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24),
                         ),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ) shouldBeLocalizedAs when (timeStyle) {
                         LocalTimeStyle.SHORT -> "1/8/26, 21:31"
                         LocalTimeStyle.MEDIUM -> "1/8/26, 21:31:45"
@@ -68,7 +68,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                             dateOptions = DateStyle.SHORT,
                             timeOptions = LocalTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
                         ),
-                        locale = LOCALE_ITALIAN
+                        locale = LOCALE_ITALIAN,
                     ) shouldBeLocalizedAs when (timeStyle) {
                         LocalTimeStyle.SHORT -> "08/01/26, 9:31 PM"
                         LocalTimeStyle.MEDIUM -> "08/01/26, 9:31:45 PM"
@@ -90,7 +90,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                     timeOptions = LocalTimeComponents(
                         hourStyle = HourStyle.NUMERIC,
                         minuteStyle = MinuteStyle.NUMERIC,
-                    )
+                    ),
                 ),
                 locale = LOCALE_ENGLISH,
             ) shouldBeLocalizedAs "Thu, Jan 8, 2026, 9:31 PM"
@@ -103,7 +103,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                     timeOptions = LocalTimeComponents(
                         hourStyle = HourStyle.NUMERIC,
                         minuteStyle = MinuteStyle.NUMERIC,
-                    )
+                    ),
                 ),
                 locale = LOCALE_ENGLISH,
             )
@@ -136,7 +136,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                     dateOptions = DateStyle.MEDIUM,
                     timeOptions = LocalTimeStyle.SHORT,
                 ),
-                locale = LOCALE_ITALIAN
+                locale = LOCALE_ITALIAN,
             ) shouldBeLocalizedAs "8 gen 2026, 21:31"
         }
 
@@ -146,7 +146,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                     dateOptions = DateStyle.LONG,
                     timeOptions = LocalTimeStyle.SHORT,
                 ),
-                locale = LOCALE_POLISH
+                locale = LOCALE_POLISH,
             ) shouldBeLocalizedAs "8 stycznia 2026 21:31"
         }
     }
@@ -163,7 +163,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                             secondStyle = SecondStyle.NUMERIC,
                         ),
                     ),
-                    locale = LOCALE_ENGLISH
+                    locale = LOCALE_ENGLISH,
                 ) shouldBeLocalizedAs when (dateStyle) {
                     DateStyle.SHORT -> "1/8/26, 9:31:45 PM"
                     DateStyle.MEDIUM -> "Jan 8, 2026, 9:31:45 PM"
@@ -171,7 +171,6 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                         is Android if platform.sdk <= 33 -> "January 8, 2026, 9:31:45 PM"
                         else -> "January 8, 2026 at 9:31:45 PM"
                     }
-
                     DateStyle.FULL -> when (val platform = TEST_PLATFORM) {
                         is Android if platform.sdk <= 33 -> "Thursday, January 8, 2026, 9:31:45 PM"
                         else -> "Thursday, January 8, 2026 at 9:31:45 PM"
@@ -189,7 +188,7 @@ val LocalDateTimeLocalizerTestFactory = funSpec {
                         ),
                         timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                     ),
-                    locale = LOCALE_ENGLISH
+                    locale = LOCALE_ENGLISH,
                 ) shouldBeLocalizedAs when (monthStyle) {
                     MonthStyle.NUMERIC -> "1/8/2026, 9:31 PM"
                     MonthStyle.NUMERIC_PADDED_2_DIGITS -> "01/8/2026, 9:31 PM"

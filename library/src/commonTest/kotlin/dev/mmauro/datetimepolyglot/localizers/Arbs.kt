@@ -13,9 +13,7 @@ import io.kotest.property.arbitrary.kotlinInstant
 import io.kotest.property.arbitrary.long
 import io.kotest.property.arbitrary.map
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateRange
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.YearMonth
@@ -25,7 +23,6 @@ import kotlin.time.Instant
 
 const val DEFAULT_MIN_YEAR = 1950
 const val DEFAULT_MAX_YEAR = 2090
-
 
 val DEFAULT_MIN_DATE = LocalDateTime(DEFAULT_MIN_YEAR, Month.JANUARY, 1, 0, 0)
 val DEFAULT_MAX_DATE = LocalDateTime(DEFAULT_MAX_YEAR, Month.DECEMBER, 31, 23, 59, 59, 999_999_999)

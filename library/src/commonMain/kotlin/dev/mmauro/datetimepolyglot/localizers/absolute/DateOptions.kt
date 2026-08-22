@@ -56,7 +56,6 @@ public enum class DateStyle : DateStyleOptions {
                     else -> MEDIUM
                 }
             }
-
         }
     }
 }

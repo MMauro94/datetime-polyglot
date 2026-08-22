@@ -19,7 +19,7 @@ import kotlin.time.Instant
 @ExperimentalZonedLocalizer
 public data class RelativeZonedYearOptions(
     val yearOptions: RelativeYearOptions = RelativeYearOptions(),
-    val timeZoneOptions: TimeZoneOptions = TimeZoneOptions()
+    val timeZoneOptions: TimeZoneOptions = TimeZoneOptions(),
 ) : PolyglotLocalizerOptions<RelativeZonedYearLocalizer> {
     override fun localizer(locale: PlatformLocale): RelativeZonedYearLocalizer = RelativeZonedYearLocalizer(this, locale)
 }

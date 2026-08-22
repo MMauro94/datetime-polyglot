@@ -51,7 +51,7 @@ public class RelativeInstantLocalizer(
 
     private val relativeDurationLocalizer = RelativeDurationLocalizer(
         options = options.relativeDurationOptions,
-        locale = locale
+        locale = locale,
     )
 
     override fun localize(value: Instant, reference: Zoned<Instant>): TickingValue<String> {

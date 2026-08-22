@@ -46,14 +46,14 @@ val RelativeZonedYearLocalizerTestFactory = funSpec {
                         is Js, is Wasm -> "in 24 years, Eastern Time"
                         else -> "in 24 years, New York Time"
                     },
-                    nextTick = 275.days
+                    nextTick = 275.days,
                 ),
             ),
             tuple(
                 RelativeZonedYearLocalizer(
                     locale = LOCALE_ITALIAN,
                     options = RelativeZonedYearOptions(
-                        timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_LONG)
+                        timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_LONG),
                     ),
                 ),
                 Zoned(
@@ -66,7 +66,6 @@ val RelativeZonedYearLocalizerTestFactory = funSpec {
             localizer.localizeAndTestNextTick(localDateTime, REFERENCE) shouldBe expected
         }
     }
-
 
     context("next tick") {
         val localizer = RelativeZonedYearLocalizer(locale = LOCALE_ENGLISH)

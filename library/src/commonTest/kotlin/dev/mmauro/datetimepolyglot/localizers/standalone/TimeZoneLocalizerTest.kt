@@ -73,7 +73,6 @@ val TimeZoneLocalizerTestFactory = funSpec {
                     is TestPlatform.Android -> "GMT"
                     else -> "GMT+0"
                 }
-
                 NON_LOCATION_LONG, LOCATION -> when (TEST_PLATFORM) {
                     // Older versions of ICU (<78) bundled in Android only output "GMT"
                     is TestPlatform.Android -> "GMT"
@@ -89,19 +88,18 @@ val TimeZoneLocalizerTestFactory = funSpec {
                     is TestPlatform.Android -> "GMT"
                     else -> "GMT+0"
                 }
-
                 NON_LOCATION_LONG, LOCATION -> when (TEST_PLATFORM) {
                     // Older versions of ICU (<78) bundled in Android only output "GMT"
                     is TestPlatform.Android -> "GMT"
                     else -> "GMT+00:00"
                 }
             }
-        }
+        },
     ) { (timeZone, locale, expectedFn) ->
         withTests(TimeZoneStyle.Generic.entries) { timeZoneStyle ->
             val localized = TimeZone.of(timeZone).localize(
                 options = TimeZoneOptions(timeZoneStyle),
-                locale = locale
+                locale = locale,
             )
             localized shouldBeLocalizedAs when (timeZoneStyle) {
                 ID, NON_LOCATION_SHORT, NON_LOCATION_LONG -> expectedFn(timeZoneStyle)

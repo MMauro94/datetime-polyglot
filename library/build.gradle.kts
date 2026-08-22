@@ -1,6 +1,6 @@
 import dev.mmauro.datetimepolyglot.buildlogic.extensions.GitInfoExtension
-import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.GenerateCldrCodeTask
 import dev.mmauro.datetimepolyglot.buildlogic.tasks.PrintVersionTask
+import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.GenerateCldrCodeTask
 import io.github.z4kn4fein.semver.Version
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -17,6 +17,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.dokka)
     alias(libs.plugins.mokkery)
+    alias(libs.plugins.ktlint)
     id("dtp")
 }
 
@@ -42,8 +43,14 @@ kotlin {
     jvm()
     androidLibrary {
         namespace = "dev.mmauro.datetimepolyglot"
-        compileSdk = libs.versions.android.compileSdk.get().toInt()
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        compileSdk =
+            libs.versions.android.compileSdk
+                .get()
+                .toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
 
         withJava() // enable java compilation support
         withDeviceTestBuilder {
@@ -62,7 +69,6 @@ kotlin {
                 excludes += "META-INF/LICENSE-notice.md"
             }
         }
-
     }
     js {
         nodejs()
@@ -74,7 +80,6 @@ kotlin {
             }
         }
         compilerOptions {
-
         }
     }
     @OptIn(ExperimentalWasmDsl::class)
@@ -151,6 +156,10 @@ kotlin {
     }
 }
 
+ktlint {
+    version = "1.8.0"
+}
+
 tasks.named<Test>("jvmTest").configure {
     useJUnitPlatform()
 }
@@ -207,10 +216,11 @@ dokka {
                     .listFiles { it.isDirectory && it.name !in setOf("stable") && !it.name.startsWith(".") }
                     .orEmpty()
                     .flatMap { folder ->
-                        folder.listFiles {
-                            it.isDirectory && Version.parse(it.name) > gitInfo.latestVersion.get()
-                        }.toList()
-                    }
+                        folder
+                            .listFiles {
+                                it.isDirectory && Version.parse(it.name) > gitInfo.latestVersion.get()
+                            }.toList()
+                    },
             )
 
             // Do not store older version inside subdirectory when copying them over for final build
@@ -228,7 +238,6 @@ tasks.register<Copy>("storeDokkaHtml") {
     val version = gitInfo.currentVersion.get()
     into(dokkaStorage.dir(version.preRelease?.lowercase() ?: "stable").dir(version.toString()))
 }
-
 
 mavenPublishing {
     publishToMavenCentral()

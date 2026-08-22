@@ -1,7 +1,7 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.toPlainDate
 import js.intl.DateTimeFormat
 import js.intl.DateTimeFormatOptions
@@ -11,7 +11,7 @@ import kotlinx.datetime.Month
 
 public actual class YearLocalizer actual constructor(
     private val options: YearOptions,
-    private val locale: PlatformLocale
+    private val locale: PlatformLocale,
 ) : PolyglotDateTimeLocalizer<Int> {
 
     actual override fun localize(value: Int): String {

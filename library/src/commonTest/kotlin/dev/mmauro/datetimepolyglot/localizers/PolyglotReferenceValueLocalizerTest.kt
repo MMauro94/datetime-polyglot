@@ -161,7 +161,6 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
     }
 })
 
-
 private fun tickingValueProvider(nextTicks: List<Duration?>): (reference: Zoned<Instant>) -> TickingValue<String> {
     return tickingValueProvider(nextTick = { i -> nextTicks[i] })
 }

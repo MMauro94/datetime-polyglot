@@ -23,18 +23,24 @@ import js.objects.unsafeJso
 
 internal actual class RelativeUnitLocalizer actual constructor(
     private val style: RelativeUnitStyle,
-    private val locale: PlatformLocale
+    private val locale: PlatformLocale,
 ) {
 
-    private val numericRelativeTimeFormat = RelativeTimeFormat(locale, unsafeJso {
-        this.style = this@RelativeUnitLocalizer.style.toJsRelativeTimeFormatStyle()
-        this.numeric = RelativeTimeFormatNumeric.always
-    })
+    private val numericRelativeTimeFormat = RelativeTimeFormat(
+        locale,
+        unsafeJso {
+            this.style = this@RelativeUnitLocalizer.style.toJsRelativeTimeFormatStyle()
+            this.numeric = RelativeTimeFormatNumeric.always
+        },
+    )
 
-    private val relativeTimeFormat = RelativeTimeFormat(locale, unsafeJso {
-        this.style = this@RelativeUnitLocalizer.style.toJsRelativeTimeFormatStyle()
-        this.numeric = RelativeTimeFormatNumeric.auto
-    })
+    private val relativeTimeFormat = RelativeTimeFormat(
+        locale,
+        unsafeJso {
+            this.style = this@RelativeUnitLocalizer.style.toJsRelativeTimeFormatStyle()
+            this.numeric = RelativeTimeFormatNumeric.auto
+        },
+    )
 
     actual fun localizeNumeric(value: Double, unit: RelativeUnit.DateTimeComponent): String {
         return numericRelativeTimeFormat.format(value, unit.toJsRelativeTimeFormatUnit())
@@ -58,7 +64,6 @@ internal actual class RelativeUnitLocalizer actual constructor(
                     formatted
                 }
             }
-
             is RelativeUnit.DayOfWeek -> localizeRelativeDayOfWeek(locale, style, direction, unit.dayOfWeek)
         }
     }

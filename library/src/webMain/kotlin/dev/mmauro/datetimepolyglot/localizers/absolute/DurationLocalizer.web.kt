@@ -28,38 +28,43 @@ import kotlin.time.DurationUnit
 
 public actual class DurationLocalizer actual constructor(
     internal actual val options: DurationOptions,
-    private val locale: PlatformLocale
+    private val locale: PlatformLocale,
 ) : PolyglotValueLocalizer<Duration, String> {
 
     @ExperimentalWasmJsInterop
     actual override fun localize(value: Duration): String {
         return value.internalLocalize(options, locale) { filteredUnits ->
-            val durationFormat = DurationFormat(locale, unsafeJso {
-                style = when (options.style) {
-                    DurationStyle.NARROW -> DurationFormatStyle.narrow
-                    DurationStyle.SHORT -> DurationFormatStyle.short
-                    DurationStyle.WIDE -> DurationFormatStyle.long
-                }
-                for ((_, unit) in filteredUnits) {
-                    @Suppress("REDUNDANT_ELSE_IN_WHEN")
-                    when (unit) {
-                        DurationUnit.NANOSECONDS -> this.nanosecondsDisplay = DurationFormatDisplayOption.always
-                        DurationUnit.MICROSECONDS -> this.microsecondsDisplay = DurationFormatDisplayOption.always
-                        DurationUnit.MILLISECONDS -> this.millisecondsDisplay = DurationFormatDisplayOption.always
-                        DurationUnit.SECONDS -> this.secondsDisplay = DurationFormatDisplayOption.always
-                        DurationUnit.MINUTES -> this.minutesDisplay = DurationFormatDisplayOption.always
-                        DurationUnit.HOURS -> this.hoursDisplay = DurationFormatDisplayOption.always
-                        DurationUnit.DAYS -> this.daysDisplay = DurationFormatDisplayOption.always
-                        else -> error("Unknown duration unit: $this")
+            val durationFormat = DurationFormat(
+                locale,
+                unsafeJso {
+                    style = when (options.style) {
+                        DurationStyle.NARROW -> DurationFormatStyle.narrow
+                        DurationStyle.SHORT -> DurationFormatStyle.short
+                        DurationStyle.WIDE -> DurationFormatStyle.long
                     }
-                }
-            })
+                    for ((_, unit) in filteredUnits) {
+                        @Suppress("REDUNDANT_ELSE_IN_WHEN")
+                        when (unit) {
+                            DurationUnit.NANOSECONDS -> this.nanosecondsDisplay = DurationFormatDisplayOption.always
+                            DurationUnit.MICROSECONDS -> this.microsecondsDisplay = DurationFormatDisplayOption.always
+                            DurationUnit.MILLISECONDS -> this.millisecondsDisplay = DurationFormatDisplayOption.always
+                            DurationUnit.SECONDS -> this.secondsDisplay = DurationFormatDisplayOption.always
+                            DurationUnit.MINUTES -> this.minutesDisplay = DurationFormatDisplayOption.always
+                            DurationUnit.HOURS -> this.hoursDisplay = DurationFormatDisplayOption.always
+                            DurationUnit.DAYS -> this.daysDisplay = DurationFormatDisplayOption.always
+                            else -> error("Unknown duration unit: $this")
+                        }
+                    }
+                },
+            )
 
-            durationFormat.format(unsafeJso<Record<DurationFormatUnit, JsInt>> {
-                for ((value, unit) in filteredUnits) {
-                    this[unit.toDurationFormatUnit()] = value.toInt().toJsInt()
-                }
-            })
+            durationFormat.format(
+                unsafeJso<Record<DurationFormatUnit, JsInt>> {
+                    for ((value, unit) in filteredUnits) {
+                        this[unit.toDurationFormatUnit()] = value.toInt().toJsInt()
+                    }
+                },
+            )
         }
     }
 

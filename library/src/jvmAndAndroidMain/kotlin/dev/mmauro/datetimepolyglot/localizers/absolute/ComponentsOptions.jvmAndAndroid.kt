@@ -17,15 +17,12 @@ internal fun ComponentsOptions.toDateFormat(locale: PlatformLocale): DateFormat 
         is ComponentsOptions.Date.Style if timeOptions?.styleOptions is ComponentsOptions.TimeStyleOptions.Style -> {
             getDateTimeFormatInstance(dateOptions.style, timeOptions.styleOptions.toTimeOptions(timeOptions), locale)
         }
-
         is ComponentsOptions.Date.Style if timeOptions == null -> {
             getDateFormatInstance(dateOptions.style, locale)
         }
-
         null if timeOptions?.styleOptions is ComponentsOptions.TimeStyleOptions.Style -> {
             getTimeFormatInstance(timeOptions.styleOptions.toTimeOptions(timeOptions), locale)
         }
-
         // Optimizations fail, fallback to normal case
         else -> {
             val dateSkeleton = when (dateOptions) {
@@ -37,7 +34,6 @@ internal fun ComponentsOptions.toDateFormat(locale: PlatformLocale): DateFormat 
                     dateOptions.dayOfWeekStyle?.unicodePattern,
                     dateOptions.dayOfMonthStyle?.unicodePattern,
                 )
-
                 null -> emptyList()
             }
 
@@ -45,7 +41,6 @@ internal fun ComponentsOptions.toDateFormat(locale: PlatformLocale): DateFormat 
                 is ComponentsOptions.TimeStyleOptions.Style -> {
                     listOf(getTimeFormatInstance(timeOptions.styleOptions.toTimeOptions(timeOptions), locale).toPattern())
                 }
-
                 is ComponentsOptions.TimeStyleOptions.Components -> listOfNotNull(
                     timeStyleOptions.hourStyle?.unicodeSkeleton(locale, timeStyleOptions.dayPeriodStyle, hourCycle),
                     timeStyleOptions.minuteStyle?.unicodePattern,
@@ -53,7 +48,6 @@ internal fun ComponentsOptions.toDateFormat(locale: PlatformLocale): DateFormat 
                     fractionalSecondsUnicodePattern(timeStyleOptions.fractionalSecondDigits),
                     timeStyleOptions.timeZoneStyle?.unicodePattern,
                 )
-
                 null -> emptyList()
             }
 

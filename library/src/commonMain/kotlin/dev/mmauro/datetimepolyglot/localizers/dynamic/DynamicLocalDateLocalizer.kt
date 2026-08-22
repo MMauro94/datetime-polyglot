@@ -28,7 +28,6 @@ import kotlinx.datetime.minus
 import kotlin.time.Clock
 import kotlin.time.Instant
 
-
 /**
  * Localization options for [DynamicLocalDateLocalizer].
  *
@@ -89,17 +88,16 @@ public class DynamicLocalDateLocalizer(
                 range = DynamicLocalizer.Case.Threshold.computeRangeFromDiff(
                     value = value,
                     diff = options.relativeDiffRange,
-                    minus = { minus(it, DateTimeUnit.DAY) }
+                    minus = { minus(it, DateTimeUnit.DAY) },
                 ).map { it.atStartOfDayIn(reference.timeZone) },
                 localizer = relativeLocalDateLocalizer,
             ),
-            default = DynamicLocalizer.Case.Default(absoluteLocalDateLocalizer)
+            default = DynamicLocalizer.Case.Default(absoluteLocalDateLocalizer),
         )
 
         return dynamicLocalizer.localize(value, reference)
     }
 }
-
 
 /**
  * Localizes this [LocalDate] dynamically (either absolute or relative to a [Zoned]<[Instant]> reference point) with the given [options] in

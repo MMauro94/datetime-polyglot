@@ -11,11 +11,11 @@ import kotlin.time.Instant
  */
 public data class Zoned<out T>(
     val value: T,
-    val timeZone: TimeZone
+    val timeZone: TimeZone,
 )
 
 /**
- * Returns a civil datetime value that this instant [value] has in the specified [timeZone].
+ * Returns a civil datetime value that this instant [Zoned.value] has in the specified [Zoned.timeZone].
  *
  * @see Instant.toLocalDateTime
  */
@@ -25,7 +25,7 @@ public operator fun Zoned<Instant>.plus(duration: Duration): Zoned<Instant> = Zo
 public operator fun Zoned<Instant>.minus(duration: Duration): Zoned<Instant> = Zoned(value - duration, timeZone)
 
 /**
- * Returns a new [Zoned] with the same [timeZone] and the value returned by [transform].
+ * Returns a new [Zoned] with the same [Zoned.timeZone] and the value returned by [transform].
  */
 public fun <T, R> Zoned<T>.mapValue(transform: (T) -> R): Zoned<R> {
     return Zoned(transform(value), this.timeZone)

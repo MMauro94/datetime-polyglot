@@ -18,11 +18,9 @@ internal fun TimeZoneStyle.toTimeZoneNameFormat(idFallback: TimeZoneNameFormat? 
     TimeZoneStyle.Generic.NON_LOCATION_LONG -> TimeZoneNameFormat.longGeneric
     // Unsupported, falls back to NON_LOCATION_LONG
     TimeZoneStyle.Generic.LOCATION -> TimeZoneNameFormat.longGeneric
-
     // Specific
     TimeZoneStyle.Specific.NON_LOCATION_SHORT -> TimeZoneNameFormat.short
     TimeZoneStyle.Specific.NON_LOCATION_LONG -> TimeZoneNameFormat.long
-
     // GMT
     TimeZoneStyle.Gmt.SHORT -> TimeZoneNameFormat.shortOffset
     TimeZoneStyle.Gmt.LONG -> TimeZoneNameFormat.longOffset

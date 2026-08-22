@@ -32,7 +32,11 @@ public enum class RelativeDirection(public val offset: Int) {
     NEXT_2(2),
 }
 
-internal fun RelativeUnitLocalizer.localizeDiffDirection(value: Double, unit: RelativeUnit.DateTimeComponent, allowedDirection: Set<RelativeDirection>): String? {
+internal fun RelativeUnitLocalizer.localizeDiffDirection(
+    value: Double,
+    unit: RelativeUnit.DateTimeComponent,
+    allowedDirection: Set<RelativeDirection>,
+): String? {
     val direction = RelativeDirection.entries.find { it.offset == value.toInt() }
     if (direction != null && direction in allowedDirection) {
         localizeDiffDirection(direction, unit)?.let { return it }

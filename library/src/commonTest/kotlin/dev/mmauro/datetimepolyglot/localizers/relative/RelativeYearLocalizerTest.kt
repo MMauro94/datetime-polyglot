@@ -79,7 +79,6 @@ val RelativeYearLocalizerTestFactory = funSpec {
                                 is Android if platform.sdk < 34 -> "in 4 yr."
                                 else -> "in 4y"
                             }
-
                             RelativeUnitStyle.SHORT -> "in 4 yr."
                             RelativeUnitStyle.LONG -> "in 4 years"
                         }

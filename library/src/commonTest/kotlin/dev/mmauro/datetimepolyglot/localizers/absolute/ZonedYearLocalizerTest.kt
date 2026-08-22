@@ -31,7 +31,7 @@ val ZonedYearLocalizerTestFactory = funSpec {
         ZonedYearLocalizer(
             options = ZonedYearOptions(
                 yearOptions = YearOptions(eraStyle = EraStyle.ABBREVIATED),
-                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_SHORT)
+                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_SHORT),
             ),
             locale = LOCALE_ENGLISH,
         ).localize(Zoned(2026, TimeZone.of("Australia/Sydney"))) shouldBeLocalizedAs "2026 AD, Sydney Time"
@@ -41,7 +41,7 @@ val ZonedYearLocalizerTestFactory = funSpec {
         ZonedYearLocalizer(
             options = ZonedYearOptions(
                 yearOptions = YearOptions(yearStyle = YearStyle.NUMERIC_2_DIGITS),
-                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_LONG)
+                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_LONG),
             ),
             locale = LOCALE_ITALIAN,
         ).localize(Zoned(1999, TimeZone.of("Europe/Rome"))) shouldBeLocalizedAs "99, Ora dell’Europa centrale"

@@ -40,7 +40,7 @@ val LocalTimeLocalizerTestFactory = funSpec {
                 withTests(LocalTimeStyle.entries) { timeStyle ->
                     TIME.localize(
                         options = LocalTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ) shouldBeLocalizedAs when (timeStyle) {
                         LocalTimeStyle.SHORT -> "21:05"
                         LocalTimeStyle.MEDIUM -> "21:05:08"
@@ -51,7 +51,7 @@ val LocalTimeLocalizerTestFactory = funSpec {
                 withTests(LocalTimeStyle.entries) { timeStyle ->
                     TIME.localize(
                         options = LocalTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
-                        locale = LOCALE_ITALIAN
+                        locale = LOCALE_ITALIAN,
                     ) shouldBeLocalizedAs when (timeStyle) {
                         LocalTimeStyle.SHORT -> "9:05 PM"
                         LocalTimeStyle.MEDIUM -> "9:05:08 PM"
@@ -79,7 +79,8 @@ val LocalTimeLocalizerTestFactory = funSpec {
 }
 
 enum class TimeComponentTestLocale(val locale: PlatformLocale) {
-    ENGLISH(LOCALE_ENGLISH), ITALIAN(LOCALE_ITALIAN)
+    ENGLISH(LOCALE_ENGLISH),
+    ITALIAN(LOCALE_ITALIAN),
 }
 
 suspend fun FunSpecContainerScope.timeComponentTests(
@@ -105,7 +106,7 @@ suspend fun FunSpecContainerScope.timeComponentTests(
         test("NUMERIC_PADDED_2_DIGITS").config(
             enabledOrReasonIf = noPlatforms(
                 platforms = Jvm + Android + Js.Node,
-                reason = "This platform doesn't respect padding request for hour"
+                reason = "This platform doesn't respect padding request for hour",
             ),
         ) {
             HourStyle.NUMERIC_PADDED_2_DIGITS.test()
@@ -154,7 +155,7 @@ suspend fun FunSpecContainerScope.timeComponentTests(
             test("NUMERIC_PADDED_2_DIGITS").config(
                 enabledOrReasonIf = noPlatforms(
                     platforms = Jvm + Android + Js.Node,
-                    reason = "This platform doesn't respect padding request for second in this case"
+                    reason = "This platform doesn't respect padding request for second in this case",
                 ),
             ) {
                 SecondStyle.NUMERIC_PADDED_2_DIGITS.test()
@@ -213,7 +214,6 @@ suspend fun FunSpecContainerScope.timeComponentTests(
                         3 -> "9 PM (Fractional Second: 123)"
                         else -> error("invalid test case")
                     }
-
                     else -> when (fractionalSecondDigits) {
                         1 -> "9 PM ├F14: 1┤"
                         2 -> "9 PM ├F14: 12┤"

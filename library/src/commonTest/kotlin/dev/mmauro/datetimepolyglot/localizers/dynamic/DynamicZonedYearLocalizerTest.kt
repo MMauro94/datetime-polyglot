@@ -54,7 +54,7 @@ val DynamicZonedYearLocalizerTestFactory = funSpec {
                             is Js, is Wasm -> "2028, Central European Standard Time"
                             else -> "2028, France Time"
                         },
-                        nextTick = 214.days
+                        nextTick = 214.days,
                     ),
                 ),
                 tuple(
@@ -63,9 +63,9 @@ val DynamicZonedYearLocalizerTestFactory = funSpec {
                         options = DynamicZonedYearOptions(
                             absoluteOptions = ZonedYearOptions(
                                 yearOptions = YearOptions(eraStyle = EraStyle.ABBREVIATED),
-                                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.ID)
+                                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.ID),
                             ),
-                        )
+                        ),
                     ),
                     Zoned(2020, TimeZone.of("Europe/Rome")),
                     TickingValue("2020 AD, Europe/Rome", nextTick = null),
@@ -88,7 +88,7 @@ val DynamicZonedYearLocalizerTestFactory = funSpec {
                         is Js, is Wasm -> "this year, Pacific Time"
                         else -> "this year, Los Angeles Time"
                     },
-                    nextTick = 214.days
+                    nextTick = 214.days,
                 ),
             ),
             tuple(
@@ -116,9 +116,9 @@ val DynamicZonedYearLocalizerTestFactory = funSpec {
                 relativeDiffRange = -10..5,
                 relativeOptions = RelativeZonedYearOptions(timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.ID)),
                 absoluteOptions = ZonedYearOptions(
-                    timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.ID)
-                )
-            )
+                    timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.ID),
+                ),
+            ),
         )
 
         withTests(

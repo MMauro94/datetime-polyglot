@@ -30,6 +30,7 @@ internal object Defaults {
     const val FRACTIONAL_SECONDS = 0
     val HOUR_CYCLE: HourCycle? = null
     val LOCAL_TIME = LocalTimeStyle.SHORT
+
     // Needs to be lazy to avoid recursive init issues in TimeOptions.kt
     val ZONED_TIME by lazy { ZonedTimeComponents() }
 

@@ -13,7 +13,7 @@ internal actual fun joinDateAndTime(
     locale: PlatformLocale,
     style: DateStyle,
     date: String,
-    time: String
+    time: String,
 ): String {
     fun String.literal() = "'${replace("'", "''")}'"
 

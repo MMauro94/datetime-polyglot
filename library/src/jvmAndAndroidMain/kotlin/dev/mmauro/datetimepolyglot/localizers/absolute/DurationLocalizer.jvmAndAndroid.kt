@@ -10,7 +10,7 @@ import kotlin.time.Duration
 
 public actual class DurationLocalizer actual constructor(
     internal actual val options: DurationOptions,
-    private val locale: PlatformLocale
+    private val locale: PlatformLocale,
 ) : PolyglotValueLocalizer<Duration, String> {
 
     private val measureFormat = getMeasureFormat(locale, options.style)

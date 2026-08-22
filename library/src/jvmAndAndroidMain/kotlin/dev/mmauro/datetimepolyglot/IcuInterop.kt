@@ -5,8 +5,8 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.TimeOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
-import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
+import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.TimeZone
 import java.time.LocalDate
@@ -37,7 +37,7 @@ internal expect fun getTimeFormatInstance(timeOptions: TimeOptions<TimeStyle>, l
 internal expect fun getDateTimeFormatInstance(
     dateStyle: DateStyle,
     timeOptions: TimeOptions<TimeStyle>,
-    locale: PlatformLocale
+    locale: PlatformLocale,
 ): SimpleDateFormat
 
 // TIMEZONE

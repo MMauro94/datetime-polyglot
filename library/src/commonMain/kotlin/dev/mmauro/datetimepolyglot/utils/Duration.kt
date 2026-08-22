@@ -32,7 +32,6 @@ internal fun Duration.unitPart(unit: DurationUnit): Long {
     }
 }
 
-
 /**
  * Returns the amount of time that needs to pass for this duration's [unit] to change, assuming the duration "moves" backwards, i.e. a
  * positive duration means something that will happen in the future, and a negative duration something that has happened in the past.
