@@ -3,7 +3,6 @@ package dev.mmauro.datetimepolyglot.localizers.absolute
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.LOCALE_POLISH
-import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TEST_PLATFORM
 import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.TestPlatform.Js
@@ -42,7 +41,7 @@ val LocalDateLocalizerTestFactory = funSpec {
             DATE.localize(
                 options = DateComponents(
                     monthStyle = MonthStyle.NUMERIC_PADDED_2_DIGITS,
-                    dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS
+                    dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS,
                 ),
                 locale = LOCALE_ENGLISH,
             ) shouldBeLocalizedAs "01/08/2026"
@@ -59,7 +58,7 @@ val LocalDateLocalizerTestFactory = funSpec {
                     dayOfMonthStyle = DayOfMonthStyle.NUMERIC_PADDED_2_DIGITS,
                     dayOfWeekStyle = DayOfWeekStyle.WIDE,
                 ),
-                locale = LOCALE_ITALIAN
+                locale = LOCALE_ITALIAN,
             ) shouldBeLocalizedAs "giovedì 08/01/2026"
         }
 
@@ -69,7 +68,7 @@ val LocalDateLocalizerTestFactory = funSpec {
                     monthStyle = MonthStyle.WIDE,
                     dayOfMonthStyle = DayOfMonthStyle.NUMERIC,
                 ),
-                locale = LOCALE_POLISH
+                locale = LOCALE_POLISH,
             ) shouldBeLocalizedAs "8 stycznia 2026"
         }
     }
@@ -94,7 +93,6 @@ suspend fun FunSpecContainerScope.dateComponentsTests(
                     EraStyle.ABBREVIATED -> "01 08, 2026 AD"
                     EraStyle.WIDE -> "01 08, 2026 Anno Domini"
                 }
-
                 else -> when (eraStyle) {
                     EraStyle.NARROW -> "01/08/2026 A"
                     EraStyle.ABBREVIATED -> "01/08/2026 AD"
@@ -107,8 +105,8 @@ suspend fun FunSpecContainerScope.dateComponentsTests(
     context("year style").config(
         enabledOrReasonIf = noPlatforms(
             platforms = Js.Node + Android,
-            reason = "NodeJS and Android have a bug localizing older dates: 01/01/123 gets formatted as Jan 2nd instead of Jan 1st"
-        )
+            reason = "NodeJS and Android have a bug localizing older dates: 01/01/123 gets formatted as Jan 2nd instead of Jan 1st",
+        ),
     ) {
         fun YearStyle.test() {
             val options = DateComponents(

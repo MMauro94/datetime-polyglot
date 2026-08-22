@@ -1,16 +1,16 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.format
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeZonedLocalizer
 import kotlinx.datetime.toJavaZoneId
 import kotlin.time.Instant
 import kotlin.time.toJavaInstant
 
 public actual class ZonedInstantLocalizer actual constructor(
     options: ZonedInstantOptions,
-    locale: PlatformLocale
+    locale: PlatformLocale,
 ) : PolyglotDateTimeZonedLocalizer<Instant> {
 
     private val dateFormat = ComponentsOptions(

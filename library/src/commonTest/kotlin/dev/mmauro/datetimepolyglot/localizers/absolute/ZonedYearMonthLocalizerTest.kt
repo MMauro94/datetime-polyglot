@@ -24,7 +24,7 @@ val ZonedYearMonthLocalizerTestFactory = funSpec {
     test("basic test") {
         val localizer = ZonedYearMonthLocalizer(
             options = ZonedYearMonthOptions(YearMonthOptions(monthStyle = MonthStyle.ABBREVIATED)),
-            locale = LOCALE_ENGLISH
+            locale = LOCALE_ENGLISH,
         )
         val zonedYearMonth = Zoned(YearMonth(2026, Month.JULY), TimeZone.of("America/Los_Angeles"))
         localizer.localize(zonedYearMonth) shouldBeLocalizedAs when (TEST_PLATFORM) {
@@ -42,7 +42,7 @@ val ZonedYearMonthLocalizerTestFactory = funSpec {
                     eraStyle = EraStyle.ABBREVIATED,
                     monthStyle = MonthStyle.WIDE,
                 ),
-                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_SHORT)
+                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_SHORT),
             ),
             locale = LOCALE_ENGLISH,
         ).localize(zonedYearMonth) shouldBeLocalizedAs "July 2026 AD, Sydney Time"
@@ -57,7 +57,7 @@ val ZonedYearMonthLocalizerTestFactory = funSpec {
                     yearStyle = YearStyle.NUMERIC_2_DIGITS,
                     monthStyle = MonthStyle.WIDE,
                 ),
-                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_LONG)
+                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_LONG),
             ),
             locale = LOCALE_ITALIAN,
         ).localize(zonedYearMonth) shouldBeLocalizedAs "aprile 99 d.C., Ora dell’Europa centrale"

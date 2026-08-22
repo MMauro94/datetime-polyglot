@@ -82,7 +82,7 @@ internal class InternalDynamicYearLocalizer<T>(
                 ).map { LocalDate(year = it, Month.JANUARY, day = 1).atStartOfDayIn(reference.timeZone) },
                 localizer = relativeLocalizer,
             ),
-            default = DynamicLocalizer.Case.Default(absoluteLocalizer)
+            default = DynamicLocalizer.Case.Default(absoluteLocalizer),
         )
 
         return dynamicLocalizer.localize(value, reference)

@@ -32,7 +32,7 @@ import kotlin.time.Instant
 
 private val ZONED_INSTANT = Zoned(
     Instant.parse("2026-06-19T19:25:45.123Z"),
-    TimeZone.of("America/Los_Angeles")
+    TimeZone.of("America/Los_Angeles"),
 )
 
 val ZonedInstantTestFactory = funSpec {
@@ -46,7 +46,7 @@ val ZonedInstantTestFactory = funSpec {
                     }
                     ZONED_INSTANT.localize(
                         options = ZonedInstantOptions(dateStyle, timeStyle),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ) shouldBeLocalizedAs when (dateStyle) {
                         DateStyle.SHORT -> "6/19/26, $expectedTime"
                         DateStyle.MEDIUM -> "Jun 19, 2026, $expectedTime"
@@ -63,9 +63,9 @@ val ZonedInstantTestFactory = funSpec {
                     ZONED_INSTANT.localize(
                         options = ZonedInstantOptions(
                             dateOptions = DateStyle.SHORT,
-                            timeOptions = ZonedTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24)
+                            timeOptions = ZonedTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_24),
                         ),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ) shouldBeLocalizedAs when (timeStyle) {
                         ZonedTimeStyle.LONG -> "6/19/26, 12:25:45 PDT"
                         ZonedTimeStyle.FULL -> "6/19/26, 12:25:45 Pacific Daylight Time"
@@ -79,7 +79,7 @@ val ZonedInstantTestFactory = funSpec {
                             dateOptions = DateStyle.SHORT,
                             timeOptions = ZonedTimeOptions(timeStyle, hourCycle = HourCycle.HOURS_12),
                         ),
-                        locale = LOCALE_ITALIAN
+                        locale = LOCALE_ITALIAN,
                     ) shouldBeLocalizedAs when (timeStyle) {
                         ZonedTimeStyle.LONG -> "19/06/26, 12:25:45 PM GMT-7"
                         ZonedTimeStyle.FULL -> "19/06/26, 12:25:45 PM Ora legale del Pacifico USA"
@@ -102,7 +102,7 @@ val ZonedInstantTestFactory = funSpec {
                         hourStyle = HourStyle.NUMERIC,
                         minuteStyle = MinuteStyle.NUMERIC,
                         timeZoneStyle = TimeZoneStyle.Generic.NON_LOCATION_LONG,
-                    )
+                    ),
                 ),
                 locale = LOCALE_ENGLISH,
             ) shouldBeLocalizedAs "Fri, Jun 19, 2026, 12:25 PM Pacific Time"
@@ -118,7 +118,7 @@ val ZonedInstantTestFactory = funSpec {
                         hourStyle = HourStyle.NUMERIC,
                         minuteStyle = MinuteStyle.NUMERIC,
                         timeZoneStyle = TimeZoneStyle.Generic.ID,
-                    )
+                    ),
                 ),
                 locale = LOCALE_ENGLISH,
             )
@@ -158,7 +158,7 @@ val ZonedInstantTestFactory = funSpec {
                 hourStyle = HourStyle.NUMERIC,
                 minuteStyle = MinuteStyle.NUMERIC,
                 timeZoneStyle = timeZoneStyle,
-            )
+            ),
         )
 
         context("time zone style") {
@@ -208,7 +208,7 @@ val ZonedInstantTestFactory = funSpec {
                     dateOptions = DateStyle.MEDIUM,
                     timeOptions = ZonedTimeStyle.FULL,
                 ),
-                locale = LOCALE_ITALIAN
+                locale = LOCALE_ITALIAN,
             ) shouldBeLocalizedAs "19 giu 2026, 12:25:45 Ora legale del Pacifico USA"
         }
 
@@ -218,7 +218,7 @@ val ZonedInstantTestFactory = funSpec {
                     dateOptions = DateStyle.LONG,
                     timeOptions = ZonedTimeStyle.LONG,
                 ),
-                locale = LOCALE_POLISH
+                locale = LOCALE_POLISH,
             ) shouldBeLocalizedAs "19 czerwca 2026 12:25:45 GMT-7"
         }
 
@@ -232,10 +232,10 @@ val ZonedInstantTestFactory = funSpec {
                                 hourStyle = HourStyle.NUMERIC,
                                 minuteStyle = MinuteStyle.NUMERIC,
                                 secondStyle = SecondStyle.NUMERIC,
-                                timeZoneStyle = TimeZoneStyle.Gmt.LONG
+                                timeZoneStyle = TimeZoneStyle.Gmt.LONG,
                             ),
                         ),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ) shouldBeLocalizedAs when (dateStyle) {
                         DateStyle.SHORT -> "6/19/26, 12:25:45 PM GMT-07:00"
                         DateStyle.MEDIUM -> "Jun 19, 2026, 12:25:45 PM GMT-07:00"
@@ -243,7 +243,6 @@ val ZonedInstantTestFactory = funSpec {
                             is Android if platform.sdk <= 33 -> "June 19, 2026, 12:25:45 PM GMT-07:00"
                             else -> "June 19, 2026 at 12:25:45 PM GMT-07:00"
                         }
-
                         DateStyle.FULL -> when (val platform = TEST_PLATFORM) {
                             is Android if platform.sdk <= 33 -> "Friday, June 19, 2026, 12:25:45 PM GMT-07:00"
                             else -> "Friday, June 19, 2026 at 12:25:45 PM GMT-07:00"
@@ -261,7 +260,7 @@ val ZonedInstantTestFactory = funSpec {
                             ),
                             timeOptions = ZonedTimeOptions(ZonedTimeStyle.LONG),
                         ),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ) shouldBeLocalizedAs when (monthStyle) {
                         MonthStyle.NUMERIC -> "6/19/2026, 12:25:45 PM PDT"
                         MonthStyle.NUMERIC_PADDED_2_DIGITS -> "06/19/2026, 12:25:45 PM PDT"

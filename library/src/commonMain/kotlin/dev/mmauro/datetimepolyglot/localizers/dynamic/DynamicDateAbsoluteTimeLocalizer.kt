@@ -32,7 +32,6 @@ import kotlinx.datetime.minus
 import kotlin.time.Clock
 import kotlin.time.Instant
 
-
 /**
  * Localization options for [DynamicDateAbsoluteTimeLocalizer].
  *
@@ -103,7 +102,7 @@ public class DynamicDateAbsoluteTimeLocalizer(
                 range = DynamicLocalizer.Case.Threshold.computeRangeFromDiff(
                     value = value.date,
                     diff = options.relativeDateDiffRange,
-                    minus = { minus(it, DateTimeUnit.DAY) }
+                    minus = { minus(it, DateTimeUnit.DAY) },
                 ).map { it.atStartOfDayIn(reference.timeZone) },
                 localizer = relativeDateAbsoluteTimeLocalizer,
             ),

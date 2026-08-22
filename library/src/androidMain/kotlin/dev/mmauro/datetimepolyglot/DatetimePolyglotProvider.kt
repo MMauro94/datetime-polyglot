@@ -5,16 +5,20 @@ import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 
+@Suppress("ktlint:standard:property-naming")
 internal lateinit var APPLICATION_CONTEXT: Context
 
 public class DatetimePolyglotProvider : ContentProvider() {
-
     override fun onCreate(): Boolean {
         APPLICATION_CONTEXT = checkNotNull(context) { "null context in DatetimePolyglotProvider" }.applicationContext
         return false
     }
 
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String?>?): Int = 0
+    override fun delete(
+        uri: Uri,
+        selection: String?,
+        selectionArgs: Array<out String?>?,
+    ): Int = 0
 
     override fun getType(uri: Uri): Nothing? = null
 
@@ -25,14 +29,13 @@ public class DatetimePolyglotProvider : ContentProvider() {
         projection: Array<out String?>?,
         selection: String?,
         selectionArgs: Array<out String?>?,
-        sortOrder: String?
+        sortOrder: String?,
     ): Nothing? = null
 
     override fun update(
         uri: Uri,
         values: ContentValues?,
         selection: String?,
-        selectionArgs: Array<out String?>?
+        selectionArgs: Array<out String?>?,
     ): Int = 0
-
 }

@@ -1,8 +1,8 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import kotlinx.datetime.LocalTime
 
 /**
@@ -52,4 +52,3 @@ public fun LocalTime.localize(
     options: LocalTimeStyleOptions,
     locale: PlatformLocale = getDefaultLocale(),
 ): String = LocalTimeLocalizer(options, locale).localize(this)
-

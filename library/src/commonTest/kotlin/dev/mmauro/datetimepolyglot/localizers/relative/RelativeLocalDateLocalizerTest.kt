@@ -91,7 +91,7 @@ val RelativeLocalDateLocalizerTestFactory = funSpec {
                 ) { (locale, localDate, expected) ->
                     val localizer = RelativeLocalDateLocalizer(
                         locale = locale,
-                        options = RelativeLocalDateOptions(useRelativeDayOfWeek = true)
+                        options = RelativeLocalDateOptions(useRelativeDayOfWeek = true),
                     )
                     localizer.localizeAndTestNextTick(localDate, REFERENCE).value shouldBe expected
                 }
@@ -104,7 +104,7 @@ val RelativeLocalDateLocalizerTestFactory = funSpec {
                 ) { (useRelativeDayOfWeek, expected) ->
                     val localizer = RelativeLocalDateLocalizer(
                         locale = LOCALE_ENGLISH,
-                        options = RelativeLocalDateOptions(useRelativeDayOfWeek = useRelativeDayOfWeek)
+                        options = RelativeLocalDateOptions(useRelativeDayOfWeek = useRelativeDayOfWeek),
                     )
                     localizer.localizeAndTestNextTick(LocalDate(2026, Month.JANUARY, 4), REFERENCE).value shouldBe expected
                 }
@@ -139,12 +139,12 @@ val RelativeLocalDateLocalizerTestFactory = funSpec {
                         when (val platform = TEST_PLATFORM) {
                             is Android if platform.sdk < 34 -> "in 10 days"
                             else -> "in 10d"
-                        }
+                        },
                     ),
                 ) { (style, days, expected) ->
                     val localizer = RelativeLocalDateLocalizer(
                         locale = LOCALE_ENGLISH,
-                        options = RelativeLocalDateOptions(style = style, useRelativeDayOfWeek = true)
+                        options = RelativeLocalDateOptions(style = style, useRelativeDayOfWeek = true),
                     )
                     val localDate = REFERENCE_DATE + DatePeriod(days = days)
                     localizer.localizeAndTestNextTick(localDate, REFERENCE).value shouldBe expected
@@ -155,7 +155,7 @@ val RelativeLocalDateLocalizerTestFactory = funSpec {
         context("next tick") {
             val localizer = RelativeLocalDateLocalizer(
                 locale = LOCALE_ENGLISH,
-                options = RelativeLocalDateOptions(useRelativeDayOfWeek = true)
+                options = RelativeLocalDateOptions(useRelativeDayOfWeek = true),
             )
 
             context("basic tests") {

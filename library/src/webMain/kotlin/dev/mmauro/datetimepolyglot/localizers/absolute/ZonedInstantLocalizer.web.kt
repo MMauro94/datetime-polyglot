@@ -12,7 +12,7 @@ import js.temporal.Instant as JsInstant
 
 public actual class ZonedInstantLocalizer actual constructor(
     private val options: ZonedInstantOptions,
-    private val locale: PlatformLocale
+    private val locale: PlatformLocale,
 ) : PolyglotDateTimeZonedLocalizer<Instant> {
 
     @OptIn(ExperimentalWasmJsInterop::class)
@@ -27,15 +27,15 @@ public actual class ZonedInstantLocalizer actual constructor(
             // JS doesn't natively support using the time zone ID directly in the localized string,
             // We can force it by formatting to parts and overriding the specific part in this case
             partMapper = {
-                if (it.type == "timeZoneName"
-                    && options.timeOptions.styleOptions is ZonedTimeComponents
-                    && options.timeOptions.styleOptions.timeZoneStyle == TimeZoneStyle.Generic.ID
+                if (it.type == "timeZoneName" &&
+                    options.timeOptions.styleOptions is ZonedTimeComponents &&
+                    options.timeOptions.styleOptions.timeZoneStyle == TimeZoneStyle.Generic.ID
                 ) {
                     value.timeZone.id
                 } else {
                     it.value
                 }
-            }
+            },
         )
         return baseDateTimeLocalizer.localize(value.value.toJsInstant())
     }

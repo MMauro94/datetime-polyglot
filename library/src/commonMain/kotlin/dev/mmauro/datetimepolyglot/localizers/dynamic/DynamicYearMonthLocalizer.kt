@@ -79,13 +79,12 @@ public class DynamicYearMonthLocalizer(
                 ).map { it.firstDay.atStartOfDayIn(reference.timeZone) },
                 localizer = relativeYearMonthLocalizer,
             ),
-            default = DynamicLocalizer.Case.Default(absoluteYearMonthLocalizer)
+            default = DynamicLocalizer.Case.Default(absoluteYearMonthLocalizer),
         )
 
         return dynamicLocalizer.localize(value, reference)
     }
 }
-
 
 /**
  * Localizes this [YearMonth] dynamically (either absolute or relative to a [Zoned]<[Instant]> reference point) with the given [options] in

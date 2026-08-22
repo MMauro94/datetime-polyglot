@@ -21,10 +21,10 @@ import io.kotest.datatest.withTests
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.element
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toInstant
 import kotlin.time.Duration.Companion.days
 
@@ -40,8 +40,8 @@ val DynamicLocalDateLocalizerTestFactory = funSpec {
                     DynamicLocalDateLocalizer(
                         locale = LOCALE_ENGLISH,
                         options = DynamicLocalDateOptions(
-                            absoluteOptions = DateStyle.LONG
-                        )
+                            absoluteOptions = DateStyle.LONG,
+                        ),
                     ),
                     LocalDate(2026, Month.JUNE, 20),
                     TickingValue("June 20, 2026", nextTick = 9.days),
@@ -50,8 +50,8 @@ val DynamicLocalDateLocalizerTestFactory = funSpec {
                     DynamicLocalDateLocalizer(
                         locale = LOCALE_ENGLISH,
                         options = DynamicLocalDateOptions(
-                            absoluteOptions = DateComponents(monthStyle = MonthStyle.ABBREVIATED)
-                        )
+                            absoluteOptions = DateComponents(monthStyle = MonthStyle.ABBREVIATED),
+                        ),
                     ),
                     LocalDate(2020, Month.APRIL, 14),
                     TickingValue("Apr 14, 2020", nextTick = null),
@@ -80,7 +80,7 @@ val DynamicLocalDateLocalizerTestFactory = funSpec {
                     locale = LOCALE_ENGLISH,
                     options = DynamicLocalDateOptions(
                         absoluteOptions = DateStyle.SHORT,
-                        relativeOptions = RelativeLocalDateOptions(style = RelativeUnitStyle.SHORT)
+                        relativeOptions = RelativeLocalDateOptions(style = RelativeUnitStyle.SHORT),
                     ),
                 ),
                 LocalDate(2026, Month.MAY, 25),
@@ -97,7 +97,7 @@ val DynamicLocalDateLocalizerTestFactory = funSpec {
             options = DynamicLocalDateOptions(
                 absoluteOptions = DateStyle.MEDIUM,
                 relativeDiffRange = -1..15,
-            )
+            ),
         )
 
         withTests(

@@ -89,7 +89,7 @@ public data class RelativeLocalDateOptions(
  */
 public class RelativeLocalDateLocalizer(
     private val options: RelativeLocalDateOptions = RelativeLocalDateOptions(),
-    private val locale: PlatformLocale = getDefaultLocale()
+    private val locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<LocalDate> {
 
     private val relativeUnitLocalizer = RelativeUnitLocalizer(
@@ -139,7 +139,6 @@ public class RelativeLocalDateLocalizer(
             ?: TickingValue(relativeUnitLocalizer.localizeNumeric(diff.toDouble(), RelativeUnit.DateTimeComponent.DAY), nextDayTick)
     }
 }
-
 
 /**
  * Localizes this [LocalDate] relatively with respect to [reference], with a single unit with the given [options] in the given [locale].

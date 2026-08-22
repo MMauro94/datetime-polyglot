@@ -71,7 +71,7 @@ public class RelativeYearLocalizer(
             nextTick = LocalDate(
                 year = referenceYear + 1,
                 month = Month.JANUARY,
-                day = 1
+                day = 1,
             ).atStartOfDayIn(reference.timeZone) - reference.value,
         )
     }

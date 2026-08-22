@@ -58,7 +58,7 @@ val RelativeDurationLocalizerTestFactory = funSpec {
         ) { (unit, expected) ->
             val localizer = RelativeDurationLocalizer(
                 options = RelativeDurationOptions(minUnit = unit),
-                locale = LOCALE_ENGLISH
+                locale = LOCALE_ENGLISH,
             )
             localizer.localizeAndTestNextTick(1.minutes + 3.seconds) shouldBeLocalizedAs expected
         }
@@ -69,19 +69,19 @@ val RelativeDurationLocalizerTestFactory = funSpec {
             nameFn = { it.first.toString() },
             null to TickingValue(
                 value = "in 2 days",
-                nextTick = 3.hours + 5.minutes + 4.seconds + 250.milliseconds + 1.nanoseconds
+                nextTick = 3.hours + 5.minutes + 4.seconds + 250.milliseconds + 1.nanoseconds,
             ),
             DurationUnit.HOURS to TickingValue(
                 value = "in 51 hours",
-                nextTick = 5.minutes + 4.seconds + 250.milliseconds + 1.nanoseconds
+                nextTick = 5.minutes + 4.seconds + 250.milliseconds + 1.nanoseconds,
             ),
             DurationUnit.MINUTES to TickingValue(
                 value = "in 3,065 minutes",
-                nextTick = 4.seconds + 250.milliseconds + 1.nanoseconds
+                nextTick = 4.seconds + 250.milliseconds + 1.nanoseconds,
             ),
             DurationUnit.SECONDS to TickingValue(
                 value = "in 183,904 seconds",
-                nextTick = 250.milliseconds + 1.nanoseconds
+                nextTick = 250.milliseconds + 1.nanoseconds,
             ),
         ) { (unit, expected) ->
             val localizer = RelativeDurationLocalizer(
@@ -103,7 +103,6 @@ val RelativeDurationLocalizerTestFactory = funSpec {
                     is Android if platform.sdk < 34 -> "4 hr. ago"
                     else -> "4h ago"
                 }
-
                 RelativeUnitStyle.SHORT -> "4 hr. ago"
                 RelativeUnitStyle.LONG -> "4 hours ago"
             }
@@ -127,7 +126,7 @@ val RelativeDurationLocalizerTestFactory = funSpec {
             val localizer = RelativeDurationLocalizer(
                 options = RelativeDurationOptions(
                     minUnit = DurationUnit.HOURS,
-                    ifZeroLocalization = { locale -> "special case for $locale" }
+                    ifZeroLocalization = { locale -> "special case for $locale" },
                 ),
                 locale = LOCALE_ITALIAN,
             )

@@ -23,7 +23,7 @@ internal class ZonedLocalizer<T>(
             locale = locale,
             style = DateStyle.SHORT,
             date = datePartLocalizer.localize(value.value),
-            time = timeZoneLocalizer.localize(value.timeZone)
+            time = timeZoneLocalizer.localize(value.timeZone),
         )
     }
 }

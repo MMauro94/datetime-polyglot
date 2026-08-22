@@ -95,7 +95,7 @@ public fun <T> tickingValueToFlow(
     clock: Flow<Clock> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
     maxTick: Duration? = null,
-    tickingValueProvider: (reference: Zoned<Instant>) -> TickingValue<T>
+    tickingValueProvider: (reference: Zoned<Instant>) -> TickingValue<T>,
 ): Flow<T> {
     return combine(clock, timeZone.distinctUntilChanged(), ::Pair).transformLatest { (clock, timeZone) ->
         var last: TickingValue<T>

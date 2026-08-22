@@ -8,8 +8,8 @@ import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
 
 /**
  * Localization options for [ZonedLocalDateLocalizer].

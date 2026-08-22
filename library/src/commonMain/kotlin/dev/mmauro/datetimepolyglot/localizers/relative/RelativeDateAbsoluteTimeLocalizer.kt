@@ -12,7 +12,6 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.Defaults
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeOptions
-import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.LocalTimeStyleOptions
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.localizeNow

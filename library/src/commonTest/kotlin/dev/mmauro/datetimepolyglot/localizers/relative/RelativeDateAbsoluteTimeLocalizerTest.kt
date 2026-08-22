@@ -62,7 +62,7 @@ val RelativeDateAbsoluteTimeLocalizerTestFactory = funSpec {
                     RelativeDateAbsoluteTimeLocalizer(
                         locale = LOCALE_ENGLISH,
                         options = RelativeDateAbsoluteTimeOptions(
-                            timeOptions = LocalTimeStyle.MEDIUM
+                            timeOptions = LocalTimeStyle.MEDIUM,
                         ),
                     ),
                     LocalDateTime.parse("2026-01-01T04:13:05"),
@@ -96,8 +96,8 @@ val RelativeDateAbsoluteTimeLocalizerTestFactory = funSpec {
                         locale = LOCALE_ENGLISH,
                         options = RelativeDateAbsoluteTimeOptions(
                             dateOptions = RelativeLocalDateOptions(useRelativeDayOfWeek = true),
-                            joinerStyle = DateStyle.SHORT
-                        )
+                            joinerStyle = DateStyle.SHORT,
+                        ),
                     ),
                     LocalDateTime.parse("2026-01-04T04:00:00"),
                     "next Sunday, 4:00 AM",
@@ -113,7 +113,7 @@ val RelativeDateAbsoluteTimeLocalizerTestFactory = funSpec {
                         options = RelativeDateAbsoluteTimeOptions(
                             dateOptions = RelativeLocalDateOptions(useRelativeDayOfWeek = true),
                             joinerStyle = DateStyle.LONG,
-                        )
+                        ),
                     ),
                     LocalDateTime.parse("2026-01-06T15:00:00"),
                     "martedì prossimo alle ore 15:00",
@@ -121,7 +121,6 @@ val RelativeDateAbsoluteTimeLocalizerTestFactory = funSpec {
             ) { (localizer, localDateTime, expected) ->
                 localizer.localizeAndTestNextTick(localDateTime, REFERENCE).value shouldBeLocalizedAs expected
             }
-
 
             test("must contain relative formatted local date") {
                 checkAll(
@@ -133,12 +132,12 @@ val RelativeDateAbsoluteTimeLocalizerTestFactory = funSpec {
                     val relativeDateOptions = RelativeLocalDateOptions(style = relativeUnitStyle)
                     val dateString = RelativeLocalDateLocalizer(
                         options = relativeDateOptions,
-                        locale = locale
+                        locale = locale,
                     ).localize(localDateTime.date, now).value
 
                     val localized = RelativeDateAbsoluteTimeLocalizer(
                         locale = locale,
-                        options = RelativeDateAbsoluteTimeOptions(dateOptions = relativeDateOptions)
+                        options = RelativeDateAbsoluteTimeOptions(dateOptions = relativeDateOptions),
                     ).localizeAndTestNextTick(localDateTime, now).value
 
                     localized shouldContain dateString
@@ -164,7 +163,6 @@ val RelativeDateAbsoluteTimeLocalizerTestFactory = funSpec {
             )
         }
     }
-
 }
 
 class RelativeDateAbsoluteTimeLocalizerTest : FunSpec({

@@ -24,7 +24,7 @@ public data class TickingValue<out T>(val value: T, val nextTick: Duration?) {
 }
 
 /**
- * Returns a [TickingValue] with the same [value] and with the next tick being the min of its value and [nextTick].
+ * Returns a [TickingValue] with the same [TickingValue.value] and with the next tick being the min of its value and [TickingValue.nextTick].
  *
  * Passing a `null` [nextTick] will return a [TickingValue] equivalent to this.
  */
@@ -34,8 +34,8 @@ public fun <T> TickingValue<T>.withNextTickAtMost(nextTick: Duration?): TickingV
 )
 
 /**
- * Transforms the [value] from this instance from type [T] to [R] using [transform] and returns a new [TickingValue] with it
- * and the same [nextTick].
+ * Transforms the [TickingValue.value] from this instance from type [T] to [R] using [transform] and returns a new [TickingValue] with it
+ * and the same [TickingValue.nextTick].
  */
 public fun <T, R> TickingValue<T>.map(transform: (T) -> R): TickingValue<R> {
     return TickingValue(value = transform(value), nextTick = nextTick)
@@ -43,7 +43,7 @@ public fun <T, R> TickingValue<T>.map(transform: (T) -> R): TickingValue<R> {
 
 /**
  * Transforms this [TickingValue] using the [transform] function.
- * The resulting [nextTick] will be the min of the two, see also [withNextTickAtMost].
+ * The resulting [TickingValue.nextTick] will be the min of the two, see also [withNextTickAtMost].
  */
 public fun <T, R> TickingValue<T>.flatMap(transform: (T) -> TickingValue<R>): TickingValue<R> {
     return transform(value).withNextTickAtMost(nextTick)
@@ -52,8 +52,8 @@ public fun <T, R> TickingValue<T>.flatMap(transform: (T) -> TickingValue<R>): Ti
 /**
  * Combines two different [TickingValue]s.
  *
- * The resulting [value] is computed by [transform], which receives the value of this and [other].
- * The resulting [nextTick] will be the min of this and [other], see also [withNextTickAtMost].
+ * The resulting [TickingValue.value] is computed by [transform], which receives the value of this and [other].
+ * The resulting [TickingValue.nextTick] will be the min of this and [other], see also [withNextTickAtMost].
  */
 public fun <T1, T2, R> TickingValue<T1>.combine(
     other: TickingValue<T2>,
@@ -64,5 +64,3 @@ public fun <T1, T2, R> TickingValue<T1>.combine(
         nextTick = listOfNotNull(this.nextTick, other.nextTick).minOrNull(),
     )
 }
-
-

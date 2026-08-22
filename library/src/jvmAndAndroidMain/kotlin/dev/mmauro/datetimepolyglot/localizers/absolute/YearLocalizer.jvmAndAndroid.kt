@@ -1,13 +1,13 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.format
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import java.time.Year
 
 public actual class YearLocalizer actual constructor(
     options: YearOptions,
-    locale: PlatformLocale
+    locale: PlatformLocale,
 ) : PolyglotDateTimeLocalizer<Int> {
 
     private val dateFormat = ComponentsOptions(dateOptions = options).toDateFormat(locale)

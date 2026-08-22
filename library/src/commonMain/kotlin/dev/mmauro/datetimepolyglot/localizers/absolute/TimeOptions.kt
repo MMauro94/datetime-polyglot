@@ -30,7 +30,7 @@ public sealed interface TimeOptions<out S : TimeStyleOptions> {
  */
 public data class LocalTimeOptions<out S : LocalTimeStyleOptions>(
     override val styleOptions: S,
-    override val hourCycle: HourCycle? = Defaults.HOUR_CYCLE
+    override val hourCycle: HourCycle? = Defaults.HOUR_CYCLE,
 ) : TimeOptions<S>, PolyglotLocalizerOptions<LocalTimeLocalizer> {
     override fun localizer(locale: PlatformLocale): LocalTimeLocalizer = LocalTimeLocalizer(this, locale)
 }
@@ -126,11 +126,11 @@ public sealed interface TimeComponents : TimeStyleOptions {
  * @see TimeComponents
  */
 public data class LocalTimeComponents(
-        override val hourStyle: HourStyle = Defaults.HOUR,
-        override val minuteStyle: MinuteStyle? = Defaults.MINUTE,
-        override val secondStyle: SecondStyle? = Defaults.SECOND,
-        override val fractionalSecondDigits: Int = Defaults.FRACTIONAL_SECONDS,
-        override val dayPeriodStyle: DayPeriodStyle? = Defaults.DAY_PERIOD,
+    override val hourStyle: HourStyle = Defaults.HOUR,
+    override val minuteStyle: MinuteStyle? = Defaults.MINUTE,
+    override val secondStyle: SecondStyle? = Defaults.SECOND,
+    override val fractionalSecondDigits: Int = Defaults.FRACTIONAL_SECONDS,
+    override val dayPeriodStyle: DayPeriodStyle? = Defaults.DAY_PERIOD,
 ) : TimeComponents, LocalTimeStyleOptions, ComponentsOptions.TimeStyleOptions.Components {
 
     @Deprecated(level = DeprecationLevel.HIDDEN, message = "Implementation detail, shouldn't be used")

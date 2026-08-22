@@ -81,14 +81,13 @@ val RelativeYearMonthLocalizerTestFactory = funSpec {
                     withTests(RelativeUnitStyle.entries) { style ->
                         val localizer = RelativeYearMonthLocalizer(
                             locale = LOCALE_ENGLISH,
-                            options = RelativeYearMonthOptions(style = style)
+                            options = RelativeYearMonthOptions(style = style),
                         )
                         localizer.localizeAndTestNextTick(YearMonth(2026, Month.DECEMBER), REFERENCE).value shouldBe when (style) {
                             RelativeUnitStyle.NARROW -> when (val platform = TEST_PLATFORM) {
                                 is Android if platform.sdk < 34 -> "in 8 mo."
                                 else -> "in 8mo"
                             }
-
                             RelativeUnitStyle.SHORT -> "in 8 mo."
                             RelativeUnitStyle.LONG -> "in 8 months"
                         }
@@ -98,7 +97,7 @@ val RelativeYearMonthLocalizerTestFactory = funSpec {
                     withTests(RelativeUnitStyle.entries) { style ->
                         val localizer = RelativeYearMonthLocalizer(
                             locale = LOCALE_ENGLISH,
-                            options = RelativeYearMonthOptions(style = style)
+                            options = RelativeYearMonthOptions(style = style),
                         )
                         localizer.localizeAndTestNextTick(YearMonth(2026, Month.MARCH), REFERENCE).value shouldBe when (style) {
                             RelativeUnitStyle.NARROW -> "last mo."

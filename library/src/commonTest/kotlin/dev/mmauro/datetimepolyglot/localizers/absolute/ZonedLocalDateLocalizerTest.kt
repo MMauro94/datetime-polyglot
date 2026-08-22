@@ -13,15 +13,15 @@ import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.funSpec
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.LocalDate
 
 val ZonedLocalDateLocalizerTestFactory = funSpec {
     test("basic test") {
         val localizer = ZonedLocalDateLocalizer(
             options = ZonedDateOptions(DateStyle.MEDIUM),
-            locale = LOCALE_ENGLISH
+            locale = LOCALE_ENGLISH,
         )
         val zonedLocalDate = Zoned(LocalDate(2026, Month.JULY, 10), TimeZone.of("America/Los_Angeles"))
         localizer.localize(zonedLocalDate) shouldBeLocalizedAs when (TEST_PLATFORM) {
@@ -36,7 +36,7 @@ val ZonedLocalDateLocalizerTestFactory = funSpec {
         ZonedLocalDateLocalizer(
             options = ZonedDateOptions(
                 dateStyleOptions = DateStyle.SHORT,
-                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_SHORT)
+                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_SHORT),
             ),
             locale = LOCALE_ENGLISH,
         ).localize(zonedLocalDate) shouldBeLocalizedAs "7/10/26, Sydney Time"
@@ -47,7 +47,7 @@ val ZonedLocalDateLocalizerTestFactory = funSpec {
         ZonedLocalDateLocalizer(
             options = ZonedDateOptions(
                 dateStyleOptions = DateStyle.LONG,
-                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_LONG)
+                timeZoneOptions = TimeZoneOptions(TimeZoneStyle.Generic.NON_LOCATION_LONG),
             ),
             locale = LOCALE_ITALIAN,
         ).localize(zonedLocalDate) shouldBeLocalizedAs "15 aprile 1999, Ora dell’Europa centrale"

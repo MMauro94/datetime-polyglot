@@ -1,8 +1,8 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
-import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDefaultLocale
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
 import dev.mmauro.datetimepolyglot.styles.EraStyle
 import dev.mmauro.datetimepolyglot.styles.MonthStyle
@@ -19,6 +19,7 @@ public data class YearMonthOptions(
 ) : ComponentsOptions.Date.Components, PolyglotLocalizerOptions<YearMonthLocalizer> {
     @Deprecated(level = DeprecationLevel.HIDDEN, message = "Implementation detail, shouldn't be used")
     override val dayOfMonthStyle: Nothing? get() = null
+
     @Deprecated(level = DeprecationLevel.HIDDEN, message = "Implementation detail, shouldn't be used")
     override val dayOfWeekStyle: Nothing? get() = null
 
@@ -53,4 +54,3 @@ public fun YearMonth.localize(
     options: YearMonthOptions = YearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ): String = YearMonthLocalizer(options, locale).localize(this)
-

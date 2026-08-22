@@ -1,13 +1,13 @@
 package dev.mmauro.datetimepolyglot.localizers.standalone
 
-import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDisplayName
+import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import kotlinx.datetime.TimeZone
 
 public actual class TimeZoneLocalizer actual constructor(
     private val options: TimeZoneOptions,
-    private val locale: PlatformLocale
+    private val locale: PlatformLocale,
 ) : PolyglotDateTimeLocalizer<TimeZone> {
 
     actual override fun localize(value: TimeZone): String {

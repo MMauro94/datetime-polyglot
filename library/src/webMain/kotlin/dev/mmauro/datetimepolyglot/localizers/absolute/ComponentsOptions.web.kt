@@ -19,7 +19,6 @@ internal fun DateTimeFormatOptions.fill(dateOptions: ComponentsOptions.Date) {
         is ComponentsOptions.Date.Style -> {
             dateStyle = dateOptions.style.toJsDateStyle()
         }
-
         is ComponentsOptions.Date.Components -> {
             dateOptions.eraStyle?.let { era = it.toEraFormat() }
             dateOptions.yearStyle?.let { year = it.toYearFormat() }
@@ -37,7 +36,6 @@ internal fun DateTimeFormatOptions.fill(timeOptions: ComponentsOptions.Time, tim
         is ComponentsOptions.TimeStyleOptions.Style -> {
             timeStyle = timeStyleOptions.style.toJsTimeStyle()
         }
-
         is ComponentsOptions.TimeStyleOptions.Components -> {
             timeStyleOptions.dayPeriodStyle?.let { dayPeriod = it.toDayPeriodFormat() }
             timeStyleOptions.hourStyle?.let { hour = it.toHourFormat() }

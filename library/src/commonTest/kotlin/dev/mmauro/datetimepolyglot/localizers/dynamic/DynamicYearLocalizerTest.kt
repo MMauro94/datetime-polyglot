@@ -43,7 +43,7 @@ val DynamicYearLocalizerTestFactory = funSpec {
                         locale = LOCALE_ENGLISH,
                         options = DynamicYearOptions(
                             absoluteOptions = YearOptions(eraStyle = EraStyle.ABBREVIATED),
-                        )
+                        ),
                     ),
                     2020,
                     TickingValue("2020 AD", nextTick = null),
@@ -66,7 +66,7 @@ val DynamicYearLocalizerTestFactory = funSpec {
                 DynamicYearLocalizer(
                     locale = LOCALE_ENGLISH,
                     options = DynamicYearOptions(
-                        relativeOptions = RelativeYearOptions(style = RelativeUnitStyle.SHORT)
+                        relativeOptions = RelativeYearOptions(style = RelativeUnitStyle.SHORT),
                     ),
                 ),
                 2025,
@@ -80,7 +80,7 @@ val DynamicYearLocalizerTestFactory = funSpec {
     context("custom threshold") {
         val localizer = DynamicYearLocalizer(
             locale = LOCALE_ITALIAN,
-            options = DynamicYearOptions(relativeDiffRange = -10..5)
+            options = DynamicYearOptions(relativeDiffRange = -10..5),
         )
 
         withTests(

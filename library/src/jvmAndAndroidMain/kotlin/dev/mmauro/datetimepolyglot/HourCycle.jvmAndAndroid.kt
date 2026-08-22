@@ -8,7 +8,7 @@ internal val HourCycle.unicodePatternChar: Char
         HourCycle.HOURS_24 -> 'k'
     }
 
-internal val HourCycle.unicodeExtensionKeyValue : String
+internal val HourCycle.unicodeExtensionKeyValue: String
     get() = when (this) {
         HourCycle.HOURS_11 -> "h11"
         HourCycle.HOURS_12 -> "h12"

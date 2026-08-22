@@ -149,7 +149,6 @@ fun <T> PolyglotValueLocalizer<T, TickingValue<String>>.localizeAndTestNextTick(
     advanceBy: T.(Duration) -> T,
 ) = localizeAndTestNextTick(value, advanceBy, ::localize)
 
-
 fun <T> PolyglotReferenceValueLocalizer<T>.localizeAndTestNextTick(
     value: T,
     reference: Zoned<Instant>,

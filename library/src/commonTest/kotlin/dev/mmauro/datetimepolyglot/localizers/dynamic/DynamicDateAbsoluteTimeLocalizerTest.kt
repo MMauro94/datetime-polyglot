@@ -46,7 +46,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                         options = DynamicDateAbsoluteTimeOptions(
                             absoluteDateOptions = DateStyle.SHORT,
                             timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
-                        )
+                        ),
                     ),
                     LocalDateTime.parse("2026-01-25T15:50:00"),
                     TickingValue("1/25/26, 3:50 PM", nextTick = null),
@@ -63,9 +63,9 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                                     hourStyle = HourStyle.NUMERIC,
                                     minuteStyle = MinuteStyle.NUMERIC,
                                     secondStyle = SecondStyle.NUMERIC,
-                                )
+                                ),
                             ),
-                        )
+                        ),
                     ),
                     LocalDateTime.parse("2026-06-25T00:00:10"),
                     TickingValue("Jun 25, 2026, 12:00:10 AM", nextTick = 14.days),
@@ -85,7 +85,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                     options = DynamicDateAbsoluteTimeOptions(
                         absoluteDateOptions = DateStyle.SHORT,
                         timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
-                    )
+                    ),
                 ),
                 LocalDateTime.parse("2026-06-06T04:03:02"),
                 TickingValue("in 5 days at 4:03 AM", nextTick = 1.days),
@@ -100,7 +100,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                             style = RelativeUnitStyle.SHORT,
                         ),
                         relativeJoinerStyle = DateStyle.SHORT,
-                    )
+                    ),
                 ),
                 LocalDateTime.parse("2026-05-26T15:00:00"),
                 TickingValue("6 days ago, 3:00 PM", nextTick = 1.days),
@@ -118,7 +118,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
                 timeOptions = LocalTimeOptions(LocalTimeStyle.SHORT),
                 relativeDateDiffRange = -2..14,
                 relativeJoinerStyle = DateStyle.SHORT,
-            )
+            ),
         )
 
         withTests(
@@ -139,7 +139,7 @@ val DynamicDateAbsoluteTimeLocalizerTestFactory = funSpec {
             options = DynamicDateAbsoluteTimeOptions(
                 absoluteDateOptions = DateStyle.LONG,
                 timeOptions = LocalTimeOptions(LocalTimeStyle.MEDIUM),
-            )
+            ),
         )
 
         localizer.nextTickPredictsChangeTest(

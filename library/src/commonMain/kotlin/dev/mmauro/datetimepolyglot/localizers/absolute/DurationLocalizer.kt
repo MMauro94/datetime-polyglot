@@ -84,7 +84,6 @@ internal fun DurationOptions.detectUnits(value: Duration) = DurationUnit.entries
     .ifEmpty { listOf(minUnit) }
     .map { value.unitPart(it) to it }
 
-
 internal fun Duration.internalLocalize(
     options: DurationOptions,
     locale: PlatformLocale,

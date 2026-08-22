@@ -39,8 +39,8 @@ val DynamicYearMonthLocalizerTestFactory = funSpec {
                     DynamicYearMonthLocalizer(
                         locale = LOCALE_ENGLISH,
                         options = DynamicYearMonthOptions(
-                            absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.ABBREVIATED)
-                        )
+                            absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.ABBREVIATED),
+                        ),
                     ),
                     YearMonth(2026, Month.SEPTEMBER),
                     TickingValue("Sep 2026", nextTick = 61.days),
@@ -49,8 +49,8 @@ val DynamicYearMonthLocalizerTestFactory = funSpec {
                     DynamicYearMonthLocalizer(
                         locale = LOCALE_ENGLISH,
                         options = DynamicYearMonthOptions(
-                            absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE)
-                        )
+                            absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE),
+                        ),
                     ),
                     YearMonth(2020, Month.APRIL),
                     TickingValue("April 2020", nextTick = null),
@@ -68,7 +68,7 @@ val DynamicYearMonthLocalizerTestFactory = funSpec {
                 DynamicYearMonthLocalizer(
                     locale = LOCALE_ENGLISH,
                     options = DynamicYearMonthOptions(
-                        absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE)
+                        absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE),
                     ),
                 ),
                 YearMonth(2026, Month.JUNE),
@@ -79,7 +79,7 @@ val DynamicYearMonthLocalizerTestFactory = funSpec {
                     locale = LOCALE_ENGLISH,
                     options = DynamicYearMonthOptions(
                         absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE),
-                        relativeOptions = RelativeYearMonthOptions(style = RelativeUnitStyle.SHORT)
+                        relativeOptions = RelativeYearMonthOptions(style = RelativeUnitStyle.SHORT),
                     ),
                 ),
                 YearMonth(2026, Month.MAY),
@@ -96,7 +96,7 @@ val DynamicYearMonthLocalizerTestFactory = funSpec {
             options = DynamicYearMonthOptions(
                 absoluteOptions = YearMonthOptions(monthStyle = MonthStyle.WIDE),
                 relativeDiffRange = -10..5,
-            )
+            ),
         )
 
         withTests(

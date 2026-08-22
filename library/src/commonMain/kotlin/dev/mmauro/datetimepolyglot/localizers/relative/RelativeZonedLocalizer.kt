@@ -27,7 +27,7 @@ internal class RelativeZonedLocalizer<T>(
                 locale = locale,
                 style = DateStyle.SHORT,
                 date = it,
-                time = timeZoneLocalizer.localize(value.timeZone)
+                time = timeZoneLocalizer.localize(value.timeZone),
             )
         }
     }

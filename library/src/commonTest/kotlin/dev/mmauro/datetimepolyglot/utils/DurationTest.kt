@@ -104,7 +104,6 @@ class DurationTest : FunSpec({
     }
 })
 
-
 // IDE complains if we don't put the else, but then the compiler produces a warning if we put it. Let's suppress that warning.
 // RC is that DurationUnit is declared as an expect enum - https://youtrack.jetbrains.com/issue/KT-38750
 @Suppress("REDUNDANT_ELSE_IN_WHEN")

@@ -8,7 +8,7 @@ import kotlin.time.Instant
 
 internal class MapPolyglotReferenceValueLocalizer<T>(
     val localizer: PolyglotReferenceValueLocalizer<T>,
-    val map: (value: T, localized: TickingValue<String>, reference: Zoned<Instant>) -> TickingValue<String>
+    val map: (value: T, localized: TickingValue<String>, reference: Zoned<Instant>) -> TickingValue<String>,
 ) : PolyglotReferenceValueLocalizer<T> {
 
     override fun localize(value: T, reference: Zoned<Instant>): TickingValue<String> {
@@ -27,7 +27,7 @@ internal class MapPolyglotReferenceValueLocalizer<T>(
  *  - reference: the reference point
  */
 public fun <T> PolyglotReferenceValueLocalizer<T>.map(
-    map: (value: T, localized: TickingValue<String>, reference: Zoned<Instant>) -> TickingValue<String>
+    map: (value: T, localized: TickingValue<String>, reference: Zoned<Instant>) -> TickingValue<String>,
 ): PolyglotReferenceValueLocalizer<T> {
     return MapPolyglotReferenceValueLocalizer(this, map)
 }

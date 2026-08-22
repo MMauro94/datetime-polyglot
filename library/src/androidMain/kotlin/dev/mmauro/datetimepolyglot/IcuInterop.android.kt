@@ -11,8 +11,8 @@ import dev.mmauro.datetimepolyglot.localizers.absolute.TimeStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.ZonedTimeStyle
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeUnit
-import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.DurationStyle
+import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.TimeZone
@@ -92,7 +92,7 @@ internal actual fun getDateFormatInstance(dateStyle: DateStyle, locale: Platform
 internal actual fun getTimeFormatInstance(timeOptions: TimeOptions<TimeStyle>, locale: PlatformLocale): SimpleDateFormat {
     val format = AndroidDateFormat.getTimeInstance(
         timeOptions.styleOptions.toDateFormatStyle(),
-        locale.withHourCycle(timeOptions.hourCycle)
+        locale.withHourCycle(timeOptions.hourCycle),
     ) as SimpleDateFormat
 
     return format.overrideHourCycleIfNecessary(locale, timeOptions.hourCycle)
@@ -101,12 +101,12 @@ internal actual fun getTimeFormatInstance(timeOptions: TimeOptions<TimeStyle>, l
 internal actual fun getDateTimeFormatInstance(
     dateStyle: DateStyle,
     timeOptions: TimeOptions<TimeStyle>,
-    locale: PlatformLocale
+    locale: PlatformLocale,
 ): SimpleDateFormat {
     val format = AndroidDateFormat.getDateTimeInstance(
         dateStyle.toDateFormatStyle(),
         timeOptions.styleOptions.toDateFormatStyle(),
-        locale.withHourCycle(timeOptions.hourCycle)
+        locale.withHourCycle(timeOptions.hourCycle),
     ) as SimpleDateFormat
 
     return format.overrideHourCycleIfNecessary(locale, timeOptions.hourCycle)
@@ -157,11 +157,9 @@ private fun TimeZoneStyle.toIcuStyle() = when (this) {
     TimeZoneStyle.Generic.NON_LOCATION_SHORT -> IcuTimeZone.SHORT_GENERIC
     TimeZoneStyle.Generic.NON_LOCATION_LONG -> IcuTimeZone.LONG_GENERIC
     TimeZoneStyle.Generic.LOCATION -> IcuTimeZone.GENERIC_LOCATION
-
     // Specific
     TimeZoneStyle.Specific.NON_LOCATION_SHORT -> IcuTimeZone.SHORT
     TimeZoneStyle.Specific.NON_LOCATION_LONG -> IcuTimeZone.LONG
-
     // GMT
     TimeZoneStyle.Gmt.SHORT -> IcuTimeZone.SHORT_GMT
     TimeZoneStyle.Gmt.LONG -> IcuTimeZone.LONG_GMT
@@ -217,13 +215,11 @@ internal actual fun RelativeDateTimeFormatter.formatDirection(direction: Relativ
         } else {
             return null
         }
-
         RelativeUnit.DateTimeComponent.HOUR -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             IcuRelativeDateTimeFormatter.AbsoluteUnit.HOUR
         } else {
             return null
         }
-
         RelativeUnit.DateTimeComponent.DAY -> IcuRelativeDateTimeFormatter.AbsoluteUnit.DAY
         RelativeUnit.DateTimeComponent.WEEK -> IcuRelativeDateTimeFormatter.AbsoluteUnit.WEEK
         RelativeUnit.DateTimeComponent.MONTH -> IcuRelativeDateTimeFormatter.AbsoluteUnit.MONTH

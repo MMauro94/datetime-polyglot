@@ -28,13 +28,11 @@ internal class BaseDateTimeLocalizer<T>(
             is TimeStyle -> Full()
             is TimeComponents -> Split()
         }
-
         is DateComponents -> when (timeOptions.styleOptions) {
             is TimeStyle -> Split()
             is TimeComponents -> Full()
         }
     }
-
 
     override fun localize(value: T): String {
         return localizer.localize(value)
@@ -42,14 +40,17 @@ internal class BaseDateTimeLocalizer<T>(
 
     // When date and time options are cocondarnt (both styles or both components), we use a single DateTimeFormat
     inner class Full : PolyglotDateTimeLocalizer<T> {
-        val format = DateTimeFormat(locale.toString(), unsafeJso {
-            fill(dateOptions.toComponentOptions())
-            fill(timeOptions.toComponentOptions(), timeZoneIdFallback = TimeZoneNameFormat.shortOffset)
+        val format = DateTimeFormat(
+            locale.toString(),
+            unsafeJso {
+                fill(dateOptions.toComponentOptions())
+                fill(timeOptions.toComponentOptions(), timeZoneIdFallback = TimeZoneNameFormat.shortOffset)
 
-            this@BaseDateTimeLocalizer.timeZone?.let {
-                this.timeZone = it.id
-            }
-        })
+                this@BaseDateTimeLocalizer.timeZone?.let {
+                    this.timeZone = it.id
+                }
+            },
+        )
 
         override fun localize(value: T): String {
             return format.format(value)
@@ -64,7 +65,7 @@ internal class BaseDateTimeLocalizer<T>(
             locales = locale.toString(),
             options = unsafeJso {
                 fill(dateOptions.toComponentOptions())
-            }
+            },
         )
         private val timeFormat = DateTimeFormat(
             locales = locale.toString(),
@@ -74,7 +75,7 @@ internal class BaseDateTimeLocalizer<T>(
                 this@BaseDateTimeLocalizer.timeZone?.let {
                     this.timeZone = it.id
                 }
-            }
+            },
         )
         private val joinerStyle = DateStyle.detectDateTimeJoinerStyle(dateOptions.styleOptions)
 
@@ -83,7 +84,7 @@ internal class BaseDateTimeLocalizer<T>(
                 locale = locale,
                 style = joinerStyle,
                 date = dateFormat.format(value),
-                time = timeFormat.format(value)
+                time = timeFormat.format(value),
             )
         }
     }

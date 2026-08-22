@@ -38,7 +38,7 @@ class TickingDurationLocalizerTest : FunSpec({
                 tuple(
                     TickingDurationLocalizer(
                         options = TickingDurationOptions(DurationOptions(style = DurationStyle.WIDE)),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ),
                     1.days + 5.hours,
                     TickingValue("1 day, 5 hours", nextTick = 1.nanoseconds),
@@ -46,7 +46,7 @@ class TickingDurationLocalizerTest : FunSpec({
                 tuple(
                     TickingDurationLocalizer(
                         options = TickingDurationOptions(DurationOptions(style = DurationStyle.NARROW)),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ),
                     5.hours + 15.minutes + 43.seconds,
                     TickingValue("5h 15m", nextTick = 43.seconds + 1.nanoseconds),
@@ -54,7 +54,7 @@ class TickingDurationLocalizerTest : FunSpec({
                 tuple(
                     TickingDurationLocalizer(
                         options = TickingDurationOptions(DurationOptions(style = DurationStyle.WIDE)),
-                        locale = LOCALE_ITALIAN
+                        locale = LOCALE_ITALIAN,
                     ),
                     -(6.hours + 13.seconds),
                     TickingValue("-6 ore", nextTick = 47.seconds),
@@ -65,7 +65,7 @@ class TickingDurationLocalizerTest : FunSpec({
                             durationOptions = DurationOptions(style = DurationStyle.NARROW, minUnit = DurationUnit.SECONDS),
                             abs = true,
                         ),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ),
                     -(4.minutes + 22.seconds + 440.milliseconds + 141.microseconds),
                     TickingValue("4m 22s", nextTick = 559.milliseconds + 859.microseconds),
@@ -73,7 +73,7 @@ class TickingDurationLocalizerTest : FunSpec({
                 tuple(
                     TickingDurationLocalizer(
                         options = TickingDurationOptions(DurationOptions(style = DurationStyle.NARROW, minUnit = DurationUnit.MINUTES)),
-                        locale = LOCALE_ENGLISH
+                        locale = LOCALE_ENGLISH,
                     ),
                     10.seconds,
                     TickingValue("0m", nextTick = 1.minutes + 10.seconds),
@@ -81,7 +81,7 @@ class TickingDurationLocalizerTest : FunSpec({
                 tuple(
                     TickingDurationLocalizer(
                         options = TickingDurationOptions(DurationOptions(minUnit = DurationUnit.MINUTES, ifZeroLocalization = { "aaa" })),
-                        locale = LOCALE_ITALIAN
+                        locale = LOCALE_ITALIAN,
                     ),
                     55.seconds,
                     TickingValue("aaa", nextTick = 1.minutes + 55.seconds),
