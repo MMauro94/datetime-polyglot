@@ -26,7 +26,7 @@ private typealias IfZeroLocalization = RelativeDurationLocalizer.ZeroLocalizatio
  * [minUnit]. If this returns null, the default `0 <min-unit>` localized string will be used. By default, this localizes the string "now" if
  * the min unit is seconds, returns `null` otherwise.
  */
-data class RelativeDurationOptions(
+public data class RelativeDurationOptions(
     val minUnit: DurationUnit = DurationUnit.SECONDS,
     val maxUnit: DurationUnit? = null,
     val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
@@ -45,7 +45,7 @@ data class RelativeDurationOptions(
         }
     }
 
-    override fun localizer(locale: PlatformLocale) = RelativeDurationLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): RelativeDurationLocalizer = RelativeDurationLocalizer(this, locale)
 }
 
 /**
@@ -71,13 +71,13 @@ data class RelativeDurationOptions(
  * - `4 hr. ago`
  * - `in 2 days`
  */
-class RelativeDurationLocalizer(
+public class RelativeDurationLocalizer(
     private val options: RelativeDurationOptions = RelativeDurationOptions(),
     private val locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotValueLocalizer<Duration, TickingValue<String>> {
 
-    interface ZeroLocalizationContext {
-        fun localizeNow(): String?
+    public interface ZeroLocalizationContext {
+        public fun localizeNow(): String?
     }
 
     private val relativeUnitLocalizer = RelativeUnitLocalizer(
@@ -122,7 +122,7 @@ class RelativeDurationLocalizer(
  *
  * @see RelativeDurationLocalizer
  */
-fun Duration.localizeRelative(
+public fun Duration.localizeRelative(
     options: RelativeDurationOptions = RelativeDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ): TickingValue<String> {

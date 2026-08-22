@@ -15,10 +15,10 @@ private val MONDAY_DATE = LocalDate(1970, 1, 5)
 /**
  * Options for [DayOfWeekLocalizer] and [DayOfWeek.localize]
  */
-data class DayOfWeekOptions(
+public data class DayOfWeekOptions(
     val style: DayOfWeekStyle = DayOfWeekStyle.WIDE,
 ) : PolyglotLocalizerOptions<DayOfWeekLocalizer> {
-    override fun localizer(locale: PlatformLocale) = DayOfWeekLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): DayOfWeekLocalizer = DayOfWeekLocalizer(this, locale)
 }
 
 /**
@@ -34,7 +34,7 @@ data class DayOfWeekOptions(
  * - `Mo`
  * - `M`
  */
-expect class DayOfWeekLocalizer(
+public expect class DayOfWeekLocalizer(
     options: DayOfWeekOptions = DayOfWeekOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<DayOfWeek> {
@@ -46,9 +46,9 @@ expect class DayOfWeekLocalizer(
  *
  * @see DayOfWeekLocalizer
  */
-fun DayOfWeek.localize(
+public fun DayOfWeek.localize(
     options: DayOfWeekOptions = DayOfWeekOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) = DayOfWeekLocalizer(options, locale).localize(this)
+): String = DayOfWeekLocalizer(options, locale).localize(this)
 
 internal fun DayOfWeek.toArbitraryLocalDate() = MONDAY_DATE + DatePeriod(days = this.ordinal)

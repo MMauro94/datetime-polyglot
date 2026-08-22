@@ -5,7 +5,7 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-period](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-period)
  */
-enum class DayPeriodStyle {
+public enum class DayPeriodStyle {
 
     FLEXIBLE_NARROW,
     FLEXIBLE_ABBREVIATED,

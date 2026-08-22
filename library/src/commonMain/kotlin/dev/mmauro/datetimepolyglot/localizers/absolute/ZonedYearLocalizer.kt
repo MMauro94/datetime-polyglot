@@ -14,11 +14,11 @@ import kotlinx.datetime.TimeZone
  * Localization options for [ZonedYearLocalizer].
  */
 @ExperimentalZonedLocalizer
-data class ZonedYearOptions(
+public data class ZonedYearOptions(
     val yearOptions: YearOptions = YearOptions(),
     val timeZoneOptions: TimeZoneOptions = TimeZoneOptions(),
 ) : PolyglotLocalizerOptions<ZonedYearLocalizer> {
-    override fun localizer(locale: PlatformLocale) = ZonedYearLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): ZonedYearLocalizer = ZonedYearLocalizer(this, locale)
 }
 
 /**
@@ -37,7 +37,7 @@ data class ZonedYearOptions(
  * - `2026 Anno Domini, Pacific Time`
  */
 @ExperimentalZonedLocalizer
-class ZonedYearLocalizer(
+public class ZonedYearLocalizer(
     options: ZonedYearOptions = ZonedYearOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeZonedLocalizer<Int> {

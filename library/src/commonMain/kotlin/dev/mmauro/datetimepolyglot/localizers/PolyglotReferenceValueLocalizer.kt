@@ -28,15 +28,15 @@ import kotlin.time.Instant
  * Note that any class implementing this interface is **not** strictly required to return the same exact string for the same value in
  * different platforms.
  */
-interface PolyglotReferenceValueLocalizer<in T> : PolyglotLocalizer {
-    fun localize(value: T, reference: Zoned<Instant>): TickingValue<String>
+public interface PolyglotReferenceValueLocalizer<in T> : PolyglotLocalizer {
+    public fun localize(value: T, reference: Zoned<Instant>): TickingValue<String>
 }
 
 /**
  * Localizes [value] by using the given [clock]'s [Clock.now] and [timeZone] as a reference point, rather than passing the reference
  * explicitly.
  */
-fun <T> PolyglotReferenceValueLocalizer<T>.localizeNow(
+public fun <T> PolyglotReferenceValueLocalizer<T>.localizeNow(
     value: T,
     clock: Clock = Clock.System,
     timeZone: TimeZone = TimeZone.currentSystemDefault(),
@@ -62,7 +62,7 @@ fun <T> PolyglotReferenceValueLocalizer<T>.localizeNow(
  * returns a non-null [TickingValue.nextTick]). If null (the default), no max tick bound is applied.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-fun <T> PolyglotReferenceValueLocalizer<T>.localizeAsFlow(
+public fun <T> PolyglotReferenceValueLocalizer<T>.localizeAsFlow(
     value: T,
     clock: Flow<Clock> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
@@ -91,7 +91,7 @@ fun <T> PolyglotReferenceValueLocalizer<T>.localizeAsFlow(
  * [TickingValue.nextTick]). If null (the default), no max tick bound is applied.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-fun <T> tickingValueToFlow(
+public fun <T> tickingValueToFlow(
     clock: Flow<Clock> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
     maxTick: Duration? = null,

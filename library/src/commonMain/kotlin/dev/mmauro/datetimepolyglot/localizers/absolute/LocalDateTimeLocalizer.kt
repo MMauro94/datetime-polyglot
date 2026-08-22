@@ -9,21 +9,22 @@ import kotlinx.datetime.LocalDateTime
 /**
  * Localization options for [LocalDateTimeLocalizer] and [LocalDateTime.parse].
  */
-data class LocalDateTimeOptions private constructor(
+public data class LocalDateTimeOptions private constructor(
     val dateOptions: DateOptions,
     val timeOptions: LocalTimeOptions<*>,
 ) : PolyglotLocalizerOptions<LocalDateTimeLocalizer> {
-    constructor(
+
+    public constructor(
         dateOptions: DateStyleOptions = Defaults.DATE,
         timeOptions: LocalTimeOptions<*> = LocalTimeOptions(Defaults.LOCAL_TIME),
     ) : this(DateOptions(dateOptions), timeOptions)
 
-    constructor(
+    public constructor(
         dateOptions: DateStyleOptions = Defaults.DATE,
         timeOptions: LocalTimeStyleOptions,
     ) : this(dateOptions, LocalTimeOptions(timeOptions))
 
-    override fun localizer(locale: PlatformLocale) = LocalDateTimeLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): LocalDateTimeLocalizer = LocalDateTimeLocalizer(this, locale)
 }
 
 /**
@@ -40,7 +41,7 @@ data class LocalDateTimeOptions private constructor(
  * - `January 8, 2026 at 9:31:45 PM`
  * - `Thursday, January 8, 2026 at 21:05`
  */
-expect class LocalDateTimeLocalizer(
+public expect class LocalDateTimeLocalizer(
     options: LocalDateTimeOptions = LocalDateTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<LocalDateTime> {
@@ -53,7 +54,7 @@ expect class LocalDateTimeLocalizer(
  *
  * @see LocalDateTimeLocalizer
  */
-fun LocalDateTime.localize(
+public fun LocalDateTime.localize(
     options: LocalDateTimeOptions = LocalDateTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) = LocalDateTimeLocalizer(options, locale).localize(this)
+): String = LocalDateTimeLocalizer(options, locale).localize(this)

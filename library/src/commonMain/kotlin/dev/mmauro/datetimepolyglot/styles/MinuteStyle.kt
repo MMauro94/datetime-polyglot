@@ -5,7 +5,7 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-minute](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-minute)
  */
-enum class MinuteStyle {
+public enum class MinuteStyle {
 
     /**
      * Not padded number, e.g. `7`

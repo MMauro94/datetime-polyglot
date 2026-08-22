@@ -5,7 +5,7 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-second](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-second)
  */
-enum class SecondStyle {
+public enum class SecondStyle {
 
     /**
      * Not padded number, e.g. `8`

@@ -5,7 +5,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.getDisplayName
 import kotlinx.datetime.TimeZone
 
-actual class TimeZoneLocalizer actual constructor(
+public actual class TimeZoneLocalizer actual constructor(
     private val options: TimeZoneOptions,
     private val locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<TimeZone> {

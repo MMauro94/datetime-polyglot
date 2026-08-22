@@ -8,7 +8,7 @@ import dev.mmauro.datetimepolyglot.styles.standaloneUnicodePattern
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.toJavaLocalDate
 
-actual class DayOfWeekLocalizer actual constructor(
+public actual class DayOfWeekLocalizer actual constructor(
     options: DayOfWeekOptions,
     locale: PlatformLocale,
 ) : PolyglotDateTimeLocalizer<DayOfWeek> {

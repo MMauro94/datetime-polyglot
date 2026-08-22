@@ -24,7 +24,7 @@ internal sealed interface RelativeUnit {
     }
 }
 
-enum class RelativeDirection(val offset: Int) {
+public enum class RelativeDirection(public val offset: Int) {
     LAST_2(-2),
     LAST(-1),
     THIS(0),

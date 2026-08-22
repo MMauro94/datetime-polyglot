@@ -5,7 +5,7 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.format
 import java.time.Year
 
-actual class YearLocalizer actual constructor(
+public actual class YearLocalizer actual constructor(
     options: YearOptions,
     locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<Int> {

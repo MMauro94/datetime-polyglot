@@ -11,7 +11,7 @@ import kotlin.time.Instant
 @RequiresOptIn(message = "This API is experimental. It could change or be dropped in the future without notice.")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
-annotation class ExperimentalDynamicLocalizer
+public annotation class ExperimentalDynamicLocalizer
 
 /**
  * Special localizer class that allows to pick an arbitrary [PolyglotReferenceValueLocalizer] based on the current reference time.
@@ -25,33 +25,33 @@ annotation class ExperimentalDynamicLocalizer
  * The next tick is selected with the minimum between the selected case and all thresholds that come before it.
  */
 @ExperimentalDynamicLocalizer
-class DynamicLocalizer<T>(
-    val thresholds: List<Case.Threshold<T>>,
-    val default: Case.Default<T>,
+public class DynamicLocalizer<T>(
+    public val thresholds: List<Case.Threshold<T>>,
+    public val default: Case.Default<T>,
 ) : PolyglotReferenceValueLocalizer<T> {
 
-    constructor(vararg cases: Case.Threshold<T>, default: Case.Default<T>) : this(cases.toList(), default)
+    public constructor(vararg cases: Case.Threshold<T>, default: Case.Default<T>) : this(cases.toList(), default)
 
-    sealed interface Case<T> {
+    public sealed interface Case<T> {
 
-        val localize: (T, Zoned<Instant>) -> TickingValue<String>
+        public val localize: (T, Zoned<Instant>) -> TickingValue<String>
 
-        data class Threshold<T>(
+        public data class Threshold<T>(
             val range: OpenEndRange<Instant>,
             override val localize: (T, Zoned<Instant>) -> TickingValue<String>,
         ) : Case<T> {
 
-            constructor(
+            public constructor(
                 range: OpenEndRange<Instant>,
                 localizer: PolyglotReferenceValueLocalizer<T>
             ) : this(range, localizer::localize)
 
-            constructor(
+            public constructor(
                 range: OpenEndRange<Instant>,
                 localizer: PolyglotValueLocalizer<T, String>
             ) : this(range, localize = { value, _ -> TickingValue(localizer.localize(value), nextTick = null) })
 
-            operator fun contains(value: Instant) = value in range
+            public operator fun contains(value: Instant): Boolean = value in range
 
             internal fun nextTick(reference: Instant): Duration? {
                 return if (reference < range.start) {
@@ -63,22 +63,22 @@ class DynamicLocalizer<T>(
                 }
             }
 
-            companion object {
+            internal companion object {
                 internal fun <T : Comparable<T>> computeRangeFromDiff(value: T, diff: IntRange, minus: T.(Int) -> T): OpenEndRange<T> {
                     return (value.minus(diff.last))..<(value.minus(diff.first - 1))
                 }
             }
         }
 
-        data class Default<T>(
+        public data class Default<T>(
             override val localize: (T, Zoned<Instant>) -> TickingValue<String>,
         ) : Case<T> {
 
-            constructor(
+            public constructor(
                 localizer: PolyglotReferenceValueLocalizer<T>
             ) : this(localizer::localize)
 
-            constructor(localizer: PolyglotValueLocalizer<T, String>) : this(
+            public constructor(localizer: PolyglotValueLocalizer<T, String>) : this(
                 localize = { value, _ -> TickingValue(localizer.localize(value), nextTick = null) },
             )
         }

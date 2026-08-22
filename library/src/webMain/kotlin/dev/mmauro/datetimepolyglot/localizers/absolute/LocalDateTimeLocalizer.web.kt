@@ -8,7 +8,7 @@ import js.temporal.PlainDateTime
 import kotlinx.datetime.LocalDateTime
 import kotlin.js.ExperimentalWasmJsInterop
 
-actual class LocalDateTimeLocalizer actual constructor(
+public actual class LocalDateTimeLocalizer actual constructor(
     options: LocalDateTimeOptions,
     locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<LocalDateTime> {

@@ -9,6 +9,6 @@ package dev.mmauro.datetimepolyglot.localizers
  * @see PolyglotDateTimeLocalizer
  * @see PolyglotDateTimeZonedLocalizer
  */
-interface PolyglotValueLocalizer<in T, out R> : PolyglotLocalizer {
-    fun localize(value: T): R
+public interface PolyglotValueLocalizer<in T, out R> : PolyglotLocalizer {
+    public fun localize(value: T): R
 }

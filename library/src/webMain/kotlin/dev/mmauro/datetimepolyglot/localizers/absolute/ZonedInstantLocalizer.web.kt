@@ -10,7 +10,7 @@ import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.time.Instant
 import js.temporal.Instant as JsInstant
 
-actual class ZonedInstantLocalizer actual constructor(
+public actual class ZonedInstantLocalizer actual constructor(
     private val options: ZonedInstantOptions,
     private val locale: PlatformLocale
 ) : PolyglotDateTimeZonedLocalizer<Instant> {

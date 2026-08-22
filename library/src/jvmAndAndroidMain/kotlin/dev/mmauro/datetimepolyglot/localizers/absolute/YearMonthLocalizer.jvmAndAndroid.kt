@@ -6,7 +6,7 @@ import dev.mmauro.datetimepolyglot.format
 import kotlinx.datetime.YearMonth
 import kotlinx.datetime.toJavaLocalDate
 
-actual class YearMonthLocalizer actual constructor(
+public actual class YearMonthLocalizer actual constructor(
     options: YearMonthOptions,
     locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<YearMonth> {

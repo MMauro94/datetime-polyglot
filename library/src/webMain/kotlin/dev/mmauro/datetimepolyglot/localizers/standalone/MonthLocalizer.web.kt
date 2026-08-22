@@ -10,7 +10,7 @@ import js.objects.unsafeJso
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 
-actual class MonthLocalizer actual constructor(
+public actual class MonthLocalizer actual constructor(
     options: MonthOptions,
     locale: PlatformLocale,
 ) : PolyglotDateTimeLocalizer<Month> {

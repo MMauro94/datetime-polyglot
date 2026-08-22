@@ -19,21 +19,21 @@ import kotlin.time.Instant
 @RequiresOptIn(message = "This API is experimental. It could change or be dropped in the future without notice.")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
-annotation class ExperimentalTickingDurationLocalizer
+public annotation class ExperimentalTickingDurationLocalizer
 
 /**
- * Localization options for [TickingDurationLocalizer] and [Duration.localizeTicking].
+ * Localization options for [TickingDurationLocalizer] and [localizeTicking].
  *
  * @param durationOptions the options to pass to the underlying [DurationOptions], semantically identical
  * @param abs whether to make a duration absolute before localization (i.e. without minus sign). This does **not** affect
  * [TickingValue.nextTick] calculations, but only the localized string returned in [TickingValue.value]
  */
 @ExperimentalTickingDurationLocalizer
-data class TickingDurationOptions(
+public data class TickingDurationOptions(
     val durationOptions: DurationOptions = DurationOptions(),
     val abs: Boolean = false,
 ) : PolyglotLocalizerOptions<TickingDurationLocalizer> {
-    override fun localizer(locale: PlatformLocale) = TickingDurationLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): TickingDurationLocalizer = TickingDurationLocalizer(this, locale)
 }
 
 /**
@@ -57,7 +57,7 @@ data class TickingDurationOptions(
  * - `1 hour, 5 minutes`
  */
 @ExperimentalTickingDurationLocalizer
-class TickingDurationLocalizer(
+public class TickingDurationLocalizer(
     private val options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotValueLocalizer<Duration, TickingValue<String>>, PolyglotReferenceValueLocalizer<Instant> {
@@ -75,7 +75,7 @@ class TickingDurationLocalizer(
         )
     }
 
-    fun localize(value: Instant, reference: Instant): TickingValue<String> {
+    public fun localize(value: Instant, reference: Instant): TickingValue<String> {
         return localize(value - reference)
     }
 
@@ -91,7 +91,7 @@ class TickingDurationLocalizer(
  * @see TickingDurationLocalizer
  */
 @ExperimentalTickingDurationLocalizer
-fun Duration.localizeTicking(
+public fun Duration.localizeTicking(
     options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ): TickingValue<String> {
@@ -102,11 +102,11 @@ fun Duration.localizeTicking(
 /**
  * Calculates the diff between this [Instant] and [reference], and localizes the result with the given [options] in the given [locale].
  *
- * @see Duration.localizeTicking
+ * @see localizeTicking
  * @see TickingDurationLocalizer
  */
 @ExperimentalTickingDurationLocalizer
-fun Instant.localizeDiff(
+public fun Instant.localizeDiff(
     reference: Instant,
     options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
@@ -122,7 +122,7 @@ fun Instant.localizeDiff(
  * @see TickingDurationLocalizer
  */
 @ExperimentalTickingDurationLocalizer
-fun Instant.localizeDiffNow(
+public fun Instant.localizeDiffNow(
     options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
@@ -140,7 +140,7 @@ fun Instant.localizeDiffNow(
  * @see localizeAsFlow
  */
 @ExperimentalTickingDurationLocalizer
-fun Instant.localizeDiffAsFlow(
+public fun Instant.localizeDiffAsFlow(
     options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,

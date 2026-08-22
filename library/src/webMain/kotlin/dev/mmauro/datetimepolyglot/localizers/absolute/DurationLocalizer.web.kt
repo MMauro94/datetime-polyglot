@@ -26,7 +26,7 @@ import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 
-actual class DurationLocalizer actual constructor(
+public actual class DurationLocalizer actual constructor(
     internal actual val options: DurationOptions,
     private val locale: PlatformLocale
 ) : PolyglotValueLocalizer<Duration, String> {

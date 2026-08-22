@@ -5,7 +5,7 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-day](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-day)
  */
-enum class DayOfMonthStyle {
+public enum class DayOfMonthStyle {
 
     /**
      * Not padded number, e.g. `9`

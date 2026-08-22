@@ -9,7 +9,7 @@ import js.intl.DateTimeFormatOptions
 import js.objects.unsafeJso
 import kotlinx.datetime.DayOfWeek
 
-actual class DayOfWeekLocalizer actual constructor(
+public actual class DayOfWeekLocalizer actual constructor(
     options: DayOfWeekOptions,
     locale: PlatformLocale,
 ) : PolyglotDateTimeLocalizer<DayOfWeek> {

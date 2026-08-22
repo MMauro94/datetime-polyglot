@@ -16,17 +16,17 @@ import kotlinx.datetime.LocalDate
  */
 // For now this constructor is internal because it's useless for users to manually create a DateOptions instance
 @ExperimentalZonedLocalizer
-data class ZonedDateOptions internal constructor(
+public data class ZonedDateOptions internal constructor(
     val dateOptions: DateOptions,
     val timeZoneOptions: TimeZoneOptions = TimeZoneOptions(),
 ) : PolyglotLocalizerOptions<ZonedLocalDateLocalizer> {
 
-    constructor(
+    public constructor(
         dateStyleOptions: DateStyleOptions = Defaults.DATE,
         timeZoneOptions: TimeZoneOptions = TimeZoneOptions(),
     ) : this(DateOptions(dateStyleOptions), timeZoneOptions)
 
-    override fun localizer(locale: PlatformLocale) = ZonedLocalDateLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): ZonedLocalDateLocalizer = ZonedLocalDateLocalizer(this, locale)
 }
 
 /**
@@ -46,7 +46,7 @@ data class ZonedDateOptions internal constructor(
  * - `1/8/26, Pacific Time`
  */
 @ExperimentalZonedLocalizer
-class ZonedLocalDateLocalizer(
+public class ZonedLocalDateLocalizer(
     options: ZonedDateOptions = ZonedDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeZonedLocalizer<LocalDate> {
@@ -68,7 +68,7 @@ class ZonedLocalDateLocalizer(
  * @see ZonedLocalDateLocalizer
  */
 @ExperimentalZonedLocalizer
-fun Zoned<LocalDate>.localize(
+public fun Zoned<LocalDate>.localize(
     options: ZonedDateOptions = ZonedDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) = ZonedLocalDateLocalizer(options, locale).localize(this)
+): String = ZonedLocalDateLocalizer(options, locale).localize(this)

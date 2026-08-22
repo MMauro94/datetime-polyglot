@@ -5,7 +5,7 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-hour](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-hour)
  */
-enum class HourStyle {
+public enum class HourStyle {
 
     /**
      * Not padded number, e.g. `1`

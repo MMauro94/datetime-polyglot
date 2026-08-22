@@ -8,7 +8,7 @@ import js.intl.DateTimeFormatOptions
 import js.objects.unsafeJso
 import kotlinx.datetime.YearMonth
 
-actual class YearMonthLocalizer actual constructor(
+public actual class YearMonthLocalizer actual constructor(
     private val options: YearMonthOptions,
     private val locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<YearMonth> {

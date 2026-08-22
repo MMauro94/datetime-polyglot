@@ -5,7 +5,7 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-weekday](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-weekday)
  */
-enum class DayOfWeekStyle {
+public enum class DayOfWeekStyle {
     /**
      * Single letter, e.g. `T`
      */

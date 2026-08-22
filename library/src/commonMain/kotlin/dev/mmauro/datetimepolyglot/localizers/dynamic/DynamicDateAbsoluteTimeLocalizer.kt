@@ -41,13 +41,13 @@ import kotlin.time.Instant
  * @property relativeDateDiffRange configures the ranges of days difference with the reference point for which to use relative localization.
  * By default, this is `-10..+10`, meaning that only the past and future 10 days are localized relatively.
  */
-data class DynamicDateAbsoluteTimeOptions(
+public data class DynamicDateAbsoluteTimeOptions(
     val relativeOptions: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
     val absoluteOptions: LocalDateTimeOptions = LocalDateTimeOptions(),
     val relativeDateDiffRange: IntRange = DynamicLocalDateOptions.DEFAULT_DIFF_RANGE,
 ) : PolyglotLocalizerOptions<DynamicDateAbsoluteTimeLocalizer> {
 
-    constructor(
+    public constructor(
         relativeDateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
         absoluteDateOptions: DateStyleOptions = Defaults.DATE,
         timeOptions: LocalTimeOptions<*> = LocalTimeOptions(Defaults.LOCAL_TIME),
@@ -66,7 +66,7 @@ data class DynamicDateAbsoluteTimeOptions(
         relativeDateDiffRange = relativeDateDiffRange,
     )
 
-    override fun localizer(locale: PlatformLocale) = DynamicDateAbsoluteTimeLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): DynamicDateAbsoluteTimeLocalizer = DynamicDateAbsoluteTimeLocalizer(this, locale)
 }
 
 /**
@@ -89,7 +89,7 @@ data class DynamicDateAbsoluteTimeOptions(
  *
  * @see PolyglotReferenceValueLocalizer
  */
-class DynamicDateAbsoluteTimeLocalizer(
+public class DynamicDateAbsoluteTimeLocalizer(
     private val options: DynamicDateAbsoluteTimeOptions = DynamicDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<LocalDateTime> {
@@ -120,7 +120,7 @@ class DynamicDateAbsoluteTimeLocalizer(
  *
  * @see DynamicDateAbsoluteTimeLocalizer
  */
-fun LocalDateTime.localizeDynamicDateAbsoluteTime(
+public fun LocalDateTime.localizeDynamicDateAbsoluteTime(
     reference: Zoned<Instant>,
     options: DynamicDateAbsoluteTimeOptions = DynamicDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
@@ -134,7 +134,7 @@ fun LocalDateTime.localizeDynamicDateAbsoluteTime(
  *
  * @see DynamicDateAbsoluteTimeLocalizer
  */
-fun LocalDateTime.localizeDynamicDateAbsoluteTimeNow(
+public fun LocalDateTime.localizeDynamicDateAbsoluteTimeNow(
     options: DynamicDateAbsoluteTimeOptions = DynamicDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
@@ -150,7 +150,7 @@ fun LocalDateTime.localizeDynamicDateAbsoluteTimeNow(
  * @see DynamicDateAbsoluteTimeLocalizer
  * @see localizeAsFlow
  */
-fun LocalDateTime.localizeDynamicDateAbsoluteTimeAsFlow(
+public fun LocalDateTime.localizeDynamicDateAbsoluteTimeAsFlow(
     options: DynamicDateAbsoluteTimeOptions = DynamicDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,

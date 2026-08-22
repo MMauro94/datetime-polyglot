@@ -5,7 +5,7 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-month](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-month)
  */
-enum class MonthStyle {
+public enum class MonthStyle {
 
     /**
      * Not padded number, e.g. `3`

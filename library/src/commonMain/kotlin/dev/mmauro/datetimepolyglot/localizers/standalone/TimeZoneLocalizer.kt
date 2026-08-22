@@ -10,10 +10,10 @@ import kotlinx.datetime.TimeZone
 /**
  * Options for [TimeZoneLocalizer] and [TimeZone.localize]
  */
-data class TimeZoneOptions(
+public data class TimeZoneOptions(
     val style: TimeZoneStyle.Generic = TimeZoneStyle.Generic.LOCATION,
 ) : PolyglotLocalizerOptions<TimeZoneLocalizer> {
-    override fun localizer(locale: PlatformLocale) = TimeZoneLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): TimeZoneLocalizer = TimeZoneLocalizer(this, locale)
 }
 
 /**
@@ -30,7 +30,7 @@ data class TimeZoneOptions(
  * - `Pacific Time`
  * - `Los Angeles Time`
  */
-expect class TimeZoneLocalizer(
+public expect class TimeZoneLocalizer(
     options: TimeZoneOptions = TimeZoneOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<TimeZone> {
@@ -42,7 +42,7 @@ expect class TimeZoneLocalizer(
  *
  * @see TimeZoneLocalizer
  */
-fun TimeZone.localize(
+public fun TimeZone.localize(
     options: TimeZoneOptions = TimeZoneOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) = TimeZoneLocalizer(options, locale).localize(this)
+): String = TimeZoneLocalizer(options, locale).localize(this)

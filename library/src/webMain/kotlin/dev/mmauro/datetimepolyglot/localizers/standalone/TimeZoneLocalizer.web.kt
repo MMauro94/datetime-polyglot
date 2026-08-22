@@ -14,7 +14,7 @@ import kotlinx.datetime.TimeZone
 // Just a random date to format in order to get the time zone name
 private val REFERENCE_DATE = Date(0.0)
 
-actual class TimeZoneLocalizer actual constructor(
+public actual class TimeZoneLocalizer actual constructor(
     private val options: TimeZoneOptions,
     private val locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<TimeZone> {

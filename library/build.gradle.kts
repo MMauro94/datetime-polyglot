@@ -37,6 +37,7 @@ kotlin {
     }
     @OptIn(ExperimentalAbiValidation::class)
     abiValidation()
+    explicitApi()
 
     jvm()
     androidLibrary {

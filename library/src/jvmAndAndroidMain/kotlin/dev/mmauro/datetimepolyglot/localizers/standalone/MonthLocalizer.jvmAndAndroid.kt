@@ -8,7 +8,7 @@ import dev.mmauro.datetimepolyglot.styles.standaloneUnicodePattern
 import kotlinx.datetime.Month
 import kotlinx.datetime.toJavaMonth
 
-actual class MonthLocalizer actual constructor(
+public actual class MonthLocalizer actual constructor(
     options: MonthOptions,
     locale: PlatformLocale,
 ) : PolyglotDateTimeLocalizer<Month> {
