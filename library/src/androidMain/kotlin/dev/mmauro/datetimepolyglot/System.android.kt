@@ -47,7 +47,7 @@ actual val SYSTEM_TIMEZONE: Flow<TimeZone> by lazy {
     callbackFlow {
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                if (intent.action == Intent.ACTION_TIME_CHANGED) {
+                if (intent.action == Intent.ACTION_TIMEZONE_CHANGED) {
                     check(!trySend(TimeZone.currentSystemDefault()).isFailure) {
                         "Failed to send Clock.System update in Channel"
                     }
@@ -57,7 +57,7 @@ actual val SYSTEM_TIMEZONE: Flow<TimeZone> by lazy {
 
         APPLICATION_CONTEXT.registerReceiver(
             receiver,
-            IntentFilter(Intent.ACTION_TIME_CHANGED)
+            IntentFilter(Intent.ACTION_TIMEZONE_CHANGED)
         )
 
         awaitClose {
