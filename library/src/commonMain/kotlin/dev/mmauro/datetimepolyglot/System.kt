@@ -15,7 +15,7 @@ import kotlin.time.Clock
  * Note: currently only works for Android. In the rest of the platforms, the flow returns only the initial value and does not subscribe to
  * clock change events.
  */
-expect val SYSTEM_CLOCK: Flow<Clock.System>
+public expect val SYSTEM_CLOCK: Flow<Clock.System>
 
 /**
  * Returns a [Flow] that emits the current system [TimeZone] every time it changes.
@@ -24,4 +24,4 @@ expect val SYSTEM_CLOCK: Flow<Clock.System>
  * Note: currently only works for Android. In the rest of the platforms, the flow returns only the initial value and does not subscribe to
  * time zone change events.
  */
-expect val SYSTEM_TIMEZONE: Flow<TimeZone>
+public expect val SYSTEM_TIMEZONE: Flow<TimeZone>

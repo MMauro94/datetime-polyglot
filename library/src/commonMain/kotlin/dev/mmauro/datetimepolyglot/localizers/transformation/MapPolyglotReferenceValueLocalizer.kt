@@ -26,7 +26,7 @@ internal class MapPolyglotReferenceValueLocalizer<T>(
  *  - localized: the localized output of this localizer
  *  - reference: the reference point
  */
-fun <T> PolyglotReferenceValueLocalizer<T>.map(
+public fun <T> PolyglotReferenceValueLocalizer<T>.map(
     map: (value: T, localized: TickingValue<String>, reference: Zoned<Instant>) -> TickingValue<String>
 ): PolyglotReferenceValueLocalizer<T> {
     return MapPolyglotReferenceValueLocalizer(this, map)

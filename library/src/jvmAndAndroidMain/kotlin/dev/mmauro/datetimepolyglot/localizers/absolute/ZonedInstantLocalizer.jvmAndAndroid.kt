@@ -8,7 +8,7 @@ import kotlinx.datetime.toJavaZoneId
 import kotlin.time.Instant
 import kotlin.time.toJavaInstant
 
-actual class ZonedInstantLocalizer actual constructor(
+public actual class ZonedInstantLocalizer actual constructor(
     options: ZonedInstantOptions,
     locale: PlatformLocale
 ) : PolyglotDateTimeZonedLocalizer<Instant> {

@@ -25,25 +25,25 @@ import kotlin.time.Clock
 import kotlin.time.Instant
 
 /**
- * Localization options for [RelativeDateAbsoluteTimeLocalizer], [LocalDateTime.localizeRelativeDateAbsoluteTime], and
- * [LocalDateTime.localizeRelativeDateAbsoluteTimeAsFlow].
+ * Localization options for [RelativeDateAbsoluteTimeLocalizer], [localizeRelativeDateAbsoluteTime], and
+ * [localizeRelativeDateAbsoluteTimeAsFlow].
  *
  * @param dateOptions relative date options, see [RelativeLocalDateOptions]
  * @param timeOptions absolute time options, see [LocalTimeOptions]
  * @param joinerStyle the style of the join between the date and time components (e.g. `<date>, <time>` vs `<date> at <time>`)
  */
-data class RelativeDateAbsoluteTimeOptions(
+public data class RelativeDateAbsoluteTimeOptions(
     val dateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     val timeOptions: LocalTimeOptions<*>,
     val joinerStyle: DateStyle = Defaults.JOINER,
 ) : PolyglotLocalizerOptions<RelativeDateAbsoluteTimeLocalizer> {
-    constructor(
+    public constructor(
         dateOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
         timeOptions: LocalTimeStyleOptions = Defaults.LOCAL_TIME,
         joinerStyle: DateStyle = Defaults.JOINER,
     ) : this(dateOptions, LocalTimeOptions(timeOptions), joinerStyle)
 
-    override fun localizer(locale: PlatformLocale) = RelativeDateAbsoluteTimeLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): RelativeDateAbsoluteTimeLocalizer = RelativeDateAbsoluteTimeLocalizer(this, locale)
 }
 
 /**
@@ -53,7 +53,7 @@ data class RelativeDateAbsoluteTimeOptions(
  * See their documentation to understand [RelativeDateAbsoluteTimeOptions.dateOptions] and [RelativeDateAbsoluteTimeOptions.timeOptions].
  *
  * Create once and re-use for localizing multiple values with the same [options].
- * Use [LocalDateTime.localizeRelativeDateAbsoluteTime] or [LocalDateTime.localizeRelativeDateAbsoluteTimeAsFlow] for one-off localizations.
+ * Use [localizeRelativeDateAbsoluteTime] or [localizeRelativeDateAbsoluteTimeAsFlow] for one-off localizations.
  *
  * Examples:
  * - `yesterday at 9:00 PM`
@@ -61,7 +61,7 @@ data class RelativeDateAbsoluteTimeOptions(
  * - `in 15 days, 3:00 AM`
  * - `21 days ago at 7:00 PM`
  */
-class RelativeDateAbsoluteTimeLocalizer(
+public class RelativeDateAbsoluteTimeLocalizer(
     private val options: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
     private val locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<LocalDateTime> {
@@ -89,7 +89,7 @@ class RelativeDateAbsoluteTimeLocalizer(
  *
  * @see RelativeDateAbsoluteTimeLocalizer
  */
-fun LocalDateTime.localizeRelativeDateAbsoluteTime(
+public fun LocalDateTime.localizeRelativeDateAbsoluteTime(
     reference: Zoned<Instant>,
     options: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
@@ -103,7 +103,7 @@ fun LocalDateTime.localizeRelativeDateAbsoluteTime(
  *
  * @see RelativeDateAbsoluteTimeLocalizer
  */
-fun LocalDateTime.localizeRelativeDateAbsoluteTimeNow(
+public fun LocalDateTime.localizeRelativeDateAbsoluteTimeNow(
     options: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
@@ -119,7 +119,7 @@ fun LocalDateTime.localizeRelativeDateAbsoluteTimeNow(
  * @see RelativeDateAbsoluteTimeLocalizer
  * @see localizeAsFlow
  */
-fun LocalDateTime.localizeRelativeDateAbsoluteTimeAsFlow(
+public fun LocalDateTime.localizeRelativeDateAbsoluteTimeAsFlow(
     options: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,

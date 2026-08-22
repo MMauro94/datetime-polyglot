@@ -11,22 +11,22 @@ import kotlin.time.Instant
 /**
  * Localization options for [ZonedInstantLocalizer] and [Zoned.localize] (where [Zoned] is of type [Instant]).
  */
-data class ZonedInstantOptions private constructor(
+public data class ZonedInstantOptions private constructor(
     val dateOptions: DateOptions,
     val timeOptions: ZonedTimeOptions<*>,
 ) : PolyglotLocalizerOptions<ZonedInstantLocalizer> {
 
-    constructor(
+    public constructor(
         dateOptions: DateStyleOptions = Defaults.DATE,
         timeOptions: ZonedTimeOptions<*> = ZonedTimeOptions(Defaults.ZONED_TIME),
     ) : this(DateOptions(dateOptions), timeOptions)
 
-    constructor(
+    public constructor(
         dateOptions: DateStyleOptions = Defaults.DATE,
         timeOptions: ZonedTimeStyleOptions,
     ) : this(dateOptions, ZonedTimeOptions(timeOptions))
 
-    override fun localizer(locale: PlatformLocale) = ZonedInstantLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): ZonedInstantLocalizer = ZonedInstantLocalizer(this, locale)
 }
 
 /**
@@ -43,7 +43,7 @@ data class ZonedInstantOptions private constructor(
  * - `January 8, 2026 at 9:31:45 PM GMT-07:00`
  * - `Thursday, January 8, 2026 at 21:05 Los Angeles Time`
  */
-expect class ZonedInstantLocalizer(
+public expect class ZonedInstantLocalizer(
     options: ZonedInstantOptions = ZonedInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeZonedLocalizer<Instant> {
@@ -56,8 +56,8 @@ expect class ZonedInstantLocalizer(
  *
  * @see ZonedInstantLocalizer
  */
-fun Zoned<Instant>.localize(
+public fun Zoned<Instant>.localize(
     options: ZonedInstantOptions = ZonedInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) = ZonedInstantLocalizer(options, locale).localize(this)
+): String = ZonedInstantLocalizer(options, locale).localize(this)
 

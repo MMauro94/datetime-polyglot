@@ -38,21 +38,21 @@ import kotlin.time.Instant
  * By default, this is `-10..+10`, meaning that only the past and future 10 days are localized relatively.
  */
 // For now this constructor is private because it's useless for users to manually create a DateOptions instance
-data class DynamicLocalDateOptions private constructor(
+public data class DynamicLocalDateOptions private constructor(
     val relativeOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     val absoluteOptions: DateOptions,
     val relativeDiffRange: IntRange = DEFAULT_DIFF_RANGE,
 ) : PolyglotLocalizerOptions<DynamicLocalDateLocalizer> {
 
-    constructor(
+    public constructor(
         relativeOptions: RelativeLocalDateOptions = RelativeLocalDateOptions(),
         absoluteOptions: DateStyleOptions = Defaults.DATE,
         relativeDiffRange: IntRange = DEFAULT_DIFF_RANGE,
     ) : this(relativeOptions, DateOptions(absoluteOptions), relativeDiffRange)
 
-    override fun localizer(locale: PlatformLocale) = DynamicLocalDateLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): DynamicLocalDateLocalizer = DynamicLocalDateLocalizer(this, locale)
 
-    companion object {
+    internal companion object {
         internal val DEFAULT_DIFF_RANGE = -10..10
     }
 }
@@ -75,7 +75,7 @@ data class DynamicLocalDateOptions private constructor(
  *
  * @see PolyglotReferenceValueLocalizer
  */
-class DynamicLocalDateLocalizer(
+public class DynamicLocalDateLocalizer(
     private val options: DynamicLocalDateOptions = DynamicLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<LocalDate> {
@@ -107,7 +107,7 @@ class DynamicLocalDateLocalizer(
  *
  * @see DynamicLocalDateLocalizer
  */
-fun LocalDate.localizeDynamic(
+public fun LocalDate.localizeDynamic(
     reference: Zoned<Instant>,
     options: DynamicLocalDateOptions = DynamicLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
@@ -121,7 +121,7 @@ fun LocalDate.localizeDynamic(
  *
  * @see DynamicLocalDateLocalizer
  */
-fun LocalDate.localizeDynamicNow(
+public fun LocalDate.localizeDynamicNow(
     options: DynamicLocalDateOptions = DynamicLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
@@ -137,7 +137,7 @@ fun LocalDate.localizeDynamicNow(
  * @see DynamicLocalDateLocalizer
  * @see localizeAsFlow
  */
-fun LocalDate.localizeDynamicAsFlow(
+public fun LocalDate.localizeDynamicAsFlow(
     options: DynamicLocalDateOptions = DynamicLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,

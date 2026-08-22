@@ -5,7 +5,7 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-era](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-era)
  */
-enum class EraStyle {
+public enum class EraStyle {
 
     /**
      * e.g. `A`

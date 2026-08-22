@@ -25,7 +25,7 @@ import kotlin.time.DurationUnit
  * doesn't necessarily mean that the passed [Duration] is itself [Duration.ZERO], but rather that it's smaller than the [minUnit]. If this
  * is null, the default `0 <min-unit>` localized string will be returned in this case.
  */
-data class DurationOptions(
+public data class DurationOptions(
     val minUnit: DurationUnit = DurationUnit.SECONDS,
     val maxUnits: Int = 2,
     val omitZeros: Boolean = true,
@@ -36,7 +36,7 @@ data class DurationOptions(
         require(maxUnits > 0) { "maxUnits must be greater than zero" }
     }
 
-    override fun localizer(locale: PlatformLocale) = DurationLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): DurationLocalizer = DurationLocalizer(this, locale)
 }
 
 /**
@@ -55,7 +55,7 @@ data class DurationOptions(
  * - `1 hr, 5 min`
  * - `1 hour, 5 minutes`
  */
-expect class DurationLocalizer(
+public expect class DurationLocalizer(
     options: DurationOptions = DurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotValueLocalizer<Duration, String> {
@@ -69,7 +69,7 @@ expect class DurationLocalizer(
  *
  * @see DurationLocalizer
  */
-fun Duration.localize(
+public fun Duration.localize(
     options: DurationOptions = DurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ): String {

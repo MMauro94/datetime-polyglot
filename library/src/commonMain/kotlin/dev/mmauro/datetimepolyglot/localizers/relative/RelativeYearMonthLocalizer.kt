@@ -29,11 +29,11 @@ import kotlin.time.Instant
  * @property allowedDirections list of allowed relative directions to use for word style localization (e.g. `last month'). Pass an empty list
  * to force numeric localization (e.g. `1 month ago`). All directions are enabled by default.
  */
-data class RelativeYearMonthOptions(
+public data class RelativeYearMonthOptions(
     override val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
     override val allowedDirections: Set<RelativeDirection> = RelativeDirection.entries.toSet(),
 ) : RelativeUnitOptions, PolyglotLocalizerOptions<RelativeYearMonthLocalizer> {
-    override fun localizer(locale: PlatformLocale) = RelativeYearMonthLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): RelativeYearMonthLocalizer = RelativeYearMonthLocalizer(this, locale)
 }
 
 /**
@@ -56,7 +56,7 @@ data class RelativeYearMonthOptions(
  *
  * @see PolyglotReferenceValueLocalizer
  */
-class RelativeYearMonthLocalizer(
+public class RelativeYearMonthLocalizer(
     private val options: RelativeYearMonthOptions = RelativeYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<YearMonth> {
@@ -69,7 +69,7 @@ class RelativeYearMonthLocalizer(
     /**
      * Convenience function to format an already calculated diff of months (e.g. -1 for `last month`).
      */
-    fun localizeDiff(diff: Int): String {
+    public fun localizeDiff(diff: Int): String {
         return relativeUnitLocalizer.localizeDiffDirection(diff.toDouble(), RelativeUnit.DateTimeComponent.MONTH, options.allowedDirections)
             ?: relativeUnitLocalizer.localizeNumeric(diff.toDouble(), RelativeUnit.DateTimeComponent.MONTH)
     }
@@ -88,7 +88,7 @@ class RelativeYearMonthLocalizer(
  *
  * @see RelativeYearMonthLocalizer
  */
-fun YearMonth.localizeRelative(
+public fun YearMonth.localizeRelative(
     reference: Zoned<Instant>,
     options: RelativeYearMonthOptions = RelativeYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
@@ -102,7 +102,7 @@ fun YearMonth.localizeRelative(
  *
  * @see RelativeYearMonthLocalizer
  */
-fun YearMonth.localizeRelativeNow(
+public fun YearMonth.localizeRelativeNow(
     options: RelativeYearMonthOptions = RelativeYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
@@ -118,7 +118,7 @@ fun YearMonth.localizeRelativeNow(
  * @see RelativeYearMonthLocalizer
  * @see localizeAsFlow
  */
-fun YearMonth.localizeRelativeAsFlow(
+public fun YearMonth.localizeRelativeAsFlow(
     options: RelativeYearMonthOptions = RelativeYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,

@@ -4,7 +4,7 @@ import kotlinx.datetime.DayOfWeek
 
 internal expect val LOCALE_ENGLISH: PlatformLocale
 
-expect class PlatformLocale
+public expect class PlatformLocale
 
 internal expect fun getDefaultLocale(): PlatformLocale
 

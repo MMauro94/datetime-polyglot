@@ -24,12 +24,12 @@ import kotlin.time.Instant
  * By default, this is `-1..+1`, meaning only last, current, and next year are localized relatively.
  */
 @ExperimentalZonedLocalizer
-data class DynamicZonedYearOptions(
+public data class DynamicZonedYearOptions(
     val relativeOptions: RelativeZonedYearOptions = RelativeZonedYearOptions(),
     val absoluteOptions: ZonedYearOptions = ZonedYearOptions(),
     val relativeDiffRange: IntRange = -1..1,
 ) : PolyglotLocalizerOptions<DynamicZonedYearLocalizer> {
-    override fun localizer(locale: PlatformLocale) = DynamicZonedYearLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): DynamicZonedYearLocalizer = DynamicZonedYearLocalizer(this, locale)
 }
 
 /**
@@ -55,7 +55,7 @@ data class DynamicZonedYearOptions(
  * @see PolyglotReferenceValueLocalizer
  */
 @ExperimentalZonedLocalizer
-class DynamicZonedYearLocalizer(
+public class DynamicZonedYearLocalizer(
     private val options: DynamicZonedYearOptions = DynamicZonedYearOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<Zoned<Int>> by InternalDynamicYearLocalizer(

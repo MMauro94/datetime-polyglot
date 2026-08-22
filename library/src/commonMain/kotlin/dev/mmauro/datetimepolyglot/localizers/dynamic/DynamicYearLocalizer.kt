@@ -28,12 +28,12 @@ import kotlin.time.Instant
  * @property relativeDiffRange configures the ranges of years difference with the reference point for which to use relative localization.
  * By default, this is `-1..+1`, meaning only last, current, and next year are localized relatively.
  */
-data class DynamicYearOptions(
+public data class DynamicYearOptions(
     val relativeOptions: RelativeYearOptions = RelativeYearOptions(),
     val absoluteOptions: YearOptions = YearOptions(),
     val relativeDiffRange: IntRange = -1..1,
 ) : PolyglotLocalizerOptions<DynamicYearLocalizer> {
-    override fun localizer(locale: PlatformLocale) = DynamicYearLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): DynamicYearLocalizer = DynamicYearLocalizer(this, locale)
 }
 
 /**
@@ -55,7 +55,7 @@ data class DynamicYearOptions(
  *
  * @see PolyglotReferenceValueLocalizer
  */
-class DynamicYearLocalizer(
+public class DynamicYearLocalizer(
     options: DynamicYearOptions = DynamicYearOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<Int> by InternalDynamicYearLocalizer(

@@ -17,7 +17,7 @@ import kotlinx.datetime.TimeZone
 import kotlin.time.Clock
 
 @OptIn(DelicateCoroutinesApi::class)
-actual val SYSTEM_CLOCK: Flow<Clock.System> by lazy {
+public actual val SYSTEM_CLOCK: Flow<Clock.System> by lazy {
     callbackFlow {
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -43,7 +43,7 @@ actual val SYSTEM_CLOCK: Flow<Clock.System> by lazy {
 }
 
 @OptIn(DelicateCoroutinesApi::class)
-actual val SYSTEM_TIMEZONE: Flow<TimeZone> by lazy {
+public actual val SYSTEM_TIMEZONE: Flow<TimeZone> by lazy {
     callbackFlow {
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {

@@ -34,12 +34,12 @@ import kotlin.time.Instant
  * @property useRelativeDayOfWeek whether to allow using relative day of week formatting (e.g. `this Friday` or `next Monday`). Disabled by
  * default.
  */
-data class RelativeLocalDateOptions(
+public data class RelativeLocalDateOptions(
     override val style: RelativeUnitStyle = RelativeUnitStyle.LONG,
     override val allowedDirections: Set<RelativeDirection> = RelativeDirection.entries.toSet(),
     val useRelativeDayOfWeek: Boolean = false,
 ) : RelativeUnitOptions, PolyglotLocalizerOptions<RelativeLocalDateLocalizer> {
-    override fun localizer(locale: PlatformLocale) = RelativeLocalDateLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): RelativeLocalDateLocalizer = RelativeLocalDateLocalizer(this, locale)
 }
 
 /**
@@ -87,9 +87,9 @@ data class RelativeLocalDateOptions(
  *
  * @see PolyglotReferenceValueLocalizer
  */
-class RelativeLocalDateLocalizer(
+public class RelativeLocalDateLocalizer(
     private val options: RelativeLocalDateOptions = RelativeLocalDateOptions(),
-    val locale: PlatformLocale = getDefaultLocale()
+    private val locale: PlatformLocale = getDefaultLocale()
 ) : PolyglotReferenceValueLocalizer<LocalDate> {
 
     private val relativeUnitLocalizer = RelativeUnitLocalizer(
@@ -146,7 +146,7 @@ class RelativeLocalDateLocalizer(
  *
  * @see RelativeLocalDateLocalizer
  */
-fun LocalDate.localizeRelative(
+public fun LocalDate.localizeRelative(
     reference: Zoned<Instant>,
     options: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
@@ -160,7 +160,7 @@ fun LocalDate.localizeRelative(
  *
  * @see RelativeLocalDateLocalizer
  */
-fun LocalDate.localizeRelativeNow(
+public fun LocalDate.localizeRelativeNow(
     options: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
@@ -176,7 +176,7 @@ fun LocalDate.localizeRelativeNow(
  * @see RelativeLocalDateLocalizer
  * @see localizeAsFlow
  */
-fun LocalDate.localizeRelativeAsFlow(
+public fun LocalDate.localizeRelativeAsFlow(
     options: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,

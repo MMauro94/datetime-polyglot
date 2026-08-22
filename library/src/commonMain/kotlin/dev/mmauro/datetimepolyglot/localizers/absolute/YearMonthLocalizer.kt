@@ -12,7 +12,7 @@ import kotlinx.datetime.YearMonth
 /**
  * Localization options for [YearMonthLocalizer] and [YearMonth.localize].
  */
-data class YearMonthOptions(
+public data class YearMonthOptions(
     override val eraStyle: EraStyle? = Defaults.ERA,
     override val yearStyle: YearStyle = Defaults.YEAR,
     override val monthStyle: MonthStyle? = Defaults.MONTH,
@@ -22,7 +22,7 @@ data class YearMonthOptions(
     @Deprecated(level = DeprecationLevel.HIDDEN, message = "Implementation detail, shouldn't be used")
     override val dayOfWeekStyle: Nothing? get() = null
 
-    override fun localizer(locale: PlatformLocale) = YearMonthLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): YearMonthLocalizer = YearMonthLocalizer(this, locale)
 }
 
 /**
@@ -36,7 +36,7 @@ data class YearMonthOptions(
  * - `Jan 26`
  * - `01/2026`
  */
-expect class YearMonthLocalizer(
+public expect class YearMonthLocalizer(
     options: YearMonthOptions = YearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<YearMonth> {
@@ -49,8 +49,8 @@ expect class YearMonthLocalizer(
  *
  * @see YearMonthLocalizer
  */
-fun YearMonth.localize(
+public fun YearMonth.localize(
     options: YearMonthOptions = YearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) = YearMonthLocalizer(options, locale).localize(this)
+): String = YearMonthLocalizer(options, locale).localize(this)
 

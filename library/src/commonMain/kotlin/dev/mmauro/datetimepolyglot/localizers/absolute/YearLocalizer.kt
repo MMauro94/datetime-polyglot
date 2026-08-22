@@ -10,7 +10,7 @@ import dev.mmauro.datetimepolyglot.styles.YearStyle
 /**
  * Localization options for [YearLocalizer].
  */
-data class YearOptions(
+public data class YearOptions(
     override val eraStyle: EraStyle? = Defaults.ERA,
     override val yearStyle: YearStyle = Defaults.YEAR,
 ) : ComponentsOptions.Date.Components, PolyglotLocalizerOptions<YearLocalizer> {
@@ -21,7 +21,7 @@ data class YearOptions(
     @Deprecated(level = DeprecationLevel.HIDDEN, message = "Implementation detail, shouldn't be used")
     override val dayOfWeekStyle: Nothing? get() = null
 
-    override fun localizer(locale: PlatformLocale) = YearLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): YearLocalizer = YearLocalizer(this, locale)
 }
 
 /**
@@ -35,7 +35,7 @@ data class YearOptions(
  * - `2026 AD`
  * - `2026 Anno Domini`
  */
-expect class YearLocalizer(
+public expect class YearLocalizer(
     options: YearOptions = YearOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<Int> {

@@ -10,10 +10,10 @@ import kotlinx.datetime.Month
 /**
  * Options for [MonthLocalizer] and [Month.localize]
  */
-data class MonthOptions(
+public data class MonthOptions(
     val style: MonthStyle = MonthStyle.WIDE,
 ) : PolyglotLocalizerOptions<MonthLocalizer> {
-    override fun localizer(locale: PlatformLocale) = MonthLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): MonthLocalizer = MonthLocalizer(this, locale)
 }
 
 /**
@@ -29,7 +29,7 @@ data class MonthOptions(
  * - `J`
  * - `1`
  */
-expect class MonthLocalizer(
+public expect class MonthLocalizer(
     options: MonthOptions = MonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotDateTimeLocalizer<Month> {
@@ -41,7 +41,7 @@ expect class MonthLocalizer(
  *
  * @see MonthLocalizer
  */
-fun Month.localize(
+public fun Month.localize(
     options: MonthOptions = MonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) = MonthLocalizer(options, locale).localize(this)
+): String = MonthLocalizer(options, locale).localize(this)

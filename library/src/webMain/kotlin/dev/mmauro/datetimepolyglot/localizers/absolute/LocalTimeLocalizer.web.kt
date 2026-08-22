@@ -8,12 +8,12 @@ import js.intl.DateTimeFormatOptions
 import js.objects.unsafeJso
 import kotlinx.datetime.LocalTime
 
-actual class LocalTimeLocalizer actual constructor(
+public actual class LocalTimeLocalizer actual constructor(
     private val options: LocalTimeOptions<LocalTimeStyleOptions>,
     private val locale: PlatformLocale
 ) : PolyglotDateTimeLocalizer<LocalTime> {
 
-    actual constructor(options: LocalTimeStyleOptions, locale: PlatformLocale) : this(LocalTimeOptions(options), locale)
+    public actual constructor(options: LocalTimeStyleOptions, locale: PlatformLocale) : this(LocalTimeOptions(options), locale)
 
     actual override fun localize(value: LocalTime): String {
         val formatOptions = unsafeJso<DateTimeFormatOptions> {

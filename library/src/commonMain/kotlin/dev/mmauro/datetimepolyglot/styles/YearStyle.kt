@@ -5,7 +5,7 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-year](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-year)
  */
-enum class YearStyle {
+public enum class YearStyle {
 
     /**
      * Numeric year, no padding, e.g. `123` or `2026`

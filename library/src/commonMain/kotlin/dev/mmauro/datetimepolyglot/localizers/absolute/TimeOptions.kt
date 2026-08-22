@@ -12,33 +12,33 @@ import dev.mmauro.datetimepolyglot.styles.TimeZoneStyle
 /**
  * Options to pass when localizing time.
  */
-sealed interface TimeOptions<out S : TimeStyleOptions> {
+public sealed interface TimeOptions<out S : TimeStyleOptions> {
 
     /**
      * Options defining the appearance of the localized time
      */
-    val styleOptions: S
+    public val styleOptions: S
 
     /**
      * If not null, overrides the hour cycle (H11, H12, H23, H24) to use. When `null`, uses the locale's default
      */
-    val hourCycle: HourCycle?
+    public val hourCycle: HourCycle?
 }
 
 /**
  * Options to pass when localizing a local time (no timezone information).
  */
-data class LocalTimeOptions<out S : LocalTimeStyleOptions>(
+public data class LocalTimeOptions<out S : LocalTimeStyleOptions>(
     override val styleOptions: S,
     override val hourCycle: HourCycle? = Defaults.HOUR_CYCLE
 ) : TimeOptions<S>, PolyglotLocalizerOptions<LocalTimeLocalizer> {
-    override fun localizer(locale: PlatformLocale) = LocalTimeLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): LocalTimeLocalizer = LocalTimeLocalizer(this, locale)
 }
 
 /**
  * Options to pass when localizing a zoned time.
  */
-data class ZonedTimeOptions<out S : ZonedTimeStyleOptions>(
+public data class ZonedTimeOptions<out S : ZonedTimeStyleOptions>(
     override val styleOptions: S,
     override val hourCycle: HourCycle? = Defaults.HOUR_CYCLE,
 ) : TimeOptions<S>
@@ -49,7 +49,7 @@ data class ZonedTimeOptions<out S : ZonedTimeStyleOptions>(
  * @see LocalTimeStyleOptions
  * @see ZonedTimeStyleOptions
  */
-sealed interface TimeStyleOptions
+public sealed interface TimeStyleOptions
 
 /**
  * Options to pass to [TimeOptions.styleOptions] when localizing a time with no time zone awareness.
@@ -57,7 +57,7 @@ sealed interface TimeStyleOptions
  * @see LocalTimeStyle
  * @see LocalTimeComponents
  */
-sealed interface LocalTimeStyleOptions : TimeStyleOptions
+public sealed interface LocalTimeStyleOptions : TimeStyleOptions
 
 /**
  * Options to pass to [TimeOptions.styleOptions] when localizing a time with time zone awareness.
@@ -65,7 +65,7 @@ sealed interface LocalTimeStyleOptions : TimeStyleOptions
  * @see ZonedTimeStyle
  * @see ZonedTimeComponents
  */
-sealed interface ZonedTimeStyleOptions : TimeStyleOptions
+public sealed interface ZonedTimeStyleOptions : TimeStyleOptions
 
 /**
  * Defines a preset time style for localizing a time.
@@ -73,12 +73,12 @@ sealed interface ZonedTimeStyleOptions : TimeStyleOptions
  * @see LocalTimeStyle
  * @see ZonedTimeStyle
  */
-sealed interface TimeStyle : TimeStyleOptions
+public sealed interface TimeStyle : TimeStyleOptions
 
 /**
  * Defines a preset time style for localizing a time with no time zone awareness
  */
-enum class LocalTimeStyle : TimeStyle, LocalTimeStyleOptions {
+public enum class LocalTimeStyle : TimeStyle, LocalTimeStyleOptions {
     /**
      * Incudes hours and minutes (e.g. `21:05` or  `9:05 PM`)
      */
@@ -93,7 +93,7 @@ enum class LocalTimeStyle : TimeStyle, LocalTimeStyleOptions {
 /**
  * Defines a preset time style for localizing a time with time zone awareness
  */
-enum class ZonedTimeStyle : TimeStyle, ZonedTimeStyleOptions {
+public enum class ZonedTimeStyle : TimeStyle, ZonedTimeStyleOptions {
     /**
      * Incudes hours, minutes and seconds and short timezone name (e.g. `21:05:08 CET` or  `9:05:08 PM CET`)
      */
@@ -112,12 +112,12 @@ enum class ZonedTimeStyle : TimeStyle, ZonedTimeStyleOptions {
  * @see LocalTimeComponents
  * @see ZonedTimeComponents
  */
-sealed interface TimeComponents : TimeStyleOptions {
-    val hourStyle: HourStyle
-    val minuteStyle: MinuteStyle?
-    val secondStyle: SecondStyle?
-    val fractionalSecondDigits: Int
-    val dayPeriodStyle: DayPeriodStyle?
+public sealed interface TimeComponents : TimeStyleOptions {
+    public val hourStyle: HourStyle
+    public val minuteStyle: MinuteStyle?
+    public val secondStyle: SecondStyle?
+    public val fractionalSecondDigits: Int
+    public val dayPeriodStyle: DayPeriodStyle?
 }
 
 /**
@@ -125,7 +125,7 @@ sealed interface TimeComponents : TimeStyleOptions {
  *
  * @see TimeComponents
  */
-data class LocalTimeComponents(
+public data class LocalTimeComponents(
         override val hourStyle: HourStyle = Defaults.HOUR,
         override val minuteStyle: MinuteStyle? = Defaults.MINUTE,
         override val secondStyle: SecondStyle? = Defaults.SECOND,
@@ -146,7 +146,7 @@ data class LocalTimeComponents(
  *
  * @see TimeComponents
  */
-data class ZonedTimeComponents(
+public data class ZonedTimeComponents(
     override val hourStyle: HourStyle = Defaults.HOUR,
     override val minuteStyle: MinuteStyle? = Defaults.MINUTE,
     override val secondStyle: SecondStyle? = Defaults.SECOND,

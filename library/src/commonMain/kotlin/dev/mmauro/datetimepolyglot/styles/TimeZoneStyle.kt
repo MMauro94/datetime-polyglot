@@ -5,13 +5,13 @@ package dev.mmauro.datetimepolyglot.styles
  *
  * See [https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-zone](https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-zone)
  */
-sealed interface TimeZoneStyle {
+public sealed interface TimeZoneStyle {
 
     /**
      * Groups "generic" [TimeZoneStyle]s, which localize the timezone in a way that is agnostic to the actual offset of the time zone in a
      * certain moment.
      */
-    enum class Generic : TimeZoneStyle {
+    public enum class Generic : TimeZoneStyle {
         /**
          * e.g. `America/Los_Angeles`
          */
@@ -39,7 +39,7 @@ sealed interface TimeZoneStyle {
      * Groups "specific" [TimeZoneStyle]s for which the localization could include information about the offset at the given moment.
      * For instance, it could include the words "Daylight savings time".
      */
-    enum class Specific : TimeZoneStyle {
+    public enum class Specific : TimeZoneStyle {
         /**
          * e.g. `PDT`
          */
@@ -54,7 +54,7 @@ sealed interface TimeZoneStyle {
     /**
      * Groups the GMT [TimeZoneStyle] for localization, that print the exact offset the timezone is in at the given moment in time.
      */
-    enum class Gmt : TimeZoneStyle {
+    public enum class Gmt : TimeZoneStyle {
 
         /**
          * e.g. `GMT-8`

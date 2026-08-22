@@ -34,12 +34,12 @@ import kotlin.time.Instant
  * @property relativeDiffRange configures the ranges of months difference with the reference point for which to use relative localization.
  * By default, this is `-1..+1`, meaning only last, current, and next months are localized relatively.
  */
-data class DynamicYearMonthOptions(
+public data class DynamicYearMonthOptions(
     val relativeOptions: RelativeYearMonthOptions = RelativeYearMonthOptions(),
     val absoluteOptions: YearMonthOptions = YearMonthOptions(),
     val relativeDiffRange: IntRange = -1..1,
 ) : PolyglotLocalizerOptions<DynamicYearMonthLocalizer> {
-    override fun localizer(locale: PlatformLocale) = DynamicYearMonthLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): DynamicYearMonthLocalizer = DynamicYearMonthLocalizer(this, locale)
 }
 
 /**
@@ -61,7 +61,7 @@ data class DynamicYearMonthOptions(
  *
  * @see PolyglotReferenceValueLocalizer
  */
-class DynamicYearMonthLocalizer(
+public class DynamicYearMonthLocalizer(
     private val options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<YearMonth> {
@@ -93,7 +93,7 @@ class DynamicYearMonthLocalizer(
  *
  * @see DynamicYearMonthLocalizer
  */
-fun YearMonth.localizeDynamic(
+public fun YearMonth.localizeDynamic(
     reference: Zoned<Instant>,
     options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
@@ -107,7 +107,7 @@ fun YearMonth.localizeDynamic(
  *
  * @see DynamicYearMonthLocalizer
  */
-fun YearMonth.localizeDynamicNow(
+public fun YearMonth.localizeDynamicNow(
     options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
@@ -123,7 +123,7 @@ fun YearMonth.localizeDynamicNow(
  * @see DynamicYearMonthLocalizer
  * @see localizeAsFlow
  */
-fun YearMonth.localizeDynamicAsFlow(
+public fun YearMonth.localizeDynamicAsFlow(
     options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,

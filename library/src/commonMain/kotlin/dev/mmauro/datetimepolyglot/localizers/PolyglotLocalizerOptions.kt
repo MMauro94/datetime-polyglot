@@ -6,10 +6,10 @@ import dev.mmauro.datetimepolyglot.getDefaultLocale
 /**
  * Interface that all options classes implement.
  */
-interface PolyglotLocalizerOptions<L : PolyglotLocalizer> {
+public interface PolyglotLocalizerOptions<L : PolyglotLocalizer> {
 
     /**
      * Returns a new instance of the [PolyglotLocalizer] of type [L] that this options belongs to.
      */
-    fun localizer(locale: PlatformLocale = getDefaultLocale()): L
+    public fun localizer(locale: PlatformLocale = getDefaultLocale()): L
 }

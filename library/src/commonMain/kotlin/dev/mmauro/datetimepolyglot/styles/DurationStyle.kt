@@ -8,7 +8,7 @@ import kotlin.time.Duration
  * Note that while in English this primarily affects the style of the units (e.g. `min` vs `minutes`), in other languages this also affects
  * the style of the list (other languages might have formats for list widths).
  */
-enum class DurationStyle {
+public enum class DurationStyle {
 
     /**
      * e.g. `1h 5m`

@@ -18,10 +18,10 @@ import kotlin.time.Instant
 /**
  * Localization options for [RelativeInstantLocalizer], [Instant.localizeRelative], and [Instant.localizeRelativeAsFlow].
  */
-data class RelativeInstantOptions(
+public data class RelativeInstantOptions(
     val relativeDurationOptions: RelativeDurationOptions = RelativeDurationOptions(),
 ) : PolyglotLocalizerOptions<RelativeInstantLocalizer> {
-    override fun localizer(locale: PlatformLocale) = RelativeInstantLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): RelativeInstantLocalizer = RelativeInstantLocalizer(this, locale)
 }
 
 /**
@@ -44,7 +44,7 @@ data class RelativeInstantOptions(
  *
  * @see PolyglotReferenceValueLocalizer
  */
-class RelativeInstantLocalizer(
+public class RelativeInstantLocalizer(
     options: RelativeInstantOptions = RelativeInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
 ) : PolyglotReferenceValueLocalizer<Instant> {
@@ -59,7 +59,7 @@ class RelativeInstantLocalizer(
     }
 
     // As TZ info is not strictly necessary for this, let's also expose a simpler function with a simple Instant as a reference
-    fun localize(value: Instant, reference: Instant): TickingValue<String> {
+    public fun localize(value: Instant, reference: Instant): TickingValue<String> {
         return relativeDurationLocalizer.localize(value - reference)
     }
 }
@@ -69,7 +69,7 @@ class RelativeInstantLocalizer(
  *
  * @see RelativeDurationLocalizer
  */
-fun Instant.localizeRelative(
+public fun Instant.localizeRelative(
     reference: Instant,
     options: RelativeInstantOptions = RelativeInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
@@ -83,7 +83,7 @@ fun Instant.localizeRelative(
  *
  * @see RelativeDurationLocalizer
  */
-fun Instant.localizeRelativeNow(
+public fun Instant.localizeRelativeNow(
     options: RelativeInstantOptions = RelativeInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Clock = Clock.System,
@@ -99,7 +99,7 @@ fun Instant.localizeRelativeNow(
  * @see RelativeDurationLocalizer
  * @see localizeAsFlow
  */
-fun Instant.localizeRelativeAsFlow(
+public fun Instant.localizeRelativeAsFlow(
     options: RelativeInstantOptions = RelativeInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
     clock: Flow<Clock> = SYSTEM_CLOCK,

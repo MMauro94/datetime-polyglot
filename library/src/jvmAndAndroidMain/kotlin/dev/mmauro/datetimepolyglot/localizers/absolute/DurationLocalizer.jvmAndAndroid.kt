@@ -8,7 +8,7 @@ import dev.mmauro.datetimepolyglot.utils.toIcuTimeUnit
 import kotlin.math.absoluteValue
 import kotlin.time.Duration
 
-actual class DurationLocalizer actual constructor(
+public actual class DurationLocalizer actual constructor(
     internal actual val options: DurationOptions,
     private val locale: PlatformLocale
 ) : PolyglotValueLocalizer<Duration, String> {

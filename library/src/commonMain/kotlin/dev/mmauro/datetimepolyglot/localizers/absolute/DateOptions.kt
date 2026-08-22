@@ -15,10 +15,10 @@ import dev.mmauro.datetimepolyglot.utils.joinDateAndTime
  * This class is currently "useless", but exists for symmetry with [TimeOptions] and forward-compatibility in case we need to add global
  * options independent of usage of style or components options.
  */
-data class DateOptions(
+public data class DateOptions(
     val styleOptions: DateStyleOptions = Defaults.DATE,
 ) : PolyglotLocalizerOptions<LocalDateLocalizer> {
-    override fun localizer(locale: PlatformLocale) = LocalDateLocalizer(this, locale)
+    override fun localizer(locale: PlatformLocale): LocalDateLocalizer = LocalDateLocalizer(this, locale)
 }
 
 /**
@@ -27,27 +27,27 @@ data class DateOptions(
  * @see DateStyle
  * @see DateComponents
  */
-sealed interface DateStyleOptions : PolyglotLocalizerOptions<LocalDateLocalizer> {
-    override fun localizer(locale: PlatformLocale) = LocalDateLocalizer(this, locale)
+public sealed interface DateStyleOptions : PolyglotLocalizerOptions<LocalDateLocalizer> {
+    override fun localizer(locale: PlatformLocale): LocalDateLocalizer = LocalDateLocalizer(this, locale)
 }
 
 /**
  * Defines a preset date style for localizing a date (year, month and day).
  */
-enum class DateStyle : DateStyleOptions {
+public enum class DateStyle : DateStyleOptions {
     SHORT,
     MEDIUM,
     LONG,
     FULL,
     ;
 
-    companion object {
+    public companion object {
         /**
          * Selects the [DateStyle] to use for the joiner pattern between date and time from the [options] used to localize the date part.
          *
          * @see joinDateAndTime
          */
-        fun detectDateTimeJoinerStyle(options: DateStyleOptions): DateStyle {
+        public fun detectDateTimeJoinerStyle(options: DateStyleOptions): DateStyle {
             return when (options) {
                 is DateStyle -> options
                 is DateComponents -> when (options.monthStyle) {
@@ -64,7 +64,7 @@ enum class DateStyle : DateStyleOptions {
 /**
  * Class defining the style for each component of a date (year, month and day).
  */
-data class DateComponents(
+public data class DateComponents(
     override val eraStyle: EraStyle? = Defaults.ERA,
     override val yearStyle: YearStyle = Defaults.YEAR,
     override val monthStyle: MonthStyle = Defaults.MONTH,
