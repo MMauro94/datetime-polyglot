@@ -47,10 +47,14 @@
 <dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;index.html&quot;}">0.4.1-SNAPSHOT</dokka-template-command>        </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":datetime-polyglot/androidMain">android</button>
                 <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true"
                         data-filter=":datetime-polyglot/commonMain">common</button>
                 <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
                         data-filter=":datetime-polyglot/jvmAndAndroidMain">JVM + Android</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":datetime-polyglot/jvmMain">jvm</button>
                 <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true"
                         data-filter=":datetime-polyglot/webMain">web</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
@@ -67,6 +71,14 @@
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":datetime-polyglot/androidMain"
+                                       data-filter=":datetime-polyglot/androidMain"/>
+                                <span class="checkbox--icon"></span>
+                                android
+                            </label>
+                        </li>
                         <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
                             <label class="checkbox">
                                 <input type="checkbox" class="checkbox--input" id=":datetime-polyglot/commonMain"
@@ -81,6 +93,14 @@
                                        data-filter=":datetime-polyglot/jvmAndAndroidMain"/>
                                 <span class="checkbox--icon"></span>
                                 JVM + Android
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":datetime-polyglot/jvmMain"
+                                       data-filter=":datetime-polyglot/jvmMain"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
                             </label>
                         </li>
                         <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
@@ -124,24 +144,27 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" id="content" pageIds="datetime-polyglot::////PointingToDeclaration//-90526933">
+<div class="main-content" id="content" pageIds="datetime-polyglot::////PointingToDeclaration//-428672785">
   <div class="breadcrumbs"></div>
   <div class="cover ">
     <h1 class="cover"><span><span>datetime-polyglot</span></span></h1>
   </div>
   <h2 class="">Packages</h2>
-  <div class="table"><a data-name="-2068932905%2FPackages%2F-394989919" anchor-label="dev.mmauro.datetimepolyglot" id="-2068932905%2FPackages%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
-    <div class="table-row table-row_platform-tagged" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+  <div class="table"><a data-name="-2068932905%2FPackages%2F1248650086" anchor-label="dev.mmauro.datetimepolyglot" id="-2068932905%2FPackages%2F1248650086" data-filterable-set=":datetime-polyglot/commonMain,:datetime-polyglot/androidMain,:datetime-polyglot/jvmMain,:datetime-polyglot/webMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":datetime-polyglot/commonMain,:datetime-polyglot/androidMain,:datetime-polyglot/jvmMain,:datetime-polyglot/webMain" data-filterable-set=":datetime-polyglot/commonMain,:datetime-polyglot/androidMain,:datetime-polyglot/jvmMain,:datetime-polyglot/webMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="datetime-polyglot/dev.mmauro.datetimepolyglot/index.html">dev.mmauro.datetimepolyglot</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2068932905%2FPackages%2F-394989919"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2068932905%2FPackages%2F1248650086"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
               <div class="platform-tag common-like">common</div>
+              <div class="platform-tag jvm-like">jvm</div>
+              <div class="platform-tag common-like">web</div>
             </div>
           </div>
         </div>
@@ -236,6 +259,24 @@
               <div class="platform-tag jvm-like">JVM + Android</div>
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag common-like">web</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1764956970%2FPackages%2F-394989919" anchor-label="dev.mmauro.datetimepolyglot.localizers.transformation" id="-1764956970%2FPackages%2F-394989919" data-filterable-set=":datetime-polyglot/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":datetime-polyglot/commonMain" data-filterable-set=":datetime-polyglot/commonMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="datetime-polyglot/dev.mmauro.datetimepolyglot.localizers.transformation/index.html">dev.mmauro.datetimepolyglot.localizers.transformation</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1764956970%2FPackages%2F-394989919"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag common-like">common</div>
             </div>
           </div>
         </div>
