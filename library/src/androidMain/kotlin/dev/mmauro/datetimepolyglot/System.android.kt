@@ -60,6 +60,8 @@ public actual val SYSTEM_TIMEZONE: Flow<TimeZone> by lazy {
             IntentFilter(Intent.ACTION_TIMEZONE_CHANGED),
         )
 
+        send(TimeZone.currentSystemDefault())
+
         awaitClose {
             APPLICATION_CONTEXT.unregisterReceiver(receiver)
         }
