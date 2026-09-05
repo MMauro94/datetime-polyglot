@@ -7,49 +7,34 @@ import android.content.IntentFilter
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.TimeZone
 import kotlin.time.Clock
 
 @OptIn(DelicateCoroutinesApi::class)
-public actual val SYSTEM_CLOCK: Flow<Clock.System> by lazy {
-    callbackFlow {
-        val receiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                if (intent.action == Intent.ACTION_TIME_CHANGED) {
-                    check(!trySend(Clock.System).isFailure) {
-                        "Failed to send Clock.System update in Channel"
-                    }
-                }
-            }
-        }
-
-        APPLICATION_CONTEXT.registerReceiver(
-            receiver,
-            IntentFilter(Intent.ACTION_TIME_CHANGED),
-        )
-
-        send(Clock.System)
-
-        awaitClose {
-            APPLICATION_CONTEXT.unregisterReceiver(receiver)
-        }
-    }.conflate().shareIn(GlobalScope, SharingStarted.Lazily)
+public actual val SYSTEM_CLOCK: StateFlow<ClockWrapper> by lazy {
+    intentStateFlow(Intent.ACTION_TIME_CHANGED) { ClockWrapper(Clock.System) }
 }
 
 @OptIn(DelicateCoroutinesApi::class)
-public actual val SYSTEM_TIMEZONE: Flow<TimeZone> by lazy {
-    callbackFlow {
+public actual val SYSTEM_TIMEZONE: StateFlow<TimeZone> by lazy {
+    intentStateFlow(Intent.ACTION_TIMEZONE_CHANGED, TimeZone::currentSystemDefault)
+}
+
+@OptIn(DelicateCoroutinesApi::class)
+private fun <T> intentStateFlow(
+    action: String,
+    valueProvider: () -> T,
+): StateFlow<T> {
+    return callbackFlow {
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                if (intent.action == Intent.ACTION_TIMEZONE_CHANGED) {
-                    check(!trySend(TimeZone.currentSystemDefault()).isFailure) {
-                        "Failed to send Clock.System update in Channel"
+                if (intent.action == action) {
+                    check(!trySend(valueProvider()).isFailure) {
+                        "Failed to send update in Channel for action $action"
                     }
                 }
             }
@@ -57,13 +42,11 @@ public actual val SYSTEM_TIMEZONE: Flow<TimeZone> by lazy {
 
         APPLICATION_CONTEXT.registerReceiver(
             receiver,
-            IntentFilter(Intent.ACTION_TIMEZONE_CHANGED),
+            IntentFilter(action),
         )
-
-        send(TimeZone.currentSystemDefault())
 
         awaitClose {
             APPLICATION_CONTEXT.unregisterReceiver(receiver)
         }
-    }.conflate().distinctUntilChanged().shareIn(GlobalScope, SharingStarted.Lazily)
+    }.stateIn(GlobalScope, SharingStarted.Lazily, valueProvider())
 }

@@ -1,5 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.relative
 
+import dev.mmauro.datetimepolyglot.ClockWrapper
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
 import dev.mmauro.datetimepolyglot.SYSTEM_TIMEZONE
@@ -121,7 +122,7 @@ public fun LocalDateTime.localizeRelativeDateAbsoluteTimeNow(
 public fun LocalDateTime.localizeRelativeDateAbsoluteTimeAsFlow(
     options: RelativeDateAbsoluteTimeOptions = RelativeDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-    clock: Flow<Clock> = SYSTEM_CLOCK,
+    clock: Flow<ClockWrapper> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
 ): Flow<String> {
     return RelativeDateAbsoluteTimeLocalizer(options, locale).localizeAsFlow(this, clock, timeZone)

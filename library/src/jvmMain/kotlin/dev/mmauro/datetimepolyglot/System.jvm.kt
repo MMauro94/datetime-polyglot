@@ -1,10 +1,9 @@
 package dev.mmauro.datetimepolyglot
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.TimeZone
 import kotlin.time.Clock
 
-public actual val SYSTEM_CLOCK: Flow<Clock.System> = flowOf(Clock.System)
-public actual val SYSTEM_TIMEZONE: Flow<TimeZone> = flow { emit(TimeZone.currentSystemDefault()) }
+public actual val SYSTEM_CLOCK: StateFlow<ClockWrapper> = MutableStateFlow(ClockWrapper(Clock.System))
+public actual val SYSTEM_TIMEZONE: StateFlow<TimeZone> = STATIC_TIMEZONE

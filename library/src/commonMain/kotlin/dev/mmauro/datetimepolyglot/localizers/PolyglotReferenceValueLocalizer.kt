@@ -1,5 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers
 
+import dev.mmauro.datetimepolyglot.ClockWrapper
 import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
 import dev.mmauro.datetimepolyglot.SYSTEM_TIMEZONE
 import dev.mmauro.datetimepolyglot.TickingValue
@@ -54,8 +55,8 @@ public fun <T> PolyglotReferenceValueLocalizer<T>.localizeNow(
  *
  * @param value the value to localized, passed as-is to [PolyglotReferenceValueLocalizer.localize]
  * @param clock the [Clock] to use to obtain the [Instant] for the reference point. It is a [Flow] because the time might be changed (e.g.
- * by an NTP sync or by the user manually adjusting the time). Whenever a value is emitted (even if it's the same [Clock] as before), the
- * localized string is recomputed. See [SYSTEM_CLOCK] for more info.
+ * by an NTP sync or by the user manually adjusting the time). Whenever a new [ClockWrapper] is emitted, the localized string is recomputed.
+ * See [SYSTEM_CLOCK] for more info.
  * @param timeZone the [TimeZone] to use for the reference point. It is a [Flow] because it might change (e.g. if the user crosses a
  * time zone line). When a different time zone is emitted, the localized string is recomputed. See [SYSTEM_TIMEZONE] for more info.
  * @param maxTick the maximum amount of to wait for a recomputation (as long as the underlying [PolyglotReferenceValueLocalizer.localize]
@@ -64,7 +65,7 @@ public fun <T> PolyglotReferenceValueLocalizer<T>.localizeNow(
 @OptIn(ExperimentalCoroutinesApi::class)
 public fun <T> PolyglotReferenceValueLocalizer<T>.localizeAsFlow(
     value: T,
-    clock: Flow<Clock> = SYSTEM_CLOCK,
+    clock: Flow<ClockWrapper> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
     maxTick: Duration? = null,
 ): Flow<String> {
@@ -83,8 +84,8 @@ public fun <T> PolyglotReferenceValueLocalizer<T>.localizeAsFlow(
  * This is the primitive that powers [localizeAsFlow].
  *
  * @param clock the [Clock] to use to obtain the [Instant] for the reference point. It is a [Flow] because the time might be changed (e.g.
- * by an NTP sync or by the user manually adjusting the time). Whenever a value is emitted (even if it's the same [Clock] as before), the
- * localized string is recomputed. See [SYSTEM_CLOCK] for more info.
+ * by an NTP sync or by the user manually adjusting the time). Whenever a new [ClockWrapper] is emitted, the localized string is recomputed.
+ * See [SYSTEM_CLOCK] for more info.
  * @param timeZone the [TimeZone] to use for the reference point. It is a [Flow] because it might change (e.g. if the user crosses a
  * time zone line). When a different time zone is emitted, the localized string is recomputed. See [SYSTEM_TIMEZONE] for more info.
  * @param maxTick the maximum amount of to wait for a recomputation (as long as the underlying [tickingValueProvider] returns a non-null
@@ -92,7 +93,7 @@ public fun <T> PolyglotReferenceValueLocalizer<T>.localizeAsFlow(
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 public fun <T> tickingValueToFlow(
-    clock: Flow<Clock> = SYSTEM_CLOCK,
+    clock: Flow<ClockWrapper> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
     maxTick: Duration? = null,
     tickingValueProvider: (reference: Zoned<Instant>) -> TickingValue<T>,
@@ -101,7 +102,7 @@ public fun <T> tickingValueToFlow(
         var last: TickingValue<T>
 
         do {
-            last = tickingValueProvider(Zoned(clock.now(), timeZone))
+            last = tickingValueProvider(Zoned(clock.clock.now(), timeZone))
             if (last.nextTick != null) {
                 // If the returned maxTick is null, it means that the localized string is not affected by the reference point anymore,
                 // so it doesn't make sense to keep applying maxTick in this case

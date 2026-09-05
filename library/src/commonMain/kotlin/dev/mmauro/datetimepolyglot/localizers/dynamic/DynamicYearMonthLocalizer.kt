@@ -2,6 +2,7 @@
 
 package dev.mmauro.datetimepolyglot.localizers.dynamic
 
+import dev.mmauro.datetimepolyglot.ClockWrapper
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
 import dev.mmauro.datetimepolyglot.SYSTEM_TIMEZONE
@@ -125,7 +126,7 @@ public fun YearMonth.localizeDynamicNow(
 public fun YearMonth.localizeDynamicAsFlow(
     options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-    clock: Flow<Clock> = SYSTEM_CLOCK,
+    clock: Flow<ClockWrapper> = SYSTEM_CLOCK,
     timeZone: Flow<TimeZone> = SYSTEM_TIMEZONE,
 ): Flow<String> {
     return DynamicYearMonthLocalizer(options, locale).localizeAsFlow(this, clock, timeZone)
