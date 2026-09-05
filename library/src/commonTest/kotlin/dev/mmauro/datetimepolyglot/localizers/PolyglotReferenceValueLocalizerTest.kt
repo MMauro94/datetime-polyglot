@@ -2,6 +2,7 @@
 
 package dev.mmauro.datetimepolyglot.localizers
 
+import dev.mmauro.datetimepolyglot.ClockWrapper
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import io.kotest.assertions.withClue
@@ -34,7 +35,7 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
     context("tickingValueToFlow").config(coroutineTestScope = true) {
         test("some next ticks and then null") {
             val flow = tickingValueToFlow(
-                clock = flowOf(testScheduler.clock()),
+                clock = flowOf(ClockWrapper(testScheduler.clock())),
                 timeZone = flowOf(TimeZone.UTC),
                 tickingValueProvider = tickingValueProvider(listOf(1.seconds, 5.minutes, null)),
             )
@@ -59,7 +60,7 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
         }
         test("immediate null nextTick") {
             val flow = tickingValueToFlow(
-                clock = flowOf(testScheduler.clock()),
+                clock = flowOf(ClockWrapper(testScheduler.clock())),
                 timeZone = flowOf(TimeZone.UTC),
                 tickingValueProvider = tickingValueProvider(listOf(null)),
             )
@@ -70,7 +71,7 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
         }
         test("never ending next ticks") {
             val flow = tickingValueToFlow(
-                clock = flowOf(testScheduler.clock()),
+                clock = flowOf(ClockWrapper(testScheduler.clock())),
                 timeZone = flowOf(TimeZone.UTC),
                 tickingValueProvider = tickingValueProvider { 1.seconds },
             )
@@ -87,16 +88,16 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
         test("clock update") {
             val flow = tickingValueToFlow(
                 clock = flow {
-                    emit(testScheduler.clock())
+                    emit(ClockWrapper(testScheduler.clock()))
 
                     delay(1.seconds)
                     val fixedClock = object : Clock {
                         override fun now() = Instant.fromEpochSeconds(1234)
                     }
-                    emit(fixedClock)
+                    emit(ClockWrapper(fixedClock))
 
                     delay(5.seconds)
-                    emit(fixedClock)
+                    emit(ClockWrapper(fixedClock))
                 },
                 timeZone = flowOf(TimeZone.UTC),
                 tickingValueProvider = tickingValueProvider { null },
@@ -121,7 +122,7 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
         }
         test("timezone update") {
             val flow = tickingValueToFlow(
-                clock = flowOf(testScheduler.clock()),
+                clock = flowOf(ClockWrapper(testScheduler.clock())),
                 timeZone = flow {
                     emit(TimeZone.UTC)
 

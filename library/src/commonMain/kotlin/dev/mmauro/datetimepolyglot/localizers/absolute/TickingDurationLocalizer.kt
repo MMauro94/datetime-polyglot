@@ -1,5 +1,6 @@
 package dev.mmauro.datetimepolyglot.localizers.absolute
 
+import dev.mmauro.datetimepolyglot.ClockWrapper
 import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.SYSTEM_CLOCK
 import dev.mmauro.datetimepolyglot.TickingValue
@@ -142,7 +143,7 @@ public fun Instant.localizeDiffNow(
 public fun Instant.localizeDiffAsFlow(
     options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-    clock: Flow<Clock> = SYSTEM_CLOCK,
+    clock: Flow<ClockWrapper> = SYSTEM_CLOCK,
     // Timezone is useless here
 ): Flow<String> {
     return TickingDurationLocalizer(options, locale).localizeAsFlow(this, clock)

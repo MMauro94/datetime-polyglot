@@ -1,3 +1,8 @@
+public final class dev/mmauro/datetimepolyglot/ClockWrapper {
+	public fun <init> (Lkotlin/time/Clock;)V
+	public final fun getClock ()Lkotlin/time/Clock;
+}
+
 public final class dev/mmauro/datetimepolyglot/HourCycle : java/lang/Enum {
 	public static final field Companion Ldev/mmauro/datetimepolyglot/HourCycle$Companion;
 	public static final field HOURS_11 Ldev/mmauro/datetimepolyglot/HourCycle;
@@ -13,8 +18,8 @@ public final class dev/mmauro/datetimepolyglot/HourCycle$Companion {
 }
 
 public final class dev/mmauro/datetimepolyglot/System_jvmKt {
-	public static final fun getSYSTEM_CLOCK ()Lkotlinx/coroutines/flow/Flow;
-	public static final fun getSYSTEM_TIMEZONE ()Lkotlinx/coroutines/flow/Flow;
+	public static final fun getSYSTEM_CLOCK ()Lkotlinx/coroutines/flow/StateFlow;
+	public static final fun getSYSTEM_TIMEZONE ()Lkotlinx/coroutines/flow/StateFlow;
 }
 
 public final class dev/mmauro/datetimepolyglot/TickingValue {
