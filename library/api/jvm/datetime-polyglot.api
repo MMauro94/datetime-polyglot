@@ -42,6 +42,18 @@ public final class dev/mmauro/datetimepolyglot/TickingValueKt {
 	public static final fun withNextTickAtMost-6Au4x4Y (Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/time/Duration;)Ldev/mmauro/datetimepolyglot/TickingValue;
 }
 
+public abstract interface class dev/mmauro/datetimepolyglot/TickingValueProvider {
+	public abstract fun provide (Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public final class dev/mmauro/datetimepolyglot/TickingValueProviderKt {
+	public static final fun collect-Mswn-_c (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlin/time/Clock;Lkotlinx/datetime/TimeZone;Lkotlin/time/Duration;Ldev/mmauro/datetimepolyglot/Zoned;Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun collect-Mswn-_c$default (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlin/time/Clock;Lkotlinx/datetime/TimeZone;Lkotlin/time/Duration;Ldev/mmauro/datetimepolyglot/Zoned;Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun map (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlin/jvm/functions/Function2;)Ldev/mmauro/datetimepolyglot/TickingValueProvider;
+	public static final fun toFlow-Q2Q30fc (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;Lkotlin/time/Duration;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun toFlow-Q2Q30fc$default (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;Lkotlin/time/Duration;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+}
+
 public final class dev/mmauro/datetimepolyglot/Zoned {
 	public fun <init> (Ljava/lang/Object;Lkotlinx/datetime/TimeZone;)V
 	public final fun component1 ()Ljava/lang/Object;
@@ -98,8 +110,7 @@ public final class dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValue
 	public static synthetic fun localizeAsFlow-jSaE0eg$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;Lkotlin/time/Duration;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun localizeNow (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;Lkotlinx/datetime/TimeZone;)Ldev/mmauro/datetimepolyglot/TickingValue;
 	public static synthetic fun localizeNow$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;Lkotlinx/datetime/TimeZone;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
-	public static final fun tickingValueToFlow-5_5nbZA (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;Lkotlin/time/Duration;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
-	public static synthetic fun tickingValueToFlow-5_5nbZA$default (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;Lkotlin/time/Duration;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun toTickingValueProvider (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValueProvider;
 }
 
 public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer {
