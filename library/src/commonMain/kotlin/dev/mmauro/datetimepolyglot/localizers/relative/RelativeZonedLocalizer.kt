@@ -4,7 +4,8 @@ import dev.mmauro.datetimepolyglot.PlatformLocale
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.localizers.ExperimentalZonedLocalizer
-import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneLocalizer
 import dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions
@@ -15,9 +16,9 @@ import kotlin.time.Instant
 @ExperimentalZonedLocalizer
 internal class RelativeZonedLocalizer<T>(
     private val locale: PlatformLocale,
-    private val datePartLocalizer: PolyglotReferenceValueLocalizer<T>,
+    private val datePartLocalizer: PolyglotReferenceDateTimeLocalizer<T>,
     timeZoneOptions: TimeZoneOptions,
-) : PolyglotReferenceValueLocalizer<Zoned<T>> {
+) : PolyglotReferenceDateTimeZonedLocalizer<T> {
 
     private val timeZoneLocalizer = TimeZoneLocalizer(timeZoneOptions, locale)
 

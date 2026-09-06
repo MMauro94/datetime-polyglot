@@ -8,7 +8,7 @@ import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
-import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.localizeNow
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +29,7 @@ public data class RelativeInstantOptions(
  * Localizes an [Instant] relative to another one.
  *
  * This class is a simple convenience over [RelativeDurationLocalizer], simply calculating the diff and forwarding the localization request
- * to it. As this implements [PolyglotReferenceValueLocalizer], this allows to use [localizeAsFlow].
+ * to it. As this implements [PolyglotReferenceDateTimeLocalizer], this allows to use [localizeAsFlow].
  *
  * For this reason, the [options] required here are identical to [RelativeDurationLocalizer].
  *
@@ -43,12 +43,12 @@ public data class RelativeInstantOptions(
  * - `4 hr. ago`
  * - `in 2 days`
  *
- * @see PolyglotReferenceValueLocalizer
+ * @see PolyglotReferenceDateTimeLocalizer
  */
 public class RelativeInstantLocalizer(
     options: RelativeInstantOptions = RelativeInstantOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotReferenceValueLocalizer<Instant> {
+) : PolyglotReferenceDateTimeLocalizer<Instant> {
 
     private val relativeDurationLocalizer = RelativeDurationLocalizer(
         options = options.relativeDurationOptions,

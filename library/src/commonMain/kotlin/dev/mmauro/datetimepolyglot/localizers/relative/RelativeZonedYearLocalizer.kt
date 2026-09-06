@@ -5,6 +5,7 @@ import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.ExperimentalZonedLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.standalone.TimeZoneOptions
@@ -44,13 +45,13 @@ public data class RelativeZonedYearOptions(
  * - `1 year ago, Pacific Time`
  * - `in 5y, America/Los_Angeles`
  *
- * @see PolyglotReferenceValueLocalizer
+ * @see PolyglotReferenceDateTimeZonedLocalizer
  */
 @ExperimentalZonedLocalizer
 public class RelativeZonedYearLocalizer(
     private val options: RelativeZonedYearOptions = RelativeZonedYearOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotReferenceValueLocalizer<Zoned<Int>> by RelativeZonedLocalizer(
+) : PolyglotReferenceDateTimeZonedLocalizer<Int> by RelativeZonedLocalizer(
     locale = locale,
     datePartLocalizer = RelativeYearLocalizer(options = options.yearOptions, locale = locale),
     timeZoneOptions = options.timeZoneOptions,

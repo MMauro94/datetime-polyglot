@@ -61,7 +61,7 @@ public data class TickingDurationOptions(
 public class TickingDurationLocalizer(
     private val options: TickingDurationOptions = TickingDurationOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotValueLocalizer<Duration, TickingValue<String>>, PolyglotReferenceValueLocalizer<Instant> {
+) : PolyglotValueLocalizer<Duration, TickingValue<String>>, PolyglotReferenceValueLocalizer<Instant, String> {
 
     private val durationLocalizer = DurationLocalizer(options.durationOptions, locale)
 

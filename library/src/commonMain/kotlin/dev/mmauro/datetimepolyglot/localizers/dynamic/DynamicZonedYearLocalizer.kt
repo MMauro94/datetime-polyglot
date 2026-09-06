@@ -5,6 +5,8 @@ import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.ExperimentalZonedLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeZonedLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.ZonedYearLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.ZonedYearOptions
@@ -52,15 +54,16 @@ public data class DynamicZonedYearOptions(
  * - `2026, Los Angeles Time`
  * - `2026 AD, Pacific Time`
  *
- * @see PolyglotReferenceValueLocalizer
+ * @see PolyglotReferenceDateTimeZonedLocalizer
  */
 @ExperimentalZonedLocalizer
 public class DynamicZonedYearLocalizer(
     private val options: DynamicZonedYearOptions = DynamicZonedYearOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotReferenceValueLocalizer<Zoned<Int>> by InternalDynamicYearLocalizer(
-    relativeLocalizer = RelativeZonedYearLocalizer(options.relativeOptions, locale),
-    absoluteLocalizer = ZonedYearLocalizer(options.absoluteOptions, locale),
-    relativeDiffRange = options.relativeDiffRange,
-    yearProvider = { it.value },
-)
+) : PolyglotReferenceDateTimeZonedLocalizer<Int>,
+    PolyglotReferenceDateTimeLocalizer<Zoned<Int>> by InternalDynamicYearLocalizer(
+        relativeLocalizer = RelativeZonedYearLocalizer(options.relativeOptions, locale),
+        absoluteLocalizer = ZonedYearLocalizer(options.absoluteOptions, locale),
+        relativeDiffRange = options.relativeDiffRange,
+        yearProvider = { it.value },
+    )
