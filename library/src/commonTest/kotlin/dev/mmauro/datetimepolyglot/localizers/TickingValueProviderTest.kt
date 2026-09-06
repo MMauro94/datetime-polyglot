@@ -4,7 +4,8 @@ package dev.mmauro.datetimepolyglot.localizers
 
 import dev.mmauro.datetimepolyglot.ClockWrapper
 import dev.mmauro.datetimepolyglot.TickingValue
-import dev.mmauro.datetimepolyglot.Zoned
+import dev.mmauro.datetimepolyglot.TickingValueProvider
+import dev.mmauro.datetimepolyglot.toFlow
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.IsolationMode
 import io.kotest.core.spec.style.FunSpec
@@ -29,15 +30,15 @@ import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Instant
 
-class PolyglotReferenceValueLocalizerTest : FunSpec({
+class TickingValueProviderTest : FunSpec({
     isolationMode = IsolationMode.InstancePerLeaf
 
-    context("tickingValueToFlow").config(coroutineTestScope = true) {
+    context("toFlow").config(coroutineTestScope = true) {
         test("some next ticks and then null") {
-            val flow = tickingValueToFlow(
+            val provider = tickingValueProvider(listOf(1.seconds, 5.minutes, null))
+            val flow = provider.toFlow(
                 clock = flowOf(ClockWrapper(testScheduler.clock())),
                 timeZone = flowOf(TimeZone.UTC),
-                tickingValueProvider = tickingValueProvider(listOf(1.seconds, 5.minutes, null)),
             )
 
             flow.test {
@@ -59,10 +60,10 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
             }
         }
         test("immediate null nextTick") {
-            val flow = tickingValueToFlow(
+            val provider = tickingValueProvider(listOf(null))
+            val flow = provider.toFlow(
                 clock = flowOf(ClockWrapper(testScheduler.clock())),
                 timeZone = flowOf(TimeZone.UTC),
-                tickingValueProvider = tickingValueProvider(listOf(null)),
             )
 
             flow.test {
@@ -70,10 +71,9 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
             }
         }
         test("never ending next ticks") {
-            val flow = tickingValueToFlow(
+            val flow = tickingValueProvider { 1.seconds }.toFlow(
                 clock = flowOf(ClockWrapper(testScheduler.clock())),
                 timeZone = flowOf(TimeZone.UTC),
-                tickingValueProvider = tickingValueProvider { 1.seconds },
             )
 
             flow.test {
@@ -86,7 +86,8 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
             }
         }
         test("clock update") {
-            val flow = tickingValueToFlow(
+            val provider = tickingValueProvider { null }
+            val flow = provider.toFlow(
                 clock = flow {
                     emit(ClockWrapper(testScheduler.clock()))
 
@@ -100,7 +101,6 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
                     emit(ClockWrapper(fixedClock))
                 },
                 timeZone = flowOf(TimeZone.UTC),
-                tickingValueProvider = tickingValueProvider { null },
             )
 
             flow.test {
@@ -121,7 +121,8 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
             }
         }
         test("timezone update") {
-            val flow = tickingValueToFlow(
+            val provider = tickingValueProvider { null }
+            val flow = provider.toFlow(
                 clock = flowOf(ClockWrapper(testScheduler.clock())),
                 timeZone = flow {
                     emit(TimeZone.UTC)
@@ -135,7 +136,6 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
                     delay(15.seconds)
                     emit(FixedOffsetTimeZone(UtcOffset(hours = -4)))
                 },
-                tickingValueProvider = tickingValueProvider { null },
             )
 
             flow.test {
@@ -162,11 +162,11 @@ class PolyglotReferenceValueLocalizerTest : FunSpec({
     }
 })
 
-private fun tickingValueProvider(nextTicks: List<Duration?>): (reference: Zoned<Instant>) -> TickingValue<String> {
+private fun tickingValueProvider(nextTicks: List<Duration?>): TickingValueProvider<String> {
     return tickingValueProvider(nextTick = { i -> nextTicks[i] })
 }
 
-private fun tickingValueProvider(nextTick: (Int) -> Duration?): (reference: Zoned<Instant>) -> TickingValue<String> {
+private fun tickingValueProvider(nextTick: (Int) -> Duration?): TickingValueProvider<String> {
     var count = 0
     return { reference ->
         TickingValue("localized @ ${reference.value.epochSeconds} ${reference.timeZone.id}", nextTick(count++))
