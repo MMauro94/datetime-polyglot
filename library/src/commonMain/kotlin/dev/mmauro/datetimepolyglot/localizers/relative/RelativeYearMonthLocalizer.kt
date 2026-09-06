@@ -8,7 +8,7 @@ import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
-import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.localizeNow
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
@@ -40,7 +40,7 @@ public data class RelativeYearMonthOptions(
 /**
  * Localizes a [YearMonth] relative to a [Zoned]<[Instant]> reference point.
  *
- * As this class implements [PolyglotReferenceValueLocalizer], it allows to use [localizeAsFlow].
+ * As this class implements [PolyglotReferenceDateTimeLocalizer], it allows to use [localizeAsFlow].
  *
  * Localization could, based on [options], prioritize a word style localization (e.g. `last month`) over a numeric style (e.g.
  * `1 month ago`).
@@ -55,12 +55,12 @@ public data class RelativeYearMonthOptions(
  * - `4 months ago`
  * - `in 34mo.`
  *
- * @see PolyglotReferenceValueLocalizer
+ * @see PolyglotReferenceDateTimeLocalizer
  */
 public class RelativeYearMonthLocalizer(
     private val options: RelativeYearMonthOptions = RelativeYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotReferenceValueLocalizer<YearMonth> {
+) : PolyglotReferenceDateTimeLocalizer<YearMonth> {
 
     private val relativeUnitLocalizer = RelativeUnitLocalizer(
         style = options.style,

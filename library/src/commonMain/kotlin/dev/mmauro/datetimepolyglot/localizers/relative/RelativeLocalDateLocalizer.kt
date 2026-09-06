@@ -9,7 +9,7 @@ import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.firstDayOfWeek
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
-import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
 import dev.mmauro.datetimepolyglot.localizers.localizeNow
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
@@ -46,7 +46,7 @@ public data class RelativeLocalDateOptions(
 /**
  * Localizes a [LocalDate] relative to a [Zoned]<[Instant]> reference point.
  *
- * As this class implements [PolyglotReferenceValueLocalizer], it allows to use [localizeAsFlow].
+ * As this class implements [PolyglotReferenceDateTimeLocalizer], it allows to use [localizeAsFlow].
  *
  * Localization prioritizes, based on [options]:
  * - word style localization (e.g. `yesterday`, `today`, `tomorrow`, etc.)
@@ -86,12 +86,12 @@ public data class RelativeLocalDateOptions(
  * - `in 54 days`
  * - `5 days ago`
  *
- * @see PolyglotReferenceValueLocalizer
+ * @see PolyglotReferenceDateTimeLocalizer
  */
 public class RelativeLocalDateLocalizer(
     private val options: RelativeLocalDateOptions = RelativeLocalDateOptions(),
     private val locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotReferenceValueLocalizer<LocalDate> {
+) : PolyglotReferenceDateTimeLocalizer<LocalDate> {
 
     private val relativeUnitLocalizer = RelativeUnitLocalizer(
         style = options.style,

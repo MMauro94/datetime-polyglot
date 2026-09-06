@@ -2,7 +2,7 @@ package dev.mmauro.datetimepolyglot.localizers.dynamic
 
 import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
-import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotValueLocalizer
 import dev.mmauro.datetimepolyglot.withNextTickAtMost
 import kotlin.time.Duration
@@ -14,7 +14,7 @@ import kotlin.time.Instant
 public annotation class ExperimentalDynamicLocalizer
 
 /**
- * Special localizer class that allows to pick an arbitrary [PolyglotReferenceValueLocalizer] based on the current reference time.
+ * Special localizer class that allows to pick an arbitrary [PolyglotReferenceDateTimeLocalizer] based on the current reference time.
  *
  * On localization, it goes through each one of [thresholds], stopping at the first one whose reference is in [Case.Threshold.range], and
  * returning its value. If the reference is in none of the thresholds' ranges, [default] is selected instead.
@@ -28,7 +28,7 @@ public annotation class ExperimentalDynamicLocalizer
 public class DynamicLocalizer<T>(
     public val thresholds: List<Case.Threshold<T>>,
     public val default: Case.Default<T>,
-) : PolyglotReferenceValueLocalizer<T> {
+) : PolyglotReferenceDateTimeLocalizer<T> {
 
     public constructor(vararg cases: Case.Threshold<T>, default: Case.Default<T>) : this(cases.toList(), default)
 
@@ -43,7 +43,7 @@ public class DynamicLocalizer<T>(
 
             public constructor(
                 range: OpenEndRange<Instant>,
-                localizer: PolyglotReferenceValueLocalizer<T>,
+                localizer: PolyglotReferenceDateTimeLocalizer<T>,
             ) : this(range, localizer::localize)
 
             public constructor(
@@ -75,7 +75,7 @@ public class DynamicLocalizer<T>(
         ) : Case<T> {
 
             public constructor(
-                localizer: PolyglotReferenceValueLocalizer<T>,
+                localizer: PolyglotReferenceDateTimeLocalizer<T>,
             ) : this(localizer::localize)
 
             public constructor(localizer: PolyglotValueLocalizer<T, String>) : this(

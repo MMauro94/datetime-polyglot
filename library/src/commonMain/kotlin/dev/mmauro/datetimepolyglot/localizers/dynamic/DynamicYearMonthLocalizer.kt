@@ -10,7 +10,7 @@ import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
-import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearMonthOptions
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
@@ -60,12 +60,12 @@ public data class DynamicYearMonthOptions(
  * - `07/2026`
  * - `July 2026`
  *
- * @see PolyglotReferenceValueLocalizer
+ * @see PolyglotReferenceDateTimeLocalizer
  */
 public class DynamicYearMonthLocalizer(
     private val options: DynamicYearMonthOptions = DynamicYearMonthOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotReferenceValueLocalizer<YearMonth> {
+) : PolyglotReferenceDateTimeLocalizer<YearMonth> {
 
     private val relativeYearMonthLocalizer = RelativeYearMonthLocalizer(options.relativeOptions, locale)
     private val absoluteYearMonthLocalizer = YearMonthLocalizer(options.absoluteOptions, locale)

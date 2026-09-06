@@ -8,7 +8,7 @@ import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
-import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.YearOptions
 import dev.mmauro.datetimepolyglot.localizers.localizeAsFlow
@@ -42,7 +42,7 @@ public data class DynamicYearOptions(
  * This class chooses between formatting with a [RelativeYearLocalizer] (if the difference is within the configured range), or falls back to
  * absolute formatting via [YearLocalizer].
  *
- * As this class implements [PolyglotReferenceValueLocalizer], it allows to use [localizeAsFlow].
+ * As this class implements [PolyglotReferenceDateTimeLocalizer], it allows to use [localizeAsFlow].
  *
  * Because kotlinx-datetime doesn't provide a standard type for a year, there is no extension function equivalent for one-off localizations.
  *
@@ -53,12 +53,12 @@ public data class DynamicYearOptions(
  * - `2026`
  * - `2026 AD`
  *
- * @see PolyglotReferenceValueLocalizer
+ * @see PolyglotReferenceDateTimeLocalizer
  */
 public class DynamicYearLocalizer(
     options: DynamicYearOptions = DynamicYearOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotReferenceValueLocalizer<Int> by InternalDynamicYearLocalizer(
+) : PolyglotReferenceDateTimeLocalizer<Int> by InternalDynamicYearLocalizer(
     relativeLocalizer = RelativeYearLocalizer(options.relativeOptions, locale),
     absoluteLocalizer = YearLocalizer(options.absoluteOptions, locale),
     relativeDiffRange = options.relativeDiffRange,
@@ -66,11 +66,11 @@ public class DynamicYearLocalizer(
 )
 
 internal class InternalDynamicYearLocalizer<T>(
-    private val relativeLocalizer: PolyglotReferenceValueLocalizer<T>,
+    private val relativeLocalizer: PolyglotReferenceDateTimeLocalizer<T>,
     private val absoluteLocalizer: PolyglotDateTimeLocalizer<T>,
     private val relativeDiffRange: IntRange,
     private val yearProvider: (T) -> Int,
-) : PolyglotReferenceValueLocalizer<T> {
+) : PolyglotReferenceDateTimeLocalizer<T> {
 
     override fun localize(value: T, reference: Zoned<Instant>): TickingValue<String> {
         val dynamicLocalizer = DynamicLocalizer(

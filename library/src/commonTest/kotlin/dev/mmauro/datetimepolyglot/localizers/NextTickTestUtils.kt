@@ -82,7 +82,7 @@ suspend fun <P> PolyglotValueLocalizer<P, TickingValue<String>>.nextTickPredicts
  * Version of [nextTickPredictsChangeTest] to test a formatter accepting a [T] and a [Zoned]<[Instant]>.
  */
 context(_: FunSpecContainerScope)
-suspend fun <T> PolyglotReferenceValueLocalizer<T>.nextTickPredictsChangeTest(
+suspend fun <T> PolyglotReferenceDateTimeLocalizer<T>.nextTickPredictsChangeTest(
     arbitraryArb: Arb<T>,
     smallArb: (Zoned<Instant>) -> Arb<T>,
     referenceRange: KotlinInstantRange = Instant.DISTANT_PAST..Instant.DISTANT_FUTURE,
@@ -149,7 +149,7 @@ fun <T> PolyglotValueLocalizer<T, TickingValue<String>>.localizeAndTestNextTick(
     advanceBy: T.(Duration) -> T,
 ) = localizeAndTestNextTick(value, advanceBy, ::localize)
 
-fun <T> PolyglotReferenceValueLocalizer<T>.localizeAndTestNextTick(
+fun <T> PolyglotReferenceDateTimeLocalizer<T>.localizeAndTestNextTick(
     value: T,
     reference: Zoned<Instant>,
 ): TickingValue<String> {

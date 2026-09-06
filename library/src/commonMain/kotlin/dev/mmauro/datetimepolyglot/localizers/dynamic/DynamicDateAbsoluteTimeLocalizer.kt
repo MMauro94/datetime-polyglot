@@ -10,7 +10,7 @@ import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.getDefaultLocale
 import dev.mmauro.datetimepolyglot.localizers.PolyglotLocalizerOptions
-import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
+import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceDateTimeLocalizer
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyleOptions
 import dev.mmauro.datetimepolyglot.localizers.absolute.Defaults
@@ -87,12 +87,12 @@ public data class DynamicDateAbsoluteTimeOptions(
  * - `January 1 2026 at 8 in the morning`
  * - `1/1/26, 8 PM`
  *
- * @see PolyglotReferenceValueLocalizer
+ * @see PolyglotReferenceDateTimeLocalizer
  */
 public class DynamicDateAbsoluteTimeLocalizer(
     private val options: DynamicDateAbsoluteTimeOptions = DynamicDateAbsoluteTimeOptions(),
     locale: PlatformLocale = getDefaultLocale(),
-) : PolyglotReferenceValueLocalizer<LocalDateTime> {
+) : PolyglotReferenceDateTimeLocalizer<LocalDateTime> {
 
     private val relativeDateAbsoluteTimeLocalizer = RelativeDateAbsoluteTimeLocalizer(options.relativeOptions, locale)
     private val absoluteLocalDateTimeLocalizer = LocalDateTimeLocalizer(options.absoluteOptions, locale)

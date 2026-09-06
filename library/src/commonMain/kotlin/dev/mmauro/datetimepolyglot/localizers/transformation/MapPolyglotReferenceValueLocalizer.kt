@@ -6,12 +6,12 @@ import dev.mmauro.datetimepolyglot.flatMap
 import dev.mmauro.datetimepolyglot.localizers.PolyglotReferenceValueLocalizer
 import kotlin.time.Instant
 
-internal class MapPolyglotReferenceValueLocalizer<T>(
-    val localizer: PolyglotReferenceValueLocalizer<T>,
-    val map: (value: T, localized: TickingValue<String>, reference: Zoned<Instant>) -> TickingValue<String>,
-) : PolyglotReferenceValueLocalizer<T> {
+internal class MapPolyglotReferenceValueLocalizer<T, R1, R2>(
+    val localizer: PolyglotReferenceValueLocalizer<T, R1>,
+    val map: (value: T, localized: TickingValue<R1>, reference: Zoned<Instant>) -> TickingValue<R2>,
+) : PolyglotReferenceValueLocalizer<T, R2> {
 
-    override fun localize(value: T, reference: Zoned<Instant>): TickingValue<String> {
+    override fun localize(value: T, reference: Zoned<Instant>): TickingValue<R2> {
         val localized = localizer.localize(value, reference)
         return localized.flatMap { map(value, localized, reference) }
     }
@@ -26,8 +26,8 @@ internal class MapPolyglotReferenceValueLocalizer<T>(
  *  - localized: the localized output of this localizer
  *  - reference: the reference point
  */
-public fun <T> PolyglotReferenceValueLocalizer<T>.map(
-    map: (value: T, localized: TickingValue<String>, reference: Zoned<Instant>) -> TickingValue<String>,
-): PolyglotReferenceValueLocalizer<T> {
+public fun <T, R1, R2> PolyglotReferenceValueLocalizer<T, R1>.map(
+    map: (value: T, localized: TickingValue<R1>, reference: Zoned<Instant>) -> TickingValue<R2>,
+): PolyglotReferenceValueLocalizer<T, R2> {
     return MapPolyglotReferenceValueLocalizer(this, map)
 }
