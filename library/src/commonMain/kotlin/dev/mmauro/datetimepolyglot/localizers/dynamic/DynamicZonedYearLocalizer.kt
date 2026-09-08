@@ -48,9 +48,9 @@ public data class DynamicZonedYearOptions(
  * Because kotlinx-datetime doesn't provide a standard type for a year, there is no extension function equivalent for one-off localizations.
  *
  * Examples:
- * - `last year`
- * - `1 year ago`
- * - `in 5y`
+ * - `last year, Los Angeles Time`
+ * - `1 year ago, PT`
+ * - `in 5y, Pacific Time`
  * - `2026, Los Angeles Time`
  * - `2026 AD, Pacific Time`
  *
