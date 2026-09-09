@@ -1,0 +1,67 @@
+// Klib ABI Dump
+// Targets: [js, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <dev.mmauro.datetime-polyglot:core>
+abstract fun interface <#A: kotlin/Any?> dev.mmauro.datetimepolyglot/TickingValueProvider { // dev.mmauro.datetimepolyglot/TickingValueProvider|null[0]
+    abstract fun provide(dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>): dev.mmauro.datetimepolyglot/TickingValue<#A> // dev.mmauro.datetimepolyglot/TickingValueProvider.provide|provide(dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>){}[0]
+}
+
+final class <#A: out kotlin/Any?> dev.mmauro.datetimepolyglot/TickingValue { // dev.mmauro.datetimepolyglot/TickingValue|null[0]
+    constructor <init>(#A, kotlin.time/Duration?) // dev.mmauro.datetimepolyglot/TickingValue.<init>|<init>(1:0;kotlin.time.Duration?){}[0]
+
+    final val nextTick // dev.mmauro.datetimepolyglot/TickingValue.nextTick|{}nextTick[0]
+        final fun <get-nextTick>(): kotlin.time/Duration? // dev.mmauro.datetimepolyglot/TickingValue.nextTick.<get-nextTick>|<get-nextTick>(){}[0]
+    final val value // dev.mmauro.datetimepolyglot/TickingValue.value|{}value[0]
+        final fun <get-value>(): #A // dev.mmauro.datetimepolyglot/TickingValue.value.<get-value>|<get-value>(){}[0]
+
+    final fun component1(): #A // dev.mmauro.datetimepolyglot/TickingValue.component1|component1(){}[0]
+    final fun component2(): kotlin.time/Duration? // dev.mmauro.datetimepolyglot/TickingValue.component2|component2(){}[0]
+    final fun copy(#A = ..., kotlin.time/Duration? = ...): dev.mmauro.datetimepolyglot/TickingValue<#A> // dev.mmauro.datetimepolyglot/TickingValue.copy|copy(1:0;kotlin.time.Duration?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot/TickingValue.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot/TickingValue.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot/TickingValue.toString|toString(){}[0]
+}
+
+final class <#A: out kotlin/Any?> dev.mmauro.datetimepolyglot/Zoned { // dev.mmauro.datetimepolyglot/Zoned|null[0]
+    constructor <init>(#A, kotlinx.datetime/TimeZone) // dev.mmauro.datetimepolyglot/Zoned.<init>|<init>(1:0;kotlinx.datetime.TimeZone){}[0]
+
+    final val timeZone // dev.mmauro.datetimepolyglot/Zoned.timeZone|{}timeZone[0]
+        final fun <get-timeZone>(): kotlinx.datetime/TimeZone // dev.mmauro.datetimepolyglot/Zoned.timeZone.<get-timeZone>|<get-timeZone>(){}[0]
+    final val value // dev.mmauro.datetimepolyglot/Zoned.value|{}value[0]
+        final fun <get-value>(): #A // dev.mmauro.datetimepolyglot/Zoned.value.<get-value>|<get-value>(){}[0]
+
+    final fun component1(): #A // dev.mmauro.datetimepolyglot/Zoned.component1|component1(){}[0]
+    final fun component2(): kotlinx.datetime/TimeZone // dev.mmauro.datetimepolyglot/Zoned.component2|component2(){}[0]
+    final fun copy(#A = ..., kotlinx.datetime/TimeZone = ...): dev.mmauro.datetimepolyglot/Zoned<#A> // dev.mmauro.datetimepolyglot/Zoned.copy|copy(1:0;kotlinx.datetime.TimeZone){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot/Zoned.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot/Zoned.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot/Zoned.toString|toString(){}[0]
+}
+
+final class dev.mmauro.datetimepolyglot/ClockWrapper { // dev.mmauro.datetimepolyglot/ClockWrapper|null[0]
+    constructor <init>(kotlin.time/Clock) // dev.mmauro.datetimepolyglot/ClockWrapper.<init>|<init>(kotlin.time.Clock){}[0]
+
+    final val clock // dev.mmauro.datetimepolyglot/ClockWrapper.clock|{}clock[0]
+        final fun <get-clock>(): kotlin.time/Clock // dev.mmauro.datetimepolyglot/ClockWrapper.clock.<get-clock>|<get-clock>(){}[0]
+}
+
+final val dev.mmauro.datetimepolyglot/SYSTEM_CLOCK // dev.mmauro.datetimepolyglot/SYSTEM_CLOCK|{}SYSTEM_CLOCK[0]
+    final fun <get-SYSTEM_CLOCK>(): kotlinx.coroutines.flow/StateFlow<dev.mmauro.datetimepolyglot/ClockWrapper> // dev.mmauro.datetimepolyglot/SYSTEM_CLOCK.<get-SYSTEM_CLOCK>|<get-SYSTEM_CLOCK>(){}[0]
+final val dev.mmauro.datetimepolyglot/SYSTEM_TIMEZONE // dev.mmauro.datetimepolyglot/SYSTEM_TIMEZONE|{}SYSTEM_TIMEZONE[0]
+    final fun <get-SYSTEM_TIMEZONE>(): kotlinx.coroutines.flow/StateFlow<kotlinx.datetime/TimeZone> // dev.mmauro.datetimepolyglot/SYSTEM_TIMEZONE.<get-SYSTEM_TIMEZONE>|<get-SYSTEM_TIMEZONE>(){}[0]
+
+final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/minus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/minus|minus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
+final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/plus(kotlin.time/Duration): dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> // dev.mmauro.datetimepolyglot/plus|plus@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(kotlin.time.Duration){}[0]
+final fun (dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>).dev.mmauro.datetimepolyglot/toLocalDateTime(): kotlinx.datetime/LocalDateTime // dev.mmauro.datetimepolyglot/toLocalDateTime|toLocalDateTime@dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>(){}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> (dev.mmauro.datetimepolyglot/TickingValue<#A>).dev.mmauro.datetimepolyglot/combine(dev.mmauro.datetimepolyglot/TickingValue<#B>, kotlin/Function2<#A, #B, #C>): dev.mmauro.datetimepolyglot/TickingValue<#C> // dev.mmauro.datetimepolyglot/combine|combine@dev.mmauro.datetimepolyglot.TickingValue<0:0>(dev.mmauro.datetimepolyglot.TickingValue<0:1>;kotlin.Function2<0:0,0:1,0:2>){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> (dev.mmauro.datetimepolyglot/TickingValue<#A>).dev.mmauro.datetimepolyglot/flatMap(kotlin/Function1<#A, dev.mmauro.datetimepolyglot/TickingValue<#B>>): dev.mmauro.datetimepolyglot/TickingValue<#B> // dev.mmauro.datetimepolyglot/flatMap|flatMap@dev.mmauro.datetimepolyglot.TickingValue<0:0>(kotlin.Function1<0:0,dev.mmauro.datetimepolyglot.TickingValue<0:1>>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> (dev.mmauro.datetimepolyglot/TickingValue<#A>).dev.mmauro.datetimepolyglot/map(kotlin/Function1<#A, #B>): dev.mmauro.datetimepolyglot/TickingValue<#B> // dev.mmauro.datetimepolyglot/map|map@dev.mmauro.datetimepolyglot.TickingValue<0:0>(kotlin.Function1<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> (dev.mmauro.datetimepolyglot/TickingValueProvider<#A>).dev.mmauro.datetimepolyglot/map(kotlin/Function2<dev.mmauro.datetimepolyglot/TickingValue<#A>, dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, dev.mmauro.datetimepolyglot/TickingValue<#B>>): dev.mmauro.datetimepolyglot/TickingValueProvider<#B> // dev.mmauro.datetimepolyglot/map|map@dev.mmauro.datetimepolyglot.TickingValueProvider<0:0>(kotlin.Function2<dev.mmauro.datetimepolyglot.TickingValue<0:0>,dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>,dev.mmauro.datetimepolyglot.TickingValue<0:1>>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> (dev.mmauro.datetimepolyglot/Zoned<#A>).dev.mmauro.datetimepolyglot/mapValue(kotlin/Function1<#A, #B>): dev.mmauro.datetimepolyglot/Zoned<#B> // dev.mmauro.datetimepolyglot/mapValue|mapValue@dev.mmauro.datetimepolyglot.Zoned<0:0>(kotlin.Function1<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (dev.mmauro.datetimepolyglot/TickingValue<#A>).dev.mmauro.datetimepolyglot/withNextTickAtMost(kotlin.time/Duration?): dev.mmauro.datetimepolyglot/TickingValue<#A> // dev.mmauro.datetimepolyglot/withNextTickAtMost|withNextTickAtMost@dev.mmauro.datetimepolyglot.TickingValue<0:0>(kotlin.time.Duration?){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (dev.mmauro.datetimepolyglot/TickingValueProvider<#A>).dev.mmauro.datetimepolyglot/toFlow(kotlinx.coroutines.flow/Flow<dev.mmauro.datetimepolyglot/ClockWrapper> = ..., kotlinx.coroutines.flow/Flow<kotlinx.datetime/TimeZone> = ..., kotlin.time/Duration? = ...): kotlinx.coroutines.flow/Flow<#A> // dev.mmauro.datetimepolyglot/toFlow|toFlow@dev.mmauro.datetimepolyglot.TickingValueProvider<0:0>(kotlinx.coroutines.flow.Flow<dev.mmauro.datetimepolyglot.ClockWrapper>;kotlinx.coroutines.flow.Flow<kotlinx.datetime.TimeZone>;kotlin.time.Duration?){0§<kotlin.Any?>}[0]
+final suspend fun <#A: kotlin/Any?> (dev.mmauro.datetimepolyglot/TickingValueProvider<#A>).dev.mmauro.datetimepolyglot/collect(kotlin.time/Clock, kotlinx.datetime/TimeZone, kotlin.time/Duration? = ..., dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant> = ..., dev.mmauro.datetimepolyglot/TickingValue<#A> = ..., kotlin.coroutines/SuspendFunction1<#A, kotlin/Unit>) // dev.mmauro.datetimepolyglot/collect|collect@dev.mmauro.datetimepolyglot.TickingValueProvider<0:0>(kotlin.time.Clock;kotlinx.datetime.TimeZone;kotlin.time.Duration?;dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>;dev.mmauro.datetimepolyglot.TickingValue<0:0>;kotlin.coroutines.SuspendFunction1<0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]

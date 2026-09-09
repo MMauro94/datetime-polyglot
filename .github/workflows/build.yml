@@ -78,7 +78,7 @@ jobs:
       - name: Gradle Wrapper Validation
         uses: gradle/actions/wrapper-validation@v6
 
-      - name: Generate Dokka
+      - name: Run Ktlint
         run: ./gradlew ktlintCheck --scan
 
   test:
