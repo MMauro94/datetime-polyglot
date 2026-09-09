@@ -1,0 +1,62 @@
+public final class dev/mmauro/datetimepolyglot/ClockWrapper {
+	public fun <init> (Lkotlin/time/Clock;)V
+	public final fun getClock ()Lkotlin/time/Clock;
+}
+
+public final class dev/mmauro/datetimepolyglot/System_jvmKt {
+	public static final fun getSYSTEM_CLOCK ()Lkotlinx/coroutines/flow/StateFlow;
+	public static final fun getSYSTEM_TIMEZONE ()Lkotlinx/coroutines/flow/StateFlow;
+}
+
+public final class dev/mmauro/datetimepolyglot/TickingValue {
+	public synthetic fun <init> (Ljava/lang/Object;Lkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2-FghU774 ()Lkotlin/time/Duration;
+	public final fun copy-6Au4x4Y (Ljava/lang/Object;Lkotlin/time/Duration;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static synthetic fun copy-6Au4x4Y$default (Ldev/mmauro/datetimepolyglot/TickingValue;Ljava/lang/Object;Lkotlin/time/Duration;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNextTick-FghU774 ()Lkotlin/time/Duration;
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/TickingValueKt {
+	public static final fun combine (Ldev/mmauro/datetimepolyglot/TickingValue;Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function2;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun flatMap (Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function1;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun map (Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function1;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun withNextTickAtMost-6Au4x4Y (Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/time/Duration;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/TickingValueProvider {
+	public abstract fun provide (Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public final class dev/mmauro/datetimepolyglot/TickingValueProviderKt {
+	public static final fun collect-Mswn-_c (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlin/time/Clock;Lkotlinx/datetime/TimeZone;Lkotlin/time/Duration;Ldev/mmauro/datetimepolyglot/Zoned;Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun collect-Mswn-_c$default (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlin/time/Clock;Lkotlinx/datetime/TimeZone;Lkotlin/time/Duration;Ldev/mmauro/datetimepolyglot/Zoned;Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun map (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlin/jvm/functions/Function2;)Ldev/mmauro/datetimepolyglot/TickingValueProvider;
+	public static final fun toFlow-Q2Q30fc (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;Lkotlin/time/Duration;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun toFlow-Q2Q30fc$default (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;Lkotlin/time/Duration;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class dev/mmauro/datetimepolyglot/Zoned {
+	public fun <init> (Ljava/lang/Object;Lkotlinx/datetime/TimeZone;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2 ()Lkotlinx/datetime/TimeZone;
+	public final fun copy (Ljava/lang/Object;Lkotlinx/datetime/TimeZone;)Ldev/mmauro/datetimepolyglot/Zoned;
+	public static synthetic fun copy$default (Ldev/mmauro/datetimepolyglot/Zoned;Ljava/lang/Object;Lkotlinx/datetime/TimeZone;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/Zoned;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class dev/mmauro/datetimepolyglot/ZonedKt {
+	public static final fun mapValue (Ldev/mmauro/datetimepolyglot/Zoned;Lkotlin/jvm/functions/Function1;)Ldev/mmauro/datetimepolyglot/Zoned;
+	public static final fun minus-HG0u8IE (Ldev/mmauro/datetimepolyglot/Zoned;J)Ldev/mmauro/datetimepolyglot/Zoned;
+	public static final fun plus-HG0u8IE (Ldev/mmauro/datetimepolyglot/Zoned;J)Ldev/mmauro/datetimepolyglot/Zoned;
+	public static final fun toLocalDateTime (Ldev/mmauro/datetimepolyglot/Zoned;)Lkotlinx/datetime/LocalDateTime;
+}
+
