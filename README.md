@@ -48,9 +48,9 @@ Full API stability guarantees will come with the 1.0 milestone.
 
 <summary>Using the SNAPSHOT build</summary>
 
-![Maven Central Snapshot Version](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcentral.sonatype.com%2Frepository%2Fmaven-snapshots%2Fdev%2Fmmauro%2Fdatetime-polyglot%2Fmaven-metadata.xml&strategy=latestProperty&label=maven-central-snapshot)
+![Maven Central Snapshot Version](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fcentral.sonatype.com%2Frepository%2Fmaven-snapshots%2Fdev%2Fmmauro%2Fdatetime-polyglot%2Fdatetime-polyglot%2Fmaven-metadata.xml&strategy=latestProperty&label=maven-central-snapshot)
 
-Snapshot builds are published on every commit in `mainline`.
+Snapshot builds are published on every commit in `main`.
 
 To use, add in your `settings.gradle.kts`:
 
@@ -66,12 +66,12 @@ Then add to your dependencies:
 
 ```kotlin
 dependencies {
-    implementation("dev.mmauro:datetime-polyglot:<version>")
+    implementation("dev.mmauro.datetime-polyglot:datetime-polyglot:<version>")
 }
 ```
 
 See latest version in badge above or look
-at [maven-metadata.xml](https://central.sonatype.com/repository/maven-snapshots/dev/mmauro/datetime-polyglot/maven-metadata.xml).
+at [maven-metadata.xml](https://central.sonatype.com/repository/maven-snapshots/dev/mmauro/datetime-polyglot/datetime-polyglot/maven-metadata.xml).
 
 </details>
 
