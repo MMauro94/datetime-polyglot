@@ -1,0 +1,1 @@
+sourceset_dependencies = '{":core/androidMain":[":core/commonMain"],":core/commonMain":[],":core/jsMain":[":core/webMain"],":core/jvmMain":[":core/commonMain"],":core/wasmJsMain":[":core/webMain"],":core/webMain":[":core/commonMain"]}'
