@@ -64,3 +64,47 @@ public final class dev/mmauro/datetimepolyglot/ZonedKt {
 	public static final fun toLocalDateTime (Ldev/mmauro/datetimepolyglot/Zoned;)Lkotlinx/datetime/LocalDateTime;
 }
 
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer {
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeZonedLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotDateTimeLocalizer {
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer {
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions {
+	public abstract fun localizer (Ljava/util/Locale;)Ldev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer;
+	public static synthetic fun localizer$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions;Ljava/util/Locale;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions$DefaultImpls {
+	public static synthetic fun localizer$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotLocalizerOptions;Ljava/util/Locale;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer;
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceDateTimeLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer {
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceDateTimeZonedLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceDateTimeLocalizer {
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer {
+	public abstract fun localize (Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/Zoned;)Ldev/mmauro/datetimepolyglot/TickingValue;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizerKt {
+	public static final fun localizeAsFlow-jSaE0eg (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;Lkotlin/time/Duration;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun localizeAsFlow-jSaE0eg$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;Lkotlin/time/Duration;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun localizeNow (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;Lkotlinx/datetime/TimeZone;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static synthetic fun localizeNow$default (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Lkotlin/time/Clock;Lkotlinx/datetime/TimeZone;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public static final fun toTickingValueProvider (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValueProvider;
+}
+
+public abstract interface class dev/mmauro/datetimepolyglot/localizers/PolyglotValueLocalizer : dev/mmauro/datetimepolyglot/localizers/PolyglotLocalizer {
+	public abstract fun localize (Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class dev/mmauro/datetimepolyglot/localizers/transformation/MapPolyglotReferenceValueLocalizerKt {
+	public static final fun map (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Lkotlin/jvm/functions/Function3;)Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;
+}
+
