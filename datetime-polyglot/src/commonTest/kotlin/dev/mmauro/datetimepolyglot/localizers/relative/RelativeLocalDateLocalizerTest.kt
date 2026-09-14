@@ -5,7 +5,7 @@ import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
 import dev.mmauro.datetimepolyglot.TEST_PLATFORM
 import dev.mmauro.datetimepolyglot.TestPlatform.Android
 import dev.mmauro.datetimepolyglot.Zoned
-import dev.mmauro.datetimepolyglot.localeFromBcp47LanguageTag
+import dev.mmauro.datetimepolyglot.getLocaleFromTag
 import dev.mmauro.datetimepolyglot.localizers.localDate
 import dev.mmauro.datetimepolyglot.localizers.localizeAndTestNextTick
 import dev.mmauro.datetimepolyglot.localizers.nextTickPredictsChangeTest
@@ -115,7 +115,7 @@ val RelativeLocalDateLocalizerTestFactory = funSpec {
                     nameFn = { it.first.toString() },
                     LOCALE_ENGLISH to "1,234,567",
                     LOCALE_ITALIAN to "1.234.567",
-                    localeFromBcp47LanguageTag("hi") to "12,34,567",
+                    getLocaleFromTag("hi") to "12,34,567",
                 ) { (locale, expected) ->
                     val localDate = REFERENCE_DATE - DatePeriod(days = 1_234_567)
                     RelativeLocalDateLocalizer(locale = locale).localizeAndTestNextTick(localDate, REFERENCE).value shouldContain expected

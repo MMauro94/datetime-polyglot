@@ -8,8 +8,6 @@ internal expect val PlatformLocale.bcp47LanguageTag: String
 
 internal expect val PlatformLocale.basePlatformLocale: PlatformLocale
 
-internal expect fun localeFromBcp47LanguageTag(tag: String): PlatformLocale
-
 internal expect val PlatformLocale.firstDayOfWeek: DayOfWeek
 
 /**
@@ -28,7 +26,7 @@ internal fun PlatformLocale.rfc4647Lookup(): Sequence<PlatformLocale> = sequence
                 last = last.substringBeforeLast(delimiter = '-')
             }
 
-            yield(localeFromBcp47LanguageTag(last))
+            yield(getLocaleFromTag(last))
         }
     }
 }

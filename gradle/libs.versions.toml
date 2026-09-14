@@ -1,8 +1,9 @@
 [versions]
 android-minSdk = "28"
-android-compileSdk = "36"
+android-compileSdk = "37"
 androidx-annotationJvm = "1.10.0"
 agp = "9.1.1"
+compose = "1.12.0"
 dokka = "2.2.0"
 icu = "78.3"
 # 6.2.4 breaks Android device tests with:
@@ -24,6 +25,8 @@ vanniktechMavenPublish = "0.37.0"
 
 [libraries]
 androidx-annotationJvm = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "androidx-annotationJvm" }
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose" }
 dokka-versioning = { module = "org.jetbrains.dokka:versioning-plugin", version.ref = "dokka" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-framework = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
@@ -39,6 +42,7 @@ semver = { module = "io.github.z4kn4fein:semver", version.ref = "semver" }
 
 [plugins]
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 js-plain-objects = { id = "org.jetbrains.kotlin.plugin.js-plain-objects", version.ref = "kotlin" }
 kotest = { id = "io.kotest", version.ref = "kotest" }

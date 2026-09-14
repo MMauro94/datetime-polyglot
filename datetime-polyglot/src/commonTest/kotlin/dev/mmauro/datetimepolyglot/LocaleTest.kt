@@ -14,7 +14,7 @@ class LocaleTest : FunSpec({
             "it-Latn-IT" to "it-Latn-IT",
             "en" to "en",
         ) { (locale, expected) ->
-            localeFromBcp47LanguageTag(locale).basePlatformLocale.bcp47LanguageTag shouldBe expected
+            getLocaleFromTag(locale).basePlatformLocale.bcp47LanguageTag shouldBe expected
         }
     }
 
@@ -25,7 +25,7 @@ class LocaleTest : FunSpec({
             "en-IE" to DayOfWeek.MONDAY,
             "it-u-fw-wed" to DayOfWeek.WEDNESDAY,
         ) { (locale, expected) ->
-            localeFromBcp47LanguageTag(locale).firstDayOfWeek shouldBe expected
+            getLocaleFromTag(locale).firstDayOfWeek shouldBe expected
         }
     }
 
@@ -62,7 +62,7 @@ class LocaleTest : FunSpec({
             "it-IT" to listOf("it"),
             "en" to emptyList(),
         ) { (locale, expected) ->
-            localeFromBcp47LanguageTag(locale).rfc4647Lookup().map { it.bcp47LanguageTag }.toList() shouldBe expected
+            getLocaleFromTag(locale).rfc4647Lookup().map { it.bcp47LanguageTag }.toList() shouldBe expected
         }
     }
 })
