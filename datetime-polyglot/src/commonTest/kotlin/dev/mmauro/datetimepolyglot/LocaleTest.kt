@@ -14,7 +14,7 @@ class LocaleTest : FunSpec({
             "it-Latn-IT" to "it-Latn-IT",
             "en" to "en",
         ) { (locale, expected) ->
-            localeFromBcp47LanguageTag(locale).baseLocale.bcp47LanguageTag shouldBe expected
+            localeFromBcp47LanguageTag(locale).basePlatformLocale.bcp47LanguageTag shouldBe expected
         }
     }
 

@@ -6,7 +6,7 @@ import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.buildCodeBlock
 
 private val RFC4647_LOOKUP_FUN = MemberName(POLYGLOT_MAIN_PACKAGE, "rfc4647Lookup")
-private val BASE_LOCALE_FUN = MemberName(POLYGLOT_MAIN_PACKAGE, "baseLocale")
+private val BASE_LOCALE_FUN = MemberName(POLYGLOT_MAIN_PACKAGE, "basePlatformLocale")
 private val BCP_47_TAG_FUN = MemberName(POLYGLOT_MAIN_PACKAGE, "bcp47LanguageTag")
 
 fun whenLocale(

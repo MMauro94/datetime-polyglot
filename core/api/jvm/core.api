@@ -3,6 +3,10 @@ public final class dev/mmauro/datetimepolyglot/ClockWrapper {
 	public final fun getClock ()Lkotlin/time/Clock;
 }
 
+public final class dev/mmauro/datetimepolyglot/PlatformLocale_jvmKt {
+	public static final fun getDefaultLocale ()Ljava/util/Locale;
+}
+
 public final class dev/mmauro/datetimepolyglot/System_jvmKt {
 	public static final fun getSYSTEM_CLOCK ()Lkotlinx/coroutines/flow/StateFlow;
 	public static final fun getSYSTEM_TIMEZONE ()Lkotlinx/coroutines/flow/StateFlow;
