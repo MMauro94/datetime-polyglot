@@ -1,21 +1,15 @@
 package dev.mmauro.datetimepolyglot
 
 import dev.mmauro.datetimepolyglot.utils.dayOfWeekFromIndex
-import js.intl.Locale
-import js.intl.NumberFormat
 import kotlinx.datetime.DayOfWeek
 import weekstart.getWeekStartByLocale
 import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.js.js
 
-internal actual typealias PlatformLocale = Locale
-
-internal actual fun getDefaultLocale(): Locale = localeFromBcp47LanguageTag(NumberFormat().resolvedOptions().locale)
-
 internal actual val PlatformLocale.bcp47LanguageTag: String
     get() = this.toString()
 
-internal actual val PlatformLocale.baseLocale: PlatformLocale
+internal actual val PlatformLocale.basePlatformLocale: PlatformLocale
     get() = localeFromBcp47LanguageTag(this.baseName)
 
 @OptIn(ExperimentalWasmJsInterop::class)

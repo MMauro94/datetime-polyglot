@@ -114,7 +114,7 @@ internal actual fun getRelativeDateTimeFormatter(locale: PlatformLocale, style: 
         RelativeUnitStyle.SHORT -> IcuRelativeDateTimeFormatter.Style.SHORT
         RelativeUnitStyle.LONG -> IcuRelativeDateTimeFormatter.Style.LONG
     }
-    return IcuRelativeDateTimeFormatter.getInstance(locale, null, style, DisplayContext.CAPITALIZATION_NONE)
+    return IcuRelativeDateTimeFormatter.getInstance(locale.toULocale(), null, style, DisplayContext.CAPITALIZATION_NONE)
 }
 
 internal actual fun RelativeDateTimeFormatter.formatNumeric(quantity: Double, unit: RelativeUnit): String {
@@ -197,4 +197,18 @@ internal actual fun PlatformLocale.getDefaultHourCycle(): HourCycle {
     }
 }
 
-internal actual typealias ULocaleBuilder = ULocale.Builder
+internal actual class ULocaleBuilder {
+    private val builder = ULocale.Builder()
+
+    actual fun setLocale(locale: PlatformLocale) = apply {
+        builder.setLocale(locale.toULocale())
+    }
+
+    actual fun setUnicodeLocaleKeyword(keyword: String, value: String) = apply {
+        builder.setUnicodeLocaleKeyword(keyword, value)
+    }
+
+    actual fun build(): PlatformLocale {
+        return builder.build().toLocale()
+    }
+}
