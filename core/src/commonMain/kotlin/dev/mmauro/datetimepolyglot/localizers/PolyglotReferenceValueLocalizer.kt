@@ -7,7 +7,6 @@ import dev.mmauro.datetimepolyglot.TickingValue
 import dev.mmauro.datetimepolyglot.TickingValueProvider
 import dev.mmauro.datetimepolyglot.Zoned
 import dev.mmauro.datetimepolyglot.toFlow
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.TimeZone
 import kotlin.time.Clock
@@ -67,7 +66,6 @@ public fun <T, R> PolyglotReferenceValueLocalizer<T, R>.localizeNow(
  * @param maxTick the maximum amount of to wait for a recomputation (as long as the underlying [PolyglotReferenceDateTimeLocalizer.localize]
  * returns a non-null [TickingValue.nextTick]). If null (the default), no max tick bound is applied.
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 public fun <T, R> PolyglotReferenceValueLocalizer<T, R>.localizeAsFlow(
     value: T,
     clock: Flow<ClockWrapper> = SYSTEM_CLOCK,
