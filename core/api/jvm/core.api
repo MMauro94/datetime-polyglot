@@ -5,6 +5,7 @@ public final class dev/mmauro/datetimepolyglot/ClockWrapper {
 
 public final class dev/mmauro/datetimepolyglot/PlatformLocale_jvmKt {
 	public static final fun getDefaultLocale ()Ljava/util/Locale;
+	public static final fun getLocaleFromTag (Ljava/lang/String;)Ljava/util/Locale;
 }
 
 public final class dev/mmauro/datetimepolyglot/System_jvmKt {

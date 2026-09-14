@@ -5,5 +5,4 @@ import js.intl.NumberFormat
 
 public actual typealias PlatformLocale = Locale
 
-@OptIn(ExperimentalWasmJsInterop::class)
-public actual fun getDefaultLocale(): Locale = Locale(NumberFormat().resolvedOptions().locale.toJsString())
+public actual fun getDefaultLocale(): Locale = getLocaleFromTag(NumberFormat().resolvedOptions().locale)

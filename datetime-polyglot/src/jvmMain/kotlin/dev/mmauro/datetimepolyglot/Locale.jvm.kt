@@ -12,10 +12,6 @@ internal fun PlatformLocale.toULocale() = ULocale.forLanguageTag(toLanguageTag()
 internal actual val PlatformLocale.bcp47LanguageTag: String
     get() = toLanguageTag()
 
-internal actual fun localeFromBcp47LanguageTag(tag: String): PlatformLocale {
-    return PlatformLocale.forLanguageTag(tag)
-}
-
 internal actual val PlatformLocale.basePlatformLocale: PlatformLocale
     get() = ULocale(this.toULocale().baseName).toLocale()
 

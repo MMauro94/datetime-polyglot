@@ -3,7 +3,7 @@ package dev.mmauro.datetimepolyglot.utils
 import dev.mmauro.datetimepolyglot.ALL_LOCALES
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
-import dev.mmauro.datetimepolyglot.localeFromBcp47LanguageTag
+import dev.mmauro.datetimepolyglot.getLocaleFromTag
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
 import dev.mmauro.datetimepolyglot.shouldBeLocalizedAs
 import io.kotest.core.spec.style.FunSpec
@@ -62,9 +62,9 @@ class DateTimeJoinerTest : FunSpec({
     context("works with big locales") {
         withTests(
             nameFn = { it.first.toString() },
-            localeFromBcp47LanguageTag("it-Latn-IT-u-ca-gregory-fw-mon-hc-h23") to "ddddd alle ore ttttt",
-            localeFromBcp47LanguageTag("en-US-u-ca-gregory-hc-h12-nu-latn") to "ddddd at ttttt",
-            localeFromBcp47LanguageTag("es-VE-u-ca-gregory-hc-h12-nu-latn") to "ddddd a las ttttt",
+            getLocaleFromTag("it-Latn-IT-u-ca-gregory-fw-mon-hc-h23") to "ddddd alle ore ttttt",
+            getLocaleFromTag("en-US-u-ca-gregory-hc-h12-nu-latn") to "ddddd at ttttt",
+            getLocaleFromTag("es-VE-u-ca-gregory-hc-h12-nu-latn") to "ddddd a las ttttt",
         ) { (locale, expected) ->
             val localized = joinDateAndTime(
                 locale = locale,

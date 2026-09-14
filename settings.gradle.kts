@@ -22,4 +22,5 @@ rootProject.name = "datetime-polyglot"
 include(
     ":core",
     ":datetime-polyglot",
+    ":compose",
 )

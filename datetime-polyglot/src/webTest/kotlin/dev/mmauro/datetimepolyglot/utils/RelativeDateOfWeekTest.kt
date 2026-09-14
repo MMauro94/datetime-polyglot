@@ -2,7 +2,7 @@ package dev.mmauro.datetimepolyglot.utils
 
 import dev.mmauro.datetimepolyglot.LOCALE_ENGLISH
 import dev.mmauro.datetimepolyglot.LOCALE_ITALIAN
-import dev.mmauro.datetimepolyglot.localeFromBcp47LanguageTag
+import dev.mmauro.datetimepolyglot.getLocaleFromTag
 import dev.mmauro.datetimepolyglot.localizers.relative.RelativeDirection
 import dev.mmauro.datetimepolyglot.styles.RelativeUnitStyle
 import io.kotest.core.spec.style.FunSpec
@@ -57,9 +57,9 @@ class RelativeDateOfWeekTest : FunSpec({
 
     context("works with big locales") {
         withTests(
-            localeFromBcp47LanguageTag("it-Latn-IT-u-ca-gregory-fw-mon-hc-h23") to "mer. scorso",
-            localeFromBcp47LanguageTag("en-US-u-ca-gregory-hc-h12-nu-latn") to "last Wed.",
-            localeFromBcp47LanguageTag("en-GB-u-ca-gregory-hc-h12-nu-latn") to "last Wed",
+            getLocaleFromTag("it-Latn-IT-u-ca-gregory-fw-mon-hc-h23") to "mer. scorso",
+            getLocaleFromTag("en-US-u-ca-gregory-hc-h12-nu-latn") to "last Wed.",
+            getLocaleFromTag("en-GB-u-ca-gregory-hc-h12-nu-latn") to "last Wed",
         ) { (locale, expected) ->
             val localized = localizeRelativeDayOfWeek(
                 locale = locale,

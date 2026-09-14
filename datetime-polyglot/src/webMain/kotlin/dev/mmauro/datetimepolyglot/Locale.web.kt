@@ -10,7 +10,7 @@ internal actual val PlatformLocale.bcp47LanguageTag: String
     get() = this.toString()
 
 internal actual val PlatformLocale.basePlatformLocale: PlatformLocale
-    get() = localeFromBcp47LanguageTag(this.baseName)
+    get() = getLocaleFromTag(this.baseName)
 
 @OptIn(ExperimentalWasmJsInterop::class)
 private val hasWeekInfo: Boolean = js(""" "getWeekInfo" in Intl.Locale.prototype """)
