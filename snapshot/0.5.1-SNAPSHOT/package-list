@@ -3,3 +3,5 @@ $dokka.linkExtension:html
 
 module:core
 dev.mmauro.datetimepolyglot
+dev.mmauro.datetimepolyglot.localizers
+dev.mmauro.datetimepolyglot.localizers.transformation
