@@ -20,6 +20,7 @@ val dokkaStorage = layout.projectDirectory.dir("dokka")
 dokka {
     dokkaPublications.html {
         failOnWarning = true
+        moduleName = "datetime-polyglot"
     }
     dokkaSourceSets {
         configureEach {
@@ -65,6 +66,7 @@ dependencies {
     dokkaHtmlPlugin(libs.dokka.versioning)
     dokka(project(":datetime-polyglot"))
     dokka(project(":core"))
+    dokka(project(":compose"))
 }
 
 tasks.register<Copy>("storeDokkaHtml") {
