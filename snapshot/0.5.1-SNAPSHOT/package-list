@@ -1,7 +1,18 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 
+module:compose
+dev.mmauro.datetimepolyglot.compose
+dev.mmauro.datetimepolyglot.compose.localizers
 module:core
 dev.mmauro.datetimepolyglot
 dev.mmauro.datetimepolyglot.localizers
 dev.mmauro.datetimepolyglot.localizers.transformation
+module:datetime-polyglot
+dev.mmauro.datetimepolyglot
+dev.mmauro.datetimepolyglot.localizers
+dev.mmauro.datetimepolyglot.localizers.absolute
+dev.mmauro.datetimepolyglot.localizers.dynamic
+dev.mmauro.datetimepolyglot.localizers.relative
+dev.mmauro.datetimepolyglot.localizers.standalone
+dev.mmauro.datetimepolyglot.styles
