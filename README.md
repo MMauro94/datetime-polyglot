@@ -1,7 +1,7 @@
 # datetime-polyglot
 
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Maven Central Version](https://img.shields.io/maven-central/v/dev.mmauro/datetime-polyglot?strategy=latestProperty)](https://central.sonatype.com/artifact/dev.mmauro/datetime-polyglot)
+[![Maven Central Version](https://img.shields.io/maven-central/v/dev.mmauro.datetime-polyglot/datetime-polyglot?strategy=latestProperty)](https://central.sonatype.com/artifact/dev.mmauro.datetime-polyglot/datetime-polyglot)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.4.20-blue?logo=kotlin)](http://kotlinlang.org)
 [![API reference (KDoc)](https://img.shields.io/badge/API%20Reference-KDoc-blue)](https://datetime-polyglot.mmauro.dev/)
 
@@ -33,12 +33,12 @@ Add to your dependencies:
 
 ```kotlin
 dependencies {
-    implementation("dev.mmauro:datetime-polyglot:<version>")
+    implementation("dev.mmauro.datetime-polyglot:datetime-polyglot:<version>")
 }
 ```
 
 See latest version in badge above or look directly
-at [Maven Central page](https://central.sonatype.com/artifact/dev.mmauro/datetime-polyglot).
+at [Maven Central page](https://central.sonatype.com/artifact/dev.mmauro.datetime-polyglot/datetime-polyglot).
 
 This library uses [semantic versioning](https://semver.org/). At the current 0.y stage, expect minor breaking changes at
 every increment of y.
