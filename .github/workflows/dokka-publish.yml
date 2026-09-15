@@ -41,13 +41,19 @@ jobs:
           ref: dokka
           path: dokka
 
+      - name: "[Debug] List folders in dokka"
+        run: ls -la dokka/stable/*
+
       - name: Generate Dokka docs
         run: ./gradlew dokkaGenerateHtml
+
+      - name: "[Debug] List folders in generated docs"
+        run: ls -la build/dokka/html/*
 
       - name: Upload to GitHub pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: library/build/dokka/html
+          path: build/dokka/html
 
   deploy:
     runs-on: ubuntu-latest
