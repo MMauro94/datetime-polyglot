@@ -142,16 +142,16 @@ These should be used whenever you always want to localize a date/time object in 
 Avoid concatenating values from these localizers, always use the output of a localizer in full.
 
 All these functions return
-a [`TickingValue`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot/-ticking-value),
+a [`TickingValue`](https://datetime-polyglot.mmauro.dev/core/dev.mmauro.datetimepolyglot/-ticking-value),
 class that holds the localized value and a "next tick" duration, which indicates for how long the value is valid for.
 When the "next tick" expires, it means that the localized value now needs recomputation.
 
 Most of these classes
 implement [
-`PolyglotReferenceValueLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers/-polyglot-reference-value-localizer),
+`PolyglotReferenceValueLocalizer`](https://datetime-polyglot.mmauro.dev/core/dev.mmauro.datetimepolyglot.localizers/-polyglot-reference-value-localizer),
 which allows to pass in a reference point (usually the current time) to use for relative localization.
 As a convenience, the [
-`localizeAsFlow`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers/localize-as-flow.html)
+`localizeAsFlow`](https://datetime-polyglot.mmauro.dev/core/dev.mmauro.datetimepolyglot.localizers/localize-as-flow.html)
 extension function will return a [
 `Flow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/) that
 automatically emits a new relative value when it is due.
@@ -172,7 +172,7 @@ Dynamic localizers provide a convenient way to dynamically choose between a rela
 on the distance from the reference of the value.
 
 They all re-use the above absolute and relative localizers, and they all implement [
-`PolyglotReferenceValueLocalizer`](https://datetime-polyglot.mmauro.dev/datetime-polyglot/dev.mmauro.datetimepolyglot.localizers/-polyglot-reference-value-localizer).
+`PolyglotReferenceValueLocalizer`](https://datetime-polyglot.mmauro.dev/core/dev.mmauro.datetimepolyglot.localizers/-polyglot-reference-value-localizer).
 
 | Data type                                                                                                                                                                              | Localizer class / Extension function                                                                                                                                                                                                                                                                  | Examples                                                                                                            |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
