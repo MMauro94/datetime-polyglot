@@ -12,7 +12,7 @@ private val BCP_47_TAG_FUN = MemberName(POLYGLOT_MAIN_PACKAGE, "bcp47LanguageTag
 fun whenLocale(
     cases: List<Pair<List<ULocale>, CodeBlock>>,
     recursiveCallWithLocale: (CodeBlock) -> CodeBlock,
-    ifNull: CodeBlock? = null
+    ifNull: CodeBlock? = null,
 ): CodeBlock {
     return buildCodeBlock {
         beginControlFlow("return when (locale.%M.%M)", BASE_LOCALE_FUN, BCP_47_TAG_FUN)

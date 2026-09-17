@@ -15,8 +15,8 @@ import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.utils.PLATF
 import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.utils.POLYGLOT_MAIN_PACKAGE
 import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.utils.RelativeDirection
 import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.utils.RelativeUnitStyle
-import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.utils.whenLocale
 import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.utils.toAbsoluteUnit
+import dev.mmauro.datetimepolyglot.buildlogic.tasks.generateCldrCode.utils.whenLocale
 import kotlinx.datetime.DayOfWeek
 import java.security.MessageDigest
 
@@ -39,7 +39,7 @@ fun relativeDateOfWeekFiles(): FileSpec {
                 recursiveCallWithLocale = {
                     CodeBlock.of("localizeRelativeDayOfWeek(%L, style, direction, dayOfWeek)", it)
                 },
-            )
+            ),
         )
         .build()
 

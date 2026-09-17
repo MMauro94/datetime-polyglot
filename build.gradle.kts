@@ -1,4 +1,3 @@
-import dev.mmauro.datetimepolyglot.buildlogic.extensions.GitInfoExtension
 import dev.mmauro.datetimepolyglot.buildlogic.tasks.PrintVersionTask
 import io.github.z4kn4fein.semver.Version
 import org.gradle.kotlin.dsl.register
@@ -7,35 +6,18 @@ import kotlin.collections.orEmpty
 import kotlin.collections.toList
 
 plugins {
-    id("git-info")
+    id("datetime-polyglot.versioning")
     id("org.jetbrains.dokka")
 }
 
-val gitInfo = extensions.getByType(GitInfoExtension::class.java)
-
 group = "dev.mmauro.datetime-polyglot"
-version = gitInfo.currentVersion.get()
+version = gitVersion.current.get()
 
 val dokkaStorage = layout.projectDirectory.dir("dokka")
 dokka {
     dokkaPublications.html {
         failOnWarning = true
         moduleName = "datetime-polyglot"
-    }
-    dokkaSourceSets {
-        configureEach {
-            externalDocumentationLinks.register("kotlinx-datetime") {
-                url("https://kotlinlang.org/api/kotlinx-datetime/")
-            }
-            externalDocumentationLinks.register("kotlinx-coroutines") {
-                url("https://kotlinlang.org/api/kotlinx.coroutines/")
-            }
-            sourceLink {
-                localDirectory.set(file(rootDir))
-                val ref = gitInfo.currentVersion.get().let { if (it.preRelease.equals("SNAPSHOT")) "main" else "v$it" }
-                remoteUrl("https://github.com/MMauro94/datetime-polyglot/tree/$ref")
-            }
-        }
     }
     pluginsConfiguration {
         versioning {
@@ -51,7 +33,7 @@ dokka {
                     .flatMap { folder ->
                         folder
                             .listFiles {
-                                it.isDirectory && Version.parse(it.name) > gitInfo.latestVersion.get()
+                                it.isDirectory && Version.parse(it.name) > gitVersion.current.get()
                             }.orEmpty().toList()
                     },
             )
@@ -75,15 +57,15 @@ tasks.register<Copy>("storeDokkaHtml") {
 
     from("build/dokka/html")
 
-    val version = gitInfo.currentVersion.get()
+    val version = gitVersion.current.get()
     into(dokkaStorage.dir(version.preRelease?.lowercase() ?: "stable").dir(version.toString()))
 }
 
 tasks.register<PrintVersionTask>("getCurrentVersion") {
     description = "Print the version tracket by the current commit"
-    version = gitInfo.currentVersion
+    version = gitVersion.current
 }
 tasks.register<PrintVersionTask>("findLatestStableRelease") {
     description = "Print the latest stable version found in the repository"
-    version = gitInfo.latestStableRelease
+    version = gitVersion.latestStable
 }
