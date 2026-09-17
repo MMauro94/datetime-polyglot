@@ -4,4 +4,5 @@ plugins {
     id("datetime-polyglot.publishing")
     id("datetime-polyglot.doc")
     id("datetime-polyglot.test")
+    id("datetime-polyglot.versioning")
 }

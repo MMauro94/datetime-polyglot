@@ -42,8 +42,8 @@ fun dateTimeJoinerFile(platformName: String): FileSpec {
                     CodeBlock.of("joinDateAndTime(%L, style, date, time)", it)
                 },
                 // Worst case, fallback to English
-                ifNull = CodeBlock.of("joinDateAndTime(%M, style, date, time)", LOCALE_ENGLISH)
-            )
+                ifNull = CodeBlock.of("joinDateAndTime(%M, style, date, time)", LOCALE_ENGLISH),
+            ),
         )
         .build()
 

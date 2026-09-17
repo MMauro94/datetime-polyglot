@@ -26,15 +26,6 @@ dependencies {
     implementation(plugin(libs.plugins.ktlint))
 }
 
-gradlePlugin {
-    plugins {
-        create("git-info") {
-            id = "git-info"
-            implementationClass = "dev.mmauro.datetimepolyglot.buildlogic.GitInfoPlugin"
-        }
-    }
-}
-
 // Helper function that transforms a Gradle Plugin alias from a
 // Version Catalog into a valid dependency notation for buildSrc
 // https://docs.gradle.org/current/userguide/version_catalogs.html#sec:buildsrc-version-catalog
