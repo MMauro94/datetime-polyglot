@@ -76,6 +76,7 @@ val LocalDateLocalizerTestFactory = funSpec {
     // TODO understand day of week standalone vs format in polish/anohter language
 }
 
+@Suppress("CyclomaticComplexMethod", "LongMethod")
 suspend fun FunSpecContainerScope.dateComponentsTests(
     runTest: (date: LocalDate, components: DateComponents, expected: String) -> Unit,
 ) {

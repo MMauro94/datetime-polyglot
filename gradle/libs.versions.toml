@@ -4,6 +4,7 @@ android-compileSdk = "37"
 androidx-annotationJvm = "1.10.0"
 agp = "9.1.1"
 compose = "1.12.0"
+detekt = "2.0.0-alpha.6"
 dokka = "2.2.0"
 icu = "78.3"
 # 6.2.4 breaks Android device tests with:
@@ -43,6 +44,7 @@ semver = { module = "io.github.z4kn4fein:semver", version.ref = "semver" }
 [plugins]
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 js-plain-objects = { id = "org.jetbrains.kotlin.plugin.js-plain-objects", version.ref = "kotlin" }
 kotest = { id = "io.kotest", version.ref = "kotest" }

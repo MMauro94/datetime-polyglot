@@ -108,7 +108,7 @@ public class RelativeLocalDateLocalizer(
                 return null
             }
 
-            if (diff in 1..DayOfWeek.entries.size) {
+            return if (diff in 1..DayOfWeek.entries.size) {
                 val firstDoW = locale.firstDayOfWeek
                 val nextFirstDoW = List(DayOfWeek.entries.size) { referenceLocalDate.plus(DatePeriod(days = it + 1)) }
                     .first { it.dayOfWeek == firstDoW }
@@ -118,9 +118,10 @@ public class RelativeLocalDateLocalizer(
                     else -> RelativeDirection.NEXT
                 }
 
-                return relativeUnitLocalizer.localizeDiffDirection(direction, RelativeUnit.DayOfWeek(value.dayOfWeek))?.let { localized ->
-                    // Calculating a nextTick here is tricky because "this/next <day-of-week>" can be valid for multiple days, until either the
-                    // direction changes (this becomes next) or a specific word is used (e.g. tomorrow), whose existence depends on the locale.
+                relativeUnitLocalizer.localizeDiffDirection(direction, RelativeUnit.DayOfWeek(value.dayOfWeek))?.let { localized ->
+                    // Calculating a nextTick here is tricky because "this/next <day-of-week>" can be valid for multiple days, until either
+                    // the direction changes (this becomes next) or a specific word is used (e.g. tomorrow), whose existence depends on the
+                    // locale.
                     // Hence, we take a cheap shortcut here by checking the next day format to see if it would change
                     val nextDayFormat = localize(value, reference.copy(value = reference.value + nextDayTick))
                     val nextTick = if (nextDayFormat.value != localized) {
@@ -130,8 +131,9 @@ public class RelativeLocalDateLocalizer(
                     }
                     TickingValue(localized, nextTick = nextTick)
                 }
+            } else {
+                null
             }
-            return null
         }
 
         return relativeUnitLocalizer.localizeDiffDirection(diff.toDouble(), RelativeUnit.DateTimeComponent.DAY, options.allowedDirections)

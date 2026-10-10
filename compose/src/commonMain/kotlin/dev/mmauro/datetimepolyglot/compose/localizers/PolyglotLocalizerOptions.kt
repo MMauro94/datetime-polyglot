@@ -33,7 +33,11 @@ public fun <OPTIONS : PolyglotLocalizerOptions<LOCALIZER>, LOCALIZER : PolyglotL
  */
 @Composable
 @Suppress("ktlint:standard:max-line-length")
-public fun <OPTIONS : PolyglotLocalizerOptions<OPTIONS_LOCALIZER>, OPTIONS_LOCALIZER : PolyglotLocalizer, LOCALIZER : PolyglotLocalizer> rememberLocalizer(
+public fun <
+    OPTIONS : PolyglotLocalizerOptions<OPTIONS_LOCALIZER>,
+    OPTIONS_LOCALIZER : PolyglotLocalizer,
+    LOCALIZER : PolyglotLocalizer,
+    > rememberLocalizer(
     options: OPTIONS,
     vararg keys: Any?,
     localizerFactory: (OPTIONS_LOCALIZER) -> LOCALIZER,

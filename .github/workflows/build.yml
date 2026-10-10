@@ -81,6 +81,30 @@ jobs:
       - name: Run Ktlint
         run: ./gradlew ktlintCheck --scan
 
+  verify-detekt:
+    name: "Run Detekt"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: setup-java
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Run Detekt
+        run: ./gradlew detektAll --scan
+
   test:
     strategy:
       matrix:
@@ -90,7 +114,7 @@ jobs:
         ]
     runs-on: ${{ matrix.config.os }}
     name: Test ${{ matrix.config.target }}
-    needs: [verify-abi, verify-dokka, verify-ktlint]
+    needs: [verify-abi, verify-dokka, verify-ktlint, verify-detekt]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -125,7 +149,7 @@ jobs:
         ]
     runs-on: ubuntu-latest
     name: Test ${{ matrix.config.target }}
-    needs: [verify-abi, verify-dokka, verify-ktlint]
+    needs: [verify-abi, verify-dokka, verify-ktlint, verify-detekt]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -163,7 +187,7 @@ jobs:
         ]
     runs-on: ubuntu-latest
     name: Test Android on ${{ matrix.config.name }} (${{ matrix.config.sdk }})
-    needs: [verify-abi, verify-dokka, verify-ktlint]
+    needs: [verify-abi, verify-dokka, verify-ktlint, verify-detekt]
     steps:
       - name: Checkout
         uses: actions/checkout@v6

@@ -1,0 +1,18 @@
+complexity:
+  LongParameterList:
+    excludes:
+      - '**/*Test/**'
+    ignoreDefaultParameters: true
+naming:
+  NoNameShadowing:
+    active: false
+  MatchingDeclarationName:
+    multiplatformTargets: ["android", "js", "jvmAndAndroid", "jvm", "wasm", "web"]
+style:
+  MagicNumber:
+    ignoreEnums: true
+  MaxLineLength:
+    maxLineLength: 140
+  UnusedPrivateProperty:
+    # A bunch of false positives on actual classes, possibly related: https://github.com/detekt/detekt/issues/9602
+    active: false

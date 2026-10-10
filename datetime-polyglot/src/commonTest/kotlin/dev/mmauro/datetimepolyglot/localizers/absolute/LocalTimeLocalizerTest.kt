@@ -83,6 +83,7 @@ enum class TimeComponentTestLocale(val locale: PlatformLocale) {
     ITALIAN(LOCALE_ITALIAN),
 }
 
+@Suppress("CyclomaticComplexMethod", "LongMethod")
 suspend fun FunSpecContainerScope.timeComponentTests(
     runTest: (time: LocalTime, options: LocalTimeOptions<LocalTimeComponents>, locale: TimeComponentTestLocale, expected: String) -> Unit,
 ) {

@@ -115,8 +115,8 @@ public class DynamicDateAbsoluteTimeLocalizer(
 }
 
 /**
- * Localizes this [LocalDateTime] dynamically (either absolute or relative to a [Zoned]<[Instant]> reference point) with the given [options] in
- * the given [locale].
+ * Localizes this [LocalDateTime] dynamically (either absolute or relative to a [Zoned]<[Instant]> reference point) with the given [options]
+ * in the given [locale].
  *
  * @see DynamicDateAbsoluteTimeLocalizer
  */

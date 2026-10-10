@@ -1,3 +1,6 @@
+// https://github.com/MMauro94/datetime-polyglot/issues/20
+@file:Suppress("TooManyFunctions")
+
 package dev.mmauro.datetimepolyglot
 
 import dev.mmauro.datetimepolyglot.localizers.absolute.DateStyle
@@ -18,6 +21,7 @@ import java.time.ZonedDateTime
 internal const val ICU_UNICODE_HOUR_CYCLE_EXTENSION_KEY = "hc"
 
 // DATE FORMAT
+@Suppress("AbstractClassCanBeInterface")
 internal expect abstract class DateFormat
 
 internal expect fun DateFormat.format(zonedDateTime: ZonedDateTime): String
