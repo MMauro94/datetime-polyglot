@@ -1,3 +1,6 @@
+// https://github.com/MMauro94/datetime-polyglot/issues/20
+@file:Suppress("TooManyFunctions", "CyclomaticComplexMethod")
+
 package dev.mmauro.datetimepolyglot
 
 import android.icu.text.DateTimePatternGenerator
@@ -32,11 +35,13 @@ import android.icu.util.Measure as IcuMeasure
 import android.icu.util.MeasureUnit as IcuMeasureUnit
 import android.icu.util.TimeZone as IcuTimeZone
 
+private const val MIN_SDK_FOR_ICU_JAVA_TIME_FUNCTIONS = 37
+
 // DATE FORMAT
 internal actual typealias DateFormat = AndroidDateFormat
 
 internal actual fun DateFormat.format(month: Month): String {
-    return if (Build.VERSION.SDK_INT >= 37) {
+    return if (Build.VERSION.SDK_INT >= MIN_SDK_FOR_ICU_JAVA_TIME_FUNCTIONS) {
         format(month as Any)
     } else {
         timeZone = IcuTimeZone.GMT_ZONE
@@ -45,7 +50,7 @@ internal actual fun DateFormat.format(month: Month): String {
 }
 
 internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime): String {
-    return if (Build.VERSION.SDK_INT >= 37) {
+    return if (Build.VERSION.SDK_INT >= MIN_SDK_FOR_ICU_JAVA_TIME_FUNCTIONS) {
         format(zonedDateTime as Temporal)
     } else {
         timeZone = IcuTimeZone.getTimeZone(zonedDateTime.zone.id)
@@ -54,7 +59,7 @@ internal actual fun DateFormat.format(zonedDateTime: ZonedDateTime): String {
 }
 
 internal actual fun DateFormat.format(localDateTime: LocalDateTime): String {
-    return if (Build.VERSION.SDK_INT >= 37) {
+    return if (Build.VERSION.SDK_INT >= MIN_SDK_FOR_ICU_JAVA_TIME_FUNCTIONS) {
         format(localDateTime as Temporal)
     } else {
         timeZone = IcuTimeZone.GMT_ZONE
@@ -63,7 +68,7 @@ internal actual fun DateFormat.format(localDateTime: LocalDateTime): String {
 }
 
 internal actual fun DateFormat.format(localDate: LocalDate): String {
-    return if (Build.VERSION.SDK_INT >= 37) {
+    return if (Build.VERSION.SDK_INT >= MIN_SDK_FOR_ICU_JAVA_TIME_FUNCTIONS) {
         format(localDate as Temporal)
     } else {
         timeZone = IcuTimeZone.GMT_ZONE
@@ -72,7 +77,7 @@ internal actual fun DateFormat.format(localDate: LocalDate): String {
 }
 
 internal actual fun DateFormat.format(localTime: LocalTime): String {
-    return if (Build.VERSION.SDK_INT >= 37) {
+    return if (Build.VERSION.SDK_INT >= MIN_SDK_FOR_ICU_JAVA_TIME_FUNCTIONS) {
         format(localTime as Temporal)
     } else {
         timeZone = IcuTimeZone.GMT_ZONE
@@ -200,6 +205,8 @@ internal actual fun RelativeDateTimeFormatter.formatNumeric(quantity: Double, un
     return formatNumeric(quantity, relativeUnit)
 }
 
+// https://github.com/MMauro94/datetime-polyglot/issues/20
+@Suppress("ReturnCount")
 internal actual fun RelativeDateTimeFormatter.formatDirection(direction: RelativeDirection, unit: RelativeUnit): String? {
     val direction = when (direction) {
         RelativeDirection.LAST_2 -> IcuRelativeDateTimeFormatter.Direction.LAST_2

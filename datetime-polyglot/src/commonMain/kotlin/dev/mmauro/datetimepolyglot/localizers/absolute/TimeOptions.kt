@@ -160,6 +160,7 @@ public data class ZonedTimeComponents(
 }
 
 private fun checkFractionalSecondDigits(fractionalSecondDigits: Int) {
+    @Suppress("MagicNumber")
     require(fractionalSecondDigits in 0..3) { "fractionalSecondDigits must be in 0..3" }
 }
 

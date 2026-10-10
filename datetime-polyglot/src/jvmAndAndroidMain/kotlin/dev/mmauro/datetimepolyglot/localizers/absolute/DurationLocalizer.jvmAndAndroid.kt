@@ -20,6 +20,7 @@ public actual class DurationLocalizer actual constructor(
             val measures = filteredUnits
                 .mapIndexed { i, (value, unit) -> Measure(if (i == 0) value else value.absoluteValue, unit.toIcuTimeUnit()) }
 
+            @Suppress("SpreadOperator")
             measureFormat.formatMeasures(*measures.toTypedArray())
         }
     }

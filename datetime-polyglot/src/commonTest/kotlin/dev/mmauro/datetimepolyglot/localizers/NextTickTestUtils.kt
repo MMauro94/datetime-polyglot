@@ -18,10 +18,6 @@ import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Instant
 
-data class WithReferenceFormatParams<T>(val value: T, val reference: Zoned<Instant>) {
-    operator fun plus(duration: Duration) = WithReferenceFormatParams(value, reference + duration)
-}
-
 fun <T> Arb.Companion.withReferenceFormatParams(
     value: Arb<T>,
     referenceRange: KotlinInstantRange = Instant.DISTANT_PAST..Instant.DISTANT_FUTURE,
@@ -30,6 +26,10 @@ fun <T> Arb.Companion.withReferenceFormatParams(
         value = value.bind(),
         reference = Arb.zonedInstant(referenceRange).bind(),
     )
+}
+
+data class WithReferenceFormatParams<T>(val value: T, val reference: Zoned<Instant>) {
+    operator fun plus(duration: Duration) = WithReferenceFormatParams(value, reference + duration)
 }
 
 /**

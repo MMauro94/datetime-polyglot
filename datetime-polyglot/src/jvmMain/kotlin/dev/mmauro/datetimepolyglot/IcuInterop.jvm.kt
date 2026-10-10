@@ -1,3 +1,6 @@
+// https://github.com/MMauro94/datetime-polyglot/issues/20
+@file:Suppress("TooManyFunctions", "CyclomaticComplexMethod")
+
 package dev.mmauro.datetimepolyglot
 
 import com.ibm.icu.text.DateTimePatternGenerator
@@ -43,16 +46,16 @@ internal actual fun DateFormat.format(localTime: LocalTime) = format(localTime a
 internal actual typealias SimpleDateFormat = IcuSimpleDateFormat
 
 internal actual fun getDateFormatForSkeleton(skeleton: String, locale: PlatformLocale) =
-    IcuDateFormat.getInstanceForSkeleton(skeleton, locale) as SimpleDateFormat
+    IcuDateFormat.getInstanceForSkeleton(skeleton, locale) as IcuSimpleDateFormat
 
 internal actual fun getDateFormatInstance(dateStyle: DateStyle, locale: PlatformLocale) =
-    IcuDateFormat.getDateInstance(dateStyle.toDateFormatStyle(), locale) as SimpleDateFormat
+    IcuDateFormat.getDateInstance(dateStyle.toDateFormatStyle(), locale) as IcuSimpleDateFormat
 
 internal actual fun getTimeFormatInstance(timeOptions: TimeOptions<TimeStyle>, locale: PlatformLocale): SimpleDateFormat {
     return IcuDateFormat.getTimeInstance(
         timeOptions.styleOptions.toDateFormatStyle(),
         locale.withHourCycle(timeOptions.hourCycle),
-    ) as SimpleDateFormat
+    ) as IcuSimpleDateFormat
 }
 
 internal actual fun getDateTimeFormatInstance(
@@ -64,7 +67,7 @@ internal actual fun getDateTimeFormatInstance(
         dateStyle.toDateFormatStyle(),
         timeOptions.styleOptions.toDateFormatStyle(),
         locale.withHourCycle(timeOptions.hourCycle),
-    ) as SimpleDateFormat
+    ) as IcuSimpleDateFormat
 }
 
 internal fun DateStyle.toDateFormatStyle() = when (this) {

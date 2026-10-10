@@ -85,7 +85,7 @@ class TickingValueTest : FunSpec(
                 nameFn = { "${it.a}.flatMap { ${it.b} } == ${it.c}" },
                 tuple(
                     TickingValue("ciao", 5.minutes),
-                    { it: String -> "$it mondo" },
+                    { value: String -> "$value mondo" },
                     TickingValue("ciao mondo", 5.minutes),
                 ),
                 tuple(
