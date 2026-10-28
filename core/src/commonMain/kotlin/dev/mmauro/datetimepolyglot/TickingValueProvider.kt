@@ -82,19 +82,11 @@ public suspend fun <T> TickingValueProvider<T>.collect(
 
     while (last.nextTick != null) {
         collector(last.value)
-        // There might have been a small amount of time between when the nextTick was calculated and now due to slowness of provide() or
-        // scheduling delays of the coroutines.
-        // For this reason, we compute this offset here to account for any time lost due to that, and subtract it from the delay time.
-        val offset = clock.now() - lastReference.value
-        delay(last.nextTick - offset)
+
+        last.delay(lastReference, clock, maxTick = maxTick)
 
         lastReference = Zoned(clock.now(), timeZone)
         last = this.provide(lastReference)
-        if (last.nextTick != null) {
-            // If the returned maxTick is null, it means that the localized string is not affected by the reference point anymore,
-            // so it doesn't make sense to keep applying maxTick in this case
-            last = last.withNextTickAtMost(maxTick)
-        }
     }
 
     // When nextTick is null, while never runs, so we need to emit the very last value

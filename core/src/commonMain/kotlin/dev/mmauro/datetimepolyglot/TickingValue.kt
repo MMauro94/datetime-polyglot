@@ -1,6 +1,9 @@
 package dev.mmauro.datetimepolyglot
 
+import kotlinx.coroutines.delay
+import kotlin.time.Clock
 import kotlin.time.Duration
+import kotlin.time.Instant
 
 /**
  * This class holds a value of type [T] and a [Duration] that indicates how much time needs to pass before recalculating [value] is
@@ -21,6 +24,43 @@ public data class TickingValue<out T>(val value: T, val nextTick: Duration?) {
             require(nextTick.isFinite()) { "next tick must be finite ($nextTick)" }
         }
     }
+
+    /**
+     * Waits the required amount of time before `this` [TickingValue] needs recalculation, depending on the current time provided by
+     * [clock].
+     *
+     * If the current time is past the time for recomputation, no amount of time is waited. Same when [nextTick] is `null`.
+     *
+     * @param reference the reference point used to calculate this value
+     * @param clock the clock used to determine the current time
+     * @param maxTick the maximum amount of to wait for a recomputation (as long as [nextTick] is not `null`).
+     * If `null` (the default), no max tick bound is applied.
+     *
+     * @return `false` if [nextTick] is null, `true` otherwise
+     */
+    public suspend fun delay(
+        reference: Instant,
+        clock: Clock,
+        maxTick: Duration? = null,
+    ): Boolean {
+        return if (nextTick != null) {
+            // There might have been a small amount of time between when the nextTick was calculated and now due to slowness of provide() or
+            // scheduling delays of the coroutines.
+            // For this reason, we compute this offset here to account for any time lost due to that, and subtract it from the delay time.
+            val offset = clock.now() - reference
+            val organicDelay = nextTick - offset
+            delay(if (maxTick == null) organicDelay else minOf(organicDelay, maxTick))
+            true
+        } else {
+            false
+        }
+    }
+
+    public suspend fun delay(
+        reference: Zoned<Instant>,
+        clock: Clock,
+        maxTick: Duration? = null,
+    ): Boolean = delay(reference.value, clock, maxTick = maxTick)
 }
 
 /**

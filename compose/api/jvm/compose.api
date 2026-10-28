@@ -1,5 +1,5 @@
 public final class dev/mmauro/datetimepolyglot/compose/TickingValueProviderKt {
-	public static final fun collectAsStateWithLifecycle-Tnuy9kA (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Ldev/mmauro/datetimepolyglot/ClockWrapper;Lkotlinx/datetime/TimeZone;Lkotlin/time/Duration;Landroidx/compose/runtime/Composer;II)Landroidx/compose/runtime/State;
+	public static final fun collectWithLifecycle-ZfZE-DE (Ldev/mmauro/datetimepolyglot/TickingValueProvider;Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$State;Ldev/mmauro/datetimepolyglot/ClockWrapper;Lkotlinx/datetime/TimeZone;Lkotlin/time/Duration;Landroidx/compose/runtime/Composer;II)Ljava/lang/Object;
 }
 
 public final class dev/mmauro/datetimepolyglot/compose/localizers/PolyglotLocalizerOptionsKt {
@@ -8,6 +8,6 @@ public final class dev/mmauro/datetimepolyglot/compose/localizers/PolyglotLocali
 }
 
 public final class dev/mmauro/datetimepolyglot/compose/localizers/PolyglotReferenceValueLocalizerKt {
-	public static final fun localize-dp_umgU (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Ldev/mmauro/datetimepolyglot/ClockWrapper;Lkotlinx/datetime/TimeZone;Lkotlin/time/Duration;Landroidx/compose/runtime/Composer;II)Landroidx/compose/runtime/State;
+	public static final fun localize-cMDqwZA (Ldev/mmauro/datetimepolyglot/localizers/PolyglotReferenceValueLocalizer;Ljava/lang/Object;Landroidx/lifecycle/LifecycleOwner;Landroidx/lifecycle/Lifecycle$State;Ldev/mmauro/datetimepolyglot/ClockWrapper;Lkotlinx/datetime/TimeZone;Lkotlin/time/Duration;Landroidx/compose/runtime/Composer;II)Ljava/lang/Object;
 }
 
