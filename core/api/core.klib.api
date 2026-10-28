@@ -46,6 +46,8 @@ final class <#A: out kotlin/Any?> dev.mmauro.datetimepolyglot/TickingValue { // 
     final fun equals(kotlin/Any?): kotlin/Boolean // dev.mmauro.datetimepolyglot/TickingValue.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // dev.mmauro.datetimepolyglot/TickingValue.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // dev.mmauro.datetimepolyglot/TickingValue.toString|toString(){}[0]
+    final suspend fun delay(dev.mmauro.datetimepolyglot/Zoned<kotlin.time/Instant>, kotlin.time/Clock, kotlin.time/Duration? = ...): kotlin/Boolean // dev.mmauro.datetimepolyglot/TickingValue.delay|delay(dev.mmauro.datetimepolyglot.Zoned<kotlin.time.Instant>;kotlin.time.Clock;kotlin.time.Duration?){}[0]
+    final suspend fun delay(kotlin.time/Instant, kotlin.time/Clock, kotlin.time/Duration? = ...): kotlin/Boolean // dev.mmauro.datetimepolyglot/TickingValue.delay|delay(kotlin.time.Instant;kotlin.time.Clock;kotlin.time.Duration?){}[0]
 }
 
 final class <#A: out kotlin/Any?> dev.mmauro.datetimepolyglot/Zoned { // dev.mmauro.datetimepolyglot/Zoned|null[0]

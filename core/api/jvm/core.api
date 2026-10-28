@@ -19,6 +19,10 @@ public final class dev/mmauro/datetimepolyglot/TickingValue {
 	public final fun component2-FghU774 ()Lkotlin/time/Duration;
 	public final fun copy-6Au4x4Y (Ljava/lang/Object;Lkotlin/time/Duration;)Ldev/mmauro/datetimepolyglot/TickingValue;
 	public static synthetic fun copy-6Au4x4Y$default (Ldev/mmauro/datetimepolyglot/TickingValue;Ljava/lang/Object;Lkotlin/time/Duration;ILjava/lang/Object;)Ldev/mmauro/datetimepolyglot/TickingValue;
+	public final fun delay-5_5nbZA (Ldev/mmauro/datetimepolyglot/Zoned;Lkotlin/time/Clock;Lkotlin/time/Duration;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun delay-5_5nbZA (Lkotlin/time/Instant;Lkotlin/time/Clock;Lkotlin/time/Duration;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun delay-5_5nbZA$default (Ldev/mmauro/datetimepolyglot/TickingValue;Ldev/mmauro/datetimepolyglot/Zoned;Lkotlin/time/Clock;Lkotlin/time/Duration;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun delay-5_5nbZA$default (Ldev/mmauro/datetimepolyglot/TickingValue;Lkotlin/time/Instant;Lkotlin/time/Clock;Lkotlin/time/Duration;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getNextTick-FghU774 ()Lkotlin/time/Duration;
 	public final fun getValue ()Ljava/lang/Object;
