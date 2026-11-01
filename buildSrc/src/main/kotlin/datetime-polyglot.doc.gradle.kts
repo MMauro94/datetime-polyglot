@@ -1,11 +1,7 @@
-import dev.mmauro.datetimepolyglot.buildlogic.extensions.GitVersionExtension
-
 plugins {
     id("org.jetbrains.dokka")
-    id("datetime-polyglot.versioning")
+    id("dev.mmauro.gitver")
 }
-
-val gitVersion = extensions.getByType(GitVersionExtension::class.java)
 
 dokka {
     dokkaSourceSets {
@@ -18,7 +14,7 @@ dokka {
             }
             sourceLink {
                 localDirectory.set(file(rootDir))
-                val ref = gitVersion.current.get().let { if (it.preRelease.equals("SNAPSHOT")) "main" else "v$it" }
+                val ref = gitver.currentVersion.get().let { if (it.preRelease.equals("SNAPSHOT")) "main" else "v$it" }
                 remoteUrl("https://github.com/MMauro94/datetime-polyglot/tree/$ref")
             }
         }

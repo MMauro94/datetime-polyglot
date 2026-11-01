@@ -7,6 +7,7 @@ compose = "1.12.1"
 detekt = "2.0.0-alpha.6"
 dokka = "2.2.0"
 icu = "78.3"
+gitver = "0.2.0"
 kotest = "6.2.5"
 # 2.4.20+ breaks wasmJsBrowserTest with:
 # "SyntaxError: import.meta may only appear in a module"
@@ -43,6 +44,7 @@ android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 detekt = { id = "dev.detekt", version.ref = "detekt" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+gitver = { id = "dev.mmauro.gitver", version.ref = "gitver" }
 js-plain-objects = { id = "org.jetbrains.kotlin.plugin.js-plain-objects", version.ref = "kotlin" }
 kotest = { id = "io.kotest", version.ref = "kotest" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

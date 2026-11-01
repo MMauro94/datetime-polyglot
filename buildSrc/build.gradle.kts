@@ -25,6 +25,7 @@ dependencies {
     implementation(plugin(libs.plugins.mokkery))
     implementation(plugin(libs.plugins.ktlint))
     implementation(plugin(libs.plugins.detekt))
+    implementation(plugin(libs.plugins.gitver))
 }
 
 // Helper function that transforms a Gradle Plugin alias from a

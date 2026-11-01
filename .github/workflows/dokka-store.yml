@@ -45,7 +45,7 @@ jobs:
       - name: Extract current version
         id: version
         run: |
-          EXTRACTED_VERSION="$(./gradlew getCurrentVersion --quiet)"
+          EXTRACTED_VERSION="$(./gradlew printCurrentVersion --quiet)"
           echo "Extracted version: $EXTRACTED_VERSION"
           echo "version=$EXTRACTED_VERSION" >> $GITHUB_OUTPUT
 

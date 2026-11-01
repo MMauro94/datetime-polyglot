@@ -27,7 +27,11 @@ kotlin {
     abiValidation()
     explicitApi()
 
-    jvm()
+    jvm {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+        }
+    }
     android {
         namespace = "dev.mmauro.datetimepolyglot" + project.takeIf { !it.isMain() }?.let { ".${it.name}" }.orEmpty()
         compileSdk = libs.findVersion("android.compileSdk").get().toString().toInt()
