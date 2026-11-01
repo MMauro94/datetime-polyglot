@@ -1,4 +1,3 @@
-import dev.mmauro.datetimepolyglot.buildlogic.tasks.PrintVersionTask
 import io.github.z4kn4fein.semver.Version
 import org.gradle.kotlin.dsl.register
 import kotlin.collections.flatMap
@@ -6,12 +5,12 @@ import kotlin.collections.orEmpty
 import kotlin.collections.toList
 
 plugins {
-    id("datetime-polyglot.versioning")
+    id("dev.mmauro.gitver")
     id("org.jetbrains.dokka")
 }
 
 group = "dev.mmauro.datetime-polyglot"
-version = gitVersion.current.get()
+version = gitver.currentVersion.get()
 
 val dokkaStorage = layout.projectDirectory.dir("dokka")
 dokka {
@@ -33,7 +32,7 @@ dokka {
                     .flatMap { folder ->
                         folder
                             .listFiles {
-                                it.isDirectory && Version.parse(it.name) > gitVersion.current.get()
+                                it.isDirectory && Version.parse(it.name) > gitver.currentVersion.get()
                             }.orEmpty().toList()
                     },
             )
@@ -57,15 +56,6 @@ tasks.register<Copy>("storeDokkaHtml") {
 
     from("build/dokka/html")
 
-    val version = gitVersion.current.get()
+    val version = gitver.currentVersion.get()
     into(dokkaStorage.dir(version.preRelease?.lowercase() ?: "stable").dir(version.toString()))
-}
-
-tasks.register<PrintVersionTask>("getCurrentVersion") {
-    description = "Print the version tracket by the current commit"
-    version = gitVersion.current
-}
-tasks.register<PrintVersionTask>("findLatestStableRelease") {
-    description = "Print the latest stable version found in the repository"
-    version = gitVersion.latestStable
 }
