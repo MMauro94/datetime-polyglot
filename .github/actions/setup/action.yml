@@ -1,0 +1,36 @@
+name: Setup Gradle
+description: Checkout, configure Java and Gradle
+
+inputs:
+  fetch-depth:
+    description: Number of commits to fetch (0 means all history)
+    required: false
+    default: '1'
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+      with:
+        ref: main
+        fetch-depth: ${{ inputs.fetch-depth }}
+
+    - name: Cache Konan
+      uses: actions/cache@v5
+      with:
+        path: |
+          ~/.konan
+        key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
+
+    - name: Setup Java
+      uses: actions/setup-java@v5
+      with:
+        java-version: 21
+        distribution: temurin
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v6
+
+    - name: Gradle Wrapper Validation
+      uses: gradle/actions/wrapper-validation@v6
