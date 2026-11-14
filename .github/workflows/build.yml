@@ -13,22 +13,8 @@ jobs:
     name: "Verify ABI"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: setup-java
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: temurin
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
-
-      - name: Gradle Wrapper Validation
-        uses: gradle/actions/wrapper-validation@v6
+      - name: Setup project
+        uses: $/.github/actions/setup
 
       - name: Binary Compatibility Validation
         run: ./gradlew checkKotlinAbi --scan
@@ -37,22 +23,8 @@ jobs:
     name: "Verify Dokka"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: setup-java
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: temurin
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
-
-      - name: Gradle Wrapper Validation
-        uses: gradle/actions/wrapper-validation@v6
+      - name: Setup project
+        uses: $/.github/actions/setup
 
       - name: Generate Dokka
         run: ./gradlew dokkaGenerate --scan
@@ -61,22 +33,8 @@ jobs:
     name: "Run Ktlint"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: setup-java
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: temurin
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
-
-      - name: Gradle Wrapper Validation
-        uses: gradle/actions/wrapper-validation@v6
+      - name: Setup project
+        uses: $/.github/actions/setup
 
       - name: Run Ktlint
         run: ./gradlew ktlintCheck --scan
@@ -85,22 +43,8 @@ jobs:
     name: "Run Detekt"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: setup-java
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: temurin
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
-
-      - name: Gradle Wrapper Validation
-        uses: gradle/actions/wrapper-validation@v6
+      - name: Setup project
+        uses: $/.github/actions/setup
 
       - name: Run Detekt
         run: ./gradlew detektAll --scan
@@ -116,26 +60,8 @@ jobs:
     name: Test ${{ matrix.config.target }}
     needs: [verify-abi, verify-dokka, verify-ktlint, verify-detekt]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Cache Konan
-        uses: actions/cache@v5
-        with:
-          path: |
-            ~/.konan
-          key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
-
-      - name: Set up JDK
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: temurin
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
+      - name: Setup project
+        uses: $/.github/actions/setup
 
       - name: Run ${{ matrix.config.target }} tests
         run: ./gradlew ${{ matrix.config.tasks }} --scan
@@ -151,26 +77,8 @@ jobs:
     name: Test ${{ matrix.config.target }}
     needs: [verify-abi, verify-dokka, verify-ktlint, verify-detekt]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Cache Konan
-        uses: actions/cache@v5
-        with:
-          path: |
-            ~/.konan
-          key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
-
-      - name: Set up JDK
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: temurin
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
+      - name: Setup project
+        uses: $/.github/actions/setup
 
       - name: Setup headless Firefox
         uses: browser-actions/setup-firefox@v1
@@ -189,26 +97,8 @@ jobs:
     name: Test Android on ${{ matrix.config.name }} (${{ matrix.config.sdk }})
     needs: [verify-abi, verify-dokka, verify-ktlint, verify-detekt]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Cache Konan
-        uses: actions/cache@v5
-        with:
-          path: |
-            ~/.konan
-          key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
-
-      - name: Set up JDK
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: temurin
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
+      - name: Setup project
+        uses: $/.github/actions/setup
 
       - name: Enable KVM
         run: |
